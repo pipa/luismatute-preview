@@ -41,9 +41,12 @@ body{overflow-x:clip}
 .stage{position:fixed;inset:0;overflow:hidden;z-index:0}
 .ground{position:absolute;inset:0;opacity:0}
 .g-chalk{background:var(--chalk)}.g-acc{background:var(--acc)}.g-white{background:#fff}.g-ink{background:var(--ink)}
-#map{position:absolute;inset:0;width:100%;height:100%}
+#map{position:absolute;inset:0;width:100%;height:100%;z-index:2}
+#runway{z-index:3}.stamp-wrap{z-index:4}
+.xfade{z-index:2}
 .land-ink{fill:#fff;stroke:var(--ink);stroke-width:1.25px}
 .land-chalk{fill:none;stroke:var(--chalk);stroke-width:1.25px}
+.land-line{fill:none;stroke:var(--ink);stroke-width:1.5px}
 #landpath{vector-effect:non-scaling-stroke;stroke-linejoin:round}
 .grat{fill:none;stroke:var(--steel);stroke-width:.75px;stroke-dasharray:1 5;vector-effect:non-scaling-stroke;stroke-linecap:round}
 .wave{fill:none;stroke:var(--steel);stroke-width:1.25px;vector-effect:non-scaling-stroke;stroke-linecap:round}
@@ -58,8 +61,8 @@ body{overflow-x:clip}
 .pin.mini text,.pin.mini2 text.yr{opacity:0}
 .vig{opacity:0;transition:opacity var(--t-ui) linear}.vig.on{opacity:1}
 /* canal houses: drawn with stroke-dashoffset in local units (no non-scaling-stroke so dash maths hold) */
-.canal .cl{fill:none;stroke:var(--ink);stroke-width:calc(1.6px / (var(--k,1) * .1));stroke-linecap:round;stroke-linejoin:round;transition:stroke-dashoffset 900ms var(--ease-enter);transition-delay:calc(var(--i) * 60ms)}
-.canal .hfill{stroke:none;opacity:0;transition:opacity var(--t-ui) linear;transition-delay:calc(var(--i) * 60ms + 420ms)}
+.canal .cl{fill:none;stroke:var(--ink);stroke-width:calc(2.4px / (var(--k,1) * .1));stroke-linecap:round;stroke-linejoin:round;transition:stroke-dashoffset 900ms var(--ease-enter);transition-delay:calc(var(--i) * 60ms)}
+.canal .hfill{fill:var(--chalk)!important;stroke:none;opacity:0;transition:opacity var(--t-ui) linear;transition-delay:calc(var(--i) * 60ms + 420ms)}
 .canal.drawn .hfill{opacity:1}.canal.drawn .cl{stroke-dashoffset:0!important}
 /* take-off layer */
 .runway{position:absolute;inset:0;width:100%;height:100%;transition:none}
@@ -72,8 +75,19 @@ body{overflow-x:clip}
 .bp .bp-f{fill:#fff}.bp .f-acc{fill:var(--acc)!important}.bp .bp-l{fill:none}.bp .bp-acc{fill:var(--acc);stroke-width:1.5px}
 .gear{transform-box:fill-box;transform-origin:50% 0}
 /* stamp */
-.stamp-wrap{position:absolute;left:69%;top:7%;width:230px;opacity:0;transform:rotate(-8deg) scale(1.4);pointer-events:none}
-.stamp-wrap.in{opacity:1;transform:rotate(-8deg) scale(1);transition:transform 180ms var(--ease-exit),opacity 60ms linear}
+.stamp-wrap{position:absolute;right:4%;top:3%;width:clamp(220px,23.4vw,340px);opacity:0;transform:rotate(-14deg) scale(1.4);pointer-events:none}
+.stamp-wrap.in{opacity:1;transform:rotate(-9deg) scale(1);transition:transform 180ms var(--ease-exit),opacity 40ms linear}
+/* impact: a hard offset shadow drops in under the stamp, and one ink ring kicks out and fades (transform + opacity only) */
+.stamp-wrap::before{content:'';position:absolute;inset:6.5%;border-radius:50%;background:var(--ink);transform:translate(0,0);opacity:0}
+.stamp-wrap.in::before{opacity:1;transform:translate(9px,11px);transition:transform 120ms var(--ease-exit) 140ms,opacity 0ms linear 140ms}
+.stamp-wrap::after{content:'';position:absolute;inset:6.5%;border-radius:50%;border:3px solid var(--ink);opacity:0}
+.stamp-wrap.in::after{animation:ring 380ms var(--ease-enter) 170ms both}
+@keyframes ring{0%{opacity:.9;transform:scale(1)}100%{opacity:0;transform:scale(1.35)}}
+.stamp-wrap svg{position:relative;display:block}
+.stamp.heavy .f-acc{display:none}.stamp.heavy circle.ln{fill:var(--ink);stroke:var(--ink);stroke-width:2px}.stamp.heavy .ln2{stroke:var(--chalk)}
+.stamp.heavy .st-arc,.stamp.heavy .st-sub{fill:var(--chalk)}.stamp.heavy .st-big{fill:var(--acc);font-size:25px}
+.port,.rail{transition:opacity var(--t-ui) linear}.port.away,.rail.away{opacity:0}
+.sec.landed{padding-top:52vh}
 .stamp .st-arc{font:640 11px var(--sans);letter-spacing:.06em;fill:var(--ink)}
 .stamp .st-big{font:820 22px var(--sans);font-stretch:118%;fill:var(--ink)}
 .stamp .st-sub{font:500 9px var(--mono);fill:var(--ink)}
@@ -109,8 +123,9 @@ body{overflow-x:clip}
 .hero .ttl{font-size:clamp(64px,11vw,150px)}
 .hero p{max-width:30ch}
 .cue{margin-top:24px;display:flex;align-items:center;gap:10px;font-size:13px}.cue i{display:block;width:44px;height:2px;background:currentColor}
+@media (min-width:768px) and (max-width:1023px){.ttl{font-stretch:108%}.copy{max-width:64vw}}
 @media (max-width:767px){
-  .sec{min-height:auto;padding:58svh 0 0}
+  .sec{min-height:auto;padding:66svh 0 0}
   .ttl{font-stretch:100%;letter-spacing:-.035em}
   .sec.hero{min-height:160svh;padding:28px 20px 0}
   .copy{display:block;max-width:none;padding:22px 20px 56px}
@@ -120,12 +135,12 @@ body{overflow-x:clip}
   .port{right:12px;top:12px;bottom:auto;width:64px;height:84px;border-radius:32px;padding:5px}
   .port .glass{border-radius:27px}.port .av{width:56px;height:88px;bottom:-6px}
   .rail{display:none}
-  .stamp-wrap{left:auto;right:4%;top:23%;width:120px}
+  .stamp-wrap{left:4%;right:auto;top:3%;width:48vw}
   .pin text{font-size:12px}
 }
 @media (prefers-reduced-motion:reduce){
   .ttl .m>span{transform:none!important;opacity:0;transition:opacity 200ms linear!important}.sec.in .ttl .m>span{opacity:1}
-  .ground,.runway,.stamp-wrap{transition:opacity 200ms linear!important}.stamp-wrap,.stamp-wrap.in{transform:rotate(-8deg)}
+  .ground,.runway,.stamp-wrap{transition:opacity 200ms linear!important}.stamp-wrap,.stamp-wrap.in{transform:rotate(-9deg)}.stamp-wrap.in::after{animation:none}.stamp-wrap.in::before{transform:translate(9px,11px);transition:none}
   .canal .cl,.canal .hfill{transition:none!important}
 }
 .xfade{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:1;transition:opacity 200ms linear}
@@ -140,6 +155,7 @@ body{overflow-x:clip}
       <g id="grat"></g><g id="waves"></g>
       <use href="#landpath" class="land-ink" id="landInk"/>
       <use href="#landpath" class="land-chalk" id="landChalk" opacity="0"/>
+      <use href="#landpath" class="land-line" id="landLine" opacity="0"/>
       <g id="vigs"></g><g id="legs"></g><g id="pins"></g>
       <g id="plane"><path class="ln f-white" d="M2 -3 L-6 -19 H-1 L10 -3 Z M2 3 L-6 19 H-1 L10 3 Z M-11 -2 L-16 -9 H-12 L-6 -2 Z M-11 2 L-16 9 H-12 L-6 2 Z"/><path class="f-acc ln" d="M-16 0 C-16 -3 -12 -4 -8 -4 H10 C14 -4 17 -2 17 0 C17 2 14 4 10 4 H-8 C-12 4 -16 3 -16 0 Z"/></g>
     </g>
@@ -155,7 +171,7 @@ body{overflow-x:clip}
     <g id="dashes"></g>
     <g id="bigplane"><g class="bp"><path class="bp-f f-acc" d="M44 90 L14 18 H52 L118 88 Z"/><path class="bp-f" d="M26 104 L-8 92 H34 L76 106 Z"/><path class="bp-f" d="M30 110 C30 92 50 84 80 84 H400 C440 84 470 92 494 104 C502 109 500 117 490 120 C470 126 440 129 400 129 H80 C50 129 30 125 30 110 Z"/><path class="bp-acc" d="M70 114 H440 L436 120 H74 Z"/><path class="bp-l" d="M118 97 h8 v10 h-8 Z M140 97 h8 v10 h-8 Z M162 97 h8 v10 h-8 Z M184 97 h8 v10 h-8 Z M206 97 h8 v10 h-8 Z M228 97 h8 v10 h-8 Z M250 97 h8 v10 h-8 Z M272 97 h8 v10 h-8 Z M294 97 h8 v10 h-8 Z M316 97 h8 v10 h-8 Z M338 97 h8 v10 h-8 Z M360 97 h8 v10 h-8 Z M382 97 h8 v10 h-8 Z M404 97 h8 v10 h-8 Z M426 97 h8 v10 h-8 Z "/><path class="bp-l" d="M452 96 L468 98 L465 106 L450 104 Z M473 100 L486 104 L481 110 L470 108 Z M140 90 V126"/><path class="bp-f" d="M330 118 L214 168 H246 L362 122 Z"/><path class="bp-f" d="M252 130 H322 A12 12 0 0 1 322 154 H252 A12 12 0 0 1 252 130 Z"/><path class="bp-l" d="M318 130 V154"/><g class="gear"><path class="bp-l" d="M282 130 V174 M296 130 V174 M444 126 V170"/><circle class="bp-f" cx="282" cy="180" r="10"/><circle class="bp-f" cx="300" cy="180" r="10"/><circle class="bp-f" cx="444" cy="177" r="8"/></g></g></g>
   </svg>
-  <div class="stamp-wrap" id="stamp"><svg class="stamp" viewBox="-90 -90 180 180" role="img" aria-label="AMSTERDAM · ARRIVED, Oct 2017, ONE WAY"><circle r="64" class="f-acc" style="stroke:none"/><circle r="78" class="ln"/><circle r="72" class="ln2"/><circle r="54" class="ln2"/><path id="landt" d="M-63 0 A63 63 0 0 1 63 0" fill="none"/><path id="landb" d="M-63 0 A63 63 0 0 0 63 0" fill="none"/><text class="st-arc"><textPath href="#landt" startOffset="50%" text-anchor="middle">AMSTERDAM · ARRIVED</textPath></text><text class="st-arc"><textPath href="#landb" startOffset="50%" text-anchor="middle" dominant-baseline="hanging">HONDURAS → AMSTERDAM</textPath></text><text class="st-big" y="2" text-anchor="middle">Oct 2017</text><text class="st-sub" y="20" text-anchor="middle">ONE WAY</text></svg></div>
+  <div class="stamp-wrap" id="stamp"><svg class="stamp heavy" viewBox="-90 -90 180 180" role="img" aria-label="AMSTERDAM · ARRIVED, Oct 2017, ONE WAY"><circle r="64" class="f-acc" style="stroke:none"/><circle r="78" class="ln"/><circle r="72" class="ln2"/><circle r="54" class="ln2"/><path id="landt" d="M-63 0 A63 63 0 0 1 63 0" fill="none"/><path id="landb" d="M-63 0 A63 63 0 0 0 63 0" fill="none"/><text class="st-arc"><textPath href="#landt" startOffset="50%" text-anchor="middle">AMSTERDAM · ARRIVED</textPath></text><text class="st-arc"><textPath href="#landb" startOffset="50%" text-anchor="middle" dominant-baseline="hanging">HONDURAS → AMSTERDAM</textPath></text><text class="st-big" y="2" text-anchor="middle">Oct 2017</text><text class="st-sub" y="20" text-anchor="middle">ONE WAY</text></svg></div>
 </div>
 <div class="hud" aria-hidden="true">
   <div class="port"><div class="glass">
@@ -214,7 +230,7 @@ body{overflow-x:clip}
       <h2 class="ttl"><span class="m"><span style="--l:0">Booking</span></span><span class="m"><span style="--l:1">.com</span></span></h2>
       <p>Joined in Oct 2017 as a front-end developer, now full stack. Worked on accessibility, then fraud, then spent 3–4 years in the room selection org. On the experimentation (A/B testing) tool since 2024.</p></div>
   </section>
-  <section class="sec" data-k="8" style="--g:var(--chalk);min-height:140vh">
+  <section class="sec landed" data-k="8" style="--g:var(--acc);min-height:140vh">
     <div class="copy"><span class="yrs">Oct 2017</span>
       <h2 class="ttl"><span class="m"><span style="--l:0">Landed.</span></span></h2>
       <p>Still here. Say hello: email · X</p></div>
@@ -254,8 +270,8 @@ function runway(t){const o=26*t*t;const ph=o%1;dashes.forEach((r,i)=>{const z=1+
 /* big plane */
 const BP=$('#bigplane'),gear=BP.querySelector('.gear'),RW=$('#runway');
 function bigplane(t){const W=innerWidth,H=innerHeight,sc=Math.max(W/1280,H/800),visW=W/sc,x0=(1280-visW)/2;
-  const s=Math.min(1,visW/680),pw=520*s;const baseX=x0+visW*.5-pw*.62,baseY=704;
-  const acc=t*t;let x=baseX+90*acc*s,y=baseY-184*s,rot=0,s2=s;
+  const s=Math.min(1,visW/580),pw=520*s;const baseX=x0+visW*.5-pw*(visW<700?.5:.62),baseY=visW<700?690:704;
+  const acc=t*t;let x=baseX+(visW<700?20:90)*acc*s-(visW<700?pw*.08:0),y=baseY-184*s,rot=0,s2=s;
   const lift=eQuint(cl((t-.5)/.2));rot=-11*lift;
   const c=cl((t-.62)/.38);y-=c*c*900;x+=c*340*s;s2=s*(1-.2*c);
   gear.style.transform=`scaleY(${1-cl((t-.68)/.1)})`;
@@ -269,14 +285,18 @@ function drawRail(){R.innerHTML='';RWd=R.clientWidth;const X=y=>(y-2006)/(2026.8
  rows.forEach(([n,a,b,row])=>{if(X(b)-X(a)<40)return;el('text',{class:'lab',x:X(a)+5,y:row*14+9},R).textContent=n});
  railHead=el('line',{class:'head',x1:0,x2:0,y1:-6,y2:44},R)}
 /* camera keyframes: focus x, y, view width (map units). Every stop-to-stop move is >= 3x */
-const CK=[[hx+6,hy-4,90],[(hx+ax)/2+40,(hy+ay)/2,1300],[hx+20,hy-10,360],[hx+8,hy-4,110],[(hx+jx)/2+6,(hy+jy)/2-4,340],[rx+8,ry+2,100],[(rx+ax)/2+40,(ry+ay)/2-40,1080],[ax,ay+4,340],[ax+15,ay+10,110]];
-const GR=['chalk','chalk','chalk','chalk','acc','white','ink','chalk','chalk'];
+const CK=[[hx+6,hy-4,90],[(hx+ax)/2+40,(hy+ay)/2,1300],[hx+20,hy-10,360],[hx+8,hy-4,110],[(hx+jx)/2+6,(hy+jy)/2-4,340],[rx+8,ry+2,100],[(rx+ax)/2+40,(ry+ay)/2-40,1080],[ax,ay+4,340],[ax+23.8,ay+15.6,46]];
+const CK8M=[ax+22,ay+13,40]; /* phones: houses span the width, in the top 65% */
+const GR=['chalk','chalk','chalk','chalk','acc','white','ink','chalk','acc'];
 const grounds=Object.fromEntries(['chalk','acc','white','ink'].map(n=>[n,$('.g-'+n)]));
-const svg=$('#map'),cam=$('#cam'),plane=$('#plane'),portav=$('#portav'),cloud=$('.port .cloud'),stamp=$('#stamp'),landInk=$('#landInk'),landChalk=$('#landChalk');
+const port=$('.port'),svg=$('#map'),cam=$('#cam'),plane=$('#plane'),portav=$('#portav'),cloud=$('.port .cloud'),stamp=$('#stamp'),landInk=$('#landInk'),landLine=$('#landLine'),rail=$('.rail'),landChalk=$('#landChalk');
 let cw=1,ch=1;function size(){cw=svg.clientWidth;ch=svg.clientHeight;drawRail();rmStop=-1}
 const secs=[...document.querySelectorAll('.sec')];
-function progress(){const mid=scrollY+innerHeight*(cw<768?.2:.55);const tops=secs.map(s=>s.offsetTop);for(let i=0;i<tops.length-1;i++)if(mid<tops[i+1])return i+cl((mid-tops[i])/(tops[i+1]-tops[i]));return tops.length-1}
-let prevAng=null,bank=0,rmStop=-1;
+function progress(){const mid=scrollY+innerHeight*(cw<768?.02:.55);const tops=secs.map(s=>s.offsetTop);for(let i=0;i<tops.length-1;i++)if(mid<tops[i+1])return i+cl((mid-tops[i])/(tops[i+1]-tops[i]));const n=tops.length-1;return n+cl((mid-tops[n])/secs[n].offsetHeight)}
+let prevAng=null,bank=0,rmStop=-1,fyM=.33,hM=.66,again=false;const copies=[...document.querySelectorAll('.copy')];
+function freeBand(){const ys=[];copies.forEach(c=>{const r=c.getBoundingClientRect();if(r.bottom>0&&r.top<ch)ys.push([Math.max(0,r.top),Math.min(ch,r.bottom)])});
+ ys.sort((a,b)=>a[0]-b[0]);let y=0,best={c:.33,h:0};const take=(a,b)=>{if(b-a>best.h*ch)best={c:(a+b)/2/ch,h:(b-a)/ch}};
+ ys.forEach(([a,b])=>{take(y,a);y=Math.max(y,b)});take(y,ch);if(best.h<.2)best={c:.33,h:.66};return best}
 function frame(p){
  if(RM){const s=Math.min(8,Math.floor(p+0.15));if(s===rmStop)return;
   if(rmStop>=0){const c=svg.cloneNode(true);c.removeAttribute('id');c.classList.add('xfade');svg.after(c);requestAnimationFrame(()=>requestAnimationFrame(()=>{c.style.opacity=0}));setTimeout(()=>c.remove(),260)}
@@ -285,18 +305,21 @@ function frame(p){
  /* ground: crossfade between this stop's colour and the next one over the last 25% of the section */
  const i0=Math.min(8,Math.floor(p)),f0=p-i0,tg=RM?0:cl((f0-.75)/.25),gA=GR[i0],gB=GR[Math.min(8,i0+1)];
  Object.entries(grounds).forEach(([n,e])=>{e.style.opacity=n===gA?1:(n===gB?tg:0);e.style.zIndex=n===gB&&gB!==gA?1:0});
- const inkW=(gA==='ink'?1-tg:0)+(gB==='ink'&&gB!==gA?tg:0);landInk.setAttribute('opacity',1-inkW);landChalk.setAttribute('opacity',inkW);
+ const inkW=(gA==='ink'?1-tg:0)+(gB==='ink'&&gB!==gA?tg:0);/* the arrival is all chartreuse: land goes to ink line only */
+ const lineW=i0>=8?1:(i0===7?tg:0);landInk.setAttribute('opacity',1-inkW-lineW);landChalk.setAttribute('opacity',inkW);landLine.setAttribute('opacity',lineW);
  /* camera: ONE transform on #cam; log-width interpolation, expo-out over the first 75% of each section */
  /* camera: CK[j] is the view for section j. The move CK[j-1] -> CK[j] starts with the ground crossfade
     (last 25% of the previous section) and is expo-out, so it lands hard. Log-width interpolation keeps big zooms even. */
  const pc=RM?rmStop:p+.25,j=Math.min(8,Math.floor(pc)),f=RM?1:eExpo(cl((pc-j)/.6));
- const A=CK[Math.max(0,j-1)],B=CK[j];
+ const A=CK[Math.max(0,j-1)],B=(mob&&j===8)?CK8M:CK[j];
  let lw=Math.exp(lerp(Math.log(A[2]),Math.log(B[2]),f)),cx=lerp(A[0],B[0],f),cy=lerp(A[1],B[1],f);
  if(!RM&&(j===6||j===7)){const L=LP[3],tt=cl((p-LEGW[3][0])/(LEGW[3][1]-LEGW[3][0])),P=L.p.getPointAtLength(tt*L.len);
    if(j===6){/* the crossing: pull back to the ocean, riding with the plane */cx=lerp(A[0],P.x,f);cy=lerp(A[1],P.y,f)}
    else{const P7=L.p.getPointAtLength(cl((6.75-LEGW[3][0])/(LEGW[3][1]-LEGW[3][0]))*L.len);cx=lerp(P7.x,B[0],f);cy=lerp(P7.y,B[1],f)}}
  if(mob)lw*=(j===1&&f>.5?.85:.62); /* phones: the map only owns the top half, so frame tighter */
- const k=Math.min(cw/lw,ch/(lw*.62));const fx=mob?.5:.66,fy=mob?.33:.44;
+ /* phones: frame the stop in the biggest band of screen not covered by a text card, gliding between bands */
+ let fy=.44;if(mob){const bt=freeBand();fyM=RM?bt.c:fyM+(bt.c-fyM)*.18;fy=fyM+(j===8?.07:0);hM=bt.h;if(!RM&&Math.abs(bt.c-fyM)>.002)again=true}
+ const k=Math.min(cw/lw,(mob?ch*Math.max(.5,hM):ch)/(lw*.62));const fx=mob?.5:.66;
  cam.style.setProperty('--k',k);cam.setAttribute('transform',`translate(${cw*fx} ${ch*fy}) scale(${k}) translate(${-cx} ${-cy})`);
  /* legs (stroke-dashoffset) + plane */
  let tip=null,ang=-40;LP.forEach((L,n)=>{const [a,b]=LEGW[n];const t=cl((p-a)/(b-a));const o=(1-t)*L.len;L.p.setAttribute('stroke-dashoffset',o);L.h.setAttribute('stroke-dashoffset',o);
@@ -308,7 +331,7 @@ function frame(p){
  pins.forEach(P=>{P.g.setAttribute('transform',`translate(${P.x} ${P.y}) scale(${1/k})`);P.g.classList.toggle('on',P.ks.some(q=>p>=q-.02));
    P.g.classList.toggle('mini',lw>420&&(P.id==='rtb'||P.id==='jam'));P.g.classList.toggle('mini2',(lw>420&&P.id==='hnd')||(lw<120&&P.id==='ams'))});
  document.querySelectorAll('.vig').forEach(v=>v.classList.toggle('on',p>=+v.dataset.k-.3));
- canal.classList.toggle('drawn',p>=7.5);stamp.classList.toggle('in',p>=7.8);
+ canal.classList.toggle('drawn',p>=7.5);stamp.classList.toggle('in',p>=7.8);port.classList.toggle('away',!mob&&p>=7.55);rail.classList.toggle('away',p>=7.55);
  /* take-off layer */
  const tk=RM?0:cl(p/.92);if(!RM||p<1){runway(tk);bigplane(tk)}/* camera tilts up after lift-off: the runway layer slides down out of frame (transform), revealing the map */
  if(RM)RW.style.opacity=p<1?1:0;else{const e=cl((p-.62)/.45);RW.style.transform=`translateY(${100*e*e}%)`;RW.style.visibility=e>=1?'hidden':'visible'}
@@ -317,7 +340,7 @@ function frame(p){
  if(railHead){railHead.setAttribute('x1',X(ry2));railHead.setAttribute('x2',X(ry2))}railBars.forEach(b=>b.r.classList.toggle('on',p>=b.k-.02));
  if(!RM){cloud.style.transform=`translateX(${-(p/8)*60}%)`;const r=ang*Math.PI/180;document.querySelectorAll('[data-eye]').forEach(e=>e.setAttribute('transform',`translate(${Math.cos(r)*-34} ${Math.sin(r)*20})`))}
 }
-let raf=0;function tick(){raf=0;frame(progress())}
+let raf=0;function tick(){raf=0;again=false;frame(progress());if(again)raf=requestAnimationFrame(tick)}
 addEventListener('scroll',()=>{raf||(raf=requestAnimationFrame(tick))},{passive:true});addEventListener('resize',()=>{size();tick()});
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.2});
 secs.forEach(s=>io.observe(s));
