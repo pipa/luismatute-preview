@@ -1,0 +1,119 @@
+<!DOCTYPE html><html lang="en"> <head><meta name="robots" content="noindex,nofollow"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="First of all, I'm gonna start by saying that I am not a linux pro, so bare with me if something here is wrong and let me know in a comment. This is just the way I do the setup for my NodeJS server, which will need access to github(since..."><link rel="canonical" href="https://pipa.github.io/luismatute-preview/blog/nodejs-nginx-mongodb-and-git-on-centos/"><link rel="icon" href="/luismatute-preview/favicon.svg" type="image/svg+xml"><title>NodeJS, NGINX, MongoDB and Git Installation on CentOS 6.4 · Luis Matute</title><script>(function(){const variantStorageKey = "lm.variant";
+
+      ((key) => {
+        const exact = (value) => value === 'a' || value === 'b' || value === 'c';
+        let query = null;
+        try {
+          query = new URLSearchParams(location.search).get('v');
+        } catch {
+          query = null;
+        }
+        let variant = null;
+        let persist = false;
+        if (exact(query)) {
+          variant = query;
+          persist = true;
+        } else {
+          try {
+            const stored = localStorage.getItem(key);
+            if (exact(stored)) variant = stored;
+          } catch {
+            variant = null;
+          }
+        }
+        if (!variant) {
+          const roll = Math.random();
+          variant = roll < 1 / 3 ? 'a' : roll < 2 / 3 ? 'b' : 'c';
+          persist = true;
+        }
+        if (persist) {
+          try {
+            localStorage.setItem(key, variant);
+          } catch {
+            /* Storage blocked: keep the assignment on this page only. */
+          }
+        }
+        document.documentElement.setAttribute('data-variant', variant);
+      })(variantStorageKey);
+    })();</script><link rel="stylesheet" href="/luismatute-preview/_astro/BaseLayout.qxDURywr.css"></head> <body class="flex min-h-dvh flex-col bg-white text-base leading-relaxed text-neutral-950"> <a href="#content" class="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-10 focus:bg-white focus:px-3 focus:py-2">
+Skip to content
+</a> <header class="border-b border-neutral-300"> <div class="mx-auto flex max-w-3xl items-center justify-between gap-4 px-4 py-4"> <a href="/luismatute-preview/" class="font-semibold">Luis Matute</a> <nav aria-label="Primary"> <a href="/luismatute-preview/blog">Blog</a> </nav> </div> </header> <aside class="variant-panel" aria-label="Experiment assignment"> <p class="variant-panel-row variant-panel-status"> <span class="variant-swatch" aria-hidden="true"></span> <span>
+You're in variant
+<span class="variant-name" data-variant-name="a">A</span> <span class="variant-name" data-variant-name="b">B</span> <span class="variant-name" data-variant-name="c">C</span> </span> </p> <button type="button" class="variant-panel-row variant-panel-toggle" aria-expanded="false" aria-controls="variant-panel-details"> <span class="variant-swatch" aria-hidden="true"></span> <span>
+You're in variant
+<span class="variant-name" data-variant-name="a">A</span> <span class="variant-name" data-variant-name="b">B</span> <span class="variant-name" data-variant-name="c">C</span> </span> <span class="sr-only">Show or hide the variant controls.</span> </button> <div id="variant-panel-details" class="variant-panel-details"> <p class="variant-odds"> <span class="sr-only">Equal thirds. </span> <span data-odds="a">A 33.3%</span> <span aria-hidden="true"> · </span> <span data-odds="b">B 33.3%</span> <span aria-hidden="true"> · </span> <span data-odds="c">C 33.3%</span> </p> <fieldset class="variant-segments"> <legend class="sr-only">Switch variant</legend> <button type="button" data-variant-switch="a" aria-pressed="false">A</button> <button type="button" data-variant-switch="b" aria-pressed="false">B</button> <button type="button" data-variant-switch="c" aria-pressed="false">C</button> </fieldset> <button type="button" class="variant-why" aria-expanded="false" aria-controls="variant-why-copy">
+What's this?
+</button> <p id="variant-why-copy" class="variant-why-copy" hidden>
+This site runs as an A/B test, like the ones I build tools for at Booking.com. You were randomly
+      assigned a variant.
+</p> </div> </aside> <script type="module" src="/luismatute-preview/_astro/VariantPanel.astro_astro_type_script_index_0_lang.Cq_gOzLg.js"></script> <main id="content" class="mx-auto w-full max-w-3xl flex-1 px-4 py-8">  <article> <p class="text-sm"> <a href="/luismatute-preview/blog">Blog</a> <span> · Archive</span> </p> <h1 class="mt-3 text-3xl font-semibold tracking-tight">NodeJS, NGINX, MongoDB and Git Installation on CentOS 6.4</h1> <p class="mt-3 text-sm"> <time datetime="2014-04-06T06:59:54.000Z">April 6, 2014</time> <span> · NodeJS, NGINX, MongoDB, Git, CentOS</span> </p> <div class="prose prose-neutral mt-8 max-w-none"> <p>First of all, I’m gonna start by saying that I am not a linux pro, so bare with me if something here is wrong and let me know in a comment. This is just the way I do the setup for my NodeJS server, which will need access to github(since I want the app to auto pull from github whenever I push something from my dev), NGINX to handle the static content, MongoDB, and a couple other things I use. Here is a <a href="https://raw.githubusercontent.com/pipa/Server_Scripts/master/NodeJS_onCentOS.sh">link</a> to my shell script that will do the whole setup automatically (you’re gonna have to run it as root tho), if you don’t feel like following this post.</p>
+<p>I’m going to use the smallest droplet(512MB ram, 1 core processor, 20GBSSD Disk, and 1TB of transfer) from <a href="https://www.digitalocean.com/">Digital Ocean</a> with CentOS 6.5 x64. I think this will be enough to handle the amazing amount of traffic that my apps will have. :)</p>
+<hr>
+<h2 id="server-setup">Server Setup</h2>
+<p>The first thing to do, when you get a fresh new server, will be to update all installed software to the latest versions. I’m going to use YUM package manager. Aditionally, I use <code>wget</code> to download my packages and binaries in linux, so we install it here. This could take a couple of seconds…</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">yum</span><span style="color:#9ECBFF"> update</span><span style="color:#79B8FF"> -y</span></span>
+<span class="line"><span style="color:#B392F0">yum</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> wget</span></span></code></pre>
+<p>Now, we are going to need a place to save whatever we download and a place for our sites or apps, so… let’s create them.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">mkdir</span><span style="color:#79B8FF"> -p</span><span style="color:#9ECBFF"> /data/tmp/</span></span>
+<span class="line"><span style="color:#B392F0">mkdir</span><span style="color:#79B8FF"> -p</span><span style="color:#9ECBFF"> /webroot/</span></span>
+<span class="line"><span style="color:#79B8FF">cd</span><span style="color:#9ECBFF"> /data/tmp/</span></span></code></pre>
+<hr>
+<h2 id="git-installation">Git Installation</h2>
+<p>I always use github hooks to maintain my server with the latest code in my repos. And installing git is as easy as the following command:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">yum</span><span style="color:#79B8FF"> -y</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> git</span></span></code></pre>
+<hr>
+<h2 id="mongodb-installing">MongoDB Installing</h2>
+<p>For MongoDB, we need to create a configurations file for YUM to know where to find the latest MongoDB’s packages. The file needs to be at <code>/etc/yum.repos.d/mongodb.repo</code> and it should contain something like:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#E1E4E8">[mongodb]</span></span>
+<span class="line"><span style="color:#E1E4E8">name</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">MongoDB</span><span style="color:#B392F0"> Repository</span></span>
+<span class="line"><span style="color:#E1E4E8">baseurl</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">http://downloads-distro.mongodb.org/repo/redhat/os/x86_64/</span></span>
+<span class="line"><span style="color:#E1E4E8">gpgcheck</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">0</span></span>
+<span class="line"><span style="color:#E1E4E8">enabled</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">1</span></span></code></pre>
+<p>Note that I’m using the 64-bit repo here, but you can easily change the baseurl to <code>http://downloads-distro.mongodb.org/repo/redhat/os/i686/</code> to get the 32-bit version.</p>
+<p>Now that we have the configuration file in place, let’s do the actual installation via YUM. By default, Mongo stores data in <code>/data/db/</code> directory, so we need to create it. Then we are going to start mongod service and make it start automatically when the server starts.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">yum</span><span style="color:#79B8FF"> -y</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> mongo-10gen</span><span style="color:#9ECBFF"> mongo-10gen-server</span></span>
+<span class="line"><span style="color:#B392F0">mkdir</span><span style="color:#79B8FF"> -p</span><span style="color:#9ECBFF"> /data/db/</span></span>
+<span class="line"><span style="color:#B392F0">service</span><span style="color:#9ECBFF"> mongod</span><span style="color:#9ECBFF"> start</span></span>
+<span class="line"><span style="color:#B392F0">chkconfig</span><span style="color:#9ECBFF"> mongod</span><span style="color:#9ECBFF"> on</span></span></code></pre>
+<hr>
+<h2 id="installing-nodejs">Installing NodeJS</h2>
+<p>In order to install NodeJS, we are going to need some tools to build the NodeJS source, so let’s install them via YUM.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">yum</span><span style="color:#79B8FF"> -y</span><span style="color:#9ECBFF"> groupinstall</span><span style="color:#9ECBFF"> "Development Tools"</span></span></code></pre>
+<p>Now, we need to download NodeJS source, which is a compressed file. We need to uncompressed it and prepare the compiler by reading the properties of our system. At the time of this writing, NodeJS latest stable version is v0.10.26.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">wget</span><span style="color:#9ECBFF"> http://nodejs.org/dist/v0.10.26/node-v0.10.26.tar.gz</span></span>
+<span class="line"><span style="color:#B392F0">tar</span><span style="color:#9ECBFF"> zxf</span><span style="color:#9ECBFF"> node-v0.10.26.tar.gz</span></span>
+<span class="line"><span style="color:#79B8FF">cd</span><span style="color:#9ECBFF"> node-v0.10.26</span></span>
+<span class="line"><span style="color:#B392F0">./configure</span></span></code></pre>
+<p>After having done this, the next step is to actually compile the NodeJS source. This process takes somewhere around ~4 minutes, depending on your connection and system.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">make</span></span></code></pre>
+<p>The last step for NodeJS installation is to make it available system-wide, we do this with the following command:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">make</span><span style="color:#9ECBFF"> install</span></span></code></pre>
+<p>After having NodeJS installed, we have NPM available to us. I recommend downloading the following packages that are pretty usefull to node: Supervisor and Forever. Supervisor can watch file changes to restart the server automatically. Forever lets you run node apps as a daemon and restarts the server if something goes wrong and stops the app.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> supervisor</span><span style="color:#79B8FF"> -g</span></span>
+<span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> forever</span><span style="color:#79B8FF"> -g</span></span></code></pre>
+<hr>
+<h2 id="install-nginx-and-start-the-service">Install NginX and Start the service</h2>
+<p>Lastly, NGINX. we are going to access the <code>/data/tmp/</code> directory again and download the repo and add it to YUM. After having the repo, we are going to install it, start the NGINX service and make it start automatically whenever the server’s system starts.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">wget</span><span style="color:#79B8FF"> -P</span><span style="color:#9ECBFF"> /data/tmp/</span><span style="color:#9ECBFF"> http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm</span></span>
+<span class="line"><span style="color:#B392F0">rpm</span><span style="color:#79B8FF"> -ivh</span><span style="color:#E1E4E8"> $TEMP_DIR</span><span style="color:#9ECBFF">/nginx-release-centos-6-0.el6.ngx.noarch.rpm</span></span>
+<span class="line"><span style="color:#B392F0">yum</span><span style="color:#79B8FF"> -y</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> nginx</span></span>
+<span class="line"><span style="color:#B392F0">service</span><span style="color:#9ECBFF"> nginx</span><span style="color:#9ECBFF"> start</span></span>
+<span class="line"><span style="color:#B392F0">chkconfig</span><span style="color:#9ECBFF"> nginx</span><span style="color:#9ECBFF"> on</span></span></code></pre>
+<p>NGINX needs a connector to run node on port 80. By default, NGINX will add all files with <code>.conf</code> in the directory <code>/etc/nginx/conf.d/</code>. Create a file at <code>/etc/nginx/conf.d/virtual.conf</code> and add the following:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">server</span><span style="color:#9ECBFF"> {</span></span>
+<span class="line"><span style="color:#B392F0">    listen</span><span style="color:#9ECBFF">       0.0.0.0:80</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#B392F0">    server_name</span><span style="color:#E1E4E8">  [your_domain];</span></span>
+<span class="line"><span style="color:#B392F0">    root</span><span style="color:#9ECBFF"> /webroot/[your_domain</span><span style="color:#9ECBFF"> or</span><span style="color:#9ECBFF"> webapp</span><span style="color:#9ECBFF"> name]</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#B392F0">    access_log</span><span style="color:#9ECBFF">  /var/log/nginx/[your_domain</span><span style="color:#9ECBFF"> or</span><span style="color:#9ECBFF"> webapp</span><span style="color:#9ECBFF"> name].log</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">    location</span><span style="color:#9ECBFF"> /</span><span style="color:#9ECBFF"> {</span></span>
+<span class="line"><span style="color:#B392F0">        proxy_set_header</span><span style="color:#9ECBFF"> X-Real-IP</span><span style="color:#E1E4E8"> $remote_addr;</span></span>
+<span class="line"><span style="color:#B392F0">        proxy_set_header</span><span style="color:#9ECBFF"> HOST</span><span style="color:#E1E4E8"> $http_host;</span></span>
+<span class="line"><span style="color:#B392F0">        proxy_set_header</span><span style="color:#9ECBFF"> X-NginX-Proxy</span><span style="color:#79B8FF"> true</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">        proxy_pass</span><span style="color:#9ECBFF"> http://127.0.0.1:[port</span><span style="color:#9ECBFF"> assigned</span><span style="color:#9ECBFF"> to</span><span style="color:#9ECBFF"> node]</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#B392F0">        proxy_redirect</span><span style="color:#9ECBFF"> off</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>There are a couple of things to note here. <code>server_name</code> is your domain name. <code>root</code> is the directory to the node app. Then we add a proxy to the node URI with the port assigned in the node app.</p>
+<p>So there you have it, a server running node apps with NGINX as a front webserver, a MongoDB local instance and git. Still needs some minor tweaks to be production ready, but this will give you the starting point. Leave a comment if you get an error or something doesn’t work to see how we can solve it.</p> </div> </article>  </main> </body></html>

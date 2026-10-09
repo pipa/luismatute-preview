@@ -1,0 +1,53 @@
+<!DOCTYPE html><html lang="en"> <head><meta name="robots" content="noindex,nofollow"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Writing by Luis Matute, including an archive of posts from 2014–2016."><link rel="canonical" href="https://pipa.github.io/luismatute-preview/blog/"><link rel="icon" href="/luismatute-preview/favicon.svg" type="image/svg+xml"><title>Blog · Luis Matute</title><script>(function(){const variantStorageKey = "lm.variant";
+
+      ((key) => {
+        const exact = (value) => value === 'a' || value === 'b' || value === 'c';
+        let query = null;
+        try {
+          query = new URLSearchParams(location.search).get('v');
+        } catch {
+          query = null;
+        }
+        let variant = null;
+        let persist = false;
+        if (exact(query)) {
+          variant = query;
+          persist = true;
+        } else {
+          try {
+            const stored = localStorage.getItem(key);
+            if (exact(stored)) variant = stored;
+          } catch {
+            variant = null;
+          }
+        }
+        if (!variant) {
+          const roll = Math.random();
+          variant = roll < 1 / 3 ? 'a' : roll < 2 / 3 ? 'b' : 'c';
+          persist = true;
+        }
+        if (persist) {
+          try {
+            localStorage.setItem(key, variant);
+          } catch {
+            /* Storage blocked: keep the assignment on this page only. */
+          }
+        }
+        document.documentElement.setAttribute('data-variant', variant);
+      })(variantStorageKey);
+    })();</script><link rel="stylesheet" href="/luismatute-preview/_astro/BaseLayout.qxDURywr.css"></head> <body class="flex min-h-dvh flex-col bg-white text-base leading-relaxed text-neutral-950"> <a href="#content" class="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-10 focus:bg-white focus:px-3 focus:py-2">
+Skip to content
+</a> <header class="border-b border-neutral-300"> <div class="mx-auto flex max-w-3xl items-center justify-between gap-4 px-4 py-4"> <a href="/luismatute-preview/" class="font-semibold">Luis Matute</a> <nav aria-label="Primary"> <a href="/luismatute-preview/blog">Blog</a> </nav> </div> </header> <aside class="variant-panel" aria-label="Experiment assignment"> <p class="variant-panel-row variant-panel-status"> <span class="variant-swatch" aria-hidden="true"></span> <span>
+You're in variant
+<span class="variant-name" data-variant-name="a">A</span> <span class="variant-name" data-variant-name="b">B</span> <span class="variant-name" data-variant-name="c">C</span> </span> </p> <button type="button" class="variant-panel-row variant-panel-toggle" aria-expanded="false" aria-controls="variant-panel-details"> <span class="variant-swatch" aria-hidden="true"></span> <span>
+You're in variant
+<span class="variant-name" data-variant-name="a">A</span> <span class="variant-name" data-variant-name="b">B</span> <span class="variant-name" data-variant-name="c">C</span> </span> <span class="sr-only">Show or hide the variant controls.</span> </button> <div id="variant-panel-details" class="variant-panel-details"> <p class="variant-odds"> <span class="sr-only">Equal thirds. </span> <span data-odds="a">A 33.3%</span> <span aria-hidden="true"> · </span> <span data-odds="b">B 33.3%</span> <span aria-hidden="true"> · </span> <span data-odds="c">C 33.3%</span> </p> <fieldset class="variant-segments"> <legend class="sr-only">Switch variant</legend> <button type="button" data-variant-switch="a" aria-pressed="false">A</button> <button type="button" data-variant-switch="b" aria-pressed="false">B</button> <button type="button" data-variant-switch="c" aria-pressed="false">C</button> </fieldset> <button type="button" class="variant-why" aria-expanded="false" aria-controls="variant-why-copy">
+What's this?
+</button> <p id="variant-why-copy" class="variant-why-copy" hidden>
+This site runs as an A/B test, like the ones I build tools for at Booking.com. You were randomly
+      assigned a variant.
+</p> </div> </aside> <script type="module" src="/luismatute-preview/_astro/VariantPanel.astro_astro_type_script_index_0_lang.Cq_gOzLg.js"></script> <main id="content" class="mx-auto w-full max-w-3xl flex-1 px-4 py-8">  <h1 class="text-3xl font-semibold tracking-tight">Blog</h1> <p class="mt-3 max-w-xl">
+New posts are Markdown files in the blog collection. Older posts are grouped under Archive.
+</p> <section class="mt-10" aria-labelledby="archive-heading"> <h2 id="archive-heading" class="text-xl font-semibold">Archive</h2> <p class="mt-2 max-w-xl">
+Restored from the 2017 site feed. Titles and publication dates are the originals.
+</p> <ul class="mt-4 divide-y divide-neutral-300 border-y border-neutral-300"> <li class="py-4"> <p class="text-sm"> <time datetime="2016-11-14T13:07:39.000Z">November 14, 2016</time> <span> · Archive</span> <span> · ReactJS</span> </p> <h3 class="mt-1 text-lg font-semibold"> <a href="/luismatute-preview/blog/react-bind-hell">ReactJS Bind() Hell</a> </h3> <p class="mt-1">I (along with many others) hate having to call React&#39;s components methods with something that looks like: this.method.bind(this). If you don&#39;t know what I&#39;m talking about, read more about it in this post.</p> </li><li class="py-4"> <p class="text-sm"> <time datetime="2016-11-12T04:15:00.000Z">November 12, 2016</time> <span> · Archive</span> <span> · Gulp, Browserify, ESLint</span> </p> <h3 class="mt-1 text-lg font-semibold"> <a href="/luismatute-preview/blog/multi-bundle-browserify-using-gulp">Gulp Multi-Bundles of Browserify</a> </h3> <p class="mt-1">Browserify brings the beauty of CommonJS to the browser. It bundles up all your dependencies into one file.</p> </li><li class="py-4"> <p class="text-sm"> <time datetime="2016-10-27T04:48:31.000Z">October 27, 2016</time> <span> · Archive</span> <span> · ReactJS, jQuery</span> </p> <h3 class="mt-1 text-lg font-semibold"> <a href="/luismatute-preview/blog/pub-sub-reactjs">Communicate between components (ReactJS)</a> </h3> <p class="mt-1">So I&#39;ve been playing a lot with ReactJS lately and one of the problems I was facing was that I needed to comunicate from one component to another. They had different root components, so I couldn&#39;t pass the handlers between them.</p> </li><li class="py-4"> <p class="text-sm"> <time datetime="2015-04-29T19:57:33.000Z">April 29, 2015</time> <span> · Archive</span> <span> · Swift, iOS8, StatusBar</span> </p> <h3 class="mt-1 text-lg font-semibold"> <a href="/luismatute-preview/blog/status-bar-style-in-ios8">Status Bar Style in iOS8</a> </h3> <p class="mt-1">This one is a quick thing that I keep forgetting how to do. While developing iOS apps, sometimes we need to change the color of the font in the status bar (which is dark by default). We have the option to change the status bar to a...</p> </li><li class="py-4"> <p class="text-sm"> <time datetime="2014-06-09T08:48:00.000Z">June 9, 2014</time> <span> · Archive</span> <span> · NodeJS, Coldfusion, Benchmark</span> </p> <h3 class="mt-1 text-lg font-semibold"> <a href="/luismatute-preview/blog/coldfusion-vs-nodejs-benchmark">NodeJS vs. Coldfusion Benchmark</a> </h3> <p class="mt-1">I started out as a front-end developer, my main skills lies in javascript. It was an obvious step for me to get involved with NodeJS, and I have loved every bit of it. On the other hand, at my day job, we use CFML to power our backend...</p> </li><li class="py-4"> <p class="text-sm"> <time datetime="2014-06-03T17:12:29.000Z">June 3, 2014</time> <span> · Archive</span> <span> · NodeJS, CLI</span> </p> <h3 class="mt-1 text-lg font-semibold"> <a href="/luismatute-preview/blog/cli-ate-with-nodejs">CLI-ate with NodeJS</a> </h3> <p class="mt-1">I&#39;ve always read about how easy it was to create a Command Line Utilities with node, but I never thought it was this easy... I&#39;m doing this post(as always) for self documentation.</p> </li><li class="py-4"> <p class="text-sm"> <time datetime="2014-04-29T20:15:57.000Z">April 29, 2014</time> <span> · Archive</span> <span> · GruntJS, SASS, Javascript</span> </p> <h3 class="mt-1 text-lg font-semibold"> <a href="/luismatute-preview/blog/letting-grunt-run-the-show">Letting GruntJS run the show</a> </h3> <p class="mt-1">Today I&#39;m going to show you how to create a basic gruntjs setup. If you don&#39;t know what grunt is, I&#39;d recommend you head over to the GruntJS site to catch up. In a nutshell, grunt is a task runner for javascript, this means that it can...</p> </li><li class="py-4"> <p class="text-sm"> <time datetime="2014-04-11T23:18:31.000Z">April 11, 2014</time> <span> · Archive</span> <span> · NodeJS, Git, Github, Bash</span> </p> <h3 class="mt-1 text-lg font-semibold"> <a href="/luismatute-preview/blog/webhooks-for-autodeployments-in-nodejs">Webhooks for Auto Deployments in NodeJS</a> </h3> <p class="mt-1">Since I mostly use git for my projects, in my servers, I clone a copy of the project&#39;s repo, so that I don&#39;t have to FTP files in order to deply. So I&#39;m going to show how to auto deploy the project. Whenever a commit gets pushed to the...</p> </li><li class="py-4"> <p class="text-sm"> <time datetime="2014-04-06T06:59:54.000Z">April 6, 2014</time> <span> · Archive</span> <span> · NodeJS, NGINX, MongoDB, Git, CentOS</span> </p> <h3 class="mt-1 text-lg font-semibold"> <a href="/luismatute-preview/blog/nodejs-nginx-mongodb-and-git-on-centos">NodeJS, NGINX, MongoDB and Git Installation on CentOS 6.4</a> </h3> <p class="mt-1">First of all, I&#39;m gonna start by saying that I am not a linux pro, so bare with me if something here is wrong and let me know in a comment. This is just the way I do the setup for my NodeJS server, which will need access to github(since...</p> </li> </ul> </section>  </main> </body></html>

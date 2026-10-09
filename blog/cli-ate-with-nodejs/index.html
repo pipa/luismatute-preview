@@ -1,0 +1,78 @@
+<!DOCTYPE html><html lang="en"> <head><meta name="robots" content="noindex,nofollow"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="I've always read about how easy it was to create a Command Line Utilities with node, but I never thought it was this easy... I'm doing this post(as always) for self documentation."><link rel="canonical" href="https://pipa.github.io/luismatute-preview/blog/cli-ate-with-nodejs/"><link rel="icon" href="/luismatute-preview/favicon.svg" type="image/svg+xml"><title>CLI-ate with NodeJS · Luis Matute</title><script>(function(){const variantStorageKey = "lm.variant";
+
+      ((key) => {
+        const exact = (value) => value === 'a' || value === 'b' || value === 'c';
+        let query = null;
+        try {
+          query = new URLSearchParams(location.search).get('v');
+        } catch {
+          query = null;
+        }
+        let variant = null;
+        let persist = false;
+        if (exact(query)) {
+          variant = query;
+          persist = true;
+        } else {
+          try {
+            const stored = localStorage.getItem(key);
+            if (exact(stored)) variant = stored;
+          } catch {
+            variant = null;
+          }
+        }
+        if (!variant) {
+          const roll = Math.random();
+          variant = roll < 1 / 3 ? 'a' : roll < 2 / 3 ? 'b' : 'c';
+          persist = true;
+        }
+        if (persist) {
+          try {
+            localStorage.setItem(key, variant);
+          } catch {
+            /* Storage blocked: keep the assignment on this page only. */
+          }
+        }
+        document.documentElement.setAttribute('data-variant', variant);
+      })(variantStorageKey);
+    })();</script><link rel="stylesheet" href="/luismatute-preview/_astro/BaseLayout.qxDURywr.css"></head> <body class="flex min-h-dvh flex-col bg-white text-base leading-relaxed text-neutral-950"> <a href="#content" class="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-10 focus:bg-white focus:px-3 focus:py-2">
+Skip to content
+</a> <header class="border-b border-neutral-300"> <div class="mx-auto flex max-w-3xl items-center justify-between gap-4 px-4 py-4"> <a href="/luismatute-preview/" class="font-semibold">Luis Matute</a> <nav aria-label="Primary"> <a href="/luismatute-preview/blog">Blog</a> </nav> </div> </header> <aside class="variant-panel" aria-label="Experiment assignment"> <p class="variant-panel-row variant-panel-status"> <span class="variant-swatch" aria-hidden="true"></span> <span>
+You're in variant
+<span class="variant-name" data-variant-name="a">A</span> <span class="variant-name" data-variant-name="b">B</span> <span class="variant-name" data-variant-name="c">C</span> </span> </p> <button type="button" class="variant-panel-row variant-panel-toggle" aria-expanded="false" aria-controls="variant-panel-details"> <span class="variant-swatch" aria-hidden="true"></span> <span>
+You're in variant
+<span class="variant-name" data-variant-name="a">A</span> <span class="variant-name" data-variant-name="b">B</span> <span class="variant-name" data-variant-name="c">C</span> </span> <span class="sr-only">Show or hide the variant controls.</span> </button> <div id="variant-panel-details" class="variant-panel-details"> <p class="variant-odds"> <span class="sr-only">Equal thirds. </span> <span data-odds="a">A 33.3%</span> <span aria-hidden="true"> · </span> <span data-odds="b">B 33.3%</span> <span aria-hidden="true"> · </span> <span data-odds="c">C 33.3%</span> </p> <fieldset class="variant-segments"> <legend class="sr-only">Switch variant</legend> <button type="button" data-variant-switch="a" aria-pressed="false">A</button> <button type="button" data-variant-switch="b" aria-pressed="false">B</button> <button type="button" data-variant-switch="c" aria-pressed="false">C</button> </fieldset> <button type="button" class="variant-why" aria-expanded="false" aria-controls="variant-why-copy">
+What's this?
+</button> <p id="variant-why-copy" class="variant-why-copy" hidden>
+This site runs as an A/B test, like the ones I build tools for at Booking.com. You were randomly
+      assigned a variant.
+</p> </div> </aside> <script type="module" src="/luismatute-preview/_astro/VariantPanel.astro_astro_type_script_index_0_lang.Cq_gOzLg.js"></script> <main id="content" class="mx-auto w-full max-w-3xl flex-1 px-4 py-8">  <article> <p class="text-sm"> <a href="/luismatute-preview/blog">Blog</a> <span> · Archive</span> </p> <h1 class="mt-3 text-3xl font-semibold tracking-tight">CLI-ate with NodeJS</h1> <p class="mt-3 text-sm"> <time datetime="2014-06-03T17:12:29.000Z">June 3, 2014</time> <span> · NodeJS, CLI</span> </p> <div class="prose prose-neutral mt-8 max-w-none"> <p>I’ve always read about how easy it was to create a Command Line Utilities with node, but I never thought it was this easy… I’m doing this post(as always) for self documentation.</p>
+<p>In this post, I’m documenting the steps I follow in the creation of a Command Line Interface tool using NodeJS. This is useful because we can take advantage of how NodeJS can handle the filesystem, system status, command line interface, among others… We can encapsulate scripts to execute them as applications, create scripts for tasks automation and so on.</p>
+<p>3 steps:</p>
+<ul>
+<li>We need to create a normal <code>package.json</code> file, adding the following 2 lines:</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#9ECBFF">"preferGlobal"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"true"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">"bin"</span><span style="color:#E1E4E8">: { </span><span style="color:#9ECBFF">"command-name"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"script.js"</span><span style="color:#E1E4E8"> }</span></span></code></pre>
+<ul>
+<li>
+<p>Now, in our script.js (which will be the ‘CLI’ utility), we add <code>#!/usr/bin/env node</code> in the first line of the file. This should go in the first line since it tells the execution context what interpreter to use for the file, in our case, ‘node’.</p>
+</li>
+<li>
+<p>The last step is to create a globally-installed symbolic link to the folder of your command. This may sound overwhelming at first, thankfully we have a command in <code>npm</code> to take care of this, just do <code>npm link</code> in your terminal and it will create the symlink for you.</p>
+</li>
+</ul>
+<p>If all goes well, you can now use in the terminal (from anywhere), the newly created command via the command name you specified in the <code>package.json</code>, and it will execute your script application.</p>
+<p>Now, to get a bit fancy, we can handle arguments for our CLI, which are contained in the global object <code>process</code>. Doing a <code>console.log(process.argv)</code>, we get all the arguments passed in (this will also contain the interpreter(node) and the script’s path. Since the <code>process.argv</code> returns an array, we can slice it removing the first two items (<code>process.argv.slice(2)</code>), which will give us only the actual arguments.</p>
+<p>This is somewhat limited since you get everything after the command name separeted with whitespace, in the array. You will need to parse the array in order to use flags and variables. luckily, there are some good argument parsers out there. The one I recommend using is substack’s <a href="https://github.com/substack/minimist">minimist</a>. Be sure to check it out, it’ll help u a lot.</p>
+<p>An example taken from minimist github readme:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">$</span><span style="color:#9ECBFF"> command-name</span><span style="color:#79B8FF"> -x</span><span style="color:#79B8FF"> 3</span><span style="color:#79B8FF"> -y</span><span style="color:#79B8FF"> 4</span><span style="color:#79B8FF"> -n5</span><span style="color:#79B8FF"> -abc</span><span style="color:#79B8FF"> --beep=boop</span><span style="color:#9ECBFF"> foo</span><span style="color:#9ECBFF"> bar</span><span style="color:#9ECBFF"> baz</span></span>
+<span class="line"><span style="color:#6A737D"># this will return:</span></span>
+<span class="line"><span style="color:#E1E4E8">{ </span><span style="color:#B392F0">_:</span><span style="color:#E1E4E8"> [ </span><span style="color:#9ECBFF">'foo',</span><span style="color:#9ECBFF"> 'bar',</span><span style="color:#9ECBFF"> 'baz'</span><span style="color:#9ECBFF"> ],</span></span>
+<span class="line"><span style="color:#B392F0">  x:</span><span style="color:#9ECBFF"> 3,</span></span>
+<span class="line"><span style="color:#B392F0">  y:</span><span style="color:#9ECBFF"> 4,</span></span>
+<span class="line"><span style="color:#B392F0">  n:</span><span style="color:#9ECBFF"> 5,</span></span>
+<span class="line"><span style="color:#B392F0">  a:</span><span style="color:#79B8FF"> true</span><span style="color:#9ECBFF">,</span></span>
+<span class="line"><span style="color:#B392F0">  b:</span><span style="color:#79B8FF"> true</span><span style="color:#9ECBFF">,</span></span>
+<span class="line"><span style="color:#B392F0">  c:</span><span style="color:#79B8FF"> true</span><span style="color:#9ECBFF">,</span></span>
+<span class="line"><span style="color:#B392F0">  beep:</span><span style="color:#9ECBFF"> 'boop'</span><span style="color:#9ECBFF"> }</span></span></code></pre> </div> </article>  </main> </body></html>

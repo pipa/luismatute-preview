@@ -1,0 +1,171 @@
+<!DOCTYPE html><html lang="en"> <head><meta name="robots" content="noindex,nofollow"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Browserify brings the beauty of CommonJS to the browser. It bundles up all your dependencies into one file."><link rel="canonical" href="https://pipa.github.io/luismatute-preview/blog/multi-bundle-browserify-using-gulp/"><link rel="icon" href="/luismatute-preview/favicon.svg" type="image/svg+xml"><title>Gulp Multi-Bundles of Browserify · Luis Matute</title><script>(function(){const variantStorageKey = "lm.variant";
+
+      ((key) => {
+        const exact = (value) => value === 'a' || value === 'b' || value === 'c';
+        let query = null;
+        try {
+          query = new URLSearchParams(location.search).get('v');
+        } catch {
+          query = null;
+        }
+        let variant = null;
+        let persist = false;
+        if (exact(query)) {
+          variant = query;
+          persist = true;
+        } else {
+          try {
+            const stored = localStorage.getItem(key);
+            if (exact(stored)) variant = stored;
+          } catch {
+            variant = null;
+          }
+        }
+        if (!variant) {
+          const roll = Math.random();
+          variant = roll < 1 / 3 ? 'a' : roll < 2 / 3 ? 'b' : 'c';
+          persist = true;
+        }
+        if (persist) {
+          try {
+            localStorage.setItem(key, variant);
+          } catch {
+            /* Storage blocked: keep the assignment on this page only. */
+          }
+        }
+        document.documentElement.setAttribute('data-variant', variant);
+      })(variantStorageKey);
+    })();</script><link rel="stylesheet" href="/luismatute-preview/_astro/BaseLayout.qxDURywr.css"></head> <body class="flex min-h-dvh flex-col bg-white text-base leading-relaxed text-neutral-950"> <a href="#content" class="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-10 focus:bg-white focus:px-3 focus:py-2">
+Skip to content
+</a> <header class="border-b border-neutral-300"> <div class="mx-auto flex max-w-3xl items-center justify-between gap-4 px-4 py-4"> <a href="/luismatute-preview/" class="font-semibold">Luis Matute</a> <nav aria-label="Primary"> <a href="/luismatute-preview/blog">Blog</a> </nav> </div> </header> <aside class="variant-panel" aria-label="Experiment assignment"> <p class="variant-panel-row variant-panel-status"> <span class="variant-swatch" aria-hidden="true"></span> <span>
+You're in variant
+<span class="variant-name" data-variant-name="a">A</span> <span class="variant-name" data-variant-name="b">B</span> <span class="variant-name" data-variant-name="c">C</span> </span> </p> <button type="button" class="variant-panel-row variant-panel-toggle" aria-expanded="false" aria-controls="variant-panel-details"> <span class="variant-swatch" aria-hidden="true"></span> <span>
+You're in variant
+<span class="variant-name" data-variant-name="a">A</span> <span class="variant-name" data-variant-name="b">B</span> <span class="variant-name" data-variant-name="c">C</span> </span> <span class="sr-only">Show or hide the variant controls.</span> </button> <div id="variant-panel-details" class="variant-panel-details"> <p class="variant-odds"> <span class="sr-only">Equal thirds. </span> <span data-odds="a">A 33.3%</span> <span aria-hidden="true"> · </span> <span data-odds="b">B 33.3%</span> <span aria-hidden="true"> · </span> <span data-odds="c">C 33.3%</span> </p> <fieldset class="variant-segments"> <legend class="sr-only">Switch variant</legend> <button type="button" data-variant-switch="a" aria-pressed="false">A</button> <button type="button" data-variant-switch="b" aria-pressed="false">B</button> <button type="button" data-variant-switch="c" aria-pressed="false">C</button> </fieldset> <button type="button" class="variant-why" aria-expanded="false" aria-controls="variant-why-copy">
+What's this?
+</button> <p id="variant-why-copy" class="variant-why-copy" hidden>
+This site runs as an A/B test, like the ones I build tools for at Booking.com. You were randomly
+      assigned a variant.
+</p> </div> </aside> <script type="module" src="/luismatute-preview/_astro/VariantPanel.astro_astro_type_script_index_0_lang.Cq_gOzLg.js"></script> <main id="content" class="mx-auto w-full max-w-3xl flex-1 px-4 py-8">  <article> <p class="text-sm"> <a href="/luismatute-preview/blog">Blog</a> <span> · Archive</span> </p> <h1 class="mt-3 text-3xl font-semibold tracking-tight">Gulp Multi-Bundles of Browserify</h1> <p class="mt-3 text-sm"> <time datetime="2016-11-12T04:15:00.000Z">November 12, 2016</time> <span> · Gulp, Browserify, ESLint</span> </p> <div class="prose prose-neutral mt-8 max-w-none"> <p><a href="http://browserify.org/">Browserify</a> brings the beauty of CommonJS to the browser. It bundles up all your dependencies into one file.</p>
+<p>This works well with small projects or with Single Page Applications(SPA), where having just one JS file works well. But what happens if you’re building a website with lots of views? If you’re using browserify, you’ll end up with a huge bundle file.</p>
+<p>What if we could split the bundle in a main bundle with all the global scripts and libs, and then have a bundle for different views? After a while of research, I could finally come up with a gulp recipe that does just that! We can have multiple bundles(which will be dynamically loaded following a pattern), each watching their dependencies, linting them before bundling and compiled individually. Did I mentioned it is blazing fast? (Well…the first load still takes bit tho…)</p>
+<p><del>I know Webpack can handle this as well, but Webpack and me have a long love/hate relationship…kinda makes me keep coming back to Gulp.</del></p>
+<p>Here is the directory structure I’ll use (just includes the JS part):</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>./Project</span></span>
+<span class="line"><span>    |_ .babelrc</span></span>
+<span class="line"><span>    |_ .eslintrc</span></span>
+<span class="line"><span>    |_ package.json</span></span>
+<span class="line"><span>    |_ gulpfile.babel.js</span></span>
+<span class="line"><span>    |_ index.html</span></span>
+<span class="line"><span>    |_ /static</span></span>
+<span class="line"><span>        |_ /js  # Gulp scripts output</span></span>
+<span class="line"><span>        |_ /src # Source files</span></span>
+<span class="line"><span>            |_ /js</span></span>
+<span class="line"><span>                |_ app.js</span></span>
+<span class="line"><span>                |_ /modules</span></span>
+<span class="line"><span>                    |_module-1.js</span></span>
+<span class="line"><span>                |_ /views</span></span>
+<span class="line"><span>                    |_ view-1.js</span></span></code></pre>
+<p>With this structure in mind, I’m gonna create the <strong>gulpfile</strong>. My main bundle will live at <strong>/static/src/js/app.js</strong>(I can add more, if necesary) and views will be provided using the following pattern: <strong>/static/src/js/views/[section]/[view].js</strong>. Every <em>[view].js</em> will create a new bundle.</p>
+<p>I’m so used to using <strong>ES6</strong> by now that I’ll write the gulpfile with it, which needs <strong>babel-register</strong> &#x26; <strong>babel-preset-2015</strong> modules to run and you need to add the <code>.babelrc</code> file with -at least- the <em>es2015</em> preset available.</p>
+<p>Here is the command to install the necessary modules for this exercise to work:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">yarn</span><span style="color:#9ECBFF"> add</span><span style="color:#79B8FF"> --dev</span><span style="color:#9ECBFF"> babel-preset-es2015</span><span style="color:#9ECBFF"> babel-register</span><span style="color:#9ECBFF"> babelify</span><span style="color:#9ECBFF"> browserify</span><span style="color:#9ECBFF"> glob</span><span style="color:#9ECBFF"> gulp</span><span style="color:#9ECBFF"> gulp-eslint</span><span style="color:#9ECBFF"> gulp-sourcemaps</span><span style="color:#9ECBFF"> gulp-uglify</span><span style="color:#9ECBFF"> gulp-util</span><span style="color:#9ECBFF"> path</span><span style="color:#9ECBFF"> vinyl-buffer</span><span style="color:#9ECBFF"> vinyl-source-stream</span><span style="color:#9ECBFF"> watchify</span></span></code></pre>
+<p>I’m using <a href="https://yarnpkg.com/">yarn</a> now, which is basically the same as NPM, but the <a href="https://code.facebook.com/posts/1840075619545360">inner works are different</a> and we get a better version handling for our dependencies. If you don’t like <code>yarn</code>, just replace <code>yarn add --dev</code> with <code>npm i -D</code>.</p>
+<p>Now for the gulpfile, I’m leaving a <a href="https://github.com/pipa/MultiBundleBrowserify/blob/master/gulpfile.babel.js">link</a> to the whole file in github, I’ll just concentrate in the JS part, to keep this short. I’ll divide it in 3 parts:</p>
+<ul>
+<li>The gulp task</li>
+<li>The <em>createBundle</em> function</li>
+<li>The linter task (I like my code clean)</li>
+</ul>
+<h3 id="the-gulp-task">The <em>gulp</em> task</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#E1E4E8">gulp.</span><span style="color:#B392F0">task</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'scripts'</span><span style="color:#E1E4E8">, (</span><span style="color:#FFAB70">callback</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> mainFiles</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> [</span><span style="color:#9ECBFF">`${</span><span style="color:#9ECBFF">[</span><span style="color:#E1E4E8">static</span><span style="color:#E1E4E8"> path</span><span style="color:#9ECBFF">]</span><span style="color:#9ECBFF">}/js/app.js`</span><span style="color:#E1E4E8">];</span></span>
+<span class="line"><span style="color:#B392F0">    glob</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">`${</span><span style="color:#9ECBFF">[</span><span style="color:#E1E4E8">static</span><span style="color:#E1E4E8"> path</span><span style="color:#9ECBFF">]</span><span style="color:#9ECBFF">}/src/js/views/*/*.js`</span><span style="color:#E1E4E8">, (</span><span style="color:#FFAB70">err</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">files</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">        if</span><span style="color:#E1E4E8"> (err) {</span></span>
+<span class="line"><span style="color:#B392F0">            done</span><span style="color:#E1E4E8">(err);</span></span>
+<span class="line"><span style="color:#E1E4E8">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">        files </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> [</span><span style="color:#F97583">...</span><span style="color:#E1E4E8">files, </span><span style="color:#F97583">...</span><span style="color:#E1E4E8">mainFiles];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">        const</span><span style="color:#79B8FF"> tasks</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> files.</span><span style="color:#B392F0">map</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">entry</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">index</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">            createBundle</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#E1E4E8">                entries: entry,</span></span>
+<span class="line"><span style="color:#E1E4E8">                output: path.</span><span style="color:#B392F0">basename</span><span style="color:#E1E4E8">(entry),</span></span>
+<span class="line"><span style="color:#E1E4E8">                destination: </span><span style="color:#9ECBFF">`${</span><span style="color:#9ECBFF">[</span><span style="color:#E1E4E8">static</span><span style="color:#E1E4E8"> path</span><span style="color:#9ECBFF">]</span><span style="color:#9ECBFF">}/js`</span></span>
+<span class="line"><span style="color:#E1E4E8">            });</span></span>
+<span class="line"><span style="color:#E1E4E8">        });</span></span>
+<span class="line"><span style="color:#E1E4E8">    });</span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#B392F0"> callback</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span></code></pre>
+<p>Replace <code>[static path]</code> with the path to your “static” assets or source path.</p>
+<p>I’m using <a href="https://www.npmjs.com/package/glob">glob</a> which is a module that match files using the patterns the shell uses, like stars and stuff. I’m using the <strong>[section]/[view].js</strong> pattern I mentioned earlier, so every <em>view</em>, will be a separate bundle. The main(or global) file is passed as an element in the array <code>mainFiles</code>, this is where you can add more “main” bundles, if you need to manually add more bundles.</p>
+<p><a href="https://www.npmjs.com/package/glob">glob</a> will give us the files matching the pattern provided and then we merge those results with the <code>mainFiles</code> array, to get the list of bundles to compile.</p>
+<p>Lastly, we’re gonna create a task per bundle, at this point, we’ll be calling the <code>createBundle()</code> function passing the “entry path”, the “output” file(which will be the name of the file to bundle, and where the “destination” path will be.</p>
+<h3 id="createbundle-function"><em>createBundle</em> function</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> internals</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">    isWatchify: </span><span style="color:#79B8FF">false</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    deps: [] </span><span style="color:#6A737D">// Here will go global modules. E.G.: ['react', 'react-dom', 'jquery']</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#B392F0"> createBundle</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">options</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">callback</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> opts</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> Object.</span><span style="color:#B392F0">assign</span><span style="color:#E1E4E8">({}, watchify.args, options, {</span></span>
+<span class="line"><span style="color:#E1E4E8">        debug: </span><span style="color:#79B8FF">true</span></span>
+<span class="line"><span style="color:#E1E4E8">    });</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    let</span><span style="color:#E1E4E8"> b </span><span style="color:#F97583">=</span><span style="color:#B392F0"> browserify</span><span style="color:#E1E4E8">(opts);</span></span>
+<span class="line"><span style="color:#E1E4E8">    b.</span><span style="color:#B392F0">transform</span><span style="color:#E1E4E8">(babelify, {presets: [</span><span style="color:#9ECBFF">"es2015"</span><span style="color:#E1E4E8">]});</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> (path.</span><span style="color:#B392F0">basename</span><span style="color:#E1E4E8">(options.entries) </span><span style="color:#F97583">===</span><span style="color:#9ECBFF"> 'app.js'</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">        b.</span><span style="color:#B392F0">require</span><span style="color:#E1E4E8">(internals.deps)</span></span>
+<span class="line"><span style="color:#E1E4E8">    } </span><span style="color:#F97583">else</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">        b.</span><span style="color:#B392F0">external</span><span style="color:#E1E4E8">(internals.deps);</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#B392F0"> rebundle</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">        return</span><span style="color:#E1E4E8"> b.</span><span style="color:#B392F0">bundle</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#6A737D">            // log errors if they happen</span></span>
+<span class="line"><span style="color:#E1E4E8">            .</span><span style="color:#B392F0">on</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'error'</span><span style="color:#E1E4E8">, gutil.log.</span><span style="color:#B392F0">bind</span><span style="color:#E1E4E8">(gutil, </span><span style="color:#9ECBFF">'Browserify Error'</span><span style="color:#E1E4E8">))</span></span>
+<span class="line"><span style="color:#E1E4E8">            .</span><span style="color:#B392F0">pipe</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">source</span><span style="color:#E1E4E8">(options.output))</span></span>
+<span class="line"><span style="color:#E1E4E8">            .</span><span style="color:#B392F0">pipe</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">buffer</span><span style="color:#E1E4E8">())</span></span>
+<span class="line"><span style="color:#E1E4E8">            .</span><span style="color:#B392F0">pipe</span><span style="color:#E1E4E8">(sourcemaps.</span><span style="color:#B392F0">init</span><span style="color:#E1E4E8">({ loadMaps: </span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8"> }))</span></span>
+<span class="line"><span style="color:#E1E4E8">            .</span><span style="color:#B392F0">pipe</span><span style="color:#E1E4E8">(sourcemaps.</span><span style="color:#B392F0">write</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'./maps'</span><span style="color:#E1E4E8">))</span></span>
+<span class="line"><span style="color:#E1E4E8">            .</span><span style="color:#B392F0">pipe</span><span style="color:#E1E4E8">(gulp.</span><span style="color:#B392F0">dest</span><span style="color:#E1E4E8">(options.destination));</span></span>
+<span class="line"><span style="color:#E1E4E8">    };</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> (internals.isWatchify) {</span></span>
+<span class="line"><span style="color:#E1E4E8">        b </span><span style="color:#F97583">=</span><span style="color:#B392F0"> watchify</span><span style="color:#E1E4E8">(b);</span></span>
+<span class="line"><span style="color:#E1E4E8">        b.</span><span style="color:#B392F0">on</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'update'</span><span style="color:#E1E4E8">, (</span><span style="color:#FFAB70">id</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">            lint</span><span style="color:#E1E4E8">(callback, id);</span></span>
+<span class="line"><span style="color:#B392F0">            rebundle</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">        });</span></span>
+<span class="line"><span style="color:#E1E4E8">        b.</span><span style="color:#B392F0">on</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'log'</span><span style="color:#E1E4E8">, gutil.log);</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#B392F0"> rebundle</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span></code></pre>
+<p>This will be the one who creates the bundles with browserify.</p>
+<p>First, we create an “options” variable, which gets passed to browserify. Since watchify requires a set of parameters, will merge it with browserify options.</p>
+<p>We then pass these options to browserify. Since I’m using ES6, I need the babelify module, for it to be transpiled to pure JS, so I pass this plugin to browserify with the “es2015” preset.</p>
+<p>Then I check if the bundle is for the main file, since I’m loading ReactJS everywhere, I’ll put it in the main file, so here is where I’m telling browserify that these dependencies will be global.</p>
+<p>Gulp requires to return a closure, so I’m creating the <code>rebundle</code> function and return it at the end. Next is the actual bundle task, we tell it to report any error to the console, to prevent the task from halting on error. <code>source</code> will create a conventional text streams, then <code>buffer</code> convert the text streams from <code>b.bundle()</code> to vinyl streams so you can pipe with other gulp plugins which support streaming.</p>
+<p>Next we can do things like <em>uglifying</em> our code, sourcemaps and more.</p>
+<p>The we save the newly created file to the destination we specified.</p>
+<p>Lastly, if we want gulp to automatically watch our files for re-bundling whenever we save a dependency or the actual file, we use <code>watchify</code> to wrap the browserify’s variable <code>b</code>. Now we append the “update” listener which will be triggered by watchify.</p>
+<p>It will contain the file which was changed, the perfect opportunity to lint our files if we wanted. I’ll add that here, passing the task “callback” or “done” callback so if the lint fails, it can exit the task without rebundling.</p>
+<h3 id="the-linter-task">The linter task</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#B392F0"> lint</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">callback</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">src</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> gulp</span></span>
+<span class="line"><span style="color:#E1E4E8">        .</span><span style="color:#B392F0">src</span><span style="color:#E1E4E8">(src)</span></span>
+<span class="line"><span style="color:#E1E4E8">        .</span><span style="color:#B392F0">pipe</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">eslint</span><span style="color:#E1E4E8">({ useEslintrc: </span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8"> }))</span></span>
+<span class="line"><span style="color:#E1E4E8">        .</span><span style="color:#B392F0">pipe</span><span style="color:#E1E4E8">(eslint.</span><span style="color:#B392F0">format</span><span style="color:#E1E4E8">());</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span></code></pre>
+<p>I’m a freak for clean and consistent code, so a linting task is a <strong>must</strong> for me. It’ll be straightforward, get the file to lint, add the rules for our codestyle and lint the file.</p>
+<p>I know it’s a lot to explain(which I suck at), and if you are more of a try and test something, you can check the whole example in <a href="https://github.com/pipa/MultiBundleBrowserify">my github repo</a>.</p>
+<p>If anyone think I can improve this task or have a question about it, write a comment below 🙂</p> </div> </article>  </main> </body></html>

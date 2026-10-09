@@ -1,0 +1,70 @@
+<!DOCTYPE html><html lang="en"> <head><meta name="robots" content="noindex,nofollow"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Luis Matute, full-stack developer. Personal site, with an archive of older writing."><link rel="canonical" href="https://pipa.github.io/luismatute-preview/"><link rel="icon" href="/luismatute-preview/favicon.svg" type="image/svg+xml"><title>Luis Matute</title><script>(function(){const variantStorageKey = "lm.variant";
+
+      ((key) => {
+        const exact = (value) => value === 'a' || value === 'b' || value === 'c';
+        let query = null;
+        try {
+          query = new URLSearchParams(location.search).get('v');
+        } catch {
+          query = null;
+        }
+        let variant = null;
+        let persist = false;
+        if (exact(query)) {
+          variant = query;
+          persist = true;
+        } else {
+          try {
+            const stored = localStorage.getItem(key);
+            if (exact(stored)) variant = stored;
+          } catch {
+            variant = null;
+          }
+        }
+        if (!variant) {
+          const roll = Math.random();
+          variant = roll < 1 / 3 ? 'a' : roll < 2 / 3 ? 'b' : 'c';
+          persist = true;
+        }
+        if (persist) {
+          try {
+            localStorage.setItem(key, variant);
+          } catch {
+            /* Storage blocked: keep the assignment on this page only. */
+          }
+        }
+        document.documentElement.setAttribute('data-variant', variant);
+      })(variantStorageKey);
+    })();</script><link rel="stylesheet" href="/luismatute-preview/_astro/BaseLayout.qxDURywr.css"><link rel="stylesheet" href="/luismatute-preview/_astro/index.BcuAlOEh.css"></head> <body class="flex min-h-dvh flex-col bg-white text-base leading-relaxed text-neutral-950 is-home"> <a href="#content" class="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-10 focus:bg-white focus:px-3 focus:py-2">
+Skip to content
+</a> <header class="border-b border-neutral-300"> <div class="mx-auto flex max-w-3xl items-center justify-between gap-4 px-4 py-4"> <a href="/luismatute-preview/" class="font-semibold">Luis Matute</a> <nav aria-label="Primary"> <a href="/luismatute-preview/blog">Blog</a> </nav> </div> </header> <aside class="variant-panel" aria-label="Experiment assignment"> <p class="variant-panel-row variant-panel-status"> <span class="variant-swatch" aria-hidden="true"></span> <span>
+You're in variant
+<span class="variant-name" data-variant-name="a">A</span> <span class="variant-name" data-variant-name="b">B</span> <span class="variant-name" data-variant-name="c">C</span> </span> </p> <button type="button" class="variant-panel-row variant-panel-toggle" aria-expanded="false" aria-controls="variant-panel-details"> <span class="variant-swatch" aria-hidden="true"></span> <span>
+You're in variant
+<span class="variant-name" data-variant-name="a">A</span> <span class="variant-name" data-variant-name="b">B</span> <span class="variant-name" data-variant-name="c">C</span> </span> <span class="sr-only">Show or hide the variant controls.</span> </button> <div id="variant-panel-details" class="variant-panel-details"> <p class="variant-odds"> <span class="sr-only">Equal thirds. </span> <span data-odds="a">A 33.3%</span> <span aria-hidden="true"> · </span> <span data-odds="b">B 33.3%</span> <span aria-hidden="true"> · </span> <span data-odds="c">C 33.3%</span> </p> <fieldset class="variant-segments"> <legend class="sr-only">Switch variant</legend> <button type="button" data-variant-switch="a" aria-pressed="false">A</button> <button type="button" data-variant-switch="b" aria-pressed="false">B</button> <button type="button" data-variant-switch="c" aria-pressed="false">C</button> </fieldset> <button type="button" class="variant-why" aria-expanded="false" aria-controls="variant-why-copy">
+What's this?
+</button> <p id="variant-why-copy" class="variant-why-copy" hidden>
+This site runs as an A/B test, like the ones I build tools for at Booking.com. You were randomly
+      assigned a variant.
+</p> </div> </aside> <script type="module" src="/luismatute-preview/_astro/VariantPanel.astro_astro_type_script_index_0_lang.Cq_gOzLg.js"></script> <main id="content" class="mx-auto w-full max-w-3xl flex-1 px-4 py-8">  <noscript><p class="border border-neutral-300 bg-white p-3 text-neutral-950">
+Variant assignment runs in the browser. With JavaScript disabled, all three home slots are shown.
+</p></noscript><div class="home-slots"><div data-variant-slot="a"><div class="v1" data-proto="a"> <div class="run"> <header class="hero"> <div class="hero-avatar"></div> <h1 class="display">Luis Matute</h1> <p class="lede">
+Full-stack developer on Booking.com's experimentation platform. This page is an experiment too.
+</p> <!-- Four career ticks. Decision: ship is the line's end, not a tick. --> <div class="axis hero-axis" aria-hidden="true"> <span style="--at:0">BSc</span> <span style="--at:0.3067">Fluky</span> <span style="--at:0.6133">Sandals</span> <span style="--at:0.92">Booking</span> </div> </header> <section class="stage" aria-label="Career plotted as an experiment, ending at Decision: ship"> <svg class="chart" aria-hidden="true" focusable="false"></svg> <div class="axis stage-axis" aria-hidden="true"> <span style="--at:0">BSc</span> <span style="--at:0.3067">Fluky</span> <span style="--at:0.6133">Sandals</span> <span style="--at:0.92">Booking</span> </div> <ol class="stops"> <li class="stop" data-lift="0" data-hw="0.5" data-label="BSc"> <h2 class="h2">BSc Computer Science</h2> <p>Studied in Honduras.</p> </li> <li class="stop" data-lift="0.16" data-hw="0.36" data-label="Freelance, Fluky Factory"> <h2 class="h2">Freelance and Fluky Factory</h2> <p>Freelance work, and co-founder of Fluky Factory.</p> </li> <li class="stop" data-lift="0.3" data-hw="0.27" data-label="Sandals Resorts"> <h2 class="h2">Sandals Resorts</h2> <p>Lead front-end developer.</p> </li> <li class="stop" data-lift="0.55" data-hw="0.16" data-label="Booking.com"> <h2 class="h2">Booking.com, Amsterdam</h2> <p>
+Since Oct 2017. Hired as frontend, now full stack, on the Lifecycle team of the experimentation (A/B
+            testing) platform, which handles an experiment's whole life.
+</p> </li> <li class="stop stop-ship" data-lift="0.95" data-hw="0.06" data-label="Decision: ship"> <h2 class="h2">Decision: ship</h2> <p>
+MCP tools for running experiments. The legacy API stack moved to a modern service with 100% test coverage
+            and automated CI/CD, plus AI tooling for it. A homegrown GraphQL layer moved to the company-standard setup.
+</p> </li> </ol> </section> </div> </div> <script type="module" src="/luismatute-preview/_astro/Home.astro_astro_type_script_index_0_lang.BZBKCS7s.js"></script></div><div data-variant-slot="b"><div class="dive" data-proto="b"> <div class="requests" aria-hidden="true"></div> <section class="layer l0 light" id="b-ui" data-path="/ui" aria-labelledby="b-ui-h"> <svg class="frame" aria-hidden="true" focusable="false"></svg> <div class="l0-in"> <div class="l0-avatar"></div> <h1 class="display" id="b-ui-h">Luis Matute</h1> <p class="lede">Full-stack developer at Booking.com. Scroll down through the stack.</p> </div> </section> <section class="layer l1 light" id="b-api" data-path="/ui/api" aria-labelledby="b-api-h"> <div class="copy"> <h2 class="h2" id="b-api-h">The API layer</h2> <p>
+I migrated the legacy API stack to a modern service with 100% test coverage and automated CI/CD, plus AI tooling
+        for it.
+</p> </div> <svg class="schem" viewBox="0 0 640 160" aria-hidden="true" focusable="false"> <line style="--i:0" x1="48" y1="16" x2="592" y2="16" pathLength="1"></line> <rect style="--i:1" x="0" y="40" width="96" height="80" pathLength="1"></rect> <rect style="--i:2" x="136" y="40" width="96" height="80" pathLength="1"></rect> <rect style="--i:3" x="272" y="40" width="96" height="80" pathLength="1"></rect> <rect style="--i:4" x="408" y="40" width="96" height="80" pathLength="1"></rect> <rect style="--i:5" x="544" y="40" width="96" height="80" pathLength="1"></rect> <path style="--i:6" d="M48 16V40M184 16V40M320 16V40M456 16V40M592 16V40" pathLength="1"></path> <path style="--i:7" d="M48 120V140M184 120V140M320 120V140M456 120V140M592 120V140" pathLength="1"></path> </svg> </section> <section class="layer l2 dark" id="b-graphql" data-path="/ui/api/graphql" aria-labelledby="b-gql-h"> <div class="copy"> <h2 class="h2" id="b-gql-h">The GraphQL layer</h2> <p>I migrated a homegrown GraphQL layer to the company-standard setup.</p> </div> <figure class="fig"> <svg class="schem" viewBox="0 0 640 260" aria-hidden="true" focusable="false"> <path style="--i:0" d="M40 0L320 110M160 0L320 110M280 0L320 110M360 0L320 110M480 0L320 110M600 0L320 110" pathLength="1"></path> <rect style="--i:1" x="288" y="110" width="64" height="40" pathLength="1"></rect> <path style="--i:2" d="M320 150L80 260M320 150L240 260M320 150L400 260M320 150L560 260" pathLength="1"></path> </svg> <figcaption class="small">The single point every data request went through.</figcaption> </figure> </section> <section class="layer l3 dark" id="b-data" data-path="/ui/api/graphql/data" aria-labelledby="b-data-h"> <div class="copy"> <h2 class="h2" id="b-data-h">The data layer</h2> <p>
+On the Lifecycle team of Booking.com's experimentation (A/B testing) platform, which handles an experiment's
+        whole life. Projects include MCP tools for running experiments.
+</p> </div> <svg class="schem" viewBox="0 0 640 152" aria-hidden="true" focusable="false"> <rect style="--i:0" x="0" y="1" width="192" height="150" pathLength="1"></rect> <rect style="--i:1" x="224" y="1" width="192" height="150" pathLength="1"></rect> <rect style="--i:2" x="448" y="1" width="192" height="150" pathLength="1"></rect> <path style="--i:3" d="M0 31H192M224 31H416M448 31H640" pathLength="1"></path> <path style="--i:4" d="M64 31V151M288 31V151M512 31V151" pathLength="1"></path> <path style="--i:5" d="M0 61H192M0 91H192M0 121H192M224 61H416M224 91H416M224 121H416M448 61H640M448 91H640M448 121H640" pathLength="1"></path> </svg> </section> <section class="layer l4 dark" id="b-bedrock" data-path="/ui/api/graphql/data/bedrock" aria-labelledby="b-rock-h"> <div class="copy"> <h2 class="h2" id="b-rock-h">Bedrock</h2> <p>
+Before Booking.com: lead front-end dev at Sandals Resorts, co-founder of Fluky Factory, freelance. BSc Computer
+        Science, Honduras.
+</p> </div> </section> <nav class="gauge" aria-label="Depth"> <p class="gauge-path" aria-live="off"> <span class="sr-only">Current depth: </span><span class="gauge-current">/ui</span> </p> <ol class="gauge-ticks"> <li><a href="#b-ui" aria-current="true"><span class="sr-only">UI layer</span></a></li> <li><a href="#b-api"><span class="sr-only">API layer</span></a></li> <li><a href="#b-graphql"><span class="sr-only">GraphQL layer</span></a></li> <li><a href="#b-data"><span class="sr-only">Data layer</span></a></li> <li><a href="#b-bedrock"><span class="sr-only">Bedrock</span></a></li> </ol> </nav> </div> <script type="module" src="/luismatute-preview/_astro/Home.astro_astro_type_script_index_0_lang.-K9Z98L5.js"></script></div><div data-variant-slot="c"><div class="c-page" data-proto="c"> <h1 class="sr-only">Luis Matute</h1> <section class="console" aria-label="Console: run Luis's career as an experiment"> <p class="c-head">luis@experiments</p> <div class="c-body"> <div class="c-avatar"></div> <div class="c-log" role="log" aria-live="polite" aria-label="Console output"></div> <form class="c-prompt" autocomplete="off"> <label for="c-cmd" class="c-ps"> <span aria-hidden="true">$</span><span class="sr-only">Command</span> </label> <input id="c-cmd" name="cmd" type="text" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="go" aria-describedby="c-cmd-hint"> <span id="c-cmd-hint" class="sr-only">
+Type help and press Enter for the list of commands. Up arrow recalls earlier commands.
+</span> </form> <fieldset class="c-taps"> <legend class="sr-only">Quick commands</legend> <button type="button" data-cmd="run career">run career</button> <button type="button" data-cmd="projects">projects</button> <button type="button" data-cmd="posts">posts</button> <button type="button" data-cmd="hat">hat</button> <button type="button" data-cmd="contact">contact</button> </fieldset> </div> </section> </div> <script type="module" src="/luismatute-preview/_astro/Home.astro_astro_type_script_index_0_lang.DQZn0xGk.js"></script></div></div>  </main> </body></html>
