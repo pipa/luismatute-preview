@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en"><head><meta name="robots" content="noindex,nofollow"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Concept 3 · Passport · luismatute.me travel</title>
+<style>
+@font-face{font-family:"Martian Grotesk";font-display:swap;src:url("fonts/MartianGrotesk[wdth,wght].woff2") format("woff2-variations");font-weight:100 1000;font-stretch:75% 200%}
+@font-face{font-family:"Martian Mono";font-display:swap;src:url("fonts/MartianMono[wdth,wght].woff2") format("woff2-variations");font-weight:100 800;font-stretch:75% 112.5%}
+:root{--ink:#111412;--white:#fff;--chalk:#EEF2EF;--steel:#8B948F;--steel-ink:#6B746F;--acc:#C6F432;
+--sans:"Martian Grotesk",system-ui,sans-serif;--mono:"Martian Mono",ui-monospace,monospace;
+--display-size:clamp(48px,9vw,140px);--h2-size:clamp(28px,3.6vw,52px);--body-size:clamp(16px,1.25vw,19px);
+--gutter:clamp(20px,6vw,96px);--stroke:2px;--stroke-thin:1.5px;
+--ease-enter:cubic-bezier(0.16,1,0.3,1);--ease-quint:cubic-bezier(0.22,1,0.36,1);--ease-move:cubic-bezier(0.76,0,0.24,1);--ease-exit:cubic-bezier(0.7,0,0.84,0);--ease-pop:cubic-bezier(0.34,1.56,0.64,1);
+--t-feedback:140ms;--t-ui:320ms;--t-hero:760ms;--t-exit:180ms;--stagger-item:60ms}
+@media (prefers-reduced-motion:reduce){:root{--t-feedback:0ms;--t-ui:0ms;--t-hero:0ms;--t-exit:0ms}}
+*{box-sizing:border-box;margin:0}
+html{background:var(--white);color:var(--ink);font-family:var(--sans);font-size:var(--body-size);line-height:1.45;-webkit-font-smoothing:antialiased}
+h1,h2{font-stretch:125%;font-weight:820;letter-spacing:-0.025em;line-height:.95}
+h2{font-size:var(--h2-size);font-stretch:112%;font-weight:760;line-height:1}
+.mono{font-family:var(--mono);font-size:13px;letter-spacing:.01em;font-variant-numeric:tabular-nums}
+.small{font-size:13px;color:var(--steel-ink)}
+/* illustration language */
+.ln,.ln2,.ln-chalk,.ln-acc,.illo path,.illo circle,.illo rect,.illo line,.illo polyline{vector-effect:non-scaling-stroke;stroke-linecap:round;stroke-linejoin:round}
+.ln{fill:none;stroke:var(--ink);stroke-width:var(--stroke)}
+.ln2{fill:none;stroke:var(--ink);stroke-width:var(--stroke-thin)}
+.ln-chalk{fill:none;stroke:var(--chalk);stroke-width:var(--stroke-thin)}
+.ln-acc{fill:none;stroke:var(--acc);stroke-width:var(--stroke)}
+.f-chalk{fill:var(--chalk)!important}.f-acc{fill:var(--acc)!important}.f-ink{fill:var(--ink)!important;stroke:var(--ink)}.f-white{fill:#fff!important}
+.dash{stroke-dasharray:2 6}
+.schem{display:block;width:100%;height:auto;overflow:visible}
+.schem .url{font:500 9px var(--mono);fill:var(--ink)}
+.schem .sk{font:500 9px var(--sans);fill:var(--steel-ink)}
+.proj figcaption{font-size:13px;margin-top:8px}
+.proj figcaption b{font-weight:640}
+.avatar-line path,.avatar-line circle{fill:none;stroke:var(--ink);stroke-width:var(--av-stroke,2px);stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.avatar-line .av-thin{stroke-width:calc(var(--av-stroke,2px)*.6)}
+.avatar-line .ink-fill{fill:var(--ink);stroke:none}
+.avatar-line .lens{fill:rgba(17,20,18,.82);stroke-width:calc(var(--av-stroke,2px)*1.3)}
+.avatar-line .eyeball{fill:var(--chalk);stroke:none}
+
+/* ---------- concept 3: passport + travel journal ---------- */
+body{overflow-x:clip}
+.hero{min-height:100vh;min-height:100svh;display:grid;grid-template-columns:1fr auto;align-items:end;gap:48px;padding:0 var(--gutter) 14vh;max-width:1440px}
+.hero h1{font-size:clamp(48px,8vw,128px)}
+.hero p{margin-top:20px;max-width:32ch}
+.hero .cue{margin-top:28px;display:flex;align-items:center;gap:10px;font-size:13px;color:var(--steel-ink)}.hero .cue i{display:block;width:44px;height:2px;background:var(--ink)}
+.book{position:relative;width:300px;height:420px;perspective:1400px;margin-right:6vw}
+.book .inside,.cover{position:absolute;inset:0}
+.book .inside{background:var(--chalk);border:2px solid var(--ink)}
+.cover{background:var(--ink);transform-origin:left center;transform-style:preserve-3d;display:flex;flex-direction:column;justify-content:space-between;padding:32px 28px;color:var(--chalk);will-change:transform}
+.cover .emb{width:120px;height:120px;align-self:center;margin-top:40px}
+.cover b{font-size:22px;font-stretch:125%;font-weight:820;letter-spacing:-.02em;display:block}
+.cover span{font-size:13px;color:var(--chalk)}
+.cover .chip{position:absolute;right:28px;bottom:30px;width:36px;height:24px;border:1.5px solid var(--acc)}
+/* spreads */
+.spreads{padding:0 var(--gutter) 30vh}
+.spread{position:sticky;top:6vh;height:min(86vh,680px);max-width:1180px;margin:0 auto 34vh;display:grid;grid-template-columns:1fr 1fr;background:var(--chalk);border:2px solid var(--ink);transform-origin:center top;will-change:transform}
+.spread::after{content:"";position:absolute;left:50%;top:0;bottom:0;border-left:2px solid var(--ink)}
+.spread::before{content:"";position:absolute;left:calc(50% + 6px);top:16px;bottom:16px;border-left:1.5px dashed var(--steel)}
+.page{position:relative;padding:clamp(20px,3vw,40px);overflow:hidden;min-width:0}
+.page .guil{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.page>*:not(.guil){position:relative}
+.page>figure.card,.page>.pass{position:absolute}
+.pno{position:absolute!important;bottom:14px;font:500 11px var(--mono);color:var(--steel-ink)}.page:first-child .pno{left:20px}.page:last-child .pno{right:20px}
+.kicker .mono{white-space:nowrap}.kicker{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center;font-size:13px;color:var(--steel-ink);margin-bottom:12px}
+.kicker .mono{color:var(--ink)}
+.page h2{font-size:clamp(26px,2.8vw,42px);max-width:14ch}
+.page p{margin-top:12px;max-width:36ch;font-size:clamp(15px,1.1vw,17px)}
+/* stamps */
+.stamp{display:block;overflow:visible}
+.stamp .st-arc{font:600 9.5px var(--sans);letter-spacing:.04em;fill:var(--ink)}
+.stamp .st-big{font:820 17px var(--sans);font-stretch:118%;fill:var(--ink);letter-spacing:-.01em}
+.stamp .st-sub{font:500 8.5px var(--mono);fill:var(--ink)}
+.stamp .st-sm{font:500 11px var(--mono);fill:var(--ink)}
+.st{position:absolute;opacity:0;transform:translate(var(--x,0),var(--y,0)) rotate(calc(var(--r,0deg) - 10deg)) scale(1.35)}
+.st.in{opacity:1;transform:translate(var(--x,0),var(--y,0)) rotate(var(--r,0deg)) scale(1);transition:transform var(--t-ui) var(--ease-pop),opacity 120ms linear;transition-delay:var(--d,0ms)}
+.card{position:absolute;background:#fff;border:2px solid var(--ink);padding:10px 10px 8px;transform:rotate(var(--r,0deg))}
+.card .tape{position:absolute;top:-12px;left:50%;width:64px;height:20px;margin-left:-32px;background:var(--acc);border:1.5px solid var(--ink);transform:rotate(-3deg)}
+.card figcaption{font-size:12px;margin-top:6px}.card figcaption b{font-weight:640}
+.feat-tag{background:var(--acc);padding:0 5px;font-weight:640;margin-right:4px}
+/* data page */
+.photo{width:150px;height:190px;border:2px solid var(--ink);background:#fff;overflow:hidden;display:flex;align-items:flex-end;justify-content:center}
+.photo svg{width:136px;height:auto;margin-bottom:-6px}
+.fields{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;margin-top:4px}
+.fields dt{font-size:11px;color:var(--steel-ink)}.fields dd{font-size:15px;font-weight:600;margin:0 0 6px}
+.mrz{position:absolute!important;left:clamp(20px,3vw,40px);right:clamp(20px,3vw,40px);bottom:40px;font:500 13px/1.6 var(--mono);letter-spacing:.12em;white-space:nowrap;overflow:hidden;color:var(--ink)}
+.record{width:100%;border-collapse:collapse;margin-top:12px;font-size:14px}
+.record td{border-top:1px solid var(--ink);padding:9px 8px 9px 0;vertical-align:top}
+.record tr:last-child td{border-bottom:1px solid var(--ink)}
+.record .d{font:500 12px var(--mono);white-space:nowrap;color:var(--ink)}
+.record .box{width:14px;height:14px;border:2px solid var(--ink);display:inline-block;vertical-align:-2px;background:#fff;transition:background var(--t-ui) linear}
+.record tr.on .box{background:var(--acc)}
+.record .pl{color:var(--steel-ink);font-size:12px}
+/* boarding pass */
+.pass{left:clamp(20px,3vw,40px);right:clamp(20px,3vw,40px);top:200px;background:#fff;border:2px solid var(--ink);display:grid;grid-template-columns:1fr 92px;transform:rotate(-2deg)}
+.pass .main{padding:16px 18px;border-right:1.5px dashed var(--ink)}
+.pass .route{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:clamp(20px,2vw,28px);font-weight:820;font-stretch:118%;letter-spacing:-.02em;margin:6px 0 10px}
+.pass .route svg{width:48px;height:20px;flex:none}
+.pass .row{display:flex;gap:22px}.pass .row div{font-size:11px;color:var(--steel-ink)}.pass .row b{display:block;font-size:14px;color:var(--ink);font-weight:640}
+.pass .stub{padding:14px 10px;display:flex;flex-direction:column;justify-content:space-between;background:var(--acc)}
+.pass .stub .bars{height:70px;display:flex;gap:2px;align-items:stretch}.pass .stub .bars i{display:block;background:var(--ink)}
+.pass .stub span{font-size:11px}
+.pass .avs{width:62px;height:80px;border:1.5px solid var(--ink);background:#fff;overflow:hidden;display:flex;align-items:flex-end;justify-content:center}.pass .stub{gap:10px;align-items:flex-start}.pass .stub .bars{height:44px}
+.end{padding:10vh var(--gutter) 24vh;max-width:1180px;margin:0 auto}
+.end h2{font-size:clamp(36px,5vw,72px)}
+@media (min-width:1600px){.spread{max-width:1360px;height:min(86vh,800px)}.page h2{font-size:48px}.page p{font-size:18px}}
+@media (max-width:860px){
+  .hero{grid-template-columns:1fr;padding:32px 20px 48px;align-items:start;min-height:auto;gap:28px}
+  .book{width:220px;height:308px;margin:0;order:-1}
+  .cover .emb{width:84px;height:84px;margin-top:20px}.cover{padding:22px 18px}.cover .chip{display:none}
+  .spreads{padding:0 16px 10vh}
+  .spread{position:relative;top:0;height:auto;grid-template-columns:1fr;margin-bottom:40px;transform:none!important}
+  .spread::after{left:0;right:0;top:auto;bottom:auto;border-left:0;border-top:2px solid var(--ink);display:none}
+  .spread::before{display:none}
+  .page{min-height:auto;padding:22px 18px 48px}.page+.page{border-top:2px solid var(--ink)}
+  .page.tall{min-height:560px}.page.mid{min-height:420px}
+  .mrz{font-size:11px;bottom:36px}
+  .page>figure.card{position:relative;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;width:auto!important;margin:22px 4px 8px}
+  .page>figure.card.sm{display:inline-block;width:calc(33.3% - 10px)!important;margin:14px 2px 0;vertical-align:top}
+  .page:has(>figure.card){min-height:0}
+}
+@media (prefers-reduced-motion:reduce){.st{opacity:1;transform:translate(var(--x,0),var(--y,0)) rotate(var(--r,0deg))}.spread{transform:none!important}}
+</style></head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="luis" viewBox="1240 640 1400 2160"><g class="avatar-line"><path class="ink-fill" fill-rule="evenodd" d="M 1398.0 2008.4 C 1405.3 2034.5 1421.9 2107.1 1441.6 2165.1 C 1461.2 2223.2 1491.4 2303.4 1515.9 2356.7 C 1540.3 2410.0 1561.8 2447.7 1588.1 2484.8 C 1614.5 2521.9 1632.7 2557.3 1674.1 2579.3 C 1715.6 2601.4 1786.0 2610.9 1837.0 2616.9 C 1888.0 2622.9 1926.9 2622.2 1980.4 2615.3 C 2034.0 2608.3 2112.0 2595.5 2158.4 2575.2 C 2204.9 2555.0 2230.2 2527.6 2259.3 2493.7 C 2288.4 2459.8 2308.3 2425.9 2332.9 2371.9 C 2357.4 2317.8 2388.0 2230.0 2406.4 2169.4 C 2424.9 2108.8 2437.3 2035.1 2443.4 2008.3 L 2457.3 1895.3 C 2444.4 1901.8 2406.9 1913.2 2380.0 1934.2 C 2353.1 1955.2 2325.0 2005.7 2296.0 2021.4 C 2267.0 2037.1 2233.9 2034.4 2206.0 2028.4 C 2178.1 2022.5 2141.6 1992.8 2128.7 1985.7 L 2107.8 1983.9 C 2098.2 1978.6 2070.6 1967.2 2050.0 1952.1 C 2029.4 1937.0 2006.0 1899.7 1984.0 1893.5 C 1962.0 1887.3 1940.0 1914.7 1918.0 1914.9 C 1896.0 1915.1 1874.0 1889.3 1852.0 1894.9 C 1830.0 1900.6 1806.6 1929.1 1786.0 1948.8 C 1765.4 1968.5 1737.8 2002.3 1728.2 2013.0 L 1751.3 2020.4 C 1735.4 2019.4 1686.9 2008.2 1656.0 2014.0 C 1625.1 2019.8 1596.0 2064.4 1566.0 2055.3 C 1536.0 2046.3 1505.9 1992.0 1476.0 1959.6 C 1446.1 1927.1 1401.6 1877.1 1386.7 1860.6 Z  M 1720.0 2089.9 C 1723.7 2092.4 1734.0 2100.4 1742.1 2105.1 C 1750.2 2109.8 1758.0 2113.1 1768.6 2118.2 C 1779.3 2123.4 1791.6 2131.3 1805.8 2136.2 C 1820.0 2141.1 1836.9 2145.1 1853.7 2147.8 C 1870.6 2150.4 1888.5 2151.8 1906.8 2152.1 C 1925.1 2152.3 1945.4 2151.4 1963.6 2149.1 C 1981.8 2146.7 2000.1 2142.7 2015.9 2138.1 C 2031.8 2133.4 2046.4 2126.6 2058.8 2121.3 C 2071.2 2116.1 2081.3 2111.4 2090.4 2106.4 C 2099.5 2101.5 2109.3 2094.0 2113.1 2091.6 L 2113.1 2091.6 C 2109.5 2089.5 2099.6 2083.7 2091.2 2079.5 C 2082.9 2075.2 2074.0 2070.8 2062.9 2066.2 C 2051.7 2061.7 2039.9 2056.6 2024.3 2052.1 C 2008.7 2047.6 1988.5 2039.2 1969.1 2039.1 C 1949.7 2039.1 1927.9 2052.1 1907.9 2052.0 C 1888.0 2051.8 1867.7 2038.7 1849.5 2038.4 C 1831.4 2038.0 1813.0 2045.6 1799.0 2049.8 C 1784.9 2054.1 1774.9 2059.4 1765.1 2063.9 C 1755.3 2068.4 1747.8 2072.6 1740.3 2076.9 C 1732.8 2081.3 1723.4 2087.7 1720.0 2089.9 Z"/><path class="ink-fill" d="M 1437.0 1033.0 C 1453.1 1008.5 1499.7 924.4 1533.8 885.5 C 1567.9 846.6 1604.8 823.2 1641.8 799.8 C 1678.8 776.4 1718.8 755.9 1755.8 745.1 C 1792.8 734.4 1827.8 738.0 1863.8 735.2 C 1899.8 732.3 1935.8 725.6 1971.8 728.0 C 2007.8 730.4 2042.8 737.5 2079.8 749.3 C 2116.8 761.1 2156.8 778.0 2193.8 798.8 C 2230.8 819.6 2267.7 839.7 2301.8 874.0 C 2335.9 908.3 2382.5 982.9 2398.6 1004.6 L 2398.6 1004.6 C 2382.5 985.1 2335.9 917.7 2301.8 887.6 C 2267.7 857.6 2230.8 841.8 2193.8 824.5 C 2156.8 807.2 2116.8 791.5 2079.8 784.0 C 2042.8 776.4 2007.8 779.0 1971.8 779.4 C 1935.8 779.8 1899.8 786.5 1863.8 786.6 C 1827.8 786.6 1792.8 773.3 1755.8 779.8 C 1718.8 786.3 1678.8 805.6 1641.8 825.5 C 1604.8 845.4 1567.9 864.6 1533.8 899.2 C 1499.7 933.8 1453.1 1010.7 1437.0 1033.0 Z"/><path class="av" d="M 1437.0 1033.0 C 1453.1 1008.5 1499.7 924.4 1533.8 885.5 C 1567.9 846.6 1604.8 823.2 1641.8 799.8 C 1678.8 776.4 1718.8 755.9 1755.8 745.1 C 1792.8 734.4 1827.8 738.0 1863.8 735.2 C 1899.8 732.3 1935.8 725.6 1971.8 728.0 C 2007.8 730.4 2042.8 737.5 2079.8 749.3 C 2116.8 761.1 2156.8 778.0 2193.8 798.8 C 2230.8 819.6 2267.7 839.7 2301.8 874.0 C 2335.9 908.3 2382.5 982.9 2398.6 1004.6"/><path class="av" d="M 1641.8 810.3 C 1660.8 802.3 1718.8 769.4 1755.8 762.5 C 1792.8 755.5 1827.8 768.6 1863.8 768.6 C 1899.8 768.5 1935.8 762.1 1971.8 762.1 C 2007.8 762.1 2061.8 767.7 2079.8 768.8"/><path class="av" d="M 1755.8 750.0 C 1773.8 750.8 1827.8 754.6 1863.8 754.6 C 1899.8 754.5 1953.8 750.5 1971.8 749.6"/><path class="av" d="M 1437.0 1033.0 C 1453.1 1010.7 1499.7 933.8 1533.8 899.2 C 1567.9 864.6 1604.8 845.4 1641.8 825.5 C 1678.8 805.6 1718.8 786.3 1755.8 779.8 C 1792.8 773.3 1827.8 786.6 1863.8 786.6 C 1899.8 786.5 1935.8 779.8 1971.8 779.4 C 2007.8 779.0 2042.8 776.4 2079.8 784.0 C 2116.8 791.5 2156.8 807.2 2193.8 824.5 C 2230.8 841.8 2267.7 857.6 2301.8 887.6 C 2335.9 917.7 2382.5 985.1 2398.6 1004.6"/><path class="av-thin" d="M 1410 1240 C 1395 1270 1380 1290 1368 1320"/><path class="av-thin" d="M 2430 1240 C 2445 1270 2460 1290 2472 1320"/><path class="av-thin" d="M 1392 1345 C 1378 1375 1365 1395 1352 1425"/><path class="av-thin" d="M 2448 1345 C 2462 1375 2475 1395 2488 1425"/><path class="av-thin" d="M 1372 1445 C 1360 1470 1348 1490 1338 1520"/><path class="av-thin" d="M 2468 1445 C 2480 1470 2492 1490 2502 1520"/><path class="av" d="M 1386.7 1860.6 C 1401.6 1877.1 1446.1 1927.1 1476.0 1959.6 C 1505.9 1992.0 1536.0 2046.3 1566.0 2055.3 C 1596.0 2064.4 1625.1 2019.8 1656.0 2014.0 C 1686.9 2008.2 1735.4 2019.4 1751.3 2020.4"/><path class="av" d="M 2457.3 1895.3 C 2444.4 1901.8 2406.9 1913.2 2380.0 1934.2 C 2353.1 1955.2 2325.0 2005.7 2296.0 2021.4 C 2267.0 2037.1 2233.9 2034.4 2206.0 2028.4 C 2178.1 2022.5 2141.6 1992.8 2128.7 1985.7"/><path class="av" d="M 1728.2 2013.0 C 1737.8 2002.3 1765.4 1968.5 1786.0 1948.8 C 1806.6 1929.1 1830.0 1900.6 1852.0 1894.9 C 1874.0 1889.3 1896.0 1915.1 1918.0 1914.9 C 1940.0 1914.7 1962.0 1887.3 1984.0 1893.5 C 2006.0 1899.7 2029.4 1937.0 2050.0 1952.1 C 2070.6 1967.2 2098.2 1978.6 2107.8 1983.9"/><path class="av" d="M 1398.0 2008.4 C 1405.3 2034.5 1421.9 2107.1 1441.6 2165.1 C 1461.2 2223.2 1491.4 2303.4 1515.9 2356.7 C 1540.3 2410.0 1561.8 2447.7 1588.1 2484.8 C 1614.5 2521.9 1632.7 2557.3 1674.1 2579.3 C 1715.6 2601.4 1786.0 2610.9 1837.0 2616.9 C 1888.0 2622.9 1926.9 2622.2 1980.4 2615.3 C 2034.0 2608.3 2112.0 2595.5 2158.4 2575.2 C 2204.9 2555.0 2230.2 2527.6 2259.3 2493.7 C 2288.4 2459.8 2308.3 2425.9 2332.9 2371.9 C 2357.4 2317.8 2388.0 2230.0 2406.4 2169.4 C 2424.9 2108.8 2437.3 2035.1 2443.4 2008.3"/><path class="av" d="M 1588.1 2484.8 C 1592.3 2509.8 1610.6 2591.5 1613.1 2634.8 C 1615.6 2678.1 1604.8 2726.5 1603.1 2744.8"/><path class="av" d="M 2259.3 2493.7 C 2255.1 2518.7 2236.8 2600.3 2234.3 2643.7 C 2231.8 2687.0 2242.6 2735.3 2244.3 2753.7"/><path class="av" d="M 1603.1 2744.8 C 1629.9 2747.5 1710.0 2755.6 1763.4 2761.0 C 1816.9 2766.4 1870.3 2776.5 1923.7 2777.2 C 1977.1 2778.0 2030.6 2769.4 2084.0 2765.4 C 2137.4 2761.5 2217.6 2755.6 2244.3 2753.7"/><path class="av" d="M 1603.1 2744.8 C 1579.8 2751.5 1486.5 2778.1 1463.1 2784.8"/><path class="av" d="M 2244.3 2753.7 C 2267.6 2760.3 2361.0 2787.0 2384.3 2793.7"/><path class="av" d="M 1903.3 1804.9 C 1903.3 1815.0 1903.3 1855.3 1903.3 1865.4"/><path class="av" d="M 1758.2 1886.7 C 1782.4 1883.1 1853.5 1865.4 1903.3 1865.4 C 1953.0 1865.4 2031.3 1883.2 2056.9 1886.7"/><path class="av" d="M 1758.2 1886.7 C 1771.0 1890.2 1810.4 1903.4 1834.9 1907.9 C 1859.3 1912.4 1893.3 1912.7 1905.0 1913.7"/><path class="av" d="M 2056.9 1886.7 C 2043.5 1890.0 2001.9 1902.2 1976.6 1906.7 C 1951.3 1911.2 1917.0 1912.5 1905.0 1913.7"/><path class="av" d="M 1366.0 1420.0 C 1365.0 1430.7 1368.0 1463.3 1360.0 1484.0 C 1352.0 1504.7 1324.2 1523.3 1318.0 1544.0 C 1311.8 1564.7 1320.0 1587.3 1323.0 1608.0 C 1326.0 1628.7 1333.5 1647.3 1336.0 1668.0 C 1338.5 1688.7 1335.8 1711.3 1338.0 1732.0 C 1340.2 1752.7 1347.2 1771.3 1349.0 1792.0 C 1350.8 1812.7 1349.0 1845.3 1349.0 1856.0"/><path class="av" d="M 2470.0 1420.0 C 2471.5 1430.7 2461.0 1463.3 2479.0 1484.0 C 2497.0 1504.7 2561.5 1523.3 2578.0 1544.0 C 2594.5 1564.7 2579.5 1587.3 2578.0 1608.0 C 2576.5 1628.7 2572.5 1647.3 2569.0 1668.0 C 2565.5 1688.7 2560.2 1711.3 2557.0 1732.0 C 2553.8 1752.7 2552.5 1771.3 2550.0 1792.0 C 2547.5 1812.7 2543.3 1845.3 2542.0 1856.0"/><path class="av" d="M 1350.0 1544.0 C 1350.8 1554.7 1352.0 1587.3 1355.0 1608.0 C 1358.0 1628.7 1365.5 1647.3 1368.0 1668.0 C 1370.5 1688.7 1369.7 1721.3 1370.0 1732.0"/><path class="av" d="M 2546.0 1544.0 C 2546.0 1554.7 2547.5 1587.3 2546.0 1608.0 C 2544.5 1628.7 2540.5 1647.3 2537.0 1668.0 C 2533.5 1688.7 2527.0 1721.3 2525.0 1732.0"/><path class="av" d="M 2369.0 1386.9 C 2361.4 1380.3 2342.6 1357.5 2323.2 1347.2 C 2303.7 1337.0 2280.7 1328.2 2252.3 1325.4 C 2224.0 1322.6 2191.9 1322.2 2153.1 1330.4 C 2114.2 1338.5 2041.6 1366.9 2019.3 1374.2"/><path class="av" d="M 1458.2 1385.1 C 1465.4 1378.5 1483.1 1355.4 1501.5 1345.3 C 1520.0 1335.3 1541.6 1327.5 1569.1 1325.0 C 1596.5 1322.5 1627.8 1322.3 1666.0 1330.6 C 1704.3 1338.9 1776.5 1367.5 1798.6 1374.9"/><g class="av-glasses"><circle cx="1612" cy="1500" r="150" class="lens"/><circle cx="2210" cy="1500" r="150" class="lens"/><path class="av" d="M1762 1490 C1830 1455 1990 1455 2060 1490"/><path class="av" d="M1462 1480 L1380 1440"/><path class="av" d="M2360 1480 L2445 1440"/><circle data-eye cx="1585" cy="1512" r="20" class="eyeball"/><circle data-eye cx="2183" cy="1512" r="20" class="eyeball"/></g></g></symbol>
+<pattern id="guil" width="120" height="28" patternUnits="userSpaceOnUse"><path d="M0 14 C20 2 40 2 60 14 S100 26 120 14 M0 22 C20 10 40 10 60 22 S100 34 120 22" fill="none" stroke="#8B948F" stroke-opacity=".28" stroke-width="1"/></pattern>
+</defs></svg>
+
+<header class="hero">
+  <div>
+    <h1>Luis<br>Matute</h1>
+    <p>Full-stack developer at Booking.com. Twenty years of stamps, from Honduras to Amsterdam. Open the passport.</p>
+    <div class="cue"><i></i>Scroll to turn the pages</div>
+  </div>
+  <div class="book" aria-hidden="true">
+    <div class="inside"><svg class="guil" style="position:absolute;inset:0;width:100%;height:100%"><rect width="100%" height="100%" fill="url(#guil)"/></svg></div>
+    <div class="cover" id="cover">
+      <svg class="emb" viewBox="-60 -60 120 120"><circle r="54" fill="none" stroke="#C6F432" stroke-width="2"/><ellipse rx="24" ry="54" fill="none" stroke="#C6F432" stroke-width="1.5"/><path d="M-54 0 H54 M-46 -28 H46 M-46 28 H46" fill="none" stroke="#C6F432" stroke-width="1.5"/><path d="M-30 -8 C-10 -30 20 -30 34 -14 L40 -20 L44 -8 L32 -6 L36 -11 C24 -24 0 -24 -18 -6 Z" fill="#C6F432" stroke="#111412" stroke-width="1.5" stroke-linejoin="round"/></svg>
+      <div><b>Luis Matute</b><span>Travel record · 2006–now</span></div>
+      <i class="chip"></i>
+    </div>
+  </div>
+</header>
+
+<main class="spreads">
+  <!-- 1 data page + the timeline -->
+  <section class="spread" data-k="0" aria-label="Passport data page and travel record">
+    <div class="page tall"><svg class="guil"><rect width="100%" height="100%" fill="url(#guil)"/></svg>
+      <div class="kicker"><span class="mono">01</span><span>Holder</span></div>
+      <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+        <div class="photo"><svg viewBox="0 0 120 185"><use href="#luis" width="120" height="185"/></svg></div>
+        <dl class="fields">
+          <dt>Surname</dt><dd>Matute</dd><dt>Given name</dt><dd>Luis</dd>
+          <dt>From</dt><dd>Honduras</dd><dt>Lives in</dt><dd>Amsterdam, since Oct 2017</dd>
+          <dt>Occupation</dt><dd>Full-stack developer</dd>
+        </dl>
+      </div>
+      <div class="mrz" aria-hidden="true">P&lt;HNDMATUTE&lt;&lt;LUIS&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;<br>FULL&lt;STACK&lt;DEVELOPER&lt;&lt;AMS&lt;&lt;2017&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</div>
+      <span class="pno">1</span>
+    </div>
+    <div class="page tall"><svg class="guil"><rect width="100%" height="100%" fill="url(#guil)"/></svg>
+      <div class="kicker"><span class="mono">02</span><span>Travel record</span></div>
+      <h2>Five stamps</h2>
+      <table class="record" aria-label="Timeline">
+        <tr data-row="1"><td><i class="box"></i></td><td class="d">Graduated 2012</td><td>BSc Computer Science<div class="pl">Honduras</div></td></tr>
+        <tr data-row="1"><td><i class="box"></i></td><td class="d">2006–2011</td><td>Security lead, American Airlines<div class="pl">Honduras</div></td></tr>
+        <tr data-row="2"><td><i class="box"></i></td><td class="d">Jul 2011–Aug 2017</td><td>Front-end developer, Sandals Resorts<div class="pl">Caribbean</div></td></tr>
+        <tr data-row="3"><td><i class="box"></i></td><td class="d">c. 2012–2019</td><td>Freelance + Fluky Factory<div class="pl">Honduras</div></td></tr>
+        <tr data-row="4"><td><i class="box"></i></td><td class="d">Oct 2017–now</td><td>Full-stack developer, Booking.com<div class="pl">Amsterdam</div></td></tr>
+      </table>
+      <span class="pno">2</span>
+    </div>
+  </section>
+
+  <!-- 2 BSc + AA -->
+  <section class="spread" data-k="1" aria-label="Honduras: BSc and American Airlines">
+    <div class="page tall"><svg class="guil"><rect width="100%" height="100%" fill="url(#guil)"/></svg>
+      <div class="kicker"><span class="mono">Graduated 2012</span><span>Honduras</span></div>
+      <h2>BSc Computer Science</h2>
+      <p>Universidad Católica de Honduras.</p>
+      <div class="st" style="--x:clamp(10px,6vw,90px);--y:28px;--r:-8deg;width:min(220px,46vw)"><svg class="stamp" viewBox="-90 -90 180 180" role="img" aria-label="U. CATÓLICA DE HONDURAS, BSc, GRADUATED 2012"><circle r="78" class="ln"/><circle r="72" class="ln2"/><circle r="54" class="ln2"/><path id="bsct" d="M-63 0 A63 63 0 0 1 63 0" fill="none"/><path id="bscb" d="M-63 0 A63 63 0 0 0 63 0" fill="none"/><text class="st-arc"><textPath href="#bsct" startOffset="50%" text-anchor="middle">U. CATÓLICA DE HONDURAS</textPath></text><text class="st-arc"><textPath href="#bscb" startOffset="50%" text-anchor="middle" dominant-baseline="hanging">COMPUTER SCIENCE</textPath></text><text class="st-big" y="2" text-anchor="middle">BSc</text><text class="st-sub" y="20" text-anchor="middle">GRADUATED 2012</text></svg></div>
+      <span class="pno">3</span>
+    </div>
+    <div class="page tall"><svg class="guil"><rect width="100%" height="100%" fill="url(#guil)"/></svg>
+      <div class="kicker"><span class="mono">2006–2011</span><span>Honduras</span></div>
+      <h2>Security lead, American Airlines</h2>
+      <p>Led about 25 agents doing TSA-compliant security for airlines outside the US: x-raying luggage, checking passports and visas, checking the aircraft.</p>
+      <figure style="margin-top:22px;max-width:420px"><svg class="schem" viewBox="0 0 384 168" role="img" aria-label="Airport security line drawing: x-ray belt, passport check, aircraft check"><path class="ln" d="M10 132 H200 M10 144 H200"/><circle class="ln2" cx="22" cy="138" r="4"/><circle class="ln2" cx="188" cy="138" r="4"/><path class="ln" d="M70 132 V78 H150 V132"/><path class="ln2" d="M80 86 V132 M88 86 V132 M96 86 V132"/><rect class="ln" x="28" y="104" width="38" height="28" fill="#fff"/><path class="ln" d="M40 104 V96 H54 V104"/><rect class="f-ink" x="160" y="44" width="70" height="52"/><rect class="ln-chalk" x="174" y="58" width="42" height="28"/><path class="ln-acc" d="M186 58 V52 H204 V58 M180 70 H210"/><path class="ln2" d="M195 96 V132"/><rect class="f-chalk ln" x="236" y="88" width="40" height="54"/><circle class="ln2" cx="256" cy="108" r="9"/><path class="ln2" d="M246 128 H266"/><rect class="f-acc ln" x="262" y="100" width="34" height="26" transform="rotate(-8 279 113)"/><path class="ln" d="M300 126 C320 104 352 98 378 100 M300 126 C330 132 360 130 378 124 M318 112 L326 104 M338 106 L344 100"/><text class="sk" x="10" y="164">x-ray · passports and visas · aircraft check</text></svg></figure>
+      <div class="st" style="--x:clamp(140px,19vw,250px);--y:-24px;--r:7deg;--d:120ms;width:min(190px,42vw)"><svg class="stamp" viewBox="-90 -90 180 180" role="img" aria-label="AMERICAN AIRLINES, Security, LEAD · 25 AGENTS"><circle r="64" class="f-acc" style="stroke:none"/><circle r="78" class="ln"/><circle r="72" class="ln2"/><circle r="54" class="ln2"/><path id="aat" d="M-63 0 A63 63 0 0 1 63 0" fill="none"/><path id="aab" d="M-63 0 A63 63 0 0 0 63 0" fill="none"/><text class="st-arc"><textPath href="#aat" startOffset="50%" text-anchor="middle">AMERICAN AIRLINES</textPath></text><text class="st-arc"><textPath href="#aab" startOffset="50%" text-anchor="middle" dominant-baseline="hanging">HONDURAS · 2006–2011</textPath></text><text class="st-big" y="2" text-anchor="middle">Security</text><text class="st-sub" y="20" text-anchor="middle">LEAD · 25 AGENTS</text></svg></div>
+      <span class="pno">4</span>
+    </div>
+  </section>
+
+  <!-- 3 Sandals -->
+  <section class="spread" data-k="2" aria-label="Sandals Resorts">
+    <div class="page tall"><svg class="guil"><rect width="100%" height="100%" fill="url(#guil)"/></svg>
+      <div class="kicker"><span class="mono">Jul 2011–Aug 2017</span><span>Caribbean</span></div>
+      <h2>Front-end developer, Sandals Resorts</h2>
+      <p>Front end with some back end on sandals.com and beaches.com. Led several full redesigns and re-engineering efforts, and brought in Sass, JS templating and build tooling.</p>
+      <div class="st" style="--x:0px;--y:30px;--r:-4deg;width:min(300px,70vw)"><svg class="stamp" viewBox="0 0 260 120" role="img" aria-label="Sandals Resorts, front-end developer, Jul 2011 to Aug 2017"><rect x="10" y="10" width="240" height="100" class="f-acc" style="stroke:none"/><rect x="3" y="3" width="254" height="114" class="ln"/><rect x="10" y="10" width="240" height="100" class="ln2"/><text class="st-sm" x="24" y="36">ENTRY · CARIBBEAN</text><text class="st-big" x="24" y="56">Sandals Resorts</text><text class="st-sm" x="24" y="86">FRONT-END DEVELOPER</text><text class="st-sm" x="24" y="106">JUL 2011 – AUG 2017</text></svg></div>
+      <span class="pno">5</span>
+    </div>
+    <div class="page tall"><svg class="guil"><rect width="100%" height="100%" fill="url(#guil)"/></svg>
+      <figure class="card" style="left:7%;top:44px;width:min(300px,66%);--r:-3deg"><i class="tape"></i><svg class="schem" viewBox="0 0 240 164" role="img" aria-label="sandals.com line schematic"><rect class="f-chalk" x="1" y="1" width="238" height="18"/><rect class="ln" x="1" y="1" width="238" height="162" fill="#fff"/><rect class="f-chalk ln" x="1" y="1" width="238" height="18"/><text class="url" x="10" y="14">sandals.com</text><path class="ln2" d="M10 30 H60 M140 30 H165 M175 30 H200 M210 30 H230"/><rect class="f-chalk ln2" x="10" y="40" width="220" height="70"/><circle class="f-acc ln2" cx="190" cy="60" r="10"/><path class="ln2" d="M10 96 C40 90 60 100 90 94 S150 90 230 96"/><path class="ln" d="M52 104 C50 86 54 70 62 58 M62 58 C54 52 44 54 38 60 M62 58 C66 50 76 48 84 52 M62 58 C70 58 78 64 80 72 M62 58 C58 64 52 70 50 78"/><text class="sk" x="20" y="64">Couples, all-inclusive</text><rect class="ln2" x="20" y="100" width="60" height="18" fill="#fff"/><rect class="ln2" x="84" y="100" width="60" height="18" fill="#fff"/><rect class="f-ink" x="148" y="100" width="72" height="18"/><rect class="ln2" x="10" y="128" width="68" height="26"/><rect class="ln2" x="86" y="128" width="68" height="26"/><rect class="ln2" x="162" y="128" width="68" height="26"/></svg><figcaption><b>Sandals.com</b> · couples resorts</figcaption></figure>
+      <figure class="card" style="right:6%;bottom:44px;width:min(300px,66%);--r:2.5deg"><i class="tape"></i><svg class="schem" viewBox="0 0 240 164" role="img" aria-label="beaches.com line schematic"><rect class="f-chalk" x="1" y="1" width="238" height="18"/><rect class="ln" x="1" y="1" width="238" height="162" fill="#fff"/><rect class="f-chalk ln" x="1" y="1" width="238" height="18"/><text class="url" x="10" y="14">beaches.com</text><path class="ln2" d="M10 30 H60 M140 30 H165 M175 30 H200 M210 30 H230"/><rect class="f-chalk ln2" x="10" y="40" width="220" height="70"/><path class="ln" d="M150 108 V62 H178 V108 M150 62 C150 52 178 52 178 62"/><path class="ln" d="M178 66 C200 70 196 92 222 100"/><path class="ln2" d="M10 100 C30 96 50 104 70 100 S110 96 140 100"/><circle class="f-acc ln2" cx="108" cy="58" r="8"/><text class="sk" x="20" y="64">Family resorts</text><rect class="ln2" x="20" y="100" width="60" height="18" fill="#fff"/><rect class="ln2" x="84" y="100" width="40" height="18" fill="#fff"/><rect class="f-ink" x="128" y="100" width="22" height="18"/><rect class="ln2" x="10" y="128" width="106" height="26"/><rect class="ln2" x="124" y="128" width="106" height="26"/></svg><figcaption><b>Beaches.com</b> · family resorts</figcaption></figure>
+      <span class="pno">6</span>
+    </div>
+  </section>
+
+  <!-- 4 Fluky -->
+  <section class="spread" data-k="3" aria-label="Freelance and Fluky Factory">
+    <div class="page tall"><svg class="guil"><rect width="100%" height="100%" fill="url(#guil)"/></svg>
+      <div class="kicker"><span class="mono">c. 2012–2019</span><span>Honduras, alongside Sandals</span></div>
+      <h2>Freelance + Fluky Factory</h2>
+      <p>One of four co-founders, with two or three employees and a handful of contractors. I owned all the engineering: databases, back end, front end, and the technical side of every client.</p>
+      <div class="st" style="--x:0px;--y:26px;--r:6deg;width:min(190px,44vw)"><svg class="stamp" viewBox="-90 -90 180 180" role="img" aria-label="FLUKY FACTORY, 1 of 4, CO-FOUNDERS"><circle r="78" class="ln"/><circle r="72" class="ln2"/><circle r="54" class="ln2"/><path id="flt" d="M-63 0 A63 63 0 0 1 63 0" fill="none"/><path id="flb" d="M-63 0 A63 63 0 0 0 63 0" fill="none"/><text class="st-arc"><textPath href="#flt" startOffset="50%" text-anchor="middle">FLUKY FACTORY</textPath></text><text class="st-arc"><textPath href="#flb" startOffset="50%" text-anchor="middle" dominant-baseline="hanging">C. 2012–2019</textPath></text><text class="st-big" y="2" text-anchor="middle">1 of 4</text><text class="st-sub" y="20" text-anchor="middle">CO-FOUNDERS</text></svg></div>
+      <div class="st" style="--x:clamp(150px,16vw,230px);--y:-60px;--r:-9deg;--d:140ms;width:min(170px,40vw)"><svg class="stamp" viewBox="0 0 200 104" role="img" aria-label="Freelance, c. 2012 to 2019"><rect x="3" y="3" width="194" height="98" class="ln"/><rect x="10" y="10" width="180" height="84" class="ln2"/><text class="st-sm" x="24" y="36">HONDURAS</text><text class="st-big" x="24" y="56">Freelance</text><text class="st-sm" x="24" y="86">C. 2012–2019</text></svg></div>
+      <span class="pno">7</span>
+    </div>
+    <div class="page tall"><svg class="guil"><rect width="100%" height="100%" fill="url(#guil)"/></svg>
+      <figure class="card" style="left:5%;top:36px;width:90%;--r:-1.5deg"><i class="tape"></i><svg class="schem" viewBox="0 0 384 168" role="img" aria-label="Catch Advisory Group line schematic"><rect class="f-chalk" x="1" y="1" width="382" height="18"/><rect class="ln" x="1" y="1" width="382" height="166" fill="#fff"/><rect class="f-chalk ln" x="1" y="1" width="382" height="18"/><text class="url" x="10" y="14">catchadvisorygroup.com</text><path class="ln2" d="M10 30 H50 M300 30 H330 M340 30 H370"/><g><circle class="ln" cx="66" cy="96" r="44" fill="#fff"/><circle class="ln" cx="66" cy="96" r="30"/><circle class="f-acc ln" cx="66" cy="96" r="16"/><path class="ln" d="M66 96 L112 58 M104 56 L116 54 L114 66"/></g><rect class="ln" x="132" y="66" width="56" height="44" fill="#fff"/><path class="ln2" d="M132 78 C150 74 170 82 188 78"/><path class="ln" d="M148 94 C154 88 164 88 168 94 C164 100 154 100 148 94 Z M168 94 L176 88 V100 Z"/><path class="ln2" d="M200 60 L250 60 M200 60 L214 118 M250 60 L236 118 M206 80 H244 M210 98 H240 M216 60 L222 118 M234 60 L228 118"/><path class="ln" d="M282 92 C282 86 290 86 290 92 C290 100 276 100 276 90 C276 78 296 78 296 92 C296 106 270 106 270 90"/><path class="ln" d="M312 64 L348 74 L320 84 Z M320 84 L324 92 L330 80"/><path class="ln" d="M322 112 H362 L354 124 H330 Z M342 112 V96 L356 110"/><path class="ln2 dash" d="M20 146 H370"/><path class="ln" d="M360 142 L370 146 L360 150"/><text class="sk" x="20" y="160">scrolls sideways</text></svg><figcaption><span class="feat-tag">Featured</span><b>Catch Advisory Group</b> · a site that scrolls sideways, built around a giant target</figcaption></figure>
+      <figure class="card sm" style="left:4%;top:330px;width:31%;--r:-3deg"><svg class="schem" viewBox="0 0 184 150" role="img" aria-label="Roatan Excursions line schematic"><rect class="f-chalk" x="1" y="1" width="182" height="18"/><rect class="ln" x="1" y="1" width="182" height="148" fill="#fff"/><rect class="f-chalk ln" x="1" y="1" width="182" height="18"/><text class="url" x="10" y="14">roatanexcursions.com</text><path class="ln" d="M10 50 L170 80"/><path class="ln" d="M96 66 V80 M90 80 H102 L100 94 H92 Z"/><rect class="ln2" x="10" y="100" width="52" height="40"/><rect class="ln2" x="66" y="100" width="52" height="40"/><rect class="ln2" x="122" y="100" width="52" height="40"/><path class="ln2" d="M18 128 H54 M74 128 H110 M130 128 H166"/><rect class="f-acc ln2" x="130" y="34" width="44" height="18"/></svg><figcaption><b>Roatan Excursions</b></figcaption></figure>
+      <figure class="card sm" style="left:35%;top:350px;width:31%;--r:2deg"><svg class="schem" viewBox="0 0 184 150" role="img" aria-label="Mayan Princess line schematic"><rect class="f-chalk" x="1" y="1" width="182" height="18"/><rect class="ln" x="1" y="1" width="182" height="148" fill="#fff"/><rect class="f-chalk ln" x="1" y="1" width="182" height="18"/><text class="url" x="10" y="14">mayanprincess.com</text><path class="ln" d="M14 70 L44 46 L74 70 M22 64 V96 H66 V64 M40 96 V80 H50 V96"/><path class="ln2" d="M84 96 L104 80 L124 96 M90 92 V104 H118 V92"/><path class="ln2" d="M6 108 C40 102 80 112 178 106"/><rect class="ln2" x="10" y="116" width="62" height="22" fill="#fff"/><rect class="ln2" x="76" y="116" width="62" height="22" fill="#fff"/><path class="ln2" d="M58 122 H66 V132 H58 Z M124 122 H132 V132 H124 Z"/><rect class="f-acc ln2" x="142" y="116" width="32" height="22"/><path class="ln2" d="M140 40 C150 30 166 30 170 44 M150 52 V70"/></svg><figcaption><b>Mayan Princess</b></figcaption></figure>
+      <figure class="card sm" style="left:66%;top:326px;width:31%;--r:-1deg"><svg class="schem" viewBox="0 0 184 150" role="img" aria-label="Roatan Ferry line schematic"><rect class="f-chalk" x="1" y="1" width="182" height="18"/><rect class="ln" x="1" y="1" width="182" height="148" fill="#fff"/><rect class="f-chalk ln" x="1" y="1" width="182" height="18"/><text class="url" x="10" y="14">roatanferry.com</text><path class="ln" d="M14 120 C30 112 52 116 66 124 C58 132 30 134 14 120 Z"/><path class="ln" d="M110 52 C130 44 160 46 172 52 C160 60 128 62 110 52 Z"/><path class="ln2 dash" d="M50 116 C80 100 110 80 132 60"/><path class="f-acc ln" d="M82 92 H112 L106 100 H86 Z"/><path class="ln2" d="M90 92 V86 H104 V92"/><text class="sk" x="12" y="142">La Ceiba</text><text class="sk" x="118" y="40">Roatan</text><path class="ln2" d="M120 100 H174 M120 110 H174 M120 120 H160"/></svg><figcaption><b>Roatan Ferry</b></figcaption></figure>
+      <span class="pno">8</span>
+    </div>
+  </section>
+
+  <!-- 5 Booking -->
+  <section class="spread" data-k="4" aria-label="Booking.com, Amsterdam">
+    <div class="page tall"><svg class="guil"><rect width="100%" height="100%" fill="url(#guil)"/></svg>
+      <div class="kicker"><span class="mono">Oct 2017</span><span>The move</span></div>
+      <h2>Honduras to Amsterdam</h2>
+      <p>One way, October 2017.</p>
+      <div class="pass" aria-label="Boarding pass, Honduras to Amsterdam, October 2017">
+        <div class="main">
+          <div class="row"><div>Passenger<b>Luis Matute</b></div><div>Date<b>Oct 2017</b></div></div>
+          <div class="route">Honduras <svg viewBox="0 0 48 20"><path class="ln" d="M2 10 H44 M36 3 L44 10 L36 17"/></svg> Amsterdam</div>
+          <div class="row"><div>Class<b>One way</b></div><div>Seat<b>Window</b></div></div>
+        </div>
+        <div class="stub"><div class="avs"><svg viewBox="0 0 60 92" width="60" height="92" style="margin-bottom:-14px"><use href="#luis" width="60" height="92"/></svg></div><div class="bars"><i style="width:2px"></i><i style="width:1px"></i><i style="width:3px"></i><i style="width:1px"></i><i style="width:1px"></i><i style="width:1px"></i><i style="width:2px"></i><i style="width:1px"></i><i style="width:1px"></i><i style="width:1px"></i><i style="width:1px"></i><i style="width:3px"></i><i style="width:3px"></i><i style="width:1px"></i><i style="width:1px"></i><i style="width:1px"></i><i style="width:3px"></i><i style="width:1px"></i></div><span>Gate: Booking.com</span></div>
+      </div>
+      <span class="pno">9</span>
+    </div>
+    <div class="page tall"><svg class="guil"><rect width="100%" height="100%" fill="url(#guil)"/></svg>
+      <div class="kicker"><span class="mono">Oct 2017–now</span><span>Amsterdam</span></div>
+      <h2>Full-stack developer, Booking.com</h2>
+      <p>Joined in Oct 2017 as a front-end developer, now full stack. Worked on accessibility, then fraud, then spent 3–4 years in the room selection org. On the experimentation (A/B testing) tool since 2024.</p>
+      <div class="st" style="--x:clamp(0px,4vw,60px);--y:26px;--r:-6deg;width:min(230px,50vw)"><svg class="stamp" viewBox="-90 -90 180 180" role="img" aria-label="AMSTERDAM · ARRIVED, Oct 2017, FULL STACK"><circle r="64" class="f-acc" style="stroke:none"/><circle r="78" class="ln"/><circle r="72" class="ln2"/><circle r="54" class="ln2"/><path id="amst" d="M-63 0 A63 63 0 0 1 63 0" fill="none"/><path id="amsb" d="M-63 0 A63 63 0 0 0 63 0" fill="none"/><text class="st-arc"><textPath href="#amst" startOffset="50%" text-anchor="middle">AMSTERDAM · ARRIVED</textPath></text><text class="st-arc"><textPath href="#amsb" startOffset="50%" text-anchor="middle" dominant-baseline="hanging">BOOKING.COM · NOW</textPath></text><text class="st-big" y="2" text-anchor="middle">Oct 2017</text><text class="st-sub" y="20" text-anchor="middle">FULL STACK</text></svg></div>
+      <span class="pno">10</span>
+    </div>
+  </section>
+</main>
+<div class="end"><h2>No exit stamp yet.</h2><p class="small" style="margin-top:16px">Say hello: email · X</p></div>
+<script>
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches,cl=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
+const cover=document.getElementById('cover'),spreads=[...document.querySelectorAll('.spread')],rows=[...document.querySelectorAll('.record tr')];
+const eQ=t=>1-Math.pow(1-t,5);
+function frame(){
+  const vh=innerHeight,mob=innerWidth<=860;
+  // cover opens with the first 70% of a screen of scroll (scrubbed, 0 -> -165deg)
+  if(!RM){const t=cl(scrollY/(vh*.7));cover.style.transform=`rotateY(${-165*eQ(t)}deg)`;cover.style.opacity=t>.98?0:1}
+  if(mob||RM)return;
+  // stacking: the spread underneath scales 1 -> .94 and drops back while the next one slides over it
+  spreads.forEach((s,i)=>{const n=spreads[i+1];if(!n){s.style.transform='';return}
+    const r=n.getBoundingClientRect();const t=cl(1-(r.top-vh*.06)/(vh*.9));s.style.transform=`scale(${1-.06*t}) translateY(${-14*t}px)`;});
+}
+let raf=0;addEventListener('scroll',()=>{raf||(raf=requestAnimationFrame(()=>{raf=0;frame()}))},{passive:true});addEventListener('resize',frame);
+// stamps land once, when their spread is 40% in view; the travel record ticks the matching row
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const s=e.target;
+  s.querySelectorAll('.st').forEach(x=>x.classList.add('in'));const k=+s.dataset.k;rows.forEach(r=>{if(+r.dataset.row<=k)r.classList.add('on')});io.unobserve(s)}),{threshold:.4});
+spreads.forEach(s=>io.observe(s));frame();
+window.renderAt=()=>{document.querySelectorAll('.st').forEach(x=>x.classList.add('in'));rows.forEach(r=>r.classList.add('on'))};
+</script>
+</body></html>
