@@ -1,0 +1,1010 @@
+<!doctype html>
+<html lang="en">
+<head><meta name="robots" content="noindex,nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cleared · Luis Matute · travel concept A</title>
+<meta name="description" content="Concept A for luismatute.me: a career sent through an airport x-ray belt, one bag per stop.">
+<meta name="theme-color" content="#070B22">
+<link rel="preload" href="fonts/BigShouldersStencil-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/IBMPlexMono-Medium.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+/* biome-ignore-all lint/style/noDescendingSpecificity: the .m-desk, .m-port and .is-static groups never apply together, and in-group overrides lean on specificity on purpose */
+@font-face { font-family: "BSS"; src: url("fonts/BigShouldersStencil-var.woff2") format("woff2"); font-weight: 600 900; font-display: swap; }
+@font-face { font-family: "Plex Mono"; src: url("fonts/IBMPlexMono-Regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Plex Mono"; src: url("fonts/IBMPlexMono-Medium.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Plex Mono"; src: url("fonts/IBMPlexMono-SemiBold.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+
+:root {
+  --navy: #070b22;
+  --navy-2: #0d1440;
+  --navy-3: #16205a;
+  --ink: #0a1033;
+  --yellow: #ffc629;
+  --white: #ffffff;
+  --text: #f3f5ff;
+  --muted: #b3bde3;
+  --xo: #ff9a3d;
+  --xo-hi: #ffc383;
+  --xm: #3e8bff;
+  --xm-hi: #b4d3ff;
+  --xg: #43e39b;
+  --xg-hi: #9af6cc;
+  --xp: #ff4d7e;
+  --beam: #e6fcff;
+  --beam-glow: #3fe0ff;
+  --display: "BSS", "Arial Narrow", Impact, sans-serif;
+  --mono: "Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-belt: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+* { box-sizing: border-box; }
+html { background: var(--navy); color: var(--text); -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body { margin: 0; font: 400 16px/1.55 var(--mono); overflow-x: clip; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--beam-glow); outline-offset: 3px; }
+
+.skip { position: absolute; left: 12px; top: -80px; z-index: 50; padding: 12px 16px; background: var(--yellow); color: var(--ink); font-weight: 600; text-decoration: none; }
+.skip:focus { top: 12px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* ---------- copy (shared) ---------- */
+.kicker { margin: 0; font: 500 12px/1.4 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; }
+.copy h2 { margin: 0.35em 0 0.5em; font: 600 clamp(21px, 2vw, 30px)/1.14 var(--mono); letter-spacing: -0.015em; text-wrap: balance; }
+.copy p { margin: 0 0 0.85em; max-width: 46ch; }
+.found { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5em; counter-reset: f; }
+.found li { display: grid; grid-template-columns: 26px 1fr; gap: 0.7em; align-items: start; counter-increment: f; }
+.found li::before { content: counter(f); display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--xp); color: var(--ink); font: 600 13px/1 var(--mono); margin-top: 0.05em; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 0.9em 0 0; padding: 0; list-style: none; }
+.tags li { padding: 3px 9px 4px; border: 1.5px solid currentColor; font: 500 12.5px/1.35 var(--mono); }
+.tags li.feat { background: var(--ink); color: var(--yellow); border-color: var(--ink); }
+.found + p, .tags + p { margin-top: 0.9em; }
+.manifest { margin: 0.9em 0 0; display: grid; gap: 2px; }
+.manifest div { display: grid; grid-template-columns: 7.5em 1fr; gap: 0.6em; }
+.manifest dt { color: var(--muted); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; padding-top: 0.15em; }
+.manifest dd { margin: 0; }
+.hero h1 { margin: 0.1em 0 0; font: 600 clamp(24px, 2.4vw, 34px)/1.1 var(--mono); letter-spacing: -0.02em; }
+.hero .label { margin: 0; color: var(--muted); font: 500 12px/1.4 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; }
+.hero .intro p { margin: 0 0 0.6em; max-width: 34ch; font-size: clamp(16px, 1.35vw, 19px); }
+.cue { display: inline-flex; align-items: center; gap: 0.6em; margin-top: 0.4em; font: 500 12px/1.4 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; }
+.cue i { display: block; width: 26px; height: 2px; background: currentColor; }
+.portrait-wrap { display: flex; gap: 16px; align-items: flex-start; }
+.portrait { width: 92px; height: 115px; flex: none; border: 1px solid rgba(180, 211, 255, 0.35); background: rgba(13, 20, 64, 0.65); }
+
+/* ---------- motion stage ---------- */
+.is-motion .track { position: relative; }
+.is-motion .stage { position: sticky; top: 0; height: 100lvh; overflow: hidden; background: var(--yellow); contain: strict; }
+.is-motion .copies { position: sticky; top: 0; height: 100svh; margin-top: -100lvh; pointer-events: none; z-index: 5; }
+.stage > div, .xwin > div, .phys > div, .cam > div { position: absolute; }
+.surface { position: absolute; left: 0; top: 0; height: 100%; }
+.stage .layer { left: 0; top: 0; width: 100%; height: 100%; }
+.xwin { left: 0; top: 0; height: 100%; overflow: hidden; background: var(--navy); }
+.xwin .grid { inset: 0; background-image: linear-gradient(rgba(120, 160, 255, 0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(120, 160, 255, 0.07) 1px, transparent 1px); background-size: 48px 48px; }
+.xwin .scan { inset: 0; background: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 3px); }
+.cam { position: absolute; inset: 0; transform-origin: 50% 70%; will-change: transform; }
+.mover { position: absolute; left: 0; top: 0; will-change: transform; }
+.it { position: absolute; }
+.it svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.ttl { position: absolute; white-space: nowrap; }
+.ttl svg, .word svg { display: block; overflow: visible; }
+.belt-p, .belt-x { left: 0; width: 100%; }
+.belt-p .surface { position: absolute; left: 0; top: 0; height: 100%; background: var(--ink); }
+.belt-tex { position: absolute; top: 0; height: 100%; will-change: transform; }
+.roller { position: absolute; border-radius: 50%; will-change: transform; }
+.belt-p .roller { background: conic-gradient(from 0deg, var(--ink) 0 22%, #2a3a8c 22% 28%, var(--ink) 28% 72%, #2a3a8c 72% 78%, var(--ink) 78%); box-shadow: 0 0 0 2px var(--ink); }
+.belt-x .roller { border: 1.5px solid var(--xm-hi); background: conic-gradient(from 0deg, rgba(62, 139, 255, 0.55) 0 10%, rgba(62, 139, 255, 0.12) 10% 50%, rgba(62, 139, 255, 0.55) 50% 60%, rgba(62, 139, 255, 0.12) 60%); }
+.ttl { will-change: opacity; }
+.beam { width: 2px; background: var(--beam); box-shadow: 0 0 6px 1px var(--beam-glow), 0 0 22px 4px rgba(63, 224, 255, 0.55); }
+.beam-wash { width: 160px; background: linear-gradient(90deg, transparent, rgba(63, 224, 255, 0.28), transparent); opacity: 0; will-change: opacity; }
+.beam-on { animation: flicker 900ms steps(1, end) both; }
+@keyframes flicker { 0% { opacity: 0; } 12% { opacity: 1; } 18% { opacity: 0.2; } 26% { opacity: 1; } 34% { opacity: 0.5; } 40%, 100% { opacity: 1; } }
+.hud { left: 0; top: 0; display: flex; gap: 14px; align-items: center; color: var(--text); font: 500 12px/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; }
+.hud .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--xp); box-shadow: 0 0 10px var(--xp); animation: blink 1.6s steps(1, end) infinite; }
+@keyframes blink { 50% { opacity: 0.25; } }
+.hud .sep { color: var(--muted); }
+.legend { display: flex; gap: 16px; color: var(--muted); font: 500 12px/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; }
+.legend span { display: inline-flex; align-items: center; gap: 7px; }
+.legend i { width: 12px; height: 12px; border-radius: 3px; }
+.pips { display: flex; gap: 6px; align-items: center; }
+.pips i { width: 18px; height: 4px; background: var(--ink); opacity: 0.28; transition: opacity 0.3s; }
+.pips i.on { opacity: 1; }
+.panel { left: 0; right: 0; bottom: 0; background: var(--navy); border-top: 1.5px solid rgba(180, 211, 255, 0.25); }
+/* copies over the stage */
+/* each caption is a fixed box; text taller than its box shifts up 1:1 with the scroll (see target()) */
+.is-motion .copy { position: absolute; padding: 0 6px; opacity: 0; transform: translateY(14px); transition: opacity 0.28s ease, transform 0.28s ease; }
+.is-motion .copy.on { opacity: 1; transform: none; transition: opacity 0.62s var(--ease-out) 0.08s, transform 0.62s var(--ease-out) 0.08s; }
+.is-motion .copy.ov { -webkit-mask-image: linear-gradient(transparent, #000 10px, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(transparent, #000 10px, #000 calc(100% - 28px), transparent); }
+.is-motion .copy.ov .cin { will-change: transform; }
+.is-motion .cin { padding-top: 10px; }
+.is-motion .cin > * { transition: transform 0.62s var(--ease-out); }
+.is-motion .copy:not(.on) .cin > * { transform: translateY(10px); }
+.is-motion .copy.on .cin > *:nth-child(2) { transition-delay: 0.06s; }
+.is-motion .copy.on .cin > *:nth-child(3) { transition-delay: 0.12s; }
+.is-motion .copy.on .cin > *:nth-child(4) { transition-delay: 0.18s; }
+.is-motion .copy.on .cin > *:nth-child(5) { transition-delay: 0.24s; }
+.m-desk .copy { left: calc(var(--beam) + 4vw - 6px); right: calc(4vw - 6px); color: var(--ink); max-width: calc(39em + 12px); font-size: clamp(15px, 0.6vw + 7.5px, 19px); }
+.m-desk .copy h2 { font-size: clamp(21px, 1.9vw, 32px); }
+.m-desk .copy p { max-width: 54ch; }
+.m-desk .copy .found { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.55em 1.4em; }
+.m-desk .copy .found li::before { box-shadow: 0 0 0 2px var(--ink); }
+.m-desk .hero { left: calc(4vw - 6px); right: calc(4vw - 6px); max-width: none; color: var(--text); font-size: clamp(15px, 0.5vw + 9.6px, 19px); }
+.m-desk .hero .cin { display: grid; grid-template-columns: calc(var(--beam) - 8vw) 1fr; grid-template-rows: auto 1fr; column-gap: 8vw; row-gap: 1.2em; }
+.m-desk .hero .who { grid-column: 1; grid-row: 1; }
+.m-desk .hero .manifest { grid-column: 1; grid-row: 2; margin: 0; }
+.m-desk .hero .intro { grid-column: 2; grid-row: 1 / span 2; color: var(--ink); }
+.m-port .copy { left: 14px; right: 14px; color: var(--text); max-width: 652px; }
+.m-port .hero .who { margin-bottom: 14px; }
+.m-port .hero .manifest { margin: 0 0 14px; font-size: 13.5px; }
+.m-port .hero .manifest div { grid-template-columns: 5.4em 1fr; }
+.m-port .hero .intro p { font-size: 15px; }
+.m-port .portrait { width: 60px; height: 75px; }
+.m-port .hero h1 { font-size: 22px; }
+.m-port .copy .tags li.feat { background: var(--yellow); color: var(--ink); border-color: var(--yellow); }
+.m-port .copy .kicker { color: var(--yellow); }
+.m-port .copy h2 { font-size: clamp(19px, 5.2vw, 26px); }
+.m-port .copy p, .m-port .found { font-size: 14.5px; }
+.m-port .copy p { margin-bottom: 0.7em; }
+.m-port .found { gap: 0.3em; }
+.m-port .found li { grid-template-columns: 24px 1fr; gap: 0.6em; }
+.m-port .found li::before { width: 22px; height: 22px; font-size: 12px; }
+.m-port .tags { margin-top: 0.7em; gap: 5px; }
+.m-port .tags li { font-size: 12px; padding: 2px 7px 3px; }
+.m-tablet .copy p, .m-tablet .found, .m-tablet .hero .intro p { font-size: 16px; }
+.m-tablet .copy h2 { font-size: 26px; }
+.m-tablet .copy { left: 6vw; }
+.m-phone .hud .sep, .m-phone .hud .hud-t, .m-phone .pips { display: none; }
+
+/* ---------- static (reduced motion, no animation) ---------- */
+.is-static .stage { display: none; }
+.is-static .copies, html:not(.is-motion) .copies { display: block; }
+html:not(.is-motion):not(.is-static) .copy { max-width: 760px; margin: 0 auto; padding: 48px 20px; }
+.is-static .copy { position: relative; padding: 0 0 56px; }
+.is-static .copy .txt { max-width: 760px; margin: 0 auto; padding: 28px 20px 0; }
+.sv { position: relative; display: grid; grid-template-columns: 1fr 1fr; min-height: 300px; }
+.sv > div { position: relative; display: grid; place-items: end center; padding: 28px 16px 0; overflow: hidden; }
+.sv .x { background: var(--navy-2); background-image: linear-gradient(rgba(120, 160, 255, 0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(120, 160, 255, 0.07) 1px, transparent 1px); background-size: 40px 40px; }
+.sv .p { background: var(--yellow); }
+.sv svg { display: block; width: min(100%, 340px); height: auto; overflow: visible; }
+.sv .belt { position: absolute; left: 0; right: 0; bottom: 0; height: 14px; }
+.sv .x .belt { border-top: 1.5px solid var(--xm-hi); background: rgba(62, 139, 255, 0.12); }
+.sv .p .belt { background: var(--ink); }
+.sv .bag { position: relative; margin-bottom: 14px; width: 100%; display: grid; place-items: end center; }
+.sv .cap { position: absolute; top: 12px; font: 500 11.5px/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; }
+.sv .x .cap { left: 14px; color: var(--muted); }
+.sv .p .cap { right: 14px; color: var(--ink); }
+.sv-title { position: absolute; inset: 0 0 auto 0; pointer-events: none; }
+.sv-title svg { width: 100%; height: auto; max-width: none; }
+.is-static .hero .txt { padding-top: 32px; }
+.is-static .hero .label { color: var(--muted); }
+.is-static .hero .intro { margin-top: 1.4em; }
+.is-static .cue { display: none; }
+.sv-hero { grid-template-columns: 1fr; min-height: 0; background: var(--yellow); }
+.sv-hero svg { width: 100%; max-width: none; }
+
+/* ---------- contact ---------- */
+.contact { position: relative; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; padding: clamp(72px, 14vh, 160px) 4vw clamp(56px, 10vh, 120px); background: var(--navy); }
+.contact h2 { margin: 0; font: 900 clamp(64px, 14vw, 220px)/0.86 var(--display); letter-spacing: -0.01em; text-transform: uppercase; color: var(--xg); }
+.contact .sub { margin: 0.6em 0 1.4em; max-width: 40ch; font-size: clamp(16px, 1.4vw, 20px); }
+.contact ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 14px 40px; }
+.contact a { display: inline-block; padding: 8px 0; font: 600 clamp(20px, 2.6vw, 34px)/1.2 var(--mono); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; text-decoration-color: var(--xg); }
+.contact a:hover { color: var(--xg); }
+.contact .on-x { color: var(--muted); font-size: 0.6em; font-weight: 500; }
+.contact .meta { margin-top: 3.2em; color: var(--muted); font-size: 13px; }
+.contact .meta a { font: inherit; padding: 0; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+
+/* ---------- svg art classes ---------- */
+.ph .n { fill: var(--ink); }
+.ph .n2 { fill: #1d2b70; }
+.ph .w { fill: #fff; }
+.ph .y { fill: var(--yellow); }
+.ph .ly { fill: none; stroke: var(--yellow); stroke-width: 3; stroke-linecap: round; }
+.ph .ln { fill: none; stroke: var(--ink); stroke-width: 2.4; stroke-linecap: round; }
+.ph .lw { fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; }
+.ph .lnn { fill: none; stroke: var(--ink); stroke-width: 14; stroke-linecap: round; }
+.ph .tt { fill: var(--ink); font: 600 10.5px/1 var(--mono); letter-spacing: 0.02em; }
+.ph .pk { fill: var(--xp); }
+.ph .o45 { opacity: 0.45; }
+.ph .o6 { opacity: 0.6; }
+.ph .dash { stroke-dasharray: 2 7; }
+.xr .s { fill: rgba(8, 18, 46, 0.88); stroke: rgba(154, 246, 204, 0.75); stroke-width: 2.2; }
+.xr .o { fill: rgba(255, 154, 61, 0.38); stroke: var(--xo-hi); stroke-width: 1.4; }
+.xr .od { fill: rgba(255, 154, 61, 0.66); stroke: #ffd6a6; stroke-width: 1.4; }
+.xr .m { fill: rgba(62, 139, 255, 0.5); stroke: var(--xm-hi); stroke-width: 1.4; }
+.xr .md { fill: rgba(62, 139, 255, 0.85); stroke: #dbe9ff; stroke-width: 1.4; }
+.xr .x { fill: rgba(67, 227, 155, 0.3); stroke: var(--xg-hi); stroke-width: 1.3; }
+.xr .ln { fill: none; stroke: rgba(255, 195, 131, 0.85); stroke-width: 1.3; stroke-linecap: round; }
+.xr .lo { fill: none; stroke: var(--xo-hi); stroke-width: 2.6; stroke-linecap: round; }
+.xr .lm { fill: none; stroke: var(--xm-hi); stroke-width: 1.4; stroke-linecap: round; }
+.xr .lmw { fill: none; stroke: var(--xm-hi); stroke-width: 4; }
+.xr .lx { fill: none; stroke: var(--xg-hi); stroke-width: 1.6; stroke-linecap: round; }
+.xr .lsx { fill: none; stroke: rgba(154, 246, 204, 0.75); stroke-width: 12; stroke-linecap: round; opacity: 0.35; }
+.xr .dash { stroke-dasharray: 2 6; }
+.xr .tx { fill: #ffe6c7; font: 600 11px/1 var(--mono); }
+.xr .txb { fill: #fff3e3; font: 600 17px/1 var(--mono); }
+.xr .o3 { opacity: 0.3; }
+.xr .o5 { opacity: 0.55; }
+.xr .gl { opacity: 0.22; }
+.xr .gl * { fill: none; stroke-width: 7px; }
+.xr .mk circle { fill: var(--xp); stroke: #fff; stroke-width: 2; }
+.xr .mk text { fill: var(--ink); font: 600 13px/1 var(--mono); text-anchor: middle; }
+.ttl-p { fill: var(--ink); }
+.ttl-x { fill: rgba(255, 154, 61, 0.1); stroke: var(--xo); stroke-width: var(--sw, 2px); }
+.ttl-xg { fill: none; stroke: var(--xo); stroke-width: var(--gw, 9px); opacity: 0.18; }
+.word-p { fill: var(--ink); }
+.word-x { fill: rgba(255, 154, 61, 0.16); stroke: var(--xo-hi); stroke-width: var(--sw, 2.4px); }
+.word-xg { fill: none; stroke: var(--xo); stroke-width: var(--gw, 12px); opacity: 0.2; }
+.cleared-x { fill: rgba(67, 227, 155, 0.16); stroke: var(--xg-hi); stroke-width: var(--sw, 2.4px); }
+.cleared-xg { fill: none; stroke: var(--xg); stroke-width: var(--gw, 12px); opacity: 0.22; }
+</style>
+</head>
+<body>
+<a class="skip" href="#contact">Skip to contact</a>
+<main id="main">
+  <div class="track" id="track">
+    <div class="stage" id="stage" aria-hidden="true"></div>
+    <div class="copies" id="copies">
+      <header class="copy hero" data-ch="0">
+        <div class="who portrait-wrap">
+          <div class="pw-slot" aria-hidden="true"></div>
+          <div>
+            <p class="label">Passenger</p>
+            <h1>Luis Matute</h1>
+          </div>
+        </div>
+        <dl class="manifest">
+          <div><dt>Origin</dt><dd>Honduras</dd></div>
+          <div><dt>Now</dt><dd>Booking.com, Amsterdam</dd></div>
+          <div><dt>Bags</dt><dd>6, in the order I packed them</dd></div>
+        </dl>
+        <div class="intro">
+          <p>Born in Honduras. At Booking.com in Amsterdam since October 2017.</p>
+          <p>Every stop on the way went into a bag. Send them through the scanner and see what is inside.</p>
+          <p class="cue"><i></i>Scroll to run the belt</p>
+        </div>
+      </header>
+
+      <article class="copy" data-ch="1" aria-labelledby="h-aa">
+        <p class="kicker">Bag 1 of 6 · 2006–2011</p>
+        <h2 id="h-aa">Security lead agent, American Airlines</h2>
+        <p>I led about 25 security agents, enforcing TSA rules for airlines outside the US. Back then, I was the one reading this screen.</p>
+        <ol class="found">
+          <li>Luggage x-ray</li>
+          <li>Passenger profiling</li>
+          <li>Passport and visa checks</li>
+          <li>Security checks on aircraft</li>
+        </ol>
+      </article>
+
+      <article class="copy" data-ch="2" aria-labelledby="h-sandals">
+        <p class="kicker">Bag 2 of 6 · July 2011 – August 2017</p>
+        <h2 id="h-sandals">Front-end developer, Sandals Resorts</h2>
+        <p>Front end, with some back end, on two resort sites.</p>
+        <ol class="found">
+          <li>sandals.com and beaches.com</li>
+          <li>Several full redesigns and re-engineering efforts, which I led</li>
+          <li>Sass, JS templating frameworks and pre-compilers, brought in to improve performance and productivity</li>
+        </ol>
+      </article>
+
+      <article class="copy" data-ch="3" aria-labelledby="h-bsc">
+        <p class="kicker">Bag 3 of 6 · 2012</p>
+        <h2 id="h-bsc">BSc Computer Science</h2>
+        <p>Graduated from Universidad Católica in 2012.</p>
+        <ol class="found">
+          <li>The degree: BSc Computer Science</li>
+          <li>Universidad Católica, class of 2012</li>
+        </ol>
+      </article>
+
+      <article class="copy" data-ch="4" aria-labelledby="h-fluky">
+        <p class="kicker">Bag 4 of 6 · c. 2012–2019</p>
+        <h2 id="h-fluky">Co-founder, Fluky Factory</h2>
+        <p>One of four co-founders, alongside Sandals. I owned all the engineering, with 2–3 employees plus contractors.</p>
+        <ol class="found">
+          <li>Four keys: one of four co-founders</li>
+          <li>Databases and back end</li>
+          <li>Front end</li>
+          <li>Technical client handling</li>
+        </ol>
+        <ul class="tags" aria-label="Projects">
+          <li class="feat">Catch Advisory Group · featured</li>
+          <li>Roatan Excursions</li>
+          <li>Mayan Princess</li>
+          <li>Roatan Ferry</li>
+        </ul>
+        <p>Freelance, too, from 2012 to c. 2019.</p>
+      </article>
+
+      <article class="copy" data-ch="5" aria-labelledby="h-move">
+        <p class="kicker">Bag 5 of 6 · 2017</p>
+        <h2 id="h-move">Honduras to the Netherlands</h2>
+        <p>Moved from Honduras to the Netherlands in 2017. The biggest bag on the belt.</p>
+      </article>
+
+      <article class="copy" data-ch="6" aria-labelledby="h-booking">
+        <p class="kicker">Bag 6 of 6 · October 2017 – now</p>
+        <h2 id="h-booking">Booking.com, Amsterdam</h2>
+        <p>Since October 2017, in this order:</p>
+        <ol class="found">
+          <li>Accessibility</li>
+          <li>Fraud</li>
+          <li>The room selection org, for 3–4 years</li>
+          <li>The experimentation (A/B testing) tool, since 2024</li>
+        </ol>
+      </article>
+
+      <article class="copy" data-ch="7" aria-labelledby="h-clear">
+        <p class="kicker">Scan complete · 6 of 6</p>
+        <h2 id="h-clear">Nothing to declare but the work.</h2>
+        <p>All six bags are through. Keep scrolling to say hello.</p>
+      </article>
+    </div>
+  </div>
+
+  <section class="contact" id="contact" aria-labelledby="h-contact">
+    <h2 id="h-contact">Cleared</h2>
+    <p class="sub">Say hello. Email is fastest.</p>
+    <ul>
+      <li><a href="mailto:luis.matute@me.com">luis.matute@me.com</a></li>
+      <li><a href="https://x.com/luis_matute">@luis_matute</a> <span class="on-x">on X</span></li>
+    </ul>
+    <p class="meta">Concept A, “Cleared”. Prototype for luismatute.me. <a href="?motion=reduce">Reduced-motion version</a> · <a href="concept-b.html">Concept B</a></p>
+  </section>
+</main>
+
+<script>
+(() => {
+  'use strict';
+  const qs = new URLSearchParams(location.search);
+  const QA = qs.has('qa');
+  const mq = matchMedia('(prefers-reduced-motion: reduce)');
+  const STATIC = qs.get('motion') === 'reduce' || (qs.get('motion') !== 'on' && mq.matches);
+  const root = document.documentElement;
+  root.classList.add(STATIC ? 'is-static' : 'is-motion');
+  mq.addEventListener?.('change', () => location.reload());
+
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const inOutCubic = (t) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2);
+  const outQuart = (t) => 1 - (1 - t) ** 4;
+  const smooth = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
+
+  /* ---------- svg helpers ---------- */
+  const at = (a) => (a ? ` ${a}` : '');
+  const r = (x, y, w, h, rx, c, a) => `<rect x="${x}" y="${y}" width="${w}" height="${h}"${rx ? ` rx="${rx}"` : ''} class="${c}"${at(a)}/>`;
+  const ci = (x, y, rr, c, a) => `<circle cx="${x}" cy="${y}" r="${rr}" class="${c}"${at(a)}/>`;
+  const el = (x, y, rx, ry, c) => `<ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}" class="${c}"/>`;
+  const p = (d, c, a) => `<path d="${d}" class="${c}"${at(a)}/>`;
+  const g = (inner, t) => `<g transform="${t}">${inner}</g>`;
+  const tx = (x, y, s, c, a) => `<text x="${x}" y="${y}" class="${c}"${at(a)}>${s}</text>`;
+  const X = (s) => `<g class="gl">${s}</g>${s}`;
+  const mk = (n, x, y) => `<g class="mk">${ci(x, y, 12, '')}${tx(x, y + 4.6, n, '')}</g>`;
+  const tag = (label, x, y, rot, w = 120, feat = false) =>
+    g(r(0, 0, w, 26, 4, feat ? 'pk' : 'w') + ci(10, 13, 3.5, 'n') + tx(20, 17, label, 'tt'), `translate(${x} ${y}) rotate(${rot})`);
+
+  const SOLE = 'M23 0C38 0 46 14 46 32C46 50 40 60 40 74C40 96 34 110 22 110C10 110 4 98 4 80C4 62 0 50 0 32C0 14 8 0 23 0Z';
+  const WRENCH = 'M0 18C0 8 8 0 18 0H20V14H32V0H34C44 0 52 8 52 18C52 28 45 34 36 36V100C36 106 31 110 26 110C21 110 16 106 16 100V36C7 34 0 28 0 18Z';
+  const key = (a) => g(ci(0, -30, 9, 'm') + r(-3.5, -22, 7, 34, 2, 'm') + r(3, 2, 7, 4, 1, 'md') + r(3, 8, 5, 4, 1, 'md'), `rotate(${a})`);
+
+  /* ---------- bags (units: px at a 340-unit reference height) ---------- */
+  const BAGS = {
+    carry() {
+      const ph = [
+        r(80, 24, 9, 62, 0, 'n'), r(161, 24, 9, 62, 0, 'n'), r(66, 6, 118, 24, 12, 'n'),
+        r(22, 80, 206, 246, 26, 'n'), r(22, 80, 206, 34, 16, 'n2'),
+        p('M76 124V302M125 124V302M174 124V302', 'ly o45'),
+        r(46, 320, 30, 12, 4, 'n'), r(174, 320, 30, 12, 4, 'n'),
+        ci(62, 330, 11, 'n'), ci(188, 330, 11, 'n'), ci(62, 330, 4, 'y'), ci(188, 330, 4, 'y'),
+        p('M150 28C150 58 172 70 176 96', 'lw'),
+        g(r(0, 0, 80, 42, 6, 'w') + ci(11, 21, 4.5, 'n') + tx(22, 18, 'AA', 'tt') + tx(22, 33, '2006–11', 'tt'), 'translate(150 96) rotate(9)'),
+      ].join('');
+      const xr = [
+        X(r(22, 80, 206, 246, 26, 's')),
+        X(r(82, 20, 6, 292, 3, 'm') + r(162, 20, 6, 292, 3, 'm') + r(66, 6, 118, 24, 12, 'm')),
+        X(ci(62, 330, 11, 'm') + ci(188, 330, 11, 'm')), ci(62, 330, 4, 'md'), ci(188, 330, 4, 'md'),
+        X(g(r(0, 0, 76, 98, 6, 'o') + r(22, -7, 32, 14, 4, 'm'), 'translate(38 116) rotate(-5)')),
+        g(p('M12 30h50M12 44h40M12 58h50M12 72h28', 'ln'), 'translate(38 116) rotate(-5)'),
+        X(g(r(0, 10, 66, 48, 8, 'o') + p('M20 10V2H46V10', 'lm') + ci(14, 52, 4, 'm') + ci(52, 52, 4, 'm'), 'translate(140 110) rotate(4)')),
+        g(r(10, 22, 20, 15, 3, 'x') + r(36, 24, 18, 10, 2, 'm') + p('M12 44h40', 'ln'), 'translate(140 110) rotate(4)'),
+        X(g(r(0, 0, 62, 86, 6, 'od'), 'translate(128 186) rotate(7)')),
+        g(ci(31, 32, 14, 'ln') + p('M17 32h28M31 18v28', 'ln') + r(9, 58, 44, 16, 3, 'x'), 'translate(128 186) rotate(7)'),
+        X(g(r(0, 0, 150, 26, 8, 'm') + r(150, -7, 28, 40, 7, 'md'), 'translate(30 282) rotate(-4)')),
+        g(r(14, 6, 42, 14, 4, 'x') + r(62, 6, 42, 14, 4, 'x') + p('M112 6v14', 'lm'), 'translate(30 282) rotate(-4)'),
+        p('M60 236C70 262 96 268 120 262', 'lx'),
+        mk(1, 146, 106), mk(2, 40, 110), mk(3, 196, 186), mk(4, 30, 270),
+      ].join('');
+      return { w: 250, h: 340, ph, xr };
+    },
+    spinner() {
+      const ph = [
+        r(110, 12, 80, 20, 10, 'n'), r(120, 24, 10, 16, 0, 'n'), r(170, 24, 10, 16, 0, 'n'),
+        r(16, 36, 268, 294, 38, 'n'),
+        p('M66 62V304M108 62V304M150 62V304M192 62V304M234 62V304', 'ly o45'),
+        ci(214, 112, 32, 'w'), p('M194 106q10-9 20 0t20 0M194 121q10-9 20 0t20 0', 'ln'),
+        g(r(0, 0, 108, 44, 6, 'w') + ci(11, 22, 4.5, 'n') + tx(22, 19, 'sandals.com', 'tt') + tx(22, 35, 'beaches.com', 'tt'), 'translate(36 222) rotate(-5)'),
+        r(46, 328, 30, 14, 5, 'n'), r(224, 328, 30, 14, 5, 'n'), ci(61, 344, 11, 'n'), ci(239, 344, 11, 'n'), ci(61, 344, 4, 'y'), ci(239, 344, 4, 'y'),
+      ].join('');
+      const xr = [
+        X(r(16, 36, 268, 294, 38, 's')),
+        X(r(110, 12, 80, 20, 10, 'm')), p('M30 62V306M270 62V306', 'lm', 'opacity=".6"'),
+        X(ci(61, 344, 11, 'm') + ci(239, 344, 11, 'm')),
+        X(g(r(0, 0, 214, 138, 9, 'm'), 'translate(43 58) rotate(-2)')),
+        g(r(10, 10, 194, 110, 4, 'x') + r(20, 24, 84, 60, 3, 'o') + r(110, 24, 84, 60, 3, 'o') + p('M20 34h84M110 34h84', 'ln') + tx(22, 104, 'sandals.com', 'tx') + tx(112, 104, 'beaches.com', 'tx') + r(30, 124, 154, 8, 3, 'md'), 'translate(43 58) rotate(-2)'),
+        X(g(p(SOLE, 'o') + p('M8 42q15-14 30 0', 'lo'), 'translate(36 214) rotate(-12)')),
+        X(g(p(SOLE, 'o') + p('M8 42q15-14 30 0', 'lo'), 'translate(82 222) rotate(8)')),
+        X(g(r(0, 0, 78, 96, 3, 'o o5') + r(10, 8, 78, 96, 3, 'o o5') + r(20, 16, 78, 96, 3, 'o'), 'translate(126 208) rotate(-6)')),
+        g(r(30, 28, 58, 16, 2, 'x') + p('M30 52h58M30 60h40M30 68h52', 'ln') + r(30, 76, 26, 20, 2, 'x') + r(62, 76, 26, 20, 2, 'x'), 'translate(126 208) rotate(-6)'),
+        X(g(p(WRENCH, 'm'), 'translate(214 210) rotate(16) scale(.9)')),
+        X(g(r(0, 0, 12, 52, 3, 'md') + r(-4, 52, 20, 42, 6, 'o'), 'translate(258 214) rotate(-14)')),
+        mk(1, 46, 60), mk(2, 130, 204), mk(3, 232, 204),
+      ].join('');
+      return { w: 300, h: 356, ph, xr };
+    },
+    duffel() {
+      const ph = [
+        p('M104 74C110 22 150 8 190 8C230 8 270 22 276 74', 'lnn'),
+        r(12, 58, 356, 148, 66, 'n'),
+        ci(74, 132, 46, 'n2'), ci(306, 132, 46, 'n2'), ci(74, 132, 46, 'ly'), ci(306, 132, 46, 'ly'),
+        p('M118 72H262', 'ly dash'),
+        g(r(0, 0, 86, 40, 6, 'w') + ci(11, 20, 4.5, 'n') + tx(22, 17, 'BSc CS', 'tt') + tx(22, 32, '2012', 'tt'), 'translate(148 112) rotate(-3)'),
+      ].join('');
+      const xr = [
+        X(r(12, 58, 356, 148, 66, 's')),
+        p('M104 74C110 22 150 8 190 8C230 8 270 22 276 74', 'lsx'),
+        p('M118 72H262', 'lm dash'), X(r(96, 64, 16, 14, 3, 'm') + r(268, 64, 16, 14, 3, 'm')),
+        X(g(r(0, 0, 236, 46, 23, 'o') + ci(214, 23, 19, 'od'), 'translate(40 94) rotate(-2)')),
+        g(p('M214 23m-12 0a12 12 0 1 0 24 0a9 9 0 1 0-18 0a6 6 0 1 0 12 0', 'ln') + r(118, -5, 14, 56, 3, 'x'), 'translate(40 94) rotate(-2)'),
+        X(g(p('M0 22L58 0L116 22L58 44Z', 'od') + p('M28 32V54C28 64 88 64 88 54V32', 'o'), 'translate(222 120)')),
+        g(p('M58 22C80 30 96 36 104 56', 'lx') + ci(104, 60, 5, 'x'), 'translate(222 120)'),
+        X(g(r(0, 0, 92, 20, 3, 'o') + r(8, 20, 84, 20, 3, 'o'), 'translate(64 152)')),
+        mk(1, 44, 90), mk(2, 222, 118),
+      ].join('');
+      return { w: 380, h: 212, ph, xr };
+    },
+    case() {
+      const ph = [
+        r(140, 6, 80, 22, 11, 'n'), r(150, 22, 12, 22, 0, 'n'), r(198, 22, 12, 22, 0, 'n'),
+        r(8, 40, 344, 240, 18, 'n'),
+        p('M8 96H352', 'ly o6'),
+        r(58, 84, 38, 24, 5, 'w'), r(264, 84, 38, 24, 5, 'w'),
+        r(8, 40, 40, 40, 14, 'n2'), r(312, 40, 40, 40, 14, 'n2'), r(8, 240, 40, 40, 14, 'n2'), r(312, 240, 40, 40, 14, 'n2'),
+        p('M170 28C150 60 120 100 104 126M176 30C178 72 196 112 214 142M184 30C192 92 168 150 124 184M190 28C230 80 276 150 258 206', 'lw'),
+        tag('Catch Advisory Group', 34, 124, -4, 152, true), tag('Roatan Excursions', 196, 140, 5, 128),
+        tag('Mayan Princess', 58, 182, 3, 116), tag('Roatan Ferry', 214, 204, -6, 102),
+      ].join('');
+      const xr = [
+        X(r(8, 40, 344, 240, 18, 's')), X(r(140, 6, 80, 22, 11, 'm')),
+        r(22, 106, 316, 162, 10, 'o o3'),
+        X(g(ci(0, 0, 16, 'lmw') + key(0) + key(90) + key(180) + key(270), 'translate(84 182) scale(.92)')),
+        X(g(el(0, 0, 34, 10, 'x') + r(-34, 0, 68, 64, 0, 'x') + el(0, 64, 34, 10, 'x'), 'translate(172 128)')),
+        g(p('M-34 22a34 10 0 0 0 68 0M-34 44a34 10 0 0 0 68 0', 'lx'), 'translate(172 128)'),
+        X(g(r(0, 0, 86, 64, 6, 'm') + r(8, 10, 70, 10, 2, 'md') + r(8, 27, 70, 10, 2, 'md') + r(8, 44, 70, 10, 2, 'md'), 'translate(232 116)')),
+        X(g(r(0, 0, 86, 56, 6, 'o') + p('M28 16L16 28L28 40M58 16L70 28L58 40M47 12L39 44', 'lo'), 'translate(132 212) rotate(-4)')),
+        X(g(r(0, 0, 40, 72, 8, 'x') + r(6, 9, 28, 50, 3, 'm'), 'translate(262 192) rotate(10)')),
+        mk(1, 58, 136), mk(2, 140, 126), mk(3, 232, 112), mk(4, 132, 210), mk(5, 300, 196),
+      ].join('');
+      return { w: 360, h: 290, ph, xr };
+    },
+    big() {
+      const ph = [
+        r(170, 8, 80, 22, 11, 'n'), r(180, 22, 12, 16, 0, 'n'), r(228, 22, 12, 16, 0, 'n'),
+        r(8, 34, 404, 352, 32, 'n'),
+        r(8, 146, 404, 26, 0, 'n2'), r(8, 276, 404, 26, 0, 'n2'),
+        r(190, 140, 40, 38, 5, 'w'), r(190, 270, 40, 38, 5, 'w'), r(200, 150, 20, 18, 3, 'n'), r(200, 280, 20, 18, 3, 'n'),
+        g(r(0, 0, 188, 52, 6, 'w') + ci(12, 26, 5, 'n') + tx(26, 22, 'HONDURAS →', 'tt') + tx(26, 40, 'THE NETHERLANDS', 'tt'), 'translate(38 66) rotate(-3)'),
+        ci(342, 92, 30, 'y'), ci(342, 92, 18, 'n'), ci(342, 92, 8, 'y'),
+        r(40, 384, 30, 12, 4, 'n'), r(350, 384, 30, 12, 4, 'n'), ci(55, 398, 12, 'n'), ci(365, 398, 12, 'n'), ci(55, 398, 4, 'y'), ci(365, 398, 4, 'y'),
+      ].join('');
+      const fold = (x, y, w) => r(x, y, w, 26, 8, 'o') + p(`M${x + 8} ${y + 13}q${w / 8} -7 ${w / 4} 0t${w / 4} 0t${w / 4} 0`, 'ln');
+      const xr = [
+        X(r(8, 34, 404, 352, 32, 's')), X(r(170, 8, 80, 22, 11, 'm')),
+        X(r(184, 20, 6, 352, 3, 'm') + r(230, 20, 6, 352, 3, 'm')),
+        X(ci(55, 398, 12, 'm') + ci(365, 398, 12, 'm')),
+        X(fold(30, 60, 140) + fold(26, 90, 148) + fold(32, 120, 136) + fold(28, 150, 144) + fold(34, 180, 132)),
+        X(g(p(SOLE, 'o') + ci(23, 30, 3, 'md') + ci(23, 44, 3, 'md') + ci(23, 58, 3, 'md'), 'translate(40 232) rotate(-80) scale(.95)')),
+        X(g(p(SOLE, 'o') + ci(23, 30, 3, 'md') + ci(23, 44, 3, 'md') + ci(23, 58, 3, 'md'), 'translate(46 300) rotate(-96) scale(.95)')),
+        X(g(r(0, 0, 150, 108, 8, 'm') + r(10, 10, 130, 74, 3, 'x'), 'translate(244 70) rotate(3)')),
+        X(g(r(0, 0, 70, 96, 3, 'o') + r(10, 6, 70, 96, 3, 'o'), 'translate(166 214) rotate(-4)')),
+        g(el(0, 0, 32, 20, 'lm') + el(0, 0, 24, 14, 'lm') + el(0, 0, 16, 9, 'lm'), 'translate(318 252)'),
+        X(g(p('M0 0L10 150M10 0L10 150M20 0L10 150', 'lm') + r(4, 150, 12, 26, 5, 'md'), 'translate(372 176) rotate(8)')),
+      ].join('');
+      return { w: 420, h: 410, ph, xr };
+    },
+    pack() {
+      const body = 'M28 96C28 40 70 18 140 18C210 18 252 40 252 96V318C252 330 242 338 230 338H50C38 338 28 330 28 318Z';
+      const ph = [
+        p('M118 24C118 2 162 2 162 24', 'lnn'),
+        p(body, 'n'),
+        r(60, 196, 160, 120, 24, 'n2'),
+        p('M78 214H202', 'ly'), p('M60 72C92 48 188 48 220 72', 'ly o6'),
+        r(18, 150, 14, 120, 6, 'n2'), r(248, 150, 14, 120, 6, 'n2'),
+        p('M196 56C204 72 206 84 200 96', 'lw'),
+        g(r(0, 0, 100, 40, 6, 'w') + ci(11, 20, 4.5, 'n') + tx(22, 17, 'AMSTERDAM', 'tt') + tx(22, 32, '2017–NOW', 'tt'), 'translate(160 94) rotate(7)'),
+      ].join('');
+      const xr = [
+        X(p(body, 's')), p('M60 72C92 48 188 48 220 72', 'lm dash'), p('M78 214H202', 'lm dash'),
+        X(r(48, 58, 184, 126, 8, 'm', 'opacity=".7"')),
+        X(g(r(0, 0, 80, 54, 6, 'o') + ci(60, 27, 12, 'ln') + p('M60 15a12 12 0 0 1 0 24z', 'od'), 'translate(56 82) rotate(-6)')),
+        g(tx(10, 36, 'Aa', 'txb'), 'translate(56 82) rotate(-6)'),
+        X(g(p('M12 26V16C12 2 40 2 40 16V26', 'lmw') + r(0, 24, 52, 42, 7, 'm') + ci(26, 44, 5, 'md') + r(24, 46, 4, 10, 1, 'md'), 'translate(166 84)')),
+        X(g(r(0, 0, 88, 56, 6, 'o') + r(10, 10, 18, 14, 3, 'm') + p('M40 38h36M40 46h22', 'ln'), 'translate(54 206) rotate(4)')),
+        X(g(r(0, 0, 26, 92, 13, 'x') + r(36, 0, 26, 92, 13, 'x') + r(2, 44, 22, 46, 11, 'o') + r(38, 28, 22, 62, 11, 'o'), 'translate(168 198)')),
+        g(tx(6, 26, 'A', 'txb') + tx(43, 26, 'B', 'txb'), 'translate(168 198)'),
+        mk(1, 56, 80), mk(2, 222, 86), mk(3, 54, 204), mk(4, 236, 196),
+      ].join('');
+      return { w: 280, h: 340, ph, xr };
+    },
+  };
+
+  const portraitSVG = () => `<svg viewBox="0 0 120 150" class="xr portrait" focusable="false">
+    ${X(p('M16 150C16 122 34 110 60 110C86 110 104 122 104 150', 's'))}
+    ${X(el(60, 72, 32, 40, 's'))}
+    ${p('M28 64C28 38 42 28 60 28C78 28 92 38 92 64C86 50 76 44 60 44C44 44 34 50 28 64Z', 'od')}
+    ${p('M28 64C29 70 30 76 31 80M92 64C91 70 90 76 89 80', 'ln', 'opacity=".5"')}
+    ${X(ci(60, 19, 12, 'od'))}${p('M50 28h20', 'lx')}
+    ${X(p('M29 78C31 104 44 122 60 122C76 122 89 104 91 78C85 92 75 99 60 99C45 99 35 92 29 78Z', 'o'))}
+    ${p('M46 104c4 4 24 4 28 0', 'ln')}
+    ${X(ci(46, 72, 10, 'lo') + ci(74, 72, 10, 'lo'))}${p('M56 72h8', 'lo')}
+    ${r(29, 68, 7, 4, 1, 'md')}${r(84, 68, 7, 4, 1, 'md')}
+  </svg>`;
+
+  /* ---------- items on the belt ---------- */
+  const ITEMS = [
+    { kind: 'word', text: 'LUIS MATUTE', lines: ['LUIS', 'MATUTE'], hud: 'Passenger' },
+    { kind: 'bag', bag: 'carry', title: '2006–2011', hud: 'American Airlines' },
+    { kind: 'bag', bag: 'spinner', title: '2011–2017', hud: 'Sandals Resorts' },
+    { kind: 'bag', bag: 'duffel', title: '2012', hud: 'BSc Computer Science' },
+    { kind: 'bag', bag: 'case', title: 'C. 2012–2019', hud: 'Fluky Factory' },
+    { kind: 'bag', bag: 'big', title: '2017', hud: 'Honduras → Netherlands' },
+    { kind: 'bag', bag: 'pack', title: '2017–NOW', hud: 'Booking.com' },
+    { kind: 'word', text: 'CLEARED', lines: ['CLEARED'], hud: 'Cleared', cleared: true },
+  ];
+  const BAG = Object.fromEntries(Object.entries(BAGS).map(([k, f]) => [k, f()]));
+
+  /* ---------- text measuring ---------- */
+  const ctx = document.createElement('canvas').getContext('2d');
+  const measure = (s, size, weight = 900) => {
+    ctx.font = `${weight} ${size}px BSS`;
+    return ctx.measureText(s).width;
+  };
+  const CAP = 0.8;
+  // x-ray outline and glow widths follow the type size, so small titles do not smear
+  const strokes = (fs) => `--sw:${Math.max(1.2, fs * 0.009).toFixed(2)}px;--gw:${Math.max(3, fs * 0.045).toFixed(2)}px`;
+
+  const wordSVG = (lines, fs, w, gap, cls) => {
+    const lh = fs * CAP;
+    const h = lines.length * lh + (lines.length - 1) * gap;
+    const rows = lines.map((s, i) => {
+      const y = lh * (i + 1) + gap * i;
+      if (cls === 'p') return `<text x="0" y="${y}" class="word-p">${s}</text>`;
+      const cx = cls === 'xc' ? 'cleared' : 'word';
+      return `<text x="0" y="${y}" class="${cx}-xg">${s}</text><text x="0" y="${y}" class="${cx}-x">${s}</text>`;
+    }).join('');
+    return { h, svg: `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" style="font: 900 ${fs}px/1 BSS;${strokes(fs)}" focusable="false">${rows}</svg>` };
+  };
+
+  /* ================= static version ================= */
+  function buildStatic() {
+    const W = Math.min(innerWidth, 1400);
+    $$('.copy').forEach((copy) => {
+      const ch = +copy.dataset.ch;
+      const it = ITEMS[ch];
+      const txt = document.createElement('div');
+      txt.className = 'txt';
+      while (copy.firstChild) txt.appendChild(copy.firstChild);
+      const sv = document.createElement('div');
+      sv.setAttribute('aria-hidden', 'true');
+      if (it.kind === 'word') {
+        sv.className = 'sv sv-hero';
+        const fs = Math.min(W * 0.92 / (measure(it.text, 100) / 100), 360);
+        const w = measure(it.text, fs) + 8;
+        const lh = fs * CAP;
+        const split = w * (it.cleared ? 0.62 : 0.55);
+        const cx = it.cleared ? 'cleared' : 'word';
+        sv.innerHTML = `<svg viewBox="-24 -24 ${w + 48} ${lh + 48}" style="font: 900 ${fs}px/1 BSS" focusable="false">
+          <defs><clipPath id="cl${ch}"><rect x="-24" y="-24" width="${split + 24}" height="${lh + 48}"/></clipPath><clipPath id="cr${ch}"><rect x="${split}" y="-24" width="${w}" height="${lh + 48}"/></clipPath></defs>
+          <rect x="-24" y="-24" width="${split + 24}" height="${lh + 48}" fill="#070b22"/>
+          <g clip-path="url(#cr${ch})"><text x="0" y="${lh}" class="word-p">${it.text}</text></g>
+          <g clip-path="url(#cl${ch})"><text x="0" y="${lh}" class="${cx}-xg">${it.text}</text><text x="0" y="${lh}" class="${cx}-x">${it.text}</text></g>
+          <rect x="${split - 1}" y="-24" width="2" height="${lh + 48}" fill="#e6fcff"/>
+        </svg>`;
+      } else {
+        const b = BAG[it.bag];
+        sv.className = 'sv';
+        const vb = `-14 -14 ${b.w + 28} ${b.h + 28}`;
+        sv.innerHTML = `<div class="x"><span class="cap">X-ray · ${it.title}</span><div class="bag"><svg viewBox="${vb}" class="xr" focusable="false">${b.xr}</svg></div><div class="belt"></div></div>
+          <div class="p"><span class="cap">${it.hud}</span><div class="bag"><svg viewBox="${vb}" class="ph" focusable="false">${b.ph}</svg></div><div class="belt"></div></div>`;
+      }
+      copy.append(sv, txt);
+      if (ch === 0) $('.pw-slot', copy).innerHTML = portraitSVG();
+    });
+  }
+
+  /* ================= motion version ================= */
+  const stage = $('#stage');
+  const track = $('#track');
+  const copies = $$('.copy');
+  const S = {};
+
+  function buildStage() {
+    stage.innerHTML = `
+      <div class="layer phys"><div class="mover ttls-p"></div><div class="belt-p"></div><div class="mover items-p"></div></div>
+      <div class="xwin"><div class="grid"></div><div class="cam"><div class="mover ttls-x"></div><div class="belt-x"></div><div class="mover items-x"></div></div><div class="scan"></div></div>
+      <div class="beam-wash"></div><div class="beam"></div>
+      <div class="panel"></div>
+      <div class="hud"><span class="dot"></span><span class="hud-n">Scan 00/06</span><span class="sep">/</span><span class="hud-t">Passenger</span></div>
+      <div class="legend"><span><i style="background:var(--xo)"></i>Organic</span><span><i style="background:var(--xm)"></i>Metal</span><span><i style="background:var(--xg)"></i>Mixed</span></div>
+      <div class="pips">${ITEMS.map(() => '<i></i>').join('')}</div>`;
+    Object.assign(S, {
+      phys: $('.phys', stage), xwin: $('.xwin', stage), cam: $('.cam', stage),
+      ttlsP: $('.ttls-p', stage), ttlsX: $('.ttls-x', stage), itemsP: $('.items-p', stage), itemsX: $('.items-x', stage),
+      beltP: $('.belt-p', stage), beltX: $('.belt-x', stage),
+      beam: $('.beam', stage), wash: $('.beam-wash', stage), panel: $('.panel', stage),
+      hud: $('.hud', stage), hudN: $('.hud-n', stage), hudT: $('.hud-t', stage), legend: $('.legend', stage), pips: $$('.pips i', stage),
+      pipsBox: $('.pips', stage),
+    });
+    S.cins = copies.map((c) => {
+      const cin = document.createElement('div');
+      cin.className = 'cin';
+      while (c.firstChild) cin.appendChild(c.firstChild);
+      c.appendChild(cin);
+      return cin;
+    });
+    const slot = $('.pw-slot');
+    if (slot) slot.innerHTML = portraitSVG();
+  }
+
+  let L = null;
+  function layout() {
+    const W = stage.clientWidth;
+    const H = svh();
+    const desk = W >= 640 && W / H >= 1.15;
+    const phone = !desk && W < 600;
+    root.classList.toggle('m-desk', desk);
+    root.classList.toggle('m-port', !desk);
+    root.classList.toggle('m-phone', phone);
+    root.classList.toggle('m-tablet', !desk && !phone);
+    const beam = Math.round(desk ? W * 0.5 : phone ? W * 0.7 : W * 0.64);
+    const beltY = Math.round(H * (desk ? 0.75 : phone ? 0.45 : 0.5));
+    const beltH = Math.max(12, Math.round(H * 0.02));
+    const rr = Math.max(6, Math.round(H * 0.011));
+    const bagMaxH = H * (desk ? 0.4 : phone ? 0.22 : 0.3);
+    const maxW = beam - W * (desk ? 0.1 : 0.12);
+    const dwellX = desk ? W * 0.25 : (beam - W * 0.02) / 2;
+    const u0 = bagMaxH / 340;
+    const items = [];
+    let B = 0;
+    let prev = null;
+    S.itemsP.innerHTML = '';
+    S.itemsX.innerHTML = '';
+    S.ttlsP.innerHTML = '';
+    S.ttlsX.innerHTML = '';
+    ITEMS.forEach((it, i) => {
+      let w, h, nodeP, nodeX, cx;
+      if (it.kind === 'word') {
+        const lines = desk || it.cleared ? [it.text] : it.lines;
+        const longest = lines.reduce((a, s) => (measure(s, 100) > measure(a, 100) ? s : a), lines[0]);
+        const per = measure(longest, 100) / 100;
+        const target = it.cleared ? W * (desk ? 0.62 : 0.86) : W * (desk ? 0.92 : 0.88);
+        let fs = target / per;
+        fs = Math.min(fs, (desk ? H * 0.3 : H * 0.15) / CAP);
+        const gap = fs * 0.1;
+        w = Math.ceil(measure(longest, fs)) + 4;
+        const P = wordSVG(lines, fs, w, gap, 'p');
+        const Xs = wordSVG(lines, fs, w, gap, it.cleared ? 'xc' : 'x');
+        h = P.h;
+        nodeP = `<div class="it word">${P.svg}</div>`;
+        nodeX = `<div class="it word">${Xs.svg}</div>`;
+        cx = W / 2;
+      } else {
+        const b = BAG[it.bag];
+        const u = Math.min(u0, maxW / b.w);
+        w = b.w * u;
+        h = b.h * u;
+        nodeP = `<div class="it"><svg viewBox="0 0 ${b.w} ${b.h}" class="ph" focusable="false">${b.ph}</svg></div>`;
+        nodeX = `<div class="it"><svg viewBox="0 0 ${b.w} ${b.h}" class="xr" focusable="false">${b.xr}</svg></div>`;
+        cx = dwellX;
+      }
+      if (prev) {
+        // where this item's left edge waits while the previous one dwells: off-screen on desk,
+        // half into the yellow strip in portrait, so the queue on the belt stays visible
+        const wait = desk ? W * 1.04 : beam + (W - beam) * 0.5;
+        let left = Math.max(prev.cx + prev.w / 2 + W * 0.04, wait);
+        if (left > W * 0.9) left = Math.max(left, W * 1.04);
+        B += Math.max(left - (cx - w / 2), prev.cx + prev.w / 2 + W * (prev.kind === 'word' ? 0.25 : 0.02));
+      }
+      const baseX = cx + B;
+      const item = { i, w, h, cx, baseX, B, kind: it.kind };
+      const ip = html(nodeP);
+      const ix = html(nodeX);
+      for (const n of [ip, ix]) {
+        n.style.cssText = `left:${(baseX - w / 2).toFixed(1)}px;top:${(beltY - h).toFixed(1)}px;width:${w.toFixed(1)}px;height:${h.toFixed(1)}px`;
+      }
+      S.itemsP.appendChild(ip);
+      S.itemsX.appendChild(ix);
+      item.ip = ip;
+      item.ix = ix;
+      items.push(item);
+      prev = item;
+    });
+
+    track.style.setProperty('--beam', `${beam}px`);
+    const panelTop = desk ? H : beltY + beltH + rr * 2 + 16;
+    const copyTop = Math.round(H * 0.08);
+    const FADE = 10;
+    const tBase = beltY - H * 0.02;
+
+    // caption boxes; on desk the year title gets whatever room its caption leaves
+    const boxes = copies.map((c, i) => {
+      const top = desk ? copyTop : panelTop + 14;
+      const bottom = !desk ? H - 14 : i === 0 ? beltY - items[0].h - H * 0.04 : tBase - H * 0.135;
+      return { top: top - FADE, h: Math.max(96, bottom - top) + FADE };
+    });
+    copies.forEach((c, i) => {
+      c.classList.remove('ov');
+      c.style.top = `${boxes[i].top}px`;
+      c.style.height = `${boxes[i].h}px`;
+      S.cins[i].style.transform = '';
+    });
+    st.shift = [];
+    const hs = S.cins.map((n) => n.offsetHeight);
+    const ovs = hs.map((h, i) => (h > boxes[i].h ? Math.ceil(h - boxes[i].h + 28) : 0));
+    copies.forEach((c, i) => {
+      c.classList.toggle('ov', ovs[i] > 0);
+    });
+
+    const k = 0.72;
+    const titles = [];
+    items.forEach((item, i) => {
+      const t = ITEMS[i].title;
+      if (!t) return;
+      const per = measure(t, 100) / 100;
+      const room = tBase - (copyTop + Math.min(hs[i], boxes[i].h) - FADE + H * 0.035);
+      const cap = desk ? clamp(room, H * 0.1, H * 0.24) : H * (phone ? 0.075 : 0.09);
+      const fs = Math.min(cap / CAP, (W * (desk ? 0.96 : 0.92)) / per);
+      const lh = fs * CAP;
+      const top = desk ? tBase - lh : phone ? 44 : H * 0.06;
+      const tw = Math.ceil(measure(t, fs)) + 6;
+      const th = Math.ceil(lh + 4);
+      const base = W * 0.5 + k * item.B;
+      const mkT = (inner) => {
+        const d = document.createElement('div');
+        d.className = 'ttl';
+        d.style.cssText = `left:${(base - tw / 2).toFixed(1)}px;top:${top.toFixed(1)}px`;
+        d.innerHTML = `<svg width="${tw}" height="${th}" viewBox="0 0 ${tw} ${th}" style="font: 900 ${fs.toFixed(2)}px/1 BSS;${strokes(fs)}" focusable="false">${inner}</svg>`;
+        return d;
+      };
+      const y = lh.toFixed(2);
+      const tp = mkT(`<text x="2" y="${y}" class="ttl-p">${t}</text>`);
+      const tx2 = mkT(`<text x="2" y="${y}" class="ttl-xg">${t}</text><text x="2" y="${y}" class="ttl-x">${t}</text>`);
+      S.ttlsP.appendChild(tp);
+      S.ttlsX.appendChild(tx2);
+      // on desk the title shares the belt line, so it waits until the outgoing item has cleared its left edge
+      let a0 = 0.38;
+      if (desk) {
+        const p0 = items[i - 1];
+        const step = item.B - p0.B;
+        a0 = clamp((p0.cx + p0.w / 2 - W * 0.5 + tw / 2 + W * 0.02 - k * step) / (step * (1 - k)), 0.38, 0.72);
+      }
+      titles.push({ m: i, tp, tx: tx2, o: -1, a0, a1: a0 + 0.24 });
+    });
+
+    S.xwin.style.width = `${beam}px`;
+    S.beam.style.cssText = `left:${beam - 1}px;top:0;height:${beltY + beltH}px`;
+    S.wash.style.cssText = `left:${beam - 80}px;top:0;height:${beltY + beltH}px`;
+
+    const gapR = desk ? 64 : 44;
+    const nR = Math.ceil(W / gapR) + 1;
+    const beltBlock = (x) => {
+      const tex = `<svg class="belt-tex" width="${W + 40}" height="${beltH}" viewBox="0 0 ${W + 40} ${beltH}" focusable="false"><defs><pattern id="cl${x}" width="20" height="${beltH}" patternUnits="userSpaceOnUse"><rect width="3" height="${beltH}" fill="${x ? 'rgba(180,211,255,.35)' : '#2a3a8c'}"/></pattern></defs><rect width="${W + 40}" height="${beltH}" fill="url(#cl${x})"/></svg>`;
+      const rollers = Array.from({ length: nR }, (_, i) => `<div class="roller" style="left:${i * gapR + 10}px;top:${beltH + 3}px;width:${rr * 2}px;height:${rr * 2}px"></div>`).join('');
+      return (x ? `<div class="surface" style="width:100%;border-top:1.5px solid var(--xm-hi);border-bottom:1.5px solid rgba(180,211,255,.5);background:rgba(62,139,255,.14)"></div>` : `<div class="surface" style="width:100%"></div>`) + tex + rollers;
+    };
+    for (const [elB, x] of [[S.beltP, 0], [S.beltX, 1]]) {
+      elB.style.cssText = `top:${beltY}px;height:${beltH}px`;
+      elB.innerHTML = beltBlock(x);
+    }
+    const rollersP = $$('.roller', S.beltP);
+    const rollersX = $$('.roller', S.beltX);
+    const texs = [$('.belt-tex', S.beltP), $('.belt-tex', S.beltX)];
+
+    S.panel.style.cssText = `top:${panelTop}px;display:${desk ? 'none' : 'block'}`;
+    const hudTop = desk ? H * 0.045 : 14;
+    S.hud.style.cssText = `left:${desk ? W * 0.04 : 16}px;top:${hudTop}px;max-width:${beam - 24}px;overflow:hidden`;
+    S.legend.style.cssText = desk ? `left:${W * 0.04}px;top:${H * 0.93}px` : 'display:none';
+    S.pipsBox.style.cssText = desk ? `right:${W * 0.04}px;top:${H * 0.93 + 2}px` : `left:${beam + 12}px;top:${hudTop + 3}px;transform:scale(.7);transform-origin:0 50%`;
+    S.cam.style.transformOrigin = S.phys.style.transformOrigin = `${beam}px ${beltY}px`;
+
+    // scroll timeline in px. A dwell holds the belt still and, when the caption overflows its box,
+    // spends `ov` extra pixels sliding the caption text up 1:1 with the scroll.
+    const segs = [];
+    const VH = innerHeight;
+    let at0 = 0;
+    const push = (s) => { s.start = at0; segs.push(s); at0 += s.len; };
+    push({ type: 'dwell', a: 0, lead: 0, ov: ovs[0], len: 0.6 * VH + ovs[0] });
+    for (let i = 1; i < items.length; i++) {
+      const last = i === items.length - 1;
+      push({ type: 'move', a: i - 1, b: i, len: (desk ? 1.1 : 0.95) * VH });
+      push({ type: 'dwell', a: i, lead: 0.25 * VH, ov: ovs[i], len: 0.25 * VH + ovs[i] + (last ? 0.35 : 0.6) * VH });
+    }
+    track.style.height = `${at0 + VH}px`;
+
+    L = { W, H, desk, phone, beam, beltY, items, titles, k, rr, rollersP, rollersX, texs, segs, ovs };
+    if (QA) window.__lm = { moments: moments(), layout: L };
+  }
+
+  function moments() {
+    const top = track.offsetTop;
+    const m = {};
+    L.segs.forEach((s) => {
+      if (s.type === 'move') m[`scan-${s.b}`] = Math.round(top + s.start + s.len * 0.62);
+      else {
+        m[`dwell-${s.a}`] = Math.round(top + s.start + s.lead);
+        if (s.ov) m[`end-${s.a}`] = Math.round(top + s.start + s.lead + s.ov);
+      }
+    });
+    m.contact = Math.round($('#contact').offsetTop);
+    return m;
+  }
+
+  const html = (s) => {
+    const t = document.createElement('template');
+    t.innerHTML = s.trim();
+    return t.content.firstElementChild;
+  };
+
+  let svhEl;
+  function svh() {
+    if (!svhEl) {
+      svhEl = document.createElement('div');
+      svhEl.style.cssText = 'position:fixed;left:0;top:0;width:1px;height:100vh;height:100svh;visibility:hidden;pointer-events:none';
+      document.body.appendChild(svhEl);
+    }
+    return svhEl.offsetHeight || innerHeight;
+  }
+
+  /* ---------- frame loop ---------- */
+  const st = { Bt: 0, B: 0, introStart: 0, raf: 0, last: 0, active: -1, near: -1, shift: [] };
+
+  function target() {
+    const y = scrollY - track.offsetTop;
+    const { segs, items, ovs } = L;
+    let s = segs[0];
+    for (const sg of segs) { if (y >= sg.start) s = sg; }
+    if (s.type === 'dwell') return { B: items[s.a].B, active: s.a, near: s.a, shift: clamp(y - s.start - s.lead, 0, s.ov) };
+    const t = clamp((y - s.start) / s.len, 0, 1);
+    const active = t < 0.12 ? s.a : t > 0.86 ? s.b : -1;
+    return { B: lerp(items[s.a].B, items[s.b].B, inOutCubic(t)), active, near: t < 0.5 ? s.a : s.b, shift: active === s.a ? ovs[s.a] : 0 };
+  }
+
+  function frame(now) {
+    st.raf = 0;
+    const dt = Math.min(0.05, st.last ? (now - st.last) / 1000 : 1 / 60);
+    st.last = now;
+    const tg = target();
+    st.Bt = tg.B;
+    const a = QA ? 1 : 1 - Math.exp(-dt / 0.085);
+    st.B += (st.Bt - st.B) * a;
+    if (Math.abs(st.Bt - st.B) < 0.05) st.B = st.Bt;
+
+    let introOff = 0;
+    if (st.introStart) {
+      const it = clamp((now - st.introStart) / 1700, 0, 1);
+      introOff = -L.W * 0.55 * (1 - outQuart(it));
+      if (it >= 1) st.introStart = 0;
+    }
+    apply(st.B + introOff, tg);
+    if (tg.active !== st.active) setActive(tg.active);
+    if (tg.near !== st.near) setHud(tg.near);
+    if (st.B !== st.Bt || st.introStart) st.raf = requestAnimationFrame(frame);
+    else st.last = 0;
+  }
+
+  const FLASH = [{ opacity: 0 }, { opacity: 1, offset: 0.18 }, { opacity: 0 }];
+
+  function apply(B, tg) {
+    const { items, titles, k, beam, rr, rollersP, rollersX, texs } = L;
+    const tr = `translate3d(${(-B).toFixed(2)}px,0,0)`;
+    S.itemsP.style.transform = tr;
+    S.itemsX.style.transform = tr;
+    const tt = `translate3d(${(-B * k).toFixed(2)}px,0,0)`;
+    S.ttlsP.style.transform = tt;
+    S.ttlsX.style.transform = tt;
+
+    // belt progress from item j-1 to item j, read from the damped belt
+    let j = items.length - 1;
+    let pr = 1;
+    for (let q = 1; q < items.length; q++) {
+      if (B < items[q].B) {
+        const a = items[q - 1].B;
+        j = q;
+        pr = B > a ? (B - a) / (items[q].B - a) : 0;
+        break;
+      }
+    }
+    S.cam.style.transform = S.phys.style.transform = `scale(${(1 - 0.035 * Math.sin(Math.PI * pr)).toFixed(4)})`;
+
+    const bt = `translate3d(${(-(((B % 20) + 20) % 20)).toFixed(2)}px,0,0)`;
+    texs[0].style.transform = texs[1].style.transform = bt;
+    const rot = `rotate(${((-(B / rr) * 180) / Math.PI % 360).toFixed(1)}deg)`;
+    for (const r0 of rollersP) r0.style.transform = rot;
+    for (const r0 of rollersX) r0.style.transform = rot;
+
+    // the leaving year is gone before the next fades in; the next is solid by the time its bag meets the beam
+    for (const t of titles) {
+      const o = Math.round((t.m === j - 1 ? 1 - smooth(0.04, 0.35, pr) : t.m === j ? smooth(t.a0, t.a1, pr) : 0) * 100) / 100;
+      if (o !== t.o) {
+        t.o = o;
+        t.tp.style.opacity = t.tx.style.opacity = o;
+        t.tp.style.visibility = t.tx.style.visibility = o ? '' : 'hidden';
+      }
+    }
+
+    for (const it of items) {
+      const left = it.baseX - it.w / 2 - B;
+      if (it.lastLeft > beam && left <= beam) S.wash.animate(FLASH, { duration: 760, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' });
+      it.lastLeft = left;
+    }
+
+    const a = tg.active;
+    if (a >= 0 && st.shift[a] !== tg.shift) {
+      st.shift[a] = tg.shift;
+      S.cins[a].style.transform = tg.shift ? `translate3d(0,${(-tg.shift).toFixed(1)}px,0)` : '';
+    }
+  }
+
+  function setActive(i) {
+    st.active = i;
+    for (const c of copies) c.classList.toggle('on', +c.dataset.ch === i);
+  }
+
+  function setHud(i) {
+    st.near = i;
+    S.hudN.textContent = i === 0 ? 'Scan 00/06' : i === 7 ? 'Clear' : `Scan 0${i}/06`;
+    S.hudT.textContent = ITEMS[i].hud;
+    S.pips.forEach((p0, j) => {
+      p0.classList.toggle('on', j <= i);
+    });
+  }
+
+  const kick = () => { if (!st.raf) st.raf = requestAnimationFrame(frame); };
+
+  async function startMotion() {
+    buildStage();
+    await fontsReady();
+    layout();
+    const tg = target();
+    st.B = st.Bt = tg.B;
+    if (!QA && scrollY < 40) {
+      st.introStart = performance.now();
+      S.beam.classList.add('beam-on');
+    }
+    setActive(tg.active);
+    setHud(tg.near);
+    kick();
+    addEventListener('scroll', kick, { passive: true });
+    let lastW = innerWidth, lastH = innerHeight;
+    addEventListener('resize', () => {
+      if (innerWidth === lastW && Math.abs(innerHeight - lastH) < 140) return;
+      lastW = innerWidth; lastH = innerHeight;
+      layout();
+      st.B = st.Bt = target().B;
+      kick();
+    });
+  }
+
+  function fontsReady() {
+    const want = [document.fonts.load('900 100px BSS'), document.fonts.load('500 16px "Plex Mono"'), document.fonts.load('600 16px "Plex Mono"')];
+    return Promise.race([Promise.all(want), new Promise((r0) => setTimeout(r0, 2500))]);
+  }
+
+  if (STATIC) fontsReady().then(buildStatic);
+  else startMotion();
+})();
+</script>
+</body>
+</html>
