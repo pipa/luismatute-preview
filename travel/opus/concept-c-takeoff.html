@@ -132,9 +132,9 @@ a { color: inherit; }
 .route dd { margin: 0; font: 700 19px/1.15 var(--text); }
 .pass .intro { margin: 0; max-width: 34ch; }
 .cue { display: inline-flex; align-items: center; gap: 10px; margin: 12px 0 0; font: 500 12px/1 var(--mono); letter-spacing: 0.12em; text-transform: uppercase; }
-.cue i { position: relative; display: block; width: 26px; height: 26px; border: 2.5px solid var(--ink); border-radius: 50%; background: var(--marigold); }
-.cue i::after { content: ""; position: absolute; left: 7px; top: 5px; width: 7px; height: 7px; border-right: 2.5px solid var(--ink); border-bottom: 2.5px solid var(--ink); transform: rotate(45deg); animation: cue 1.6s var(--out) infinite; }
-@keyframes cue { 0% { transform: translate3d(0, -3px, 0) rotate(45deg); opacity: 0; } 40% { opacity: 1; } 100% { transform: translate3d(0, 4px, 0) rotate(45deg); opacity: 0; } }
+.cue i { display: grid; place-items: center; flex: none; width: 26px; height: 26px; border: 2.5px solid var(--ink); border-radius: 50%; background: var(--marigold); }
+.cue i::after { content: ""; width: 8px; height: 8px; border-right: 2.5px solid var(--ink); border-bottom: 2.5px solid var(--ink); transform: translate3d(0, -2.5px, 0) rotate(45deg); animation: cue 1.6s var(--out) infinite; }
+@keyframes cue { 0% { transform: translate3d(0, -5.5px, 0) rotate(45deg); opacity: 0; } 40% { opacity: 1; } 100% { transform: translate3d(0, 0.5px, 0) rotate(45deg); opacity: 0; } }
 
 /* ---------- motion stage ---------- */
 .is-motion .track { position: relative; }
@@ -278,6 +278,27 @@ a { color: inherit; }
 .lu.ex-read .ms { opacity: 0; }
 .lu.ex-read .lu-book { opacity: 1; }
 .lu.ex-wave .lu-wave { opacity: 1; }
+/* the window Luis is the same pose, shrunk: classes stay in lockstep with the porthole */
+.tl .ec, .tl .mo, .tl .mw { opacity: 0; }
+.tl.blink .eo, .tl.ex-sleep .eo, .tl.ex-eek .eo { opacity: 0; }
+.tl.blink .ec, .tl.ex-sleep .ec, .tl.ex-eek .ec { opacity: 1; }
+.tl.ex-wink .eo.l { opacity: 0; }
+.tl.ex-wink .ec.l { opacity: 1; }
+.tl.ex-wow .ms, .tl.ex-sleep .ms, .tl.ex-wink .ms, .tl.ex-eek .ms, .tl.ex-read .ms { opacity: 0; }
+.tl.ex-wow .mo, .tl.ex-sleep .mo, .tl.ex-eek .mo { opacity: 1; }
+.tl.ex-wink .mw { opacity: 1; }
+.tl .brw, .tl .shade, .tl-head { transition: transform 0.35s var(--pop); }
+.tl-head { transform-box: fill-box; transform-origin: 50% 55%; }
+.tl .shade { transition-duration: 1.1s; transition-timing-function: var(--out); }
+.tl.ex-wow .brw, .tl.ex-eek .brw { transform: translate3d(0, -0.7px, 0); }
+.tl.ex-sleep .brw { transform: translate3d(0, 0.35px, 0); }
+.tl.ex-sleep .shade { transform: translate3d(0, 8px, 0); }
+.tl .lu-cap, .tl .lu-glasses, .tl .lu-book, .tl .lu-wave { opacity: 0; }
+.tl.ex-grad .lu-cap { opacity: 1; }
+.tl.ex-beach .eo, .tl.ex-beach .ec, .tl.ex-beach .brw { opacity: 0; }
+.tl.ex-beach .lu-glasses { opacity: 1; }
+.tl.ex-read .lu-book { opacity: 1; }
+.tl.ex-wave .lu-wave { opacity: 1; }
 /* a die-cut sticker edge keeps the handwriting readable over any art */
 .note { position: absolute; right: 100%; top: 4%; margin: 0 6px 0 0; color: var(--ink); font: 600 27px/1 var(--hand); white-space: nowrap; -webkit-text-stroke: 8px var(--paper); paint-order: stroke fill; transform: rotate(-7deg); transform-origin: 100% 50%; transition: opacity 0.35s ease; }
 .note svg { position: absolute; right: -12px; top: 26px; overflow: visible; }
@@ -289,7 +310,8 @@ a { color: inherit; }
 .is-motion .copy { position: absolute; opacity: 0; transform: translate3d(0, 26px, 0) rotate(var(--rot, 0deg)); transition: opacity 0.28s ease, transform 0.28s ease; }
 .is-motion .copy.on { opacity: 1; pointer-events: auto; transform: rotate(var(--rot, 0deg)); transition: opacity 0.5s var(--out) 0.05s, transform 0.7s var(--pop) 0.05s; }
 .is-motion .copy.ov { overflow: hidden; }
-.is-motion .copy.ov .cin { will-change: transform; }
+.is-motion .copy:not(.on) { visibility: hidden; }
+.is-motion .copy.on { visibility: visible; }
 .is-motion .copy.ov::after { content: ""; position: absolute; z-index: 1; left: 0; right: 0; bottom: 0; height: 30px; border-radius: 0 0 17px 17px; background: linear-gradient(rgba(255, 246, 228, 0), var(--paper) 85%); pointer-events: none; }
 .is-motion .copy.ov.sh::before { content: ""; position: absolute; z-index: 1; left: 0; right: 0; top: 0; height: 26px; border-radius: 17px 17px 0 0; background: linear-gradient(var(--paper) 20%, rgba(255, 246, 228, 0)); pointer-events: none; }
 .m-desk .copy { left: max(24px, 4vw); width: clamp(280px, 38vw, 470px); font-size: clamp(15.5px, 0.4vw + 10.5px, 17.5px); }
@@ -315,11 +337,12 @@ a { color: inherit; }
 .m-port .contact .arr { margin-top: auto; }
 .is-motion.m-port .contact .arr::before { content: ""; float: right; width: var(--cfw, 0); height: var(--cfh, 0); }
 .contact .sub { margin: 0 0 0.8em; font-size: clamp(18px, 1.5vw, 21px); }
-.contact ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; }
-.contact a { display: inline-block; padding: 9px 17px 10px; border: 3px solid var(--ink); border-radius: 999px; background: #fff; box-shadow: 4px 5px 0 var(--ink); font: 700 clamp(18px, 1.7vw, 24px)/1.15 var(--text); text-decoration: none; }
+.contact ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+.contact li { display: flex; align-items: center; gap: 8px; min-height: 44px; }
+.contact a { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 17px; border: 3px solid var(--ink); border-radius: 999px; background: #fff; box-shadow: 4px 5px 0 var(--ink); font: 700 clamp(18px, 1.7vw, 24px)/1.15 var(--text); text-decoration: none; }
 .contact a:hover { background: var(--marigold); }
 .contact a:active { transform: translate(3px, 3px); box-shadow: 1px 2px 0 var(--ink); }
-.contact .on-x { margin-left: 6px; font-size: 15px; }
+.contact .on-x { font: 600 15px/1.2 var(--text); }
 .contact .meta { margin: 1.4em 0 0; padding-top: 0.9em; border-top: 2px dashed rgba(43, 27, 20, 0.28); color: var(--ink2); font-size: 14px; }
 .contact .meta a { display: inline; padding: 0; border: 0; background: none; box-shadow: none; font: inherit; text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
 .contact .meta a:active { transform: none; }
@@ -363,7 +386,23 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
 .globe-panel { position: relative; width: min(100%, 520px); max-height: min(92vh, 640px); padding: 14px 14px 16px; border: 3px solid var(--ink); border-radius: 22px; background: var(--paper); box-shadow: 8px 9px 0 var(--ink); }
 .globe-panel h2 { margin: 0 0 0.35em; font: 700 20px/1.15 var(--text); }
 .globe-panel p { margin: 0 0 0.75em; color: var(--ink2); font-size: 14.5px; }
-.globe-stage { position: relative; aspect-ratio: 1; border: 2.5px solid var(--ink); border-radius: 16px; overflow: hidden; background: #2f86a8; }
+.globe-stage { position: relative; aspect-ratio: 1; border: 2.5px solid var(--ink); border-radius: 16px; background: #2f86a8; }
+.globe-art { position: absolute; inset: 0; border-radius: 13px; overflow: hidden; }
+.globe-stops { position: absolute; inset: 0; }
+.gstop { position: absolute; width: 44px; height: 44px; margin: -22px 0 0 -22px; padding: 0; border: 0; border-radius: 12px; background: transparent; color: var(--ink); cursor: pointer; }
+.gstop .dot { position: absolute; left: 50%; top: 50%; width: 16px; height: 16px; margin: -8px 0 0 -8px; border: 2.5px solid var(--ink); border-radius: 50%; background: var(--marigold); box-shadow: 2px 2px 0 var(--ink); }
+.gstop .lab { position: absolute; left: 50%; top: calc(100% - 8px); transform: translateX(-50%); padding: 3px 8px 4px; border: 2px solid var(--ink); border-radius: 999px; background: var(--paper); font: 700 12px/1.2 var(--text); white-space: nowrap; opacity: 0; pointer-events: none; }
+.gstop.side-l .lab { left: auto; right: 78%; top: 50%; transform: translateY(-50%); }
+.gstop.side-r .lab { left: 78%; top: 50%; transform: none; }
+.gstop:hover .lab, .gstop:focus-visible .lab { opacity: 1; }
+.gstop:hover .dot, .gstop:focus-visible .dot, .gstop.on .dot { background: var(--tomato); }
+.gstop:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+.seat-line { position: fixed; inset: 0; z-index: 6; width: 100%; height: 100%; pointer-events: none; overflow: visible; opacity: 0; transition: opacity 0.35s ease; }
+.seat-line.on { opacity: 1; }
+.seat-line path { fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 0.9s var(--out) 0.12s; }
+.seat-line.on path { stroke-dashoffset: 0; }
+.frame .seat-line { position: absolute; opacity: 1; }
+.is-static .seat-line path { stroke-dashoffset: 0; }
 .globe-close { position: absolute; top: 10px; right: 10px; width: 44px; height: 44px; border: 2.5px solid var(--ink); border-radius: 50%; background: var(--paper); font: 700 22px/1 var(--text); box-shadow: 3px 3px 0 var(--ink); cursor: pointer; }
 .globe-close:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
 .is-static .globe-btn .rd-anim { opacity: 1 !important; }
@@ -383,7 +422,10 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
     <button class="globe-close" id="globeClose" type="button" aria-label="Close route map">×</button>
     <h2 id="globeTitle">Route</h2>
     <p>Honduras, the Caribbean, then Amsterdam.</p>
-    <div class="globe-stage" id="globeStage" aria-hidden="true"></div>
+    <div class="globe-stage" id="globeStage">
+      <div class="globe-art" id="globeArt" aria-hidden="true"></div>
+      <div class="globe-stops" id="globeStops"></div>
+    </div>
   </div>
 </div>
 <main id="main">
@@ -529,9 +571,9 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
       <div class="arr card">
         <p class="sub">Say hola by email or on X.</p>
         <ul>
-          <li><a href="mailto:luis.matute@me.com">luis.matute@me.com</a></li>
-          <li><a href="https://x.com/luis_matute">@luis_matute</a> <span class="on-x">on X</span></li>
-          <li><a href="https://github.com/pipa">@pipa</a></li>
+          <li><a href="mailto:luis.matute@me.com">luis.matute@me.com</a><span class="on-x">Email</span></li>
+          <li><a href="https://x.com/luis_matute">@luis_matute</a><span class="on-x">on X</span></li>
+          <li><a href="https://github.com/pipa">@pipa</a><span class="on-x">on GitHub</span></li>
         </ul>
         <p class="meta">Concept C, “Wheels up”. Prototype for luismatute.me. <a href="concept-a.html">Concept A</a> · <a href="concept-b.html">Concept B</a></p>
       </div>
@@ -539,6 +581,7 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
   </div>
 </main>
 <div class="hud" id="hud" aria-hidden="true"></div>
+<svg class="seat-line" id="seatLine" aria-hidden="true"><path stroke="#fff6e4" stroke-width="8.6" pathLength="1"/><path stroke="#2b1b14" stroke-width="2.6" pathLength="1"/></svg>
 
 <script>
 (() => {
@@ -736,14 +779,9 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
     return `<g class="wh" style="transform-origin:${cx}px ${cy}px">${circ(cx, cy, r, INK)}${circ(cx, cy, r * 0.5, '#a39282')}${line(`M${cx - r * 0.5} ${cy}H${cx + r * 0.5}M${cx} ${cy - r * 0.5}V${cy + r * 0.5}`, INK, 2.2)}</g>`;
   }
   function tinyLuis(cx, cy) {
-    return (
-      circ(cx, cy + 3, 6.2, SK.skin) +
-      path(`M${cx - 6.3} ${cy + 2}Q${cx - 6} ${cy - 5.5} ${cx} ${cy - 6}Q${cx + 6} ${cy - 5.5} ${cx + 6.3} ${cy + 2}Q${cx + 3.5} ${cy - 2} ${cx} ${cy - 2}Q${cx - 3.5} ${cy - 2} ${cx - 6.3} ${cy + 2}Z`, SK.hair) +
-      circ(cx - 0.5, cy - 7.6, 2.8, SK.hair) +
-      path(`M${cx - 5.6} ${cy + 3.5}Q${cx - 5} ${cy + 10} ${cx} ${cy + 10.6}Q${cx + 5} ${cy + 10} ${cx + 5.6} ${cy + 3.5}Q${cx + 3} ${cy + 6.2} ${cx} ${cy + 6.2}Q${cx - 3} ${cy + 6.2} ${cx - 5.6} ${cy + 3.5}Z`, SK.beard) +
-      circ(cx - 2.5, cy + 1.8, 2.1, 'none', ol(1, SK.amber)) +
-      circ(cx + 2.5, cy + 1.8, 2.1, 'none', ol(1, SK.amber))
-    );
+    const eye = (dx, side) =>
+      `<g class="eo ${side}">${ell(cx + dx, cy + 0.15, 0.72, 0.92, SK.hair)}</g><g class="ec ${side}">${line(`M${cx + dx - 0.9} ${cy + 0.15}Q${cx + dx} ${cy + 1.05} ${cx + dx + 0.9} ${cy + 0.15}`, SK.hair, 0.7)}</g>`;
+    return `<g class="tl"><g class="tl-head">${circ(cx, cy + 0.6, 5.3, SK.skin)}${path(`M${cx - 5.2} ${cy + 0.2}Q${cx - 4.8} ${cy - 5} ${cx} ${cy - 5.5}Q${cx + 4.8} ${cy - 5} ${cx + 5.2} ${cy + 0.2}Q${cx + 2.6} ${cy - 2.2} ${cx} ${cy - 2.3}Q${cx - 2.6} ${cy - 2.2} ${cx - 5.2} ${cy + 0.2}Z`, SK.hair)}${circ(cx - 0.2, cy - 6.3, 2.15, SK.hair)}${path(`M${cx - 4.5} ${cy + 1.4}Q${cx - 3.8} ${cy + 6.2} ${cx} ${cy + 6.6}Q${cx + 3.8} ${cy + 6.2} ${cx + 4.5} ${cy + 1.4}Q${cx + 2.2} ${cy + 3.5} ${cx} ${cy + 3.4}Q${cx - 2.2} ${cy + 3.5} ${cx - 4.5} ${cy + 1.4}Z`, SK.beard)}${eye(-1.7, 'l')}${eye(1.7, 'r')}<g class="brw">${line(`M${cx - 2.6} ${cy - 1.25}Q${cx - 1.7} ${cy - 1.9} ${cx - 0.85} ${cy - 1.3}`, SK.hair, 0.65)}${line(`M${cx + 0.85} ${cy - 1.3}Q${cx + 1.7} ${cy - 1.9} ${cx + 2.6} ${cy - 1.25}`, SK.hair, 0.65)}</g><g class="ms">${path(`M${cx - 1.55} ${cy + 2.15}Q${cx} ${cy + 3.35} ${cx + 1.55} ${cy + 2.15}Q${cx} ${cy + 2.7} ${cx - 1.55} ${cy + 2.15}Z`, SK.lip)}</g><g class="mo">${ell(cx, cy + 2.55, 1.05, 1.2, SK.lip)}</g><g class="mw">${path(`M${cx - 1.7} ${cy + 2.05}Q${cx} ${cy + 3.7} ${cx + 1.7} ${cy + 2.05}Q${cx} ${cy + 2.55} ${cx - 1.7} ${cy + 2.05}Z`, SK.lip)}</g><g class="lu-cap">${path(`M${cx - 3.3} ${cy - 4.5}L${cx + 3.3} ${cy - 4.5}L${cx} ${cy - 6.8}Z`, '#1a1a1a')}${rect(cx - 3.6, cy - 4.7, 7.2, 1.15, '#1a1a1a')}</g><g class="lu-glasses">${rect(cx - 3.4, cy - 0.7, 2.7, 1.7, '#14242c', ol(0.4))}${rect(cx + 0.7, cy - 0.7, 2.7, 1.7, '#14242c', ol(0.4))}${line(`M${cx - 0.7} ${cy + 0.15}H${cx + 0.7}`, '#1a1a1a', 0.45)}</g><g class="lu-book">${rr(cx + 0.4, cy + 3.1, 4.4, 2.8, 0.45, '#fff', ol(0.45))}${line(`M${cx + 1} ${cy + 4}H${cx + 4.2}M${cx + 1} ${cy + 4.8}H${cx + 3.6}`, INK, 0.35)}</g><g class="lu-wave">${path(`M${cx - 6.2} ${cy + 3.4}Q${cx - 5.2} ${cy + 0.6} ${cx - 3.4} ${cy + 2.2}L${cx - 2.6} ${cy + 4.2}Z`, SK.skin)}</g></g><g class="shade">${rect(cx - 9, cy - 20, 18, 12, '#efdcbc')}${line(`M${cx - 8} ${cy - 14}H${cx + 8}M${cx - 8} ${cy - 11.2}H${cx + 8}`, '#dcc49c', 0.55)}</g></g>`;
   }
   function planeSVG(id) {
     const body = 'M100 88L466 82C538 80 597 100 611 127C620 147 604 167 568 171L204 175C152 175 108 157 72 125L60 114C58 98 76 89 100 88Z';
@@ -770,7 +808,7 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
     for (let i = 0; i < 11; i++) {
       const x = 178 + i * 30;
       s += circ(x, 106, 9.5, C.glass, ol(3));
-      if (i === 4) s += `<g clip-path="url(#pw${id})">${tinyLuis(x, 106)}</g><clipPath id="pw${id}"><circle cx="${x}" cy="106" r="8"/></clipPath>`;
+      if (i === 4) s += `<g clip-path="url(#pw${id})">${tinyLuis(x, 106)}</g><clipPath id="pw${id}"><circle cx="${x}" cy="106" r="8"/></clipPath><circle class="win-luis" cx="${x}" cy="106" r="8" fill="none"/>`;
       else s += line(`M${x - 5} ${103}Q${x - 3} ${99} ${x + 1} ${99}`, '#fff', 2);
     }
     s += '<g class="lit">';
@@ -1114,7 +1152,10 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
   }
 
   /* ---------- Amsterdam: canal houses that draw in ---------- */
-  function house(x, base, w, h, kind, c) {
+  function brickPattern() {
+    return `<defs><pattern id="amsbrick" width="18" height="10" patternUnits="userSpaceOnUse"><path d="M0 0.4Q9 -0.1 18 0.5M0 5.1Q9 4.6 18 5.3M0 9.6Q9 10.1 18 9.5M0 0.4Q0.3 2.6 0 5.1M9 5.1Q9.4 7.4 9 9.6" fill="none" stroke="#2b1b14" stroke-width="0.7" stroke-linecap="round" opacity="0.38"/></pattern></defs>`;
+  }
+  function house(x, base, w, h, kind, c, o = {}) {
     const top = base - h;
     let sil;
     if (kind === 'step') {
@@ -1137,13 +1178,24 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
       for (let k = 0; k < cols; k++) {
         const wx = x + 12 + k * (ww + 12);
         const wy = top + 84 + r * 58;
+        if (o.trim) win += rect(wx - 3, wy - 3, ww + 6, 46, '#fffef8', ol(2));
         win += rect(wx, wy, ww, 40, '#fffaf0') + rect(wx + 4, wy + 4, ww - 8, 32, '#2d5560') + rect(wx + ww / 2 - 1.5, wy + 4, 3, 32, '#fffaf0');
         wd += `M${N(wx)} ${N(wy)}h${N(ww)}v40h${N(-ww)}Z`;
       }
+    let beam = '';
+    if (o.beam) {
+      const px = x + w * 0.5;
+      const py = kind === 'neck' ? top - 6 : kind === 'tri' ? top - 14 : top;
+      const len = Math.max(26, Math.min(w * 0.46, 52));
+      const bx = px + len;
+      const by = py - len * 0.06;
+      beam = `M${N(px)} ${N(py)}L${N(bx)} ${N(by)}M${N(px + len * 0.62)} ${N(py + (by - py) * 0.62)}L${N(px + len * 0.18)} ${N(py + 18)}M${N(bx)} ${N(by)}v10M${N(bx - 5)} ${N(by + 10)}L${N(bx + 1)} ${N(by + 15)}`;
+    }
+    const brick = o.brick ? `<clipPath id="hbk${o.id}"><path d="${d}Z"/></clipPath><g clip-path="url(#hbk${o.id})">${rect(x - 4, top - 20, w + 8, base - top + 24, 'url(#amsbrick)')}</g>` : '';
     const door = rect(x + w / 2 - 15, base - 50, 30, 50, dk(c, 0.35)) + rect(x + w / 2 - 15, base - 50, 30, 50, 'none', ol(3));
     return {
-      fill: `${path(`${d}Z`, c)}${win}${door}${rect(x + w / 2 - 3, top + 58, 6, 18, '#5b4a42')}`,
-      line: `${d}Z${wd}`,
+      fill: `${path(`${d}Z`, c)}${brick}${win}${door}${rect(x + w / 2 - 3, top + 58, 6, 18, '#5b4a42')}`,
+      line: `${d}Z${wd}${beam}`,
     };
   }
   function windmill(x, y, s) {
@@ -1203,17 +1255,27 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
   }
   sampleGlobeLegs();
   const STOP_LEG = { hero: 0, plan: 0, aa: 0, bsc: 0, sandals: 1, fluky: 2, move: 3, booking: 3 };
-  const STOP_T = { hero: 0.02, plan: 0.06, aa: 0.14, bsc: 0.2, sandals: 0.42, fluky: 0.58, move: 0.78, booking: 0.98 };
+  const alongLeg = (i, u) => {
+    const leg = GLOBE.legs[i];
+    return (leg.start + u * (leg.end - leg.start)) / (GLOBE.route.length - 1);
+  };
+  // fractions follow the legs, so a late stop is over the Atlantic rather than still on the Caribbean samples
+  const STOP_T = { hero: alongLeg(0, 0.05), plan: alongLeg(0, 0.16), aa: alongLeg(0, 0.34), bsc: alongLeg(0, 0.72), sandals: alongLeg(1, 1), fluky: alongLeg(2, 1), move: alongLeg(3, 0.46), booking: alongLeg(3, 0.97) };
   function routeStopLeg(k) {
     if (k === 'plan') k = 'hero';
     return STOP_LEG[k] ?? 0;
   }
-  function globeRoutePoint(k) {
+  function routePose(t) {
     const rt = GLOBE.route;
-    const t = STOP_T[k] ?? 0;
-    return rt[Math.round(t * (rt.length - 1))];
+    const n = rt.length - 1;
+    const f = clamp(t, 0, 1) * n;
+    const i = Math.min(n - 1, Math.floor(f));
+    const u = f - i;
+    const a = rt[i];
+    const b = rt[i + 1];
+    return { x: a[0] + (b[0] - a[0]) * u, y: a[1] + (b[1] - a[1]) * u, deg: (Math.atan2(b[1] - a[1], b[0] - a[0]) * 180) / Math.PI };
   }
-  function globeSvg(reveal, activeK) {
+  function globeSvg(reveal, activeK, withPins = true) {
     const rv = STATIC ? 1 : reveal;
     const leg = routeStopLeg(activeK);
     let dash = '';
@@ -1226,12 +1288,13 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
         dash += `<path class="rd" d="M${N(a[0])} ${N(a[1])}L${N(b[0])} ${N(b[1])}" fill="none" stroke="${hot ? C.tomato : '#e8a090'}" stroke-width="${hot ? 5.5 : 4}" stroke-linecap="round" vector-effect="non-scaling-stroke" style="opacity:${lit ? (hot ? 1 : 0.55) : 0.14}"/>`;
       }
     }
-    const tip = globeRoutePoint(activeK);
-    const rot = (Math.atan2(tip[1] - GLOBE.hon[1], tip[0] - GLOBE.hon[0]) * 180) / Math.PI;
+    const pose = routePose(STOP_T[activeK] ?? 0);
     const pin = (p, on) =>
       `<g opacity="${on ? 1 : 0.45}">${circ(p[0], p[1], 9, C.marigold, ol(3.5))}${circ(p[0], p[1], 3, INK)}</g>`;
     const lg = routeStopLeg(activeK);
-    return `<svg class="art" viewBox="0 0 1000 1000" width="100%" height="100%" role="img" aria-hidden="true"><defs><clipPath id="mgclip"><circle cx="500" cy="500" r="500"/></clipPath></defs><g transform="translate(0 0) scale(1)"><g class="gz">${circ(500, 500, 500, '#2f86a8')}<g clip-path="url(#mgclip)">${circ(500, 500, 430, '#3592b3')}<path d="${GLOBE.land}" fill="#8cc06a" stroke="${INK}" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>${path('M-20 -20H1020V1020H-20ZM-110 420A530 530 0 1 0 950 420A530 530 0 1 0 -110 420Z', '#163a52', ' fill-rule="evenodd" opacity=".26"')}${path('M-20 -20H1020V1020H-20ZM10 540A530 530 0 1 0 1070 540A530 530 0 1 0 10 540Z', '#fffaf0', ' fill-rule="evenodd" opacity=".3"')}</g>${circ(500, 500, 500, 'none', ' stroke="#2b1b14" stroke-width="4.5" vector-effect="non-scaling-stroke"')}${dash}${pin(GLOBE.hon, lg <= 1)}${pin(GLOBE.car, lg === 1)}${pin(GLOBE.rtb, lg === 2)}${pin(GLOBE.ams, lg >= 3)}<g transform="translate(${N(tip[0])} ${N(tip[1])}) rotate(${N(rot)}) scale(0.55)">${planeTop()}</g></g></g></svg>`;
+    const pins = withPins ? `${pin(GLOBE.hon, lg <= 1)}${pin(GLOBE.car, lg === 1)}${pin(GLOBE.rtb, lg === 2)}${pin(GLOBE.ams, lg >= 3)}` : '';
+    const plane = `<g transform="translate(${N(pose.x)} ${N(pose.y)}) rotate(${N(pose.deg)}) scale(0.62) translate(-60 -50)">${planeTop()}</g>`;
+    return `<svg class="art" viewBox="0 0 1000 1000" width="100%" height="100%" role="img" aria-hidden="true"><defs><clipPath id="mgclip"><circle cx="500" cy="500" r="500"/></clipPath></defs><g transform="translate(0 0) scale(1)"><g class="gz">${circ(500, 500, 500, '#2f86a8')}<g clip-path="url(#mgclip)">${circ(500, 500, 430, '#3592b3')}<path d="${GLOBE.land}" fill="#8cc06a" stroke="${INK}" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>${path('M-20 -20H1020V1020H-20ZM-110 420A530 530 0 1 0 950 420A530 530 0 1 0 -110 420Z', '#163a52', ' fill-rule="evenodd" opacity=".26"')}${path('M-20 -20H1020V1020H-20ZM10 540A530 530 0 1 0 1070 540A530 530 0 1 0 10 540Z', '#fffaf0', ' fill-rule="evenodd" opacity=".3"')}</g>${circ(500, 500, 500, 'none', ' stroke="#2b1b14" stroke-width="4.5" vector-effect="non-scaling-stroke"')}${dash}${pins}${plane}</g></g></svg>`;
   }
 
   /* ================= scenes ================= */
@@ -2013,7 +2076,7 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
           ly.g = { gz: $('.gz', g), rd: $$('.rd', g), pins: $$('.pin', ly.pins.el), pt: $('.ptop', ly.pins.el) };
         },
         update: (tau, ly) => {
-          const { k2, hs, tx, ty } = view(tau);
+          const { k2, tx, ty } = view(tau);
           const s = k2 / sc;
           ly.g.gz.setAttribute('transform', `translate(${N(tx)} ${N(ty)}) scale(${N(k2 * 10000) / 10000})`);
           const rv = ramp(1.15, 2.0, tau);
@@ -2031,8 +2094,14 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
             p.style.opacity = p === ly.g.pins[1] ? smooth(1.7, 2.0, tau) : smooth(0.5, 0.8, tau);
           }
           const ic = Math.min(3.2, s ** 0.8) * U * (desk ? 0.5 : 0.42);
-          const rot = Math.atan2(GLOBE.route[3][1] - GLOBE.route[0][1], GLOBE.route[3][0] - GLOBE.route[0][0]);
-          ly.g.pt.setAttribute('transform', `translate(${N(hs.x)} ${N(hs.y)}) rotate(${N((rot * 180) / Math.PI)}) scale(${N(ic * 1000) / 1000})`);
+          const target = planHover && STOP_T[planHover] != null ? STOP_T[planHover] : 0.04;
+          if (STATIC || root.classList.contains('paused')) planNow = target;
+          else planNow += (target - planNow) * 0.22;
+          if (Math.abs(target - planNow) > 0.003) kick();
+          const pose = routePose(planNow);
+          const px = tx + pose.x * k2;
+          const py = ty + pose.y * k2;
+          ly.g.pt.setAttribute('transform', `translate(${N(px)} ${N(py)}) rotate(${N(pose.deg)}) scale(${N(ic * 1000) / 1000})`);
           ly.gcl.el.style.opacity = N(smooth(1.0, 1.8, tau) * 100) / 100;
         },
         look: () => [gc.x, gc.y],
@@ -2227,14 +2296,15 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
       const base = hy + (desk ? 0.17 : 0.14) * H;
       const kinds = ['step', 'bell', 'neck', 'tri', 'step', 'neck', 'bell', 'tri', 'step'];
       const colsH = ['#d9553a', '#2c7f7a', '#f0b13d', '#f6e7c8', '#5a3f6b', '#5d9a52', '#b5523b', '#f2a08a', '#3f6f96'];
-      let fills = '';
+      let fills = brickPattern();
       let lines = '';
       let x = desk ? cap[k].right - W * 0.05 : -W * 0.08;
       let hi = 0;
       while (x < W * 1.15) {
         const w = (110 + ((hi * 37) % 50)) * hs;
         const h = (300 + ((hi * 53) % 90)) * hs;
-        const hh = house(x, base, w, h, kinds[hi % 9], colsH[hi % 9]);
+        const brick = hi === 1 || hi === 4 || hi === 7;
+        const hh = house(x, base, w, h, kinds[hi % 9], colsH[hi % 9], { id: hi, brick, trim: brick, beam: hi === 1 || hi === 4 });
         fills += `<g class="hf" style="opacity:0">${hh.fill}</g>`;
         lines += `<path class="hl" d="${hh.line}" fill="none" stroke="${INK}" stroke-width="${N(Math.max(2.5, 4 * hs))}" stroke-linejoin="round" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1"/>`;
         x += w + 4 * hs;
@@ -2399,6 +2469,7 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
     LAY = { W, H, Hs, VH, desk, chrome, segs, wsegs, S, scenes, planeEl, pb: $('.pb', planeEl), wh: $$('.wh', planeEl), gM: $('.gM', planeEl), gN: $('.gN', planeEl), top: track.getBoundingClientRect().top + scrollY, hudW, hudH, cap, dock };
     st.vis = null;
     st.act = '';
+    bindTinies();
     if (QA) window.__lm = { moments: moments(), layout: LAY };
   }
 
@@ -2513,9 +2584,20 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
       sc.ly.title.on = tOn;
       sc.ly.title.ttl.classList.toggle('on', tOn);
     }
-    const act = tau >= sc.cap[0] && tau <= sc.cap[1] ? k : '';
+    let act = tau >= sc.cap[0] && tau <= sc.cap[1] ? k : '';
+    if (act && cardCoveredByContact(copies[byK[act]])) act = '';
     if (act !== st.act) {
+      const prev = st.act;
       st.act = act;
+      if (prev) {
+        const ci = cins[byK[prev]];
+        if (ci) {
+          ci.style.transform = '';
+          ci._sh = -1;
+        }
+        copies[byK[prev]]?.classList.remove('sh');
+        if (closeOtherMores(act)) queueMicrotask(relayoutAfterMore);
+      }
       for (const cp of copies) cp.classList.toggle('on', cp.dataset.k === act);
       if (act) setGlobeStop(act);
     }
@@ -2584,7 +2666,9 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
     let hp = blendHud(sc, tau, other, y, w);
     // the contact card scrolls natively, so it carries the porthole by the raw scroll rather than the eased one
     if (LAY.dock - ty < hp.y) hp = { ...hp, y: LAY.dock - ty };
-    setHud(hp, sc.hint ? sc.hint(tau) : false);
+    const hint = !!sc.hint?.(tau);
+    setHud(hp, hint);
+    paintSeat(hint && p.o > 0, p);
     if (turb !== HUD.turb) {
       HUD.turb = turb;
       hud.classList.toggle('turb', turb);
@@ -2685,6 +2769,121 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
     P.torso.style.transform = `translate(0,${N(bump * 0.5)}px) rotate(${N(x * 1.3)}deg)`;
     P.seat.style.transform = `translate(${N(-x * 2.2)}px,0)`;
   }
+  function poseTiny(el, x, y, o = {}) {
+    const head = $('.tl-head', el);
+    if (!head) return;
+    const tilt = o.tilt || 0;
+    head.style.transform = `translate(${N(x * 1.2)}px,${N(y * 0.8)}px) rotate(${N(x * 8 + tilt * 0.45)}deg)`;
+  }
+  function bindTinies() {
+    rig.tinies = $$('#stage .tl');
+    const blink = !!rig.svg?.classList.contains('blink');
+    for (const t of rig.tinies) {
+      t.setAttribute('class', `tl${rig.expr ? ` ex-${rig.expr}` : ''}${blink ? ' blink' : ''}`);
+      poseTiny(t, rig.x, rig.y, { tilt: rig.expr === 'sleep' ? 9 : 0 });
+    }
+  }
+  function planeLocal(p, lx, ly, pitch = 0, str = 0) {
+    const r = ((p.r + pitch) * Math.PI) / 180;
+    const sx = p.s * (1 + str);
+    const sy = p.s * (1 - str * 0.8);
+    const co = Math.cos(r);
+    const si = Math.sin(r);
+    const dx = lx - PLANE.cx;
+    const dy = ly - PLANE.cy;
+    return [p.x + co * sx * dx - si * sy * dy, p.y + si * sx * dx + co * sy * dy];
+  }
+  function squiggle(x0, y0, x1, y1) {
+    const dx = x1 - x0;
+    const dy = y1 - y0;
+    const len = Math.hypot(dx, dy) || 1;
+    const nx = -dy / len;
+    const ny = dx / len;
+    const a = Math.min(22, len * 0.05);
+    const pt = (t, s) => [x0 + dx * t + nx * a * s, y0 + dy * t + ny * a * s];
+    if (len < 180) {
+      const c1 = pt(0.35, 0.85);
+      const c2 = pt(0.72, -0.7);
+      return `M${N(x0)} ${N(y0)}C${N(c1[0])} ${N(c1[1])} ${N(c2[0])} ${N(c2[1])} ${N(x1)} ${N(y1)}`;
+    }
+    const c1 = pt(0.18, 1);
+    const c2 = pt(0.36, -0.75);
+    const m = pt(0.5, 0.15);
+    const c3 = pt(0.68, 0.8);
+    const c4 = pt(0.84, -0.45);
+    return `M${N(x0)} ${N(y0)}C${N(c1[0])} ${N(c1[1])} ${N(c2[0])} ${N(c2[1])} ${N(m[0])} ${N(m[1])}C${N(c3[0])} ${N(c3[1])} ${N(c4[0])} ${N(c4[1])} ${N(x1)} ${N(y1)}`;
+  }
+  function noteAnchor(nb, wx, wy) {
+    const cx = (nb.left + nb.right) / 2;
+    const cy = (nb.top + nb.bottom) / 2;
+    const dx = wx - cx;
+    const dy = wy - cy;
+    const len = Math.hypot(dx, dy) || 1;
+    const tx = (nb.width / 2) / Math.max(Math.abs(dx), 0.01);
+    const ty = (nb.height / 2) / Math.max(Math.abs(dy), 0.01);
+    const t = Math.min(tx, ty);
+    return [cx + dx * t + (dx / len) * 8, cy + dy * t + (dy / len) * 6];
+  }
+  function seatCurve(x0, y0, wx, wy, scale) {
+    const dx = wx - x0;
+    const dy = wy - y0;
+    const len = Math.hypot(dx, dy) || 1;
+    const rim = 8 * Math.abs(scale) + 5;
+    return squiggle(x0, y0, wx - (dx / len) * rim, wy - (dy / len) * rim);
+  }
+  const seatLine = $('#seatLine');
+  const seatPaths = seatLine ? $$('path', seatLine) : [];
+  function paintSeat(on, p) {
+    if (!seatLine) return;
+    if (!on || !p) {
+      seatLine.classList.remove('on');
+      return;
+    }
+    const note = $('.note', hud);
+    if (!note) return;
+    const nb = note.getBoundingClientRect();
+    const [wx, wy] = planeLocal(p, 298, 106, st.pitch, st.str);
+    const [x0, y0] = noteAnchor(nb, wx, wy);
+    const d = seatCurve(x0, y0, wx, wy, p.s);
+    if (seatPaths[0].getAttribute('d') !== d) {
+      for (const path of seatPaths) path.setAttribute('d', d);
+    }
+    if (!seatLine.classList.contains('on')) requestAnimationFrame(() => seatLine.classList.add('on'));
+  }
+  function cardCoveredByContact(card) {
+    const arr = $('.arr', contact);
+    if (!arr || !card) return false;
+    const a = arr.getBoundingClientRect();
+    if (a.bottom < 8 || a.top > innerHeight - 8) return false;
+    const c = card.getBoundingClientRect();
+    const ox = Math.min(a.right, c.right) - Math.max(a.left, c.left);
+    const oy = Math.min(a.bottom, c.bottom) - Math.max(a.top, c.top);
+    return ox > 24 && oy > 24;
+  }
+  function closeOtherMores(keep) {
+    let closed = false;
+    for (const btn of $$('.more-btn[aria-expanded="true"]')) {
+      if (btn.closest('.copy')?.dataset.k === keep) continue;
+      btn.setAttribute('aria-expanded', 'false');
+      const body = document.getElementById(btn.getAttribute('aria-controls'));
+      if (body) body.hidden = true;
+      closed = true;
+    }
+    return closed;
+  }
+  let moreLock = false;
+  function relayoutAfterMore() {
+    if (moreLock || !LAY || STATIC) return;
+    moreLock = true;
+    const y0 = scrollY;
+    const h0 = document.documentElement.scrollHeight;
+    layout();
+    const delta = h0 - document.documentElement.scrollHeight;
+    if (delta > 2) scrollTo(0, Math.max(0, y0 - delta));
+    st.y = scrollY - LAY.top;
+    apply(st.y, performance.now());
+    moreLock = false;
+  }
   function buildHud() {
     hud.innerHTML = `<svg class="lu" viewBox="0 0 200 240">${luisSVG('h')}</svg>${NOTE}`;
     rig.svg = $('.lu', hud);
@@ -2710,9 +2909,15 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
   }
   function setExpr(e) {
     if (e === rig.expr) return;
-    rig.svg.classList.remove(`ex-${rig.expr}`);
+    const prev = rig.expr;
     rig.expr = e;
-    if (e) rig.svg.classList.add(`ex-${e}`);
+    const applyCls = (el) => {
+      if (!el) return;
+      if (prev) el.classList.remove(`ex-${prev}`);
+      if (e) el.classList.add(`ex-${e}`);
+    };
+    applyCls(rig.svg);
+    for (const t of rig.tinies || []) applyCls(t);
   }
   function kickRig() {
     if (!rig.raf) {
@@ -2750,7 +2955,9 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
     const kp = 260;
     rig.vb += (-rig.bump * kp - rig.vb * 2 * 0.35 * Math.sqrt(kp)) * dt;
     rig.bump += rig.vb * dt;
-    poseLuis(rig.parts, rig.x, rig.y, { bump: rig.bump, bx: rig.bx, by: rig.by, tilt: rig.expr === 'sleep' ? 9 : 0 });
+    const tilt = rig.expr === 'sleep' ? 9 : 0;
+    poseLuis(rig.parts, rig.x, rig.y, { bump: rig.bump, bx: rig.bx, by: rig.by, tilt });
+    for (const t of rig.tinies || []) poseTiny(t, rig.x, rig.y, { tilt });
     const moving = Math.abs(rig.vx) + Math.abs(rig.vy) + Math.abs(rig.bvx) + Math.abs(rig.vb) > 0.004 || Math.abs(tx - rig.x) + Math.abs(ty - rig.y) > 0.002;
     if (moving) rig.raf = requestAnimationFrame(rigTick);
   }
@@ -2761,11 +2968,15 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
     if (root.classList.contains('paused')) return;
     blinkT = setTimeout(() => {
       if (rig.expr !== 'sleep') {
-        rig.svg.classList.add('blink');
-        setTimeout(() => rig.svg.classList.remove('blink'), 120 + Math.random() * 40);
+        const blinkOn = (on) => {
+          rig.svg?.classList.toggle('blink', on);
+          for (const t of rig.tinies || []) t.classList.toggle('blink', on);
+        };
+        blinkOn(true);
+        setTimeout(() => blinkOn(false), 120 + Math.random() * 40);
         if (Math.random() < 0.18) setTimeout(() => {
-          rig.svg.classList.add('blink');
-          setTimeout(() => rig.svg.classList.remove('blink'), 120);
+          blinkOn(true);
+          setTimeout(() => blinkOn(false), 120);
         }, 300);
       }
       blinkLoop();
@@ -2819,19 +3030,35 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
   let globeReveal = 1;
   let globeK = 'hero';
   let globeAnim = 0;
+  let planHover = null;
+  let planNow = 0.04;
+  const GLOBE_STOPS = [
+    ['aa', 'American Airlines', 'side-r'],
+    ['bsc', 'BSc Computer Science', 'side-r'],
+    ['sandals', 'Sandals Resorts', 'side-r'],
+    ['fluky', 'Fluky Factory', 'side-r'],
+    ['move', 'The move', 'side-l'],
+    ['booking', 'Booking.com', 'side-l'],
+  ];
 
-  function paintGlobe(host, k, reveal) {
+  function paintGlobe(host, k, reveal, withPins = true) {
     if (!host) return;
-    host.innerHTML = globeSvg(reveal, k);
+    host.innerHTML = globeSvg(reveal, k, withPins);
+  }
+
+  function markGlobeStops() {
+    for (const b of $$('.gstop')) b.classList.toggle('on', b.dataset.stop === globeK);
   }
 
   function setGlobeStop(k) {
     if (!k) return;
     if (k === 'plan') k = 'hero';
     globeK = k;
-    const mini = $('#globeOverlay')?.hidden ? STOP_T[globeK] ?? 0 : globeReveal;
-    paintGlobe($('#globeBtn'), globeK, STATIC ? STOP_T[globeK] ?? 0 : mini);
-    if ($('#globeOverlay') && !$('#globeOverlay').hidden) paintGlobe($('#globeStage'), globeK, STATIC ? 1 : globeReveal);
+    const mini = $('#globeOverlay')?.hidden ? (STOP_T[globeK] ?? 0) : globeReveal;
+    paintGlobe($('#globeBtn'), globeK, STATIC ? (STOP_T[globeK] ?? 0) : mini, true);
+    const art = $('#globeArt');
+    if ($('#globeOverlay') && !$('#globeOverlay').hidden && art) paintGlobe(art, globeK, STATIC ? 1 : globeReveal, false);
+    markGlobeStops();
   }
 
   function syncMotionToggle() {
@@ -2878,10 +3105,45 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
     const btn = $('#globeBtn');
     const overlay = $('#globeOverlay');
     const close = $('#globeClose');
-    const stage = $('#globeStage');
+    const stage = $('#globeArt');
+    const stops = $('#globeStops');
     if (!dock || !btn || !overlay || !stage) return;
     dock.hidden = false;
-    paintGlobe(btn, globeK, STOP_T[globeK] ?? 0);
+    paintGlobe(btn, globeK, STOP_T[globeK] ?? 0, true);
+
+    const shutGlobe = (o = {}) => {
+      overlay.hidden = true;
+      btn.setAttribute('aria-expanded', 'false');
+      cancelAnimationFrame(globeAnim);
+      if (!o.skipFocus) btn.focus();
+    };
+
+    if (stops && !stops.childElementCount) {
+      const spots = [];
+      for (const [k, label, side] of GLOBE_STOPS) {
+        const pose = routePose(STOP_T[k]);
+        let x = pose.x;
+        let y = pose.y;
+        for (const s of spots) {
+          const dx = x - s.x;
+          const dy = y - s.y;
+          const dist = Math.hypot(dx, dy);
+          if (dist < 46) {
+            const ang = dist < 1 ? spots.length : Math.atan2(dy, dx);
+            x += Math.cos(ang) * (50 - dist);
+            y += Math.sin(ang) * (50 - dist);
+          }
+        }
+        spots.push({ x, y });
+        const b = html(`<button class="gstop ${side}" type="button" data-stop="${k}" style="left:${N(x / 10)}%;top:${N(y / 10)}%"><span class="dot" aria-hidden="true"></span><span class="lab">${label}</span></button>`);
+        b.addEventListener('click', () => {
+          shutGlobe({ skipFocus: true });
+          goStop(k);
+        });
+        stops.appendChild(b);
+      }
+    }
+    markGlobeStops();
 
     const openGlobe = () => {
       overlay.hidden = false;
@@ -2889,26 +3151,19 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
       close.focus();
       if (STATIC) {
         globeReveal = 1;
-        paintGlobe(stage, globeK, 1);
+        paintGlobe(stage, globeK, 1, false);
         return;
       }
       globeReveal = 0;
-      paintGlobe(stage, globeK, 0);
+      paintGlobe(stage, globeK, 0, false);
       const t0 = performance.now();
       const run = (now) => {
         globeReveal = clamp((now - t0) / 2200, 0, 1);
-        paintGlobe(stage, globeK, globeReveal);
+        paintGlobe(stage, globeK, globeReveal, false);
         if (globeReveal < 1) globeAnim = requestAnimationFrame(run);
       };
       cancelAnimationFrame(globeAnim);
       globeAnim = requestAnimationFrame(run);
-    };
-
-    const shutGlobe = () => {
-      overlay.hidden = true;
-      btn.setAttribute('aria-expanded', 'false');
-      cancelAnimationFrame(globeAnim);
-      btn.focus();
     };
 
     btn.addEventListener('click', () => (overlay.hidden ? openGlobe() : shutGlobe()));
@@ -3075,11 +3330,26 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
       const b = sc.hud(tau);
       const box = { ...b, y: b.y + (desk && k !== 'hero' ? 0 : top - c.top) };
       const e = STATIC_EXPR[k] || sc.expr(tau);
-      const hint = STATIC ? false : sc.hint?.(tau);
+      const hint = k === 'hero' && !!sc.hint?.(tau);
       const hd = html(`<div class="hud${hint ? ' hint' : ''}" aria-hidden="true" style="left:${N(box.x)}px;top:${N(box.y)}px;width:${N((box.h * 200) / 240)}px;height:${N(box.h)}px"><svg class="lu${e ? ` ex-${e}` : ''}" viewBox="0 0 200 240">${luisSVG(`s${i}`)}</svg>${hint ? NOTE : ''}</div>`);
       fr.appendChild(hd);
       const [gx, gy] = e === 'sleep' ? SLEEP : gaze(box, sc.look(tau));
       poseLuis(rigParts($('.lu', hd)), gx, gy, { tilt: e === 'sleep' ? 9 : 0 });
+      const tl = $('.tl', fig);
+      if (tl) {
+        if (e) tl.classList.add(`ex-${e}`);
+        poseTiny(tl, gx, gy, { tilt: e === 'sleep' ? 9 : 0 });
+      }
+      if (hint && p.o > 0) {
+        const svg = html('<svg class="seat-line on" aria-hidden="true" width="100%" height="100%"><path stroke="#fff6e4" stroke-width="8.6" pathLength="1"/><path stroke="#2b1b14" stroke-width="2.6" pathLength="1"/></svg>');
+        fr.appendChild(svg);
+        const nb = $('.note', hd).getBoundingClientRect();
+        const fb = fr.getBoundingClientRect();
+        const [wx, wy] = planeLocal(p, 298, 106);
+        const [ax, ay] = noteAnchor(nb, fb.left + wx, fb.top + wy);
+        const d = seatCurve(ax - fb.left, ay - fb.top, wx, wy, p.s);
+        for (const path of $$('path', svg)) path.setAttribute('d', d);
+      }
     }
     stage.innerHTML = '';
   }
@@ -3108,25 +3378,49 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
       }
     }
   }
-  function setupPlanJumps() {
+  function goStop(k) {
+    if (!k) return;
     const instant = STATIC || mq.matches;
+    if (STATIC) {
+      const fr = $(`.frame[data-stop="${k}"]`) || $(`#stop-${k}`);
+      fr?.scrollIntoView({ behavior: instant ? 'instant' : 'smooth', block: 'start' });
+    } else if (window.__lm?.moments?.[k] != null) {
+      scrollTo({ top: window.__lm.moments[k], behavior: instant ? 'instant' : 'smooth' });
+    }
+    const h = $(`#h-${k}`);
+    if (h) {
+      h.setAttribute('tabindex', '-1');
+      h.focus({ preventScroll: true });
+    }
+  }
+  function aimPlan(k) {
+    planHover = k || null;
+    if (STATIC) {
+      planNow = (k && STOP_T[k]) || 0.04;
+      const sc = LAY?.scenes?.plan;
+      if (sc?.update) {
+        const [tau] = restTau('plan', sc.S, LAY.desk);
+        sc.update(tau, sc.ly);
+      }
+      return;
+    }
+    if (root.classList.contains('paused')) planNow = (k && STOP_T[k]) || 0.04;
+    kick();
+  }
+  function setupPlanJumps() {
+    const leave = (ev) => {
+      if (ev.relatedTarget?.closest?.('.plan-jump')) return;
+      aimPlan(null);
+    };
     for (const a of $$('.plan-jump')) {
       a.addEventListener('click', (ev) => {
         ev.preventDefault();
-        const k = a.dataset.stop;
-        if (!k) return;
-        if (STATIC) {
-          const fr = $(`.frame[data-stop="${k}"]`) || $(`#stop-${k}`);
-          fr?.scrollIntoView({ behavior: instant ? 'instant' : 'smooth', block: 'start' });
-        } else if (window.__lm?.moments?.[k] != null) {
-          scrollTo({ top: window.__lm.moments[k], behavior: instant ? 'instant' : 'smooth' });
-        }
-        const h = $(`#h-${k}`);
-        if (h) {
-          h.setAttribute('tabindex', '-1');
-          h.focus({ preventScroll: true });
-        }
+        goStop(a.dataset.stop);
       });
+      a.addEventListener('pointerenter', () => aimPlan(a.dataset.stop));
+      a.addEventListener('focus', () => aimPlan(a.dataset.stop));
+      a.addEventListener('pointerleave', leave);
+      a.addEventListener('blur', leave);
     }
   }
 
