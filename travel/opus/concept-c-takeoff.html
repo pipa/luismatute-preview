@@ -40,16 +40,34 @@ a { color: inherit; }
 .skip { position: absolute; left: 12px; top: -80px; z-index: 50; padding: 12px 16px; border: 2.5px solid var(--ink); border-radius: 12px; background: var(--paper); color: var(--ink); font: 700 15px/1 var(--text); text-decoration: none; }
 .skip:focus { top: 12px; }
 
-/* pause control: only the motion version has loops to pause */
-.pause { position: fixed; top: 12px; right: 12px; z-index: 40; display: none; align-items: center; gap: 9px; min-width: 44px; height: 44px; padding: 0 16px 0 14px; border: 2.5px solid var(--ink); border-radius: 999px; background: var(--paper); color: var(--ink); font: 500 12px/1 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; box-shadow: 3px 3px 0 var(--ink); cursor: pointer; }
+/* top bar: reduced-motion toggle (always) + pause (motion only) */
+.topbar { position: fixed; top: 12px; left: 12px; right: 12px; z-index: 45; display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; pointer-events: none; }
+.topbar > * { pointer-events: auto; }
+.motion-toggle { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 18px 0 14px; border: 3px solid var(--ink); border-radius: 999px; background: var(--marigold); color: var(--ink); font: 700 13px/1.15 var(--text); letter-spacing: 0.02em; box-shadow: 4px 4px 0 var(--ink); cursor: pointer; }
+.motion-toggle:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); }
+.motion-toggle[aria-pressed="true"] { background: var(--paper); font-weight: 600; }
+.motion-toggle .mt-i { flex: none; width: 22px; height: 22px; border: 2.5px solid var(--ink); border-radius: 50%; background: #fff; box-shadow: inset 0 -3px 0 rgba(43, 27, 20, 0.12); }
+.motion-toggle[aria-pressed="true"] .mt-i { background: var(--lagoon); }
+.motion-toggle .mt-s { display: block; max-width: 11em; text-align: left; }
+.pause { display: none; align-items: center; gap: 9px; min-width: 44px; height: 44px; padding: 0 16px 0 14px; border: 2.5px solid var(--ink); border-radius: 999px; background: var(--paper); color: var(--ink); font: 500 12px/1 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; box-shadow: 3px 3px 0 var(--ink); cursor: pointer; }
 .is-motion .pause { display: inline-flex; }
 .pause:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
 .pause .pi { display: block; flex: none; width: 11px; height: 13px; border-left: 4px solid currentColor; border-right: 4px solid currentColor; }
 .pause[aria-pressed="true"] .pi { width: 0; height: 0; border-left: 12px solid currentColor; border-right: 0; border-top: 7px solid transparent; border-bottom: 7px solid transparent; }
 .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 @media (max-width: 639px) {
+  .motion-toggle { padding: 0 14px 0 12px; font-size: 12.5px; }
+  .motion-toggle .mt-s-short { display: none; }
   .pause { width: 44px; padding: 0; justify-content: center; }
   .pause .pl { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+}
+@media (min-width: 640px) {
+  .motion-toggle .mt-s-long { display: inline; }
+  .motion-toggle .mt-s-short { display: none; }
+}
+@media (max-width: 639px) {
+  .motion-toggle .mt-s-long { display: none; }
+  .motion-toggle .mt-s-short { display: inline; }
 }
 /* biome-ignore lint/complexity/noImportantStyles: a pause has to beat every loop's own animation shorthand */
 .paused *, .paused *::before, .paused *::after { animation-play-state: paused !important; }
@@ -69,6 +87,30 @@ a { color: inherit; }
 .stops li { display: grid; grid-template-columns: 1.7em 7.6em 1fr; align-items: baseline; padding: 5px 0 4px; border-top: 2px dashed rgba(43, 27, 20, 0.28); counter-increment: s; font-weight: 600; }
 .stops li::before { content: counter(s); color: var(--tomato-d); font: 500 13px/1 var(--mono); }
 .stops .yr { color: var(--ink2); font: 500 13px/1.3 var(--mono); }
+.teaser { margin: 0 0 0.35em; }
+.more-btn { display: inline-flex; align-items: center; gap: 8px; margin: 0.45em 0 0; padding: 7px 14px 8px; border: 2.5px solid var(--ink); border-radius: 999px; background: #fff; color: var(--ink); font: 600 14px/1 var(--text); box-shadow: 3px 3px 0 var(--ink); cursor: pointer; }
+.more-btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+.more-btn::after { content: ""; width: 8px; height: 8px; border-right: 2.5px solid currentColor; border-bottom: 2.5px solid currentColor; transform: rotate(45deg) translateY(-2px); transition: transform 0.2s var(--out); }
+.more-btn[aria-expanded="true"]::after { transform: rotate(225deg) translate(-1px, 1px); }
+.more-body { margin: 0.65em 0 0; padding-top: 0.55em; border-top: 2px dashed rgba(43, 27, 20, 0.28); }
+.more-body[hidden] { display: none; }
+.more-body p { margin: 0 0 0.55em; }
+.more-body ul.plain { margin: 0.4em 0 0.2em; padding-left: 1.15em; }
+.shots { display: grid; gap: 14px; margin: 0.85em 0 0.2em; }
+.shots.two { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+.shot-link { display: block; color: inherit; text-decoration: none; }
+.shot-link:focus-visible { outline-offset: 4px; }
+.shot-frame { overflow: hidden; border: 2.5px solid var(--ink); border-radius: 14px; background: #fff; box-shadow: 4px 4px 0 var(--ink); }
+.shot-chrome { display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-bottom: 2px solid var(--ink); background: var(--sand); font: 500 10.5px/1 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; }
+.shot-dots { display: flex; gap: 5px; }
+.shot-dots i { display: block; width: 7px; height: 7px; border: 2px solid var(--ink); border-radius: 50%; background: var(--marigold); }
+.shot-dots i:nth-child(2) { background: var(--paper); }
+.shot-dots i:nth-child(3) { background: var(--tomato); }
+.shot-frame img { display: block; width: 100%; height: auto; vertical-align: middle; background: #f0f0f0; }
+.shot-cap { margin: 0.35em 0 0; font: 600 13px/1.35 var(--text); }
+.is-static .more-btn { display: none; }
+.is-static .more-body { display: block !important; border-top: 0; padding-top: 0; margin-top: 0.5em; }
+.is-static .more-body[hidden] { display: block !important; }
 
 .pass { position: relative; background: var(--paper); color: var(--ink); border: 3px solid var(--ink); border-radius: 20px; box-shadow: 6px 7px 0 var(--ink); }
 .pass .cin { padding: 18px 22px 16px; }
@@ -86,6 +128,8 @@ a { color: inherit; }
 .is-motion .track { position: relative; }
 .is-motion .stage { position: sticky; top: 0; height: 100lvh; overflow: hidden; background: #fbd682; contain: strict; }
 .is-motion .copies { position: sticky; top: 0; height: 100svh; margin-top: -100lvh; pointer-events: none; z-index: 5; }
+.m-port.is-motion .stage { height: var(--port-svh, 100svh); }
+.m-port.is-motion .copies { height: var(--port-svh, 100svh); margin-top: calc(-1 * var(--port-svh, 100svh)); }
 .grp { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
 .sc { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
 .sc.off { display: none; }
@@ -121,6 +165,7 @@ a { color: inherit; }
 .ttl { position: absolute; left: 0; top: 0; font: 800 100px/0.86 var(--display); font-stretch: 75%; white-space: nowrap; }
 .ttl .ln { position: relative; display: block; }
 .ttl .L { position: absolute; top: 0; display: block; text-shadow: 0.045em 0.05em 0 var(--x); transform-origin: 50% 85%; opacity: 0; transform: translate3d(0, -0.35em, 0) scale(0.8, 1.2); transition: opacity 0.22s ease, transform 0.22s ease; }
+.m-port .ttl[style*="fff4e2"] .L { text-shadow: 0 0 0.14em #120d2c, 0 0 0.32em #120d2c, 0.045em 0.05em 0 var(--x); }
 .ttl.on .L { opacity: 1; transform: none; transition: none; animation: drop 0.72s both; }
 @keyframes drop {
   0% { opacity: 0; transform: translate3d(0, -0.6em, 0) scale(0.78, 1.26); animation-timing-function: cubic-bezier(0.5, 0, 0.9, 0.5); }
@@ -214,7 +259,8 @@ a { color: inherit; }
 .lu.ex-sleep .zz { opacity: 1; }
 .lu .shade { transition: transform 1.1s var(--out); }
 .lu.ex-sleep .shade { transform: translate3d(0, 66px, 0); }
-.note { position: absolute; right: 100%; top: 4%; margin: 0 6px 0 0; color: var(--ink); font: 600 27px/1 var(--hand); white-space: nowrap; transform: rotate(-7deg); transform-origin: 100% 50%; transition: opacity 0.35s ease; }
+/* a die-cut sticker edge keeps the handwriting readable over any art */
+.note { position: absolute; right: 100%; top: 4%; margin: 0 6px 0 0; color: var(--ink); font: 600 27px/1 var(--hand); white-space: nowrap; -webkit-text-stroke: 8px var(--paper); paint-order: stroke fill; transform: rotate(-7deg); transform-origin: 100% 50%; transition: opacity 0.35s ease; }
 .note svg { position: absolute; right: -12px; top: 26px; overflow: visible; }
 .note path { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 0.9s var(--out) 0.5s; }
 .hud.hint .note path { stroke-dashoffset: 0; }
@@ -222,12 +268,12 @@ a { color: inherit; }
 
 /* captions over the stage */
 .is-motion .copy { position: absolute; opacity: 0; transform: translate3d(0, 26px, 0) rotate(var(--rot, 0deg)); transition: opacity 0.28s ease, transform 0.28s ease; }
-.is-motion .copy.on { opacity: 1; transform: rotate(var(--rot, 0deg)); transition: opacity 0.5s var(--out) 0.05s, transform 0.7s var(--pop) 0.05s; }
+.is-motion .copy.on { opacity: 1; pointer-events: auto; transform: rotate(var(--rot, 0deg)); transition: opacity 0.5s var(--out) 0.05s, transform 0.7s var(--pop) 0.05s; }
 .is-motion .copy.ov { overflow: hidden; }
 .is-motion .copy.ov .cin { will-change: transform; }
 .is-motion .copy.ov::after { content: ""; position: absolute; z-index: 1; left: 0; right: 0; bottom: 0; height: 30px; border-radius: 0 0 17px 17px; background: linear-gradient(rgba(255, 246, 228, 0), var(--paper) 85%); pointer-events: none; }
 .is-motion .copy.ov.sh::before { content: ""; position: absolute; z-index: 1; left: 0; right: 0; top: 0; height: 26px; border-radius: 17px 17px 0 0; background: linear-gradient(var(--paper) 20%, rgba(255, 246, 228, 0)); pointer-events: none; }
-.m-desk .copy { left: max(24px, 4vw); width: min(470px, 38vw); font-size: clamp(15.5px, 0.4vw + 10.5px, 17.5px); }
+.m-desk .copy { left: max(24px, 4vw); width: clamp(280px, 38vw, 470px); font-size: clamp(15.5px, 0.4vw + 10.5px, 17.5px); }
 .m-desk .card:nth-of-type(odd) { --rot: -0.8deg; }
 .m-desk .card:nth-of-type(even) { --rot: 0.7deg; }
 .m-desk .pass { --rot: -1deg; }
@@ -248,6 +294,7 @@ a { color: inherit; }
 .contact h2 { margin: 0.1em 0 0.05em; font: 800 clamp(76px, 11vw, 190px)/0.86 var(--display); font-stretch: 75%; letter-spacing: -0.01em; text-shadow: 0.045em 0.05em 0 var(--tomato); }
 .contact .arr { width: min(100%, 560px); margin-top: clamp(20px, 5vh, 44px); padding: 20px 22px 18px; }
 .m-port .contact .arr { margin-top: auto; }
+.is-motion.m-port .contact .arr::before { content: ""; float: right; width: var(--cfw, 0); height: var(--cfh, 0); }
 .contact .sub { margin: 0 0 0.8em; font-size: clamp(18px, 1.5vw, 21px); }
 .contact ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; }
 .contact a { display: inline-block; padding: 9px 17px 10px; border: 3px solid var(--ink); border-radius: 999px; background: #fff; box-shadow: 4px 5px 0 var(--ink); font: 700 clamp(18px, 1.7vw, 24px)/1.15 var(--text); text-decoration: none; }
@@ -276,14 +323,48 @@ html:not(.is-motion) body { background: var(--paper); }
 .is-static .cue, html:not(.is-motion) .cue { display: none; }
 .is-static .contact, html:not(.is-motion) .contact { min-height: 0; padding-top: 48px; }
 .is-static .contact .arr { margin-top: clamp(20px, 5vh, 44px); }
+.is-static .copies { pointer-events: auto; }
+.is-static .frame .copy { pointer-events: auto; }
+.is-static .frame .copy.card,
+.is-static .frame .copy.pass { background: var(--paper); isolation: isolate; }
 html:not(.is-motion):not(.is-static) .copies { padding: 8px 0 24px; }
 html:not(.is-motion):not(.is-static) .copy { position: relative; width: calc(100% - 24px); max-width: 720px; margin: 32px auto; }
 html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-width: 720px; margin: 0 auto; padding: 40px 0 48px; }
+
+/* mini route globe */
+.globe-dock { position: fixed; z-index: 42; right: 12px; bottom: 12px; pointer-events: none; }
+.m-port .globe-dock { top: 68px; bottom: auto; }
+.globe-btn { pointer-events: auto; display: block; width: 72px; height: 72px; padding: 6px; border: 3px solid var(--ink); border-radius: 50%; background: var(--paper); box-shadow: 4px 4px 0 var(--ink); cursor: pointer; }
+.globe-btn svg { display: block; width: 100%; height: 100%; }
+.globe-btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); }
+.globe-overlay { position: fixed; inset: 0; z-index: 48; display: grid; place-items: center; padding: max(12px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom)); background: rgba(43, 27, 20, 0.55); }
+.globe-overlay[hidden] { display: none; }
+.globe-panel { position: relative; width: min(100%, 520px); max-height: min(92vh, 640px); padding: 14px 14px 16px; border: 3px solid var(--ink); border-radius: 22px; background: var(--paper); box-shadow: 8px 9px 0 var(--ink); }
+.globe-panel h2 { margin: 0 0 0.35em; font: 700 20px/1.15 var(--text); }
+.globe-panel p { margin: 0 0 0.75em; color: var(--ink2); font-size: 14.5px; }
+.globe-stage { position: relative; aspect-ratio: 1; border: 2.5px solid var(--ink); border-radius: 16px; overflow: hidden; background: #2f86a8; }
+.globe-close { position: absolute; top: 10px; right: 10px; width: 44px; height: 44px; border: 2.5px solid var(--ink); border-radius: 50%; background: var(--paper); font: 700 22px/1 var(--text); box-shadow: 3px 3px 0 var(--ink); cursor: pointer; }
+.globe-close:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+.is-static .globe-btn .rd-anim { opacity: 1 !important; }
 </style>
 </head>
 <body>
 <a class="skip" href="#contact">Skip to contact</a>
-<button class="pause" id="pause" type="button" aria-pressed="false"><span class="pi" aria-hidden="true"></span><span class="pl">Pause animation</span></button>
+<header class="topbar" id="topbar">
+  <button class="motion-toggle" id="motionToggle" type="button" aria-pressed="false"><span class="mt-i" aria-hidden="true"></span><span class="mt-s"><span class="mt-s-long">Just the info</span><span class="mt-s-short">Info</span></span></button>
+  <button class="pause" id="pause" type="button" aria-pressed="false"><span class="pi" aria-hidden="true"></span><span class="pl">Pause animation</span></button>
+</header>
+<div class="globe-dock" id="globeDock" hidden>
+  <button class="globe-btn" id="globeBtn" type="button" aria-label="Open route map" aria-expanded="false" aria-controls="globeOverlay"></button>
+</div>
+<div class="globe-overlay" id="globeOverlay" hidden role="dialog" aria-modal="true" aria-labelledby="globeTitle">
+  <div class="globe-panel">
+    <button class="globe-close" id="globeClose" type="button" aria-label="Close route map">×</button>
+    <h2 id="globeTitle">Route</h2>
+    <p>Honduras, the Caribbean, then Amsterdam.</p>
+    <div class="globe-stage" id="globeStage" aria-hidden="true"></div>
+  </div>
+</div>
 <main id="main">
   <div class="track" id="track">
     <div class="stage" id="stage" aria-hidden="true"></div>
@@ -321,7 +402,11 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
         <div class="cin">
           <p class="kicker">Stop 1 of 6 · 2006–2011</p>
           <h2 id="h-aa">Security lead agent, American Airlines</h2>
-          <p>Not a tech role. Led about 25 security agents, enforcing TSA rules for airlines outside the US.</p>
+          <p class="teaser">Not a tech role. Security lead agent in charge of about 25 security agents.</p>
+          <button class="more-btn" type="button" aria-expanded="false" aria-controls="more-aa">More</button>
+          <div class="more-body" id="more-aa" hidden>
+            <p>Enforced TSA rules for US-bound flights from outside the US: luggage x-ray, passenger profiling, passport and visa checks, and aircraft security checks.</p>
+          </div>
           <ul class="chips">
             <li>Luggage x-ray</li>
             <li>Passenger profiling</li>
@@ -334,8 +419,16 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
       <article class="copy card" data-k="sandals" aria-labelledby="h-sandals">
         <div class="cin">
           <p class="kicker">Stop 2 of 6 · July 2011 – August 2017</p>
-          <h2 id="h-sandals">Front-end developer, Sandals Resorts</h2>
-          <p>Front end, with some back end. Led several full redesigns and re-engineering efforts, and introduced Sass, JS templating frameworks and pre-compilers that improved performance and productivity.</p>
+          <h2 id="h-sandals">Front-end developer, Sandals Resorts</h2><!-- TITLE: pending -->
+          <p class="teaser">Frontend developer with some backend on sandals.com and beaches.com.</p>
+          <button class="more-btn" type="button" aria-expanded="false" aria-controls="more-sandals">More</button>
+          <div class="more-body" id="more-sandals" hidden>
+            <p>Led several full redesigns and re-engineering efforts. Introduced Sass, JS templating frameworks, pre-compilers and other frontend tooling that was a breakthrough at the time, improving performance and productivity.</p>
+            <div class="shots two">
+              <a class="shot-link" href="https://web.archive.org/web/20150109010108/http://www.sandals.com/" rel="noopener"><span class="shot-frame"><span class="shot-chrome"><span class="shot-dots" aria-hidden="true"><i></i><i></i><i></i></span> sandals.com</span><img src="shots/sandals-600.webp" srcset="shots/sandals-600.webp 600w, shots/sandals.webp 1200w" sizes="(max-width: 480px) 45vw, 220px" width="600" height="390" alt="" loading="lazy" decoding="async"></span><p class="shot-cap">sandals.com</p></a>
+              <a class="shot-link" href="https://web.archive.org/web/20150110181715/http://www.beaches.com/" rel="noopener"><span class="shot-frame"><span class="shot-chrome"><span class="shot-dots" aria-hidden="true"><i></i><i></i><i></i></span> beaches.com</span><img src="shots/beaches-600.webp" srcset="shots/beaches-600.webp 600w, shots/beaches.webp 1200w" sizes="(max-width: 480px) 45vw, 220px" width="600" height="390" alt="" loading="lazy" decoding="async"></span><p class="shot-cap">beaches.com</p></a>
+            </div>
+          </div>
           <ul class="chips">
             <li>sandals.com</li>
             <li>beaches.com</li>
@@ -347,7 +440,11 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
         <div class="cin">
           <p class="kicker">Stop 3 of 6 · 2012</p>
           <h2 id="h-bsc">BSc Computer Science</h2>
-          <p>Graduated from Universidad Católica in 2012.</p>
+          <p class="teaser">Universidad Católica — graduated October 2012.</p>
+          <button class="more-btn" type="button" aria-expanded="false" aria-controls="more-bsc">More</button>
+          <div class="more-body" id="more-bsc" hidden>
+            <p>BSc Computer Science at Universidad Católica, 2005–2012.</p>
+          </div>
         </div>
       </article>
 
@@ -355,14 +452,24 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
         <div class="cin">
           <p class="kicker">Stop 4 of 6 · c. 2012–2019</p>
           <h2 id="h-fluky">Co-founder, Fluky Factory</h2>
-          <p>Alongside Sandals, one of four co-founders. Owned all the engineering: databases, back end, front end and technical client handling, with 2–3 employees plus contractors.</p>
+          <p class="teaser">One of four co-founders, run alongside Sandals from about 2012/13–2019. Owned all dev and engineering end to end.</p>
+          <button class="more-btn" type="button" aria-expanded="false" aria-controls="more-fluky">More</button>
+          <div class="more-body" id="more-fluky" hidden>
+            <p>Databases, backend, frontend and technical client handling. Team of 2–3 employees plus a handful of contractors (designers, copywriters, a PM).</p>
+            <p>Freelance, 2012–about 2019.</p>
+            <div class="shots">
+              <a class="shot-link" href="https://web.archive.org/web/20160111072156/http://catchadvisorygroup.com/" rel="noopener"><span class="shot-frame"><span class="shot-chrome"><span class="shot-dots" aria-hidden="true"><i></i><i></i><i></i></span> catchadvisorygroup.com</span><img src="shots/catch-600.webp" srcset="shots/catch-600.webp 600w, shots/catch.webp 1200w" sizes="(max-width: 480px) 92vw, 360px" width="600" height="390" alt="" loading="lazy" decoding="async"></span><p class="shot-cap">Catch Advisory Group (featured)</p></a>
+              <a class="shot-link" href="https://web.archive.org/web/20210302073803/https://www.roatanexcursions.com/" rel="noopener"><span class="shot-frame"><span class="shot-chrome"><span class="shot-dots" aria-hidden="true"><i></i><i></i><i></i></span> roatanexcursions.com</span><img src="shots/roatan-excursions-600.webp" srcset="shots/roatan-excursions-600.webp 600w, shots/roatan-excursions.webp 1200w" sizes="(max-width: 480px) 92vw, 360px" width="600" height="390" alt="" loading="lazy" decoding="async"></span><p class="shot-cap">Roatan Excursions</p></a>
+              <a class="shot-link" href="https://web.archive.org/web/20180617035042/https://www.mayanprincess.com/" rel="noopener"><span class="shot-frame"><span class="shot-chrome"><span class="shot-dots" aria-hidden="true"><i></i><i></i><i></i></span> mayanprincess.com</span><img src="shots/mayan-princess-600.webp" srcset="shots/mayan-princess-600.webp 600w, shots/mayan-princess.webp 1200w" sizes="(max-width: 480px) 92vw, 360px" width="600" height="390" alt="" loading="lazy" decoding="async"></span><p class="shot-cap">Mayan Princess</p></a>
+              <a class="shot-link" href="https://web.archive.org/web/20180330114137/http://roatanferry.com/" rel="noopener"><span class="shot-frame"><span class="shot-chrome"><span class="shot-dots" aria-hidden="true"><i></i><i></i><i></i></span> roatanferry.com</span><img src="shots/roatan-ferry-600.webp" srcset="shots/roatan-ferry-600.webp 600w, shots/roatan-ferry.webp 1200w" sizes="(max-width: 480px) 92vw, 360px" width="600" height="390" alt="" loading="lazy" decoding="async"></span><p class="shot-cap">Roatan Ferry</p></a>
+            </div>
+          </div>
           <ul class="chips" aria-label="Fluky Factory projects">
             <li class="feat">Catch Advisory Group<b>Featured</b></li>
             <li>Roatan Excursions</li>
             <li>Mayan Princess</li>
             <li>Roatan Ferry</li>
           </ul>
-          <p class="small">Freelance, too, from 2012 to c. 2019.</p>
         </div>
       </article>
 
@@ -378,7 +485,11 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
         <div class="cin">
           <p class="kicker">Stop 6 of 6 · Since October 2017</p>
           <h2 id="h-booking">Booking.com, Amsterdam</h2>
-          <p>At Booking.com in Amsterdam since October 2017. The work there has included:</p>
+          <p class="teaser">Booking.com in Amsterdam since October 2017.</p>
+          <button class="more-btn" type="button" aria-expanded="false" aria-controls="more-booking">More</button>
+          <div class="more-body" id="more-booking" hidden>
+            <p>Accessibility, then fraud, then 3–4 years in the room selection org, and since 2024 the experimentation (A/B testing) tool.</p>
+          </div>
           <ul class="chips">
             <li>Accessibility</li>
             <li>Fraud</li>
@@ -400,7 +511,7 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
           <li><a href="mailto:luis.matute@me.com">luis.matute@me.com</a></li>
           <li><a href="https://x.com/luis_matute">@luis_matute</a> <span class="on-x">on X</span></li>
         </ul>
-        <p class="meta">Concept C, “Wheels up”. Prototype for luismatute.me. <a href="?motion=reduce">Reduced-motion version</a> · <a href="concept-a.html">Concept A</a> · <a href="concept-b.html">Concept B</a></p>
+        <p class="meta">Concept C, “Wheels up”. Prototype for luismatute.me. <a href="concept-a.html">Concept A</a> · <a href="concept-b.html">Concept B</a></p>
       </div>
     </section>
   </div>
@@ -413,12 +524,29 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
   const qs = new URLSearchParams(location.search);
   const QA = qs.has('qa');
   const mq = matchMedia('(prefers-reduced-motion: reduce)');
-  const STATIC = qs.get('motion') === 'reduce' || (qs.get('motion') !== 'on' && mq.matches);
+  const MOTION_KEY = 'lm.travel-c.static';
+  const readStoredStatic = () => {
+    try {
+      const v = localStorage.getItem(MOTION_KEY);
+      if (v === '1') return true;
+      if (v === '0') return false;
+    } catch {}
+    return null;
+  };
+  const writeStoredStatic = (on) => {
+    try {
+      localStorage.setItem(MOTION_KEY, on ? '1' : '0');
+    } catch {}
+  };
+  const qsMotion = qs.get('motion');
+  const storedStatic = readStoredStatic();
+  const STATIC =
+    qsMotion === 'reduce' ||
+    (qsMotion !== 'on' && (storedStatic === true || (storedStatic === null && mq.matches)));
   const FINE = matchMedia('(hover: hover) and (pointer: fine)').matches;
   const root = document.documentElement;
   root.classList.add(STATIC ? 'is-static' : 'is-motion');
   if (QA) root.classList.add('qa');
-  mq.addEventListener?.('change', () => location.reload());
 
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -994,7 +1122,30 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
   }
 
   /* ---------- globe: Natural Earth 110 m land (public domain), orthographic about 46° W 31° N, R = 500 ---------- */
-  const GLOBE = { land: 'M286 571Q290 571 299 574Q309 578 314 583Q320 589 318 590Q317 592 309 589Q302 587 299 589Q296 592 292 589Q289 585 283 584Q277 584 276 581Q275 578 282 579Q290 581 287 576Q283 571 286 571ZM236 527Q244 532 261 549Q277 566 265 563Q252 560 255 559Q258 557 253 550Q249 544 239 538Q229 531 230 530Q230 528 219 527Q208 526 218 524Q228 522 236 527ZM446 325Q444 329 442 332Q440 336 442 335Q444 333 444 336Q445 338 451 340Q458 342 456 345Q455 348 457 347Q459 347 460 352Q461 357 459 360Q458 364 455 363Q451 362 452 358Q452 354 448 357Q444 361 442 360Q441 360 443 358Q445 357 443 355Q440 354 431 353Q423 352 430 340Q438 328 442 325Q447 321 446 325ZM691 274Q693 283 691 287Q689 291 685 291Q682 292 681 287Q681 283 678 279Q675 276 676 270Q678 264 683 264Q688 265 691 274ZM674 234Q677 232 678 237Q679 241 683 239Q686 237 688 244Q690 250 707 257Q724 264 727 269Q730 274 730 277Q730 280 723 284Q716 288 713 292Q710 297 708 297Q707 297 709 290Q711 283 706 283Q701 282 702 280Q704 278 700 274Q697 270 700 269Q703 268 702 266Q701 264 695 263Q690 262 687 258Q684 255 684 257Q684 259 680 254Q676 250 673 242Q671 235 674 234ZM596 200Q604 195 608 199Q613 203 608 211Q602 219 595 219Q587 219 588 217Q589 215 584 214Q580 213 582 211Q584 209 580 209Q576 208 576 206Q577 204 582 204Q588 205 596 200ZM376 161Q377 163 374 166Q371 169 375 167Q379 166 375 173Q372 180 381 173Q391 166 393 168Q396 170 392 178Q387 187 383 188Q379 189 376 187Q373 186 366 190Q359 195 339 202Q319 209 312 215Q306 221 308 222Q310 224 307 231Q304 237 306 237Q309 238 315 250Q321 262 326 264Q331 267 327 274Q324 281 324 290Q325 300 331 296Q336 292 338 283Q339 274 349 269Q360 265 360 255Q361 246 365 243Q369 240 373 231Q377 222 384 224Q392 225 394 231Q397 237 400 238Q403 239 401 247Q398 255 400 258Q403 262 412 255Q421 248 424 262Q428 276 426 278Q425 281 434 289Q443 297 446 302Q449 308 449 313Q448 317 435 324Q422 330 405 328Q389 325 372 336Q355 347 370 340Q385 334 389 334Q393 334 395 337Q397 339 394 341Q391 344 391 352Q390 359 399 362Q407 365 411 361Q415 357 416 361Q417 366 398 373Q380 381 378 380Q375 379 376 376Q377 372 383 370Q389 367 381 366Q373 366 363 370Q352 374 349 379Q345 384 347 388Q348 391 336 391Q324 391 330 393Q335 394 329 393Q322 393 317 399Q312 406 311 403Q310 400 310 405Q310 410 305 414Q301 418 303 410Q304 402 303 406Q301 411 300 409Q298 408 298 420Q298 433 276 444Q253 456 252 476Q250 497 247 503Q245 510 241 505Q237 501 237 486Q238 471 235 466Q233 460 229 461Q226 462 223 457Q220 452 213 449Q205 446 202 450Q200 455 191 447Q181 439 177 438Q173 437 163 441Q153 446 145 464Q136 483 136 492Q135 500 137 509Q138 519 141 524Q145 529 156 530Q168 531 171 525Q174 519 184 521Q195 523 184 544Q172 564 185 569Q198 574 202 579Q207 584 203 601Q199 617 206 629Q213 642 220 641Q227 640 237 647Q247 654 251 652Q256 650 259 645Q263 639 269 640Q274 641 281 637Q288 634 290 636Q292 638 289 640Q286 642 286 652Q286 662 289 659Q292 656 290 652Q289 647 294 646Q299 646 301 643Q302 640 308 648Q314 656 327 660Q341 665 343 663Q346 661 356 662Q366 664 362 664Q358 665 360 667Q361 669 367 673Q374 676 374 679Q375 682 381 686Q388 689 396 698Q404 707 417 709Q431 711 442 718Q454 724 457 733Q461 742 463 743Q465 744 462 749Q459 755 468 757Q477 759 477 763Q477 766 481 764Q484 762 497 765Q510 769 511 773Q512 777 532 777Q552 777 564 783Q576 790 584 791Q593 793 595 799Q597 805 595 811Q593 817 578 831Q562 846 559 860Q556 875 548 886Q541 898 537 901Q532 904 510 909Q487 914 484 916Q480 919 479 925Q478 931 461 942Q444 953 427 950Q411 948 418 953Q425 958 423 961Q420 963 405 962Q390 961 392 964Q395 967 386 966Q377 965 383 968Q390 971 381 972Q373 974 379 977Q386 979 381 981Q376 982 380 983Q385 985 368 981Q352 977 341 971Q330 965 330 963Q329 961 333 962Q337 964 335 961Q334 959 331 959Q327 959 321 950Q315 941 317 933Q319 926 315 918Q312 910 311 893Q310 875 307 866Q304 858 281 841Q258 824 241 795Q224 766 219 760Q213 755 212 750Q211 745 217 739Q222 734 218 731Q214 728 214 723Q214 719 217 713Q220 707 224 707Q229 706 230 702Q232 697 237 694Q242 691 241 680Q241 668 235 657Q230 646 225 647Q221 648 222 652Q223 655 221 656Q220 656 209 648Q199 639 195 631Q190 622 190 624Q189 626 187 624Q186 621 186 617Q186 612 182 601Q178 589 167 581Q155 573 147 558Q139 544 134 543Q128 542 114 519Q100 497 97 487Q95 477 98 467Q101 458 99 439Q97 419 101 386Q104 353 101 360Q97 366 93 401Q90 436 88 437Q86 438 85 426Q85 415 87 410Q89 405 88 394Q87 382 90 381Q92 379 98 357Q103 336 103 324Q103 313 112 293Q120 273 147 244Q173 214 171 220Q169 227 175 221Q181 215 184 203Q188 192 212 166Q236 141 237 135Q239 130 250 116Q261 101 258 102Q255 102 254 99Q253 96 260 95Q268 93 255 91Q242 90 243 85Q245 79 247 83Q249 86 254 86Q259 85 263 80Q266 75 280 68Q294 62 298 62Q302 62 300 65Q299 68 312 60Q326 53 322 58Q318 63 331 58Q344 54 343 55Q342 56 345 57Q349 59 350 62Q350 65 344 70Q338 74 329 87Q320 99 326 103Q332 106 330 107Q328 109 331 108Q335 108 331 111Q328 115 331 115Q334 114 331 116Q328 117 330 118Q332 118 332 126Q332 133 328 137Q325 141 328 143Q332 145 330 147Q329 150 336 148Q343 147 343 153Q343 159 347 161Q350 163 353 161Q357 159 354 164Q352 168 359 165Q367 161 368 157Q369 153 376 149Q383 145 381 151Q379 158 377 159Q374 160 376 161ZM357 117Q365 118 363 118Q361 119 363 120Q366 120 364 122Q363 124 366 124Q368 123 365 127Q361 131 367 129Q373 127 365 138Q357 150 353 151Q349 152 348 149Q346 145 339 141Q331 137 334 132Q338 126 342 128Q346 131 344 127Q342 123 345 122Q349 122 349 119Q348 117 357 117ZM408 145Q406 146 405 149Q404 151 411 149Q417 147 415 152Q412 157 417 156Q422 156 423 161Q425 167 427 167Q430 167 433 176Q436 185 433 186Q430 187 438 195Q446 203 441 209Q435 215 432 209Q429 204 427 204Q425 204 426 215Q428 226 427 229Q425 231 420 226Q414 221 417 228Q419 236 411 230Q404 225 400 217Q397 209 391 208Q384 206 387 204Q390 202 396 203Q403 205 408 199Q413 194 411 182Q408 170 404 170Q400 171 393 165Q386 160 390 154Q394 148 399 146Q404 143 408 143Q411 144 408 145ZM357 115Q346 116 343 115Q341 114 344 110Q347 107 357 104Q367 101 369 103Q370 104 368 110Q367 115 357 115ZM413 120Q416 120 416 126Q415 132 422 134Q429 137 428 139Q428 142 421 141Q413 140 409 136Q405 133 409 129Q412 124 412 122Q411 120 413 120ZM381 15Q397 11 390 14Q383 17 396 13Q408 9 437 5Q465 1 512 2Q558 3 589 9Q619 14 663 30Q707 45 735 60Q762 74 800 102Q837 130 858 153Q880 175 907 213Q934 251 937 260Q940 269 935 265Q930 261 931 266Q932 270 942 282Q952 294 948 281Q943 269 958 302Q972 336 980 372Q988 409 983 395Q979 382 967 366Q956 350 946 343Q935 335 933 330Q930 324 933 333Q936 341 930 336Q925 331 942 350Q960 369 976 395Q992 422 988 401Q985 380 991 414Q997 449 997 501Q997 552 988 597Q980 641 969 671Q958 700 935 741Q913 782 893 808Q873 833 887 808Q901 783 903 769Q905 755 914 733Q923 711 923 693Q922 674 915 665Q908 657 911 639Q913 622 909 617Q906 613 899 620Q892 627 887 622Q883 617 864 633Q846 649 838 652Q829 654 820 661Q810 669 805 669Q800 669 787 664Q774 659 764 647Q754 636 747 632Q740 629 739 623Q738 618 734 614Q730 610 733 603Q737 596 737 588Q737 579 731 564Q725 549 730 528Q735 507 746 486Q757 466 755 455Q752 443 756 434Q761 425 761 417Q761 409 772 407Q783 405 789 395Q796 384 809 374Q822 365 825 360Q828 356 830 357Q833 359 834 356Q835 353 840 367Q846 380 869 379Q892 378 890 364Q888 350 896 348Q903 346 909 342Q914 338 915 331Q915 325 917 325Q919 326 920 320Q921 315 909 294Q897 272 897 281Q896 289 894 289Q892 288 892 293Q891 299 888 300Q885 302 876 295Q867 288 866 268Q865 248 871 243Q876 238 875 231Q874 224 871 221Q867 218 858 218Q849 219 844 209Q838 200 840 209Q841 218 846 219Q850 221 851 227Q852 233 848 232Q844 231 843 228Q841 224 838 227Q835 229 844 246Q853 263 859 266Q864 269 864 276Q864 283 862 282Q860 280 858 281Q857 283 858 288Q860 293 857 293Q855 293 863 300Q872 308 870 308Q869 309 871 315Q874 322 861 313Q847 305 843 300Q840 294 820 290Q800 285 803 292Q806 298 826 303Q845 308 845 310Q846 311 842 311Q839 311 843 321Q848 331 842 325Q836 319 827 318Q817 316 805 311Q792 306 791 314Q790 321 783 326Q776 330 779 335Q781 339 778 346Q775 352 778 361Q781 371 779 382Q778 393 772 396Q766 398 765 403Q764 407 759 404Q754 401 748 404Q741 407 730 383Q718 359 720 354Q722 350 738 345Q753 340 753 337Q753 334 749 326Q745 319 733 315Q722 311 720 308Q718 306 725 303Q731 300 728 296Q725 292 727 293Q730 293 733 288Q736 283 734 280Q733 277 735 272Q737 267 735 261Q732 255 737 250Q741 245 731 233Q721 221 722 217Q723 213 728 221Q734 229 740 233Q746 236 747 233Q748 229 752 230Q756 230 757 223Q758 215 761 214Q765 213 764 209Q763 205 756 198Q749 192 749 190Q748 188 752 188Q756 188 748 183Q740 178 742 173Q744 167 743 164Q741 162 739 162Q737 162 736 169Q734 176 730 175Q726 175 719 170Q712 166 704 155Q696 144 694 144Q691 144 691 147Q691 149 702 164Q714 180 720 182Q726 183 736 198Q746 212 744 213Q742 214 744 217Q746 220 745 221Q743 223 727 213Q711 203 712 209Q714 214 709 216Q704 217 693 208Q683 198 681 186Q680 174 668 155Q657 135 656 126Q655 117 663 118Q670 118 669 117Q668 116 673 114Q677 112 684 110Q691 109 697 114Q702 119 699 122Q695 126 707 127Q719 129 714 127Q709 124 712 123Q714 122 707 116Q699 110 701 109Q703 108 693 105Q683 102 684 100Q685 98 691 100Q698 102 688 93Q678 85 681 85Q683 84 679 80Q674 76 676 76Q678 76 672 74Q665 72 667 67Q670 63 660 62Q650 62 640 58Q630 54 654 56Q678 58 670 56Q662 53 645 52Q627 52 632 51Q636 50 630 47Q624 44 619 45Q613 46 607 43Q601 40 577 37Q553 34 553 32Q553 30 547 27Q542 25 549 25Q557 24 553 22Q550 20 534 18Q517 17 513 14Q508 11 464 14Q420 18 396 27Q371 36 359 36Q348 36 350 34Q353 33 344 35Q336 36 344 31Q351 25 364 21Q376 17 371 18Q365 19 381 15ZM865 195Q874 200 884 210Q895 220 896 217Q897 214 895 210Q892 206 882 194Q871 183 868 182Q866 180 869 184Q872 188 863 184Q854 179 846 169Q838 160 847 175Q856 190 865 195ZM463 102Q477 103 479 106Q482 108 472 114Q462 119 457 120Q452 120 452 122Q451 125 445 127Q438 129 439 131Q440 133 436 134Q432 134 426 131Q420 127 425 124Q430 121 431 123Q432 125 432 122Q433 119 439 115Q445 111 448 111Q451 112 448 110Q445 109 447 105Q450 101 463 102ZM510 103Q518 102 523 103Q527 104 522 107Q517 110 522 109Q527 108 528 111Q530 113 533 110Q535 107 539 108Q542 109 540 113Q537 117 545 126Q552 134 550 136Q548 137 554 144Q561 150 558 151Q556 151 558 153Q561 155 558 157Q555 158 558 161Q561 164 558 164Q555 165 561 169Q568 173 566 174Q564 176 560 173Q556 171 556 175Q557 179 563 178Q568 177 563 184Q557 191 552 193Q546 195 540 204Q534 212 528 214Q522 216 518 227Q513 237 512 247Q511 257 508 257Q505 257 502 254Q499 251 495 251Q490 251 484 240Q478 230 476 217Q473 204 479 195Q485 186 480 186Q474 187 475 183Q476 179 480 180Q484 181 479 177Q473 173 475 170Q477 167 475 158Q473 148 463 145Q454 141 453 138Q452 135 457 135Q461 134 457 131Q452 128 461 126Q469 123 468 121Q468 119 474 115Q479 111 487 110Q495 109 498 111Q502 113 501 111Q499 108 501 106Q503 105 510 103Z', hon: [185.6, 578.7], ams: [736.9, 259.7], route: [[185.6,578.7],[192.3,570.6],[199.8,562.2],[207.9,553.4],[216.7,544.3],[226.2,535.0],[236.5,525.3],[247.4,515.5],[259.0,505.4],[271.3,495.1],[284.3,484.6],[297.8,474.0],[312.0,463.3],[326.8,452.5],[342.0,441.7],[357.8,430.9],[373.9,420.2],[390.5,409.5],[407.3,399.0],[424.4,388.6],[441.7,378.5],[459.0,368.6],[476.5,358.9],[493.9,349.7],[511.3,340.7],[528.5,332.1],[545.5,324.0],[562.2,316.3],[578.7,309.0],[594.7,302.2],[610.4,295.9],[625.6,290.1],[640.3,284.8],[654.4,280.0],[668.0,275.7],[681.0,271.8],[693.4,268.5],[705.2,265.6],[716.4,263.2],[727.0,261.3],[736.9,259.7]] };
+  const GLOBE = { land: 'M286 571Q290 571 299 574Q309 578 314 583Q320 589 318 590Q317 592 309 589Q302 587 299 589Q296 592 292 589Q289 585 283 584Q277 584 276 581Q275 578 282 579Q290 581 287 576Q283 571 286 571ZM236 527Q244 532 261 549Q277 566 265 563Q252 560 255 559Q258 557 253 550Q249 544 239 538Q229 531 230 530Q230 528 219 527Q208 526 218 524Q228 522 236 527ZM446 325Q444 329 442 332Q440 336 442 335Q444 333 444 336Q445 338 451 340Q458 342 456 345Q455 348 457 347Q459 347 460 352Q461 357 459 360Q458 364 455 363Q451 362 452 358Q452 354 448 357Q444 361 442 360Q441 360 443 358Q445 357 443 355Q440 354 431 353Q423 352 430 340Q438 328 442 325Q447 321 446 325ZM691 274Q693 283 691 287Q689 291 685 291Q682 292 681 287Q681 283 678 279Q675 276 676 270Q678 264 683 264Q688 265 691 274ZM674 234Q677 232 678 237Q679 241 683 239Q686 237 688 244Q690 250 707 257Q724 264 727 269Q730 274 730 277Q730 280 723 284Q716 288 713 292Q710 297 708 297Q707 297 709 290Q711 283 706 283Q701 282 702 280Q704 278 700 274Q697 270 700 269Q703 268 702 266Q701 264 695 263Q690 262 687 258Q684 255 684 257Q684 259 680 254Q676 250 673 242Q671 235 674 234ZM596 200Q604 195 608 199Q613 203 608 211Q602 219 595 219Q587 219 588 217Q589 215 584 214Q580 213 582 211Q584 209 580 209Q576 208 576 206Q577 204 582 204Q588 205 596 200ZM376 161Q377 163 374 166Q371 169 375 167Q379 166 375 173Q372 180 381 173Q391 166 393 168Q396 170 392 178Q387 187 383 188Q379 189 376 187Q373 186 366 190Q359 195 339 202Q319 209 312 215Q306 221 308 222Q310 224 307 231Q304 237 306 237Q309 238 315 250Q321 262 326 264Q331 267 327 274Q324 281 324 290Q325 300 331 296Q336 292 338 283Q339 274 349 269Q360 265 360 255Q361 246 365 243Q369 240 373 231Q377 222 384 224Q392 225 394 231Q397 237 400 238Q403 239 401 247Q398 255 400 258Q403 262 412 255Q421 248 424 262Q428 276 426 278Q425 281 434 289Q443 297 446 302Q449 308 449 313Q448 317 435 324Q422 330 405 328Q389 325 372 336Q355 347 370 340Q385 334 389 334Q393 334 395 337Q397 339 394 341Q391 344 391 352Q390 359 399 362Q407 365 411 361Q415 357 416 361Q417 366 398 373Q380 381 378 380Q375 379 376 376Q377 372 383 370Q389 367 381 366Q373 366 363 370Q352 374 349 379Q345 384 347 388Q348 391 336 391Q324 391 330 393Q335 394 329 393Q322 393 317 399Q312 406 311 403Q310 400 310 405Q310 410 305 414Q301 418 303 410Q304 402 303 406Q301 411 300 409Q298 408 298 420Q298 433 276 444Q253 456 252 476Q250 497 247 503Q245 510 241 505Q237 501 237 486Q238 471 235 466Q233 460 229 461Q226 462 223 457Q220 452 213 449Q205 446 202 450Q200 455 191 447Q181 439 177 438Q173 437 163 441Q153 446 145 464Q136 483 136 492Q135 500 137 509Q138 519 141 524Q145 529 156 530Q168 531 171 525Q174 519 184 521Q195 523 184 544Q172 564 185 569Q198 574 202 579Q207 584 203 601Q199 617 206 629Q213 642 220 641Q227 640 237 647Q247 654 251 652Q256 650 259 645Q263 639 269 640Q274 641 281 637Q288 634 290 636Q292 638 289 640Q286 642 286 652Q286 662 289 659Q292 656 290 652Q289 647 294 646Q299 646 301 643Q302 640 308 648Q314 656 327 660Q341 665 343 663Q346 661 356 662Q366 664 362 664Q358 665 360 667Q361 669 367 673Q374 676 374 679Q375 682 381 686Q388 689 396 698Q404 707 417 709Q431 711 442 718Q454 724 457 733Q461 742 463 743Q465 744 462 749Q459 755 468 757Q477 759 477 763Q477 766 481 764Q484 762 497 765Q510 769 511 773Q512 777 532 777Q552 777 564 783Q576 790 584 791Q593 793 595 799Q597 805 595 811Q593 817 578 831Q562 846 559 860Q556 875 548 886Q541 898 537 901Q532 904 510 909Q487 914 484 916Q480 919 479 925Q478 931 461 942Q444 953 427 950Q411 948 418 953Q425 958 423 961Q420 963 405 962Q390 961 392 964Q395 967 386 966Q377 965 383 968Q390 971 381 972Q373 974 379 977Q386 979 381 981Q376 982 380 983Q385 985 368 981Q352 977 341 971Q330 965 330 963Q329 961 333 962Q337 964 335 961Q334 959 331 959Q327 959 321 950Q315 941 317 933Q319 926 315 918Q312 910 311 893Q310 875 307 866Q304 858 281 841Q258 824 241 795Q224 766 219 760Q213 755 212 750Q211 745 217 739Q222 734 218 731Q214 728 214 723Q214 719 217 713Q220 707 224 707Q229 706 230 702Q232 697 237 694Q242 691 241 680Q241 668 235 657Q230 646 225 647Q221 648 222 652Q223 655 221 656Q220 656 209 648Q199 639 195 631Q190 622 190 624Q189 626 187 624Q186 621 186 617Q186 612 182 601Q178 589 167 581Q155 573 147 558Q139 544 134 543Q128 542 114 519Q100 497 97 487Q95 477 98 467Q101 458 99 439Q97 419 101 386Q104 353 101 360Q97 366 93 401Q90 436 88 437Q86 438 85 426Q85 415 87 410Q89 405 88 394Q87 382 90 381Q92 379 98 357Q103 336 103 324Q103 313 112 293Q120 273 147 244Q173 214 171 220Q169 227 175 221Q181 215 184 203Q188 192 212 166Q236 141 237 135Q239 130 250 116Q261 101 258 102Q255 102 254 99Q253 96 260 95Q268 93 255 91Q242 90 243 85Q245 79 247 83Q249 86 254 86Q259 85 263 80Q266 75 280 68Q294 62 298 62Q302 62 300 65Q299 68 312 60Q326 53 322 58Q318 63 331 58Q344 54 343 55Q342 56 345 57Q349 59 350 62Q350 65 344 70Q338 74 329 87Q320 99 326 103Q332 106 330 107Q328 109 331 108Q335 108 331 111Q328 115 331 115Q334 114 331 116Q328 117 330 118Q332 118 332 126Q332 133 328 137Q325 141 328 143Q332 145 330 147Q329 150 336 148Q343 147 343 153Q343 159 347 161Q350 163 353 161Q357 159 354 164Q352 168 359 165Q367 161 368 157Q369 153 376 149Q383 145 381 151Q379 158 377 159Q374 160 376 161ZM357 117Q365 118 363 118Q361 119 363 120Q366 120 364 122Q363 124 366 124Q368 123 365 127Q361 131 367 129Q373 127 365 138Q357 150 353 151Q349 152 348 149Q346 145 339 141Q331 137 334 132Q338 126 342 128Q346 131 344 127Q342 123 345 122Q349 122 349 119Q348 117 357 117ZM408 145Q406 146 405 149Q404 151 411 149Q417 147 415 152Q412 157 417 156Q422 156 423 161Q425 167 427 167Q430 167 433 176Q436 185 433 186Q430 187 438 195Q446 203 441 209Q435 215 432 209Q429 204 427 204Q425 204 426 215Q428 226 427 229Q425 231 420 226Q414 221 417 228Q419 236 411 230Q404 225 400 217Q397 209 391 208Q384 206 387 204Q390 202 396 203Q403 205 408 199Q413 194 411 182Q408 170 404 170Q400 171 393 165Q386 160 390 154Q394 148 399 146Q404 143 408 143Q411 144 408 145ZM357 115Q346 116 343 115Q341 114 344 110Q347 107 357 104Q367 101 369 103Q370 104 368 110Q367 115 357 115ZM413 120Q416 120 416 126Q415 132 422 134Q429 137 428 139Q428 142 421 141Q413 140 409 136Q405 133 409 129Q412 124 412 122Q411 120 413 120ZM381 15Q397 11 390 14Q383 17 396 13Q408 9 437 5Q465 1 512 2Q558 3 589 9Q619 14 663 30Q707 45 735 60Q762 74 800 102Q837 130 858 153Q880 175 907 213Q934 251 937 260Q940 269 935 265Q930 261 931 266Q932 270 942 282Q952 294 948 281Q943 269 958 302Q972 336 980 372Q988 409 983 395Q979 382 967 366Q956 350 946 343Q935 335 933 330Q930 324 933 333Q936 341 930 336Q925 331 942 350Q960 369 976 395Q992 422 988 401Q985 380 991 414Q997 449 997 501Q997 552 988 597Q980 641 969 671Q958 700 935 741Q913 782 893 808Q873 833 887 808Q901 783 903 769Q905 755 914 733Q923 711 923 693Q922 674 915 665Q908 657 911 639Q913 622 909 617Q906 613 899 620Q892 627 887 622Q883 617 864 633Q846 649 838 652Q829 654 820 661Q810 669 805 669Q800 669 787 664Q774 659 764 647Q754 636 747 632Q740 629 739 623Q738 618 734 614Q730 610 733 603Q737 596 737 588Q737 579 731 564Q725 549 730 528Q735 507 746 486Q757 466 755 455Q752 443 756 434Q761 425 761 417Q761 409 772 407Q783 405 789 395Q796 384 809 374Q822 365 825 360Q828 356 830 357Q833 359 834 356Q835 353 840 367Q846 380 869 379Q892 378 890 364Q888 350 896 348Q903 346 909 342Q914 338 915 331Q915 325 917 325Q919 326 920 320Q921 315 909 294Q897 272 897 281Q896 289 894 289Q892 288 892 293Q891 299 888 300Q885 302 876 295Q867 288 866 268Q865 248 871 243Q876 238 875 231Q874 224 871 221Q867 218 858 218Q849 219 844 209Q838 200 840 209Q841 218 846 219Q850 221 851 227Q852 233 848 232Q844 231 843 228Q841 224 838 227Q835 229 844 246Q853 263 859 266Q864 269 864 276Q864 283 862 282Q860 280 858 281Q857 283 858 288Q860 293 857 293Q855 293 863 300Q872 308 870 308Q869 309 871 315Q874 322 861 313Q847 305 843 300Q840 294 820 290Q800 285 803 292Q806 298 826 303Q845 308 845 310Q846 311 842 311Q839 311 843 321Q848 331 842 325Q836 319 827 318Q817 316 805 311Q792 306 791 314Q790 321 783 326Q776 330 779 335Q781 339 778 346Q775 352 778 361Q781 371 779 382Q778 393 772 396Q766 398 765 403Q764 407 759 404Q754 401 748 404Q741 407 730 383Q718 359 720 354Q722 350 738 345Q753 340 753 337Q753 334 749 326Q745 319 733 315Q722 311 720 308Q718 306 725 303Q731 300 728 296Q725 292 727 293Q730 293 733 288Q736 283 734 280Q733 277 735 272Q737 267 735 261Q732 255 737 250Q741 245 731 233Q721 221 722 217Q723 213 728 221Q734 229 740 233Q746 236 747 233Q748 229 752 230Q756 230 757 223Q758 215 761 214Q765 213 764 209Q763 205 756 198Q749 192 749 190Q748 188 752 188Q756 188 748 183Q740 178 742 173Q744 167 743 164Q741 162 739 162Q737 162 736 169Q734 176 730 175Q726 175 719 170Q712 166 704 155Q696 144 694 144Q691 144 691 147Q691 149 702 164Q714 180 720 182Q726 183 736 198Q746 212 744 213Q742 214 744 217Q746 220 745 221Q743 223 727 213Q711 203 712 209Q714 214 709 216Q704 217 693 208Q683 198 681 186Q680 174 668 155Q657 135 656 126Q655 117 663 118Q670 118 669 117Q668 116 673 114Q677 112 684 110Q691 109 697 114Q702 119 699 122Q695 126 707 127Q719 129 714 127Q709 124 712 123Q714 122 707 116Q699 110 701 109Q703 108 693 105Q683 102 684 100Q685 98 691 100Q698 102 688 93Q678 85 681 85Q683 84 679 80Q674 76 676 76Q678 76 672 74Q665 72 667 67Q670 63 660 62Q650 62 640 58Q630 54 654 56Q678 58 670 56Q662 53 645 52Q627 52 632 51Q636 50 630 47Q624 44 619 45Q613 46 607 43Q601 40 577 37Q553 34 553 32Q553 30 547 27Q542 25 549 25Q557 24 553 22Q550 20 534 18Q517 17 513 14Q508 11 464 14Q420 18 396 27Q371 36 359 36Q348 36 350 34Q353 33 344 35Q336 36 344 31Q351 25 364 21Q376 17 371 18Q365 19 381 15ZM865 195Q874 200 884 210Q895 220 896 217Q897 214 895 210Q892 206 882 194Q871 183 868 182Q866 180 869 184Q872 188 863 184Q854 179 846 169Q838 160 847 175Q856 190 865 195ZM463 102Q477 103 479 106Q482 108 472 114Q462 119 457 120Q452 120 452 122Q451 125 445 127Q438 129 439 131Q440 133 436 134Q432 134 426 131Q420 127 425 124Q430 121 431 123Q432 125 432 122Q433 119 439 115Q445 111 448 111Q451 112 448 110Q445 109 447 105Q450 101 463 102ZM510 103Q518 102 523 103Q527 104 522 107Q517 110 522 109Q527 108 528 111Q530 113 533 110Q535 107 539 108Q542 109 540 113Q537 117 545 126Q552 134 550 136Q548 137 554 144Q561 150 558 151Q556 151 558 153Q561 155 558 157Q555 158 558 161Q561 164 558 164Q555 165 561 169Q568 173 566 174Q564 176 560 173Q556 171 556 175Q557 179 563 178Q568 177 563 184Q557 191 552 193Q546 195 540 204Q534 212 528 214Q522 216 518 227Q513 237 512 247Q511 257 508 257Q505 257 502 254Q499 251 495 251Q490 251 484 240Q478 230 476 217Q473 204 479 195Q485 186 480 186Q474 187 475 183Q476 179 480 180Q484 181 479 177Q473 173 475 170Q477 167 475 158Q473 148 463 145Q454 141 453 138Q452 135 457 135Q461 134 457 131Q452 128 461 126Q469 123 468 121Q468 119 474 115Q479 111 487 110Q495 109 498 111Q502 113 501 111Q499 108 501 106Q503 105 510 103Z', hon: [185.6, 578.7], ams: [736.9, 259.7], car: [263.9, 636.4], route: [[185.6,578.7],[192.3,570.6],[199.8,562.2],[207.9,553.4],[216.7,544.3],[226.2,535.0],[236.5,525.3],[247.4,515.5],[259.0,505.4],[271.3,495.1],[284.3,484.6],[297.8,474.0],[312.0,463.3],[326.8,452.5],[342.0,441.7],[357.8,430.9],[373.9,420.2],[390.5,409.5],[407.3,399.0],[424.4,388.6],[441.7,378.5],[459.0,368.6],[476.5,358.9],[493.9,349.7],[511.3,340.7],[528.5,332.1],[545.5,324.0],[562.2,316.3],[578.7,309.0],[594.7,302.2],[610.4,295.9],[625.6,290.1],[640.3,284.8],[654.4,280.0],[668.0,275.7],[681.0,271.8],[693.4,268.5],[705.2,265.6],[716.4,263.2],[727.0,261.3],[736.9,259.7]] };
+  const routeStopIdx = (k) =>
+    ({ hero: 0, plan: 0, aa: 1, bsc: 1, sandals: 2, fluky: 3, move: 4, booking: 5 })[k] ?? 0;
+  function globeRoutePoint(k) {
+    const rt = GLOBE.route;
+    const t = routeStopIdx(k) / 5;
+    return rt[Math.round(t * (rt.length - 1))];
+  }
+  function globeSvg(reveal, activeK) {
+    const rt = GLOBE.route;
+    const rv = STATIC ? 1 : reveal;
+    let dash = '';
+    for (let i = 1; i < rt.length; i++) {
+      const [a, b] = [rt[i - 1], rt[i]];
+      const on = i / (rt.length - 1) <= rv + 0.001;
+      dash += `<path class="rd" d="M${a[0]} ${a[1]}L${N(lerp(a[0], b[0], 0.6))} ${N(lerp(a[1], b[1], 0.6))}" fill="none" stroke="${C.tomato}" stroke-width="5" stroke-linecap="round" vector-effect="non-scaling-stroke" style="opacity:${on ? 1 : 0.12}"/>`;
+    }
+    const tip = globeRoutePoint(activeK);
+    const rot = (Math.atan2(tip[1] - GLOBE.hon[1], tip[0] - GLOBE.hon[0]) * 180) / Math.PI;
+    const pin = (p, on) =>
+      `<g opacity="${on ? 1 : 0.45}">${circ(p[0], p[1], 9, C.marigold, ol(3.5))}${circ(p[0], p[1], 3, INK)}</g>`;
+    const idx = routeStopIdx(activeK);
+    return `<svg class="art" viewBox="0 0 1000 1000" width="100%" height="100%" role="img" aria-hidden="true"><defs><clipPath id="mgclip"><circle cx="500" cy="500" r="500"/></clipPath></defs><g transform="translate(0 0) scale(1)"><g class="gz">${circ(500, 500, 500, '#2f86a8')}<g clip-path="url(#mgclip)">${circ(500, 500, 430, '#3592b3')}<path d="${GLOBE.land}" fill="#8cc06a" stroke="${INK}" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>${path('M-20 -20H1020V1020H-20ZM-110 420A530 530 0 1 0 950 420A530 530 0 1 0 -110 420Z', '#163a52', ' fill-rule="evenodd" opacity=".26"')}${path('M-20 -20H1020V1020H-20ZM10 540A530 530 0 1 0 1070 540A530 530 0 1 0 10 540Z', '#fffaf0', ' fill-rule="evenodd" opacity=".3"')}</g>${circ(500, 500, 500, 'none', ' stroke="#2b1b14" stroke-width="4.5" vector-effect="non-scaling-stroke"')}${dash}${pin(GLOBE.hon, idx <= 1)}${pin(GLOBE.car, idx >= 2 && idx <= 3)}${pin(GLOBE.ams, idx >= 5)}<g transform="translate(${N(tip[0])} ${N(tip[1])}) rotate(${N(rot)}) scale(0.55)">${planeTop()}</g></g></g></svg>`;
+  }
 
   /* ================= scenes ================= */
   const SKY = {
@@ -1112,6 +1263,7 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
   const st = { y: 0, raf: 0, last: 0, vis: null, act: '', v: 0, pitch: 0, pv: 0, str: 0, sv: 0, lastY: 0 };
 
   let svhEl;
+  let safeEl;
   function svh() {
     if (!svhEl) {
       svhEl = document.createElement('div');
@@ -1119,6 +1271,56 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
       document.body.appendChild(svhEl);
     }
     return svhEl.offsetHeight || innerHeight;
+  }
+  function safeAreaBottom() {
+    if (!safeEl) {
+      safeEl = document.createElement('div');
+      safeEl.style.cssText =
+        'position:fixed;left:0;bottom:0;width:0;height:0;padding-bottom:max(0px, env(safe-area-inset-bottom));visibility:hidden;pointer-events:none';
+      document.body.appendChild(safeEl);
+    }
+    return safeEl.offsetHeight || 0;
+  }
+  // Phones: always the small viewport (toolbar shown). Headless WebKit often reports svh === window height; QA can pass ?svh=.
+  function layoutH(desk) {
+    if (desk) return svh();
+    let h = svh();
+    const vv = window.visualViewport;
+    if (vv?.height > 0) h = Math.min(h, vv.height);
+    const o = qs.get('svh');
+    if (o !== null) h = Math.min(h, Math.max(320, Number(o) || h));
+    else if (QA && h >= innerHeight - 12 && innerHeight > 700) h = innerHeight - 180;
+    return h;
+  }
+  function portChrome() {
+    const pad = 16;
+    const breathe = 10;
+    const safe = safeAreaBottom();
+    const bottom = pad + breathe + safe;
+    return { pad, breathe, safe, bottom };
+  }
+  function mobileCardBox(h, hero, H, chrome) {
+    const short = H < 720;
+    const estTitle = H * (short ? 0.19 : 0.22);
+    const minTop = Math.max(52, H * 0.07) + estTitle;
+    const bottom = chrome.bottom;
+    if (hero) {
+      const slack = 6;
+      const maxH = Math.min(h + slack, H * 0.52);
+      let top = H - bottom - Math.min(h + slack, maxH);
+      top = Math.max(top, minTop * 0.85);
+      const bh = Math.min(h + slack, maxH, H - bottom - top);
+      return { top, maxH: bh, bh };
+    }
+    let top = H - bottom - h;
+    let maxH = h;
+    if (top < minTop) {
+      top = minTop;
+      maxH = Math.max(H * 0.26, H - bottom - top);
+    }
+    const bh = Math.min(h, maxH);
+    if (top + bh > H - bottom) top = Math.max(minTop, H - bottom - bh);
+    return { top, maxH, bh };
   }
 
   // a title as absolutely placed letters, so each can drop on its own while keeping the font's kerning
@@ -1167,7 +1369,7 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
   const PLAN = [
     { k: 'hero', len: 2.7 },
     { w: 'up', len: 0.8 },
-    { k: 'plan', len: 2.0 },
+    { k: 'plan', len: 2.3 },
     { w: 'down', len: 0.8 },
     { k: 'aa', len: 1.45 },
     { w: 'pass', len: 0.8 },
@@ -1181,6 +1383,10 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
     { w: 'dawn', len: 0.9 },
     { k: 'booking', len: 2.75 },
   ];
+  // titles drop in as the incoming bank parts over them; until about 0.75 of a bank they are fully covered
+  const TTL_IN = 0.8;
+  // an overflowing card starts scrolling its text 0.3 VH after it comes in, but never before the page has moved
+  const capLead = (cap) => Math.max(0.02, cap[0] + 0.3);
   const WIPE = {
     up: { axis: 'y', dir: 1, light: '#fffaf0', shade: '#dfe3e2', far: ['#cfe6f1', '#b6d8ea'], seed: 31 },
     down: { axis: 'y', dir: -1, light: '#fffaf0', shade: '#dfe3e2', far: ['#dceff6', '#c0e0ee'], seed: 47 },
@@ -1310,9 +1516,12 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
   function layout() {
     const W = stage.clientWidth;
     const Hs = stage.clientHeight;
-    const H = svh();
+    const desk = W >= 560 && W / (svh() || innerHeight) >= 1.15;
+    const H = layoutH(desk);
     const VH = innerHeight;
-    const desk = W >= 640 && W / H >= 1.15;
+    const chrome = desk ? null : portChrome();
+    if (!desk) root.style.setProperty('--port-svh', `${N(H)}px`);
+    else root.style.removeProperty('--port-svh');
     root.classList.toggle('m-desk', desk);
     root.classList.toggle('m-port', !desk);
     const U = desk ? Math.min(W / 1280, H / 800) : Math.min(W / 430, H / 860);
@@ -1320,7 +1529,7 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
 
     // captions first: the scenes are composed around them. The porthole rides the top-right corner of each card on
     // phones and of the boarding pass on desktops, so that corner is kept clear of text.
-    const hudH = desk ? clamp(H * 0.25, 140, 236) : clamp(H * 0.115, 82, 112);
+    const hudH = desk ? clamp(H * 0.25, Math.min(140, H * 0.3), 236) : clamp(H * 0.115, 82, 112);
     const hudW = hudH * (200 / 240);
     root.style.setProperty('--hfw', `${N(desk ? hudW * 0.38 - 16 : hudW - 14)}px`);
     root.style.setProperty('--hfh', `${N(desk ? hudH * 0.38 - 12 : hudH * 0.48 - 12)}px`);
@@ -1331,30 +1540,46 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
       cp.style.top = '0px';
       cp.style.height = '';
       cins[i].style.transform = '';
+      cins[i].style.paddingRight = '';
       cins[i]._sh = -1;
+      const hero = desk && cp.dataset.k === 'hero';
+      const hw = clamp(W * 0.38, 280, 470);
+      cp.style.left = hero ? `${N(Math.min(W * 0.56, W - hw - hudW * 0.38 - 10))}px` : '';
+      cp.style.width = hero ? `${N(hw)}px` : '';
     }
     for (const [i, cp] of copies.entries()) {
       const k = cp.dataset.k;
-      const h = cins[i].offsetHeight;
+      let h = cins[i].offsetHeight;
       let top;
       let maxH;
       if (k === 'hero') {
         if (desk) {
-          cp.style.left = `${N(W * 0.56)}px`;
-          cp.style.width = `${N(Math.min(470, W * 0.38))}px`;
+          maxH = H * 0.5;
+          top = H * 0.4;
+          // on a short desktop the boarding pass rises as far as the title and the porthole allow; if its text still
+          // has to scroll, the column keeps clear of the porthole on its corner
+          if (h > maxH) {
+            const rise = (hh) => Math.max(H * 0.34, 62 + hudH * 0.62, H - 12 - hh);
+            top = rise(h);
+            if (h > H - 12 - top) {
+              cins[i].style.paddingRight = `${N(hudW * 0.52 + 3)}px`;
+              h = cins[i].offsetHeight;
+              top = rise(h);
+            }
+            maxH = H - 12 - top;
+          }
         } else {
-          cp.style.left = '';
-          cp.style.width = '';
+          const box = mobileCardBox(h, true, H, chrome);
+          top = box.top;
+          maxH = box.maxH;
         }
-        maxH = desk ? H * 0.5 : H * 0.5;
-        top = desk ? H * 0.4 : H - 12 - Math.min(h + 6, maxH);
+      } else if (!desk) {
+        const box = mobileCardBox(h, false, H, chrome);
+        top = box.top;
+        maxH = box.maxH;
       } else {
-        if (desk) {
-          cp.style.left = '';
-          cp.style.width = '';
-        }
-        maxH = desk ? H * 0.6 : H * 0.46;
-        top = desk ? H * 0.95 - Math.min(h, maxH) : H - 12 - Math.min(h, maxH);
+        maxH = H * 0.6;
+        top = H * 0.95 - Math.min(h, maxH);
       }
       const bh = Math.min(h, maxH);
       cp.style.top = `${N(top)}px`;
@@ -1408,7 +1633,11 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
       let box;
       if (k === 'hero') box = desk ? { x: G.m, y: titleTop, w: W * 0.86, h: H * 0.27 } : { x: 20, y: titleTop, w: W - 40, h: H * 0.24 };
       else box = titleBox(k);
-      const cap0 = { bsc: desk ? H * 0.34 : H * 0.2, hero: desk ? H * 0.25 : H * 0.13 }[k] ?? (desk ? H * 0.2 : H * 0.11);
+      const short = !desk && H < 720;
+      const cap0 =
+        { bsc: desk ? H * 0.34 : short ? H * 0.16 : H * 0.2, hero: desk ? H * 0.25 : short ? H * 0.11 : H * 0.13 }[
+          k
+        ] ?? (desk ? H * 0.2 : short ? H * 0.09 : H * 0.11);
       const fs = fitTitle(TT[k].lines, box, cap0);
       const t = titleHTML(TT[k].lines, fs, TT[k].color, TT[k].ext);
       titles[k] = { ...t, x: box.x, y: box.y, fs };
@@ -1423,8 +1652,21 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
     };
     const hudDesk = { x: W - hudW - Math.max(16, W * 0.025), y: H - hudH - Math.max(16, H * 0.035), h: hudH };
     // while a tall card scrolls its text, the porthole rises off the card so it never covers a line
-    const lift = (k, tau) => (STATIC || !ovs[k] ? 0 : Math.min(hudH * 0.5, clamp((tau - SC[k].cap[0] - 0.3) * VH, 0, ovs[k])));
+    const lift = (k, tau) => (STATIC || !ovs[k] ? 0 : Math.min(hudH * 0.5, clamp((tau - capLead(SC[k].cap)) * VH, 0, ovs[k])));
     const hudPort = (k, tau = 0) => ({ x: W - hudW - 8, y: cap[k].top - hudH * 0.52 - lift(k, tau), h: hudH });
+    // the contact card rises over the last scene. On desktops it stops short of the porthole; on phones it picks the
+    // porthole up on its corner (dock, in track px) and keeps its text out from under it
+    const arr = $('.arr', contact);
+    arr.style.maxWidth = desk ? `${N(hudDesk.x - 12 - arr.getBoundingClientRect().left)}px` : '';
+    let dock = Infinity;
+    if (!desk) {
+      const ac = getComputedStyle(arr);
+      const ar = arr.getBoundingClientRect();
+      root.style.setProperty('--cfw', `${N(ar.right - parseFloat(ac.borderRightWidth) - parseFloat(ac.paddingRight) - (W - hudW - 17))}px`);
+      root.style.setProperty('--cfh', `${N(hudH * 0.48 + 6 - parseFloat(ac.borderTopWidth) - parseFloat(ac.paddingTop))}px`);
+      dock = arr.getBoundingClientRect().top - track.getBoundingClientRect().top - hudH * 0.52;
+    }
+    const tyEnd = document.documentElement.scrollHeight - innerHeight - (track.getBoundingClientRect().top + scrollY);
 
     // ---- hero: runway under the name, take-off, climb
     {
@@ -1569,7 +1811,7 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
         foot: '#6da653',
         title: titles[k],
         ttl: [-1, 1.25],
-        cap: [-1, 0.42],
+        cap: [-1, 0.42 + S[k].extra],
         plane: (tau) => {
           const p = pose(tau);
           const c = cam(tau);
@@ -1589,11 +1831,11 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
         expr: (tau) => (tau > 1.3 && tau < 1.95 ? 'wow' : ''),
         hud: (tau) => {
           const home = desk ? hudDesk : hudPort('aa');
-          const corner = desk ? { x: cap.hero.right - hudW * 0.62, y: cap.hero.top - hudH * 0.62, h: hudH } : hudPort('hero');
-          const e = smooth(0.38, 1.0, tau);
+          const corner = desk ? { x: cap.hero.right - hudW * 0.62, y: cap.hero.top - hudH * 0.62, h: hudH } : hudPort('hero', tau);
+          const e = smooth(0.38 + S[k].extra, 1.0 + S[k].extra, tau);
           return { x: lerp(corner.x, home.x, e), y: lerp(corner.y, home.y, e), h: hudH };
         },
-        hint: (tau) => tau < 0.4,
+        hint: (tau) => tau < 0.4 + S[k].extra,
       };
     }
 
@@ -1626,8 +1868,9 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
         dash += `<path class="rd" d="M${a[0]} ${a[1]}L${N(lerp(a[0], b[0], 0.6))} ${N(lerp(a[1], b[1], 0.6))}" fill="none" stroke="${C.tomato}" stroke-width="5" stroke-linecap="round" vector-effect="non-scaling-stroke" style="opacity:0"/>`;
       }
       // labels sit beside the pins on desktops; on phones they go below and above so they stay on screen
+      const lw = (label) => label.length * 10.4 + 16;
       const pin = (p, label, side) => {
-        const w = label.length * 10.4 + 16;
+        const w = lw(label);
         const [bx, by, tx, anchor] = { l: [-14 - w, -15, -22, 'end'], r: [14, -15, 22, 'start'], b: [-w / 2, 22, 0, 'middle'], t: [-w / 2, -46, 0, 'middle'] }[side];
         return `<g class="pin" data-x="${p[0]}" data-y="${p[1]}">${circ(0, 0, 9, C.marigold, ol(3.5))}${circ(0, 0, 3, INK)}${rr(bx, by, w, 30, 15, C.paper, ol(3))}${text(tx, by + 21, label, 17, INK, ` font-family="Bricolage, sans-serif" font-weight="700" text-anchor="${anchor}"`)}</g>`;
       };
@@ -1645,14 +1888,37 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
       }
       L.push(LY(Infinity, 0, 0, W, Hs, cl, { name: 'gcl' }));
       L.push({ z: Infinity, title: true });
-      L.push(LY(Infinity, 0, 0, W, Hs, '', { html: `<svg class="art" width="${N(W)}" height="${N(Hs)}" viewBox="0 0 ${N(W)} ${N(Hs)}">${pin(GLOBE.hon, 'Honduras', desk ? 'l' : 'b')}${pin(GLOBE.ams, 'Amsterdam', desk ? 'r' : 't')}<g class="ptop">${at(-60, -50, 1, planeTop())}</g></svg>`, name: 'pins' }));
+      // on narrow desktops the labels move below and inside so they clear the card and the screen edge
+      const ams = { x: gc.x + (GLOBE.ams[0] - 500) * sc };
+      const hSide = desk && hon.x - 14 - lw('Honduras') > cap[k].right + 10 ? 'l' : 'b';
+      const aSide = !desk ? 't' : ams.x + 14 + lw('Amsterdam') < W - 10 ? 'r' : 'l';
+      L.push(LY(Infinity, 0, 0, W, Hs, '', { html: `<svg class="art" width="${N(W)}" height="${N(Hs)}" viewBox="0 0 ${N(W)} ${N(Hs)}">${pin(GLOBE.hon, 'Honduras', hSide)}${pin(GLOBE.ams, 'Amsterdam', aSide)}<g class="ptop">${at(-60, -50, 1, planeTop())}</g></svg>`, name: 'pins' }));
+      // the pull-back: zoom and the screen point that Honduras sits on
+      const end = S[k].body[1];
+      const view = (tau) => {
+        const e = inOutCubic(ramp(0.3, 1.85, tau));
+        const k2 = S0 ** (1 - e) * (1 + smooth(end + 0.1, end + 0.8, tau) * 1.6) * sc;
+        const f = smooth(0.3, 1.6, tau);
+        const hs = { x: lerp(W * 0.5, hon.x, f), y: lerp(H * 0.5, hon.y, f) };
+        return { k2, hs, tx: hs.x - GLOBE.hon[0] * k2, ty: hs.y - GLOBE.hon[1] * k2 };
+      };
+      // the title drops in once the shrinking globe has cleared it (by as much as it will at rest), and the card follows
+      const tb = [t.x, t.y, t.x + t.w + t.fs * 0.06, t.y + t.h + t.fs * 0.22];
+      const gap = (tau) => {
+        const { k2, tx, ty } = view(tau);
+        const [cx, cy] = [tx + 500 * k2, ty + 500 * k2];
+        return Math.hypot(cx - clamp(cx, tb[0], tb[2]), cy - clamp(cy, tb[1], tb[3])) - 500 * k2;
+      };
+      const need = Math.min(H * 0.02, gap(1.85) - 2);
+      let tIn = 1.85;
+      while (tIn > 0.75 && gap(tIn - 0.05) >= need) tIn -= 0.05;
       SC[k] = {
         layers: L,
         bg: '#fbf0d9',
         foot: '#fbf0d9',
         title: t,
-        ttl: [0.75, 3.05],
-        cap: [1.45, 3.0],
+        ttl: [tIn, end + 0.25],
+        cap: [Math.max(1.45, tIn + 0.35), end + 0.2],
         plane: () => ({ x: W * 0.5, y: -H * 0.4, s: 0.1, r: 0, o: 0 }),
         cam: () => ({ x: 0, y: 0, d: 0 }),
         init: (ly) => {
@@ -1660,13 +1926,8 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
           ly.g = { gz: $('.gz', g), rd: $$('.rd', g), pins: $$('.pin', ly.pins.el), pt: $('.ptop', ly.pins.el) };
         },
         update: (tau, ly) => {
-          const e = inOutCubic(ramp(0.3, 1.85, tau));
-          const dive = smooth(2.9, 3.6, tau);
-          const s = S0 ** (1 - e) * (1 + dive * 1.6);
-          const hs = { x: lerp(W * 0.5, hon.x, smooth(0.3, 1.6, tau)), y: lerp(H * 0.5, hon.y, smooth(0.3, 1.6, tau)) };
-          const k2 = s * sc;
-          const tx = hs.x - GLOBE.hon[0] * k2;
-          const ty = hs.y - GLOBE.hon[1] * k2;
+          const { k2, hs, tx, ty } = view(tau);
+          const s = k2 / sc;
           ly.g.gz.setAttribute('transform', `translate(${N(tx)} ${N(ty)}) scale(${N(k2 * 10000) / 10000})`);
           const rv = ramp(1.15, 2.0, tau);
           ly.g.rd.forEach((d, i) => {
@@ -1745,7 +2006,7 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
         bg: SKY[k][7],
         foot: dk(SEA[k][3], 0.1),
         title: t,
-        ttl: [S2.wIn * 0.55, S2.body[1] + 0.15],
+        ttl: [S2.wIn * TTL_IN, S2.body[1] + 0.15],
         cap: [S2.wIn + 0.05, S2.body[1] - 0.04],
         plane: (tau) => {
           const u = tau / S2.end;
@@ -1783,8 +2044,8 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
         [0.34, 0.2, -4.2],
       ])
         stars += `<g class="shoot" style="animation-delay:${d}s">${line(`M${N(sx * W)} ${N(sy * H)}l${N(70 * U)} ${N(-32 * U)}`, '#fff4e2', 2.4, ' opacity=".6"')}${circ(sx * W, sy * H, 2.6 * Math.max(U, 0.7), '#fff4e2')}</g>`;
-      const mx = desk ? W * 0.82 : W * 0.8;
-      const my = desk ? H * 0.2 : z.top + z.h * 0.18;
+      const mx = desk ? W * 0.82 : W * 0.92;
+      const my = desk ? H * 0.2 : z.top + z.h * 0.14;
       const mr = desk ? H * 0.065 : W * 0.08;
       const moon = `<mask id="moonm"><rect x="${N(mx - mr)}" y="${N(my - mr)}" width="${N(2 * mr)}" height="${N(2 * mr)}" fill="#fff"/>${circ(mx + mr * 0.44, my - mr * 0.3, mr * 0.84, '#000')}</mask><g mask="url(#moonm)">${circ(mx, my, mr, '#fff1cf')}${circ(mx - mr * 0.52, my + mr * 0.12, mr * 0.16, '#efdcae')}${circ(mx - mr * 0.3, my + mr * 0.52, mr * 0.1, '#efdcae')}${circ(mx - mr * 0.66, my - mr * 0.3, mr * 0.08, '#efdcae')}</g>`;
       sky += stars + circ(mx, my, mr * 1.9, '#352b62') + circ(mx, my, mr * 1.45, '#3e3470') + moon;
@@ -1826,7 +2087,7 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
         bg: SKY.move[7],
         foot: SEA.move[3],
         title: t,
-        ttl: [S2.wIn * 0.55, S2.body[1] + 0.15],
+        ttl: [S2.wIn * TTL_IN, S2.body[1] + 0.15],
         cap: [S2.wIn + 0.05, S2.body[1] - 0.04],
         plane: (tau) => {
           const u = tau / S2.end;
@@ -1848,6 +2109,10 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
       const hy = desk ? H * 0.6 : z.top + z.h * 0.42;
       const L = [];
       const sx = desk ? W * 0.84 : W * 0.82;
+      // where "Landed." sits once the contact section has scrolled up over this scene
+      const cb = contact.getBoundingClientRect();
+      const hb = $('#h-contact').getBoundingClientRect();
+      const head = { right: hb.right - cb.left + 6, bottom: hb.bottom - cb.top + 6 };
       L.push(LY(Infinity, 0, 0, W, Hs, bands(0, W, 0, hy, SKY.booking) + rect(0, hy, W, Hs - hy, '#9fc77c')));
       L.push(LY(14, sx - H * 0.3, hy - H * 0.4, sx + H * 0.3, hy + H * 0.2, sunDisc(sx, hy - H * 0.02, H * 0.09, '#fff3d0', ['#fcd2a8', '#fbc79a']), { name: 'sun' }));
       // tulip fields and a windmill
@@ -1860,7 +2125,13 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
           const y1 = lerp(hy, fb, (i + 1) / 6);
           s += rect(-0.4 * W, y0, 1.8 * W, y1 - y0 + 0.5, i % 2 ? '#7eb35c' : cols[i]);
         }
-        s += windmill(desk ? W * 0.12 : W * 0.1, hy + 2, U * 0.9) + windmill(desk ? W * 0.95 : W * 0.95, hy + 1, U * 0.6);
+        // the left mill's sails (220 units above its base, 97 across) stay clear of the title and the contact heading:
+        // on phones the mill shrinks to fit under them, and on short desktops it stands to the right of the heading
+        const room = hy + 2 - Math.max(t.y + t.h + t.fs * 0.1, head.bottom) - 6;
+        const ms = desk ? U * 0.9 : Math.min(U * 0.9, room / 220);
+        const mx = !desk ? W * 0.1 : room < 220 * ms ? head.right + 12 + 97 * ms : W * 0.12;
+        if (ms > U * 0.3) s += windmill(mx, hy + 2, ms);
+        s += windmill(W * 0.95, hy + 1, U * 0.6);
         L.push(LY(4, -0.4 * W, hy - 140 * U, 1.4 * W, fb + 2, s));
       }
       L.push({ z: 3.2, title: true });
@@ -1912,8 +2183,15 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
         L.push(LY(0.7, -0.4 * W, Hs - 200 * U, 1.4 * W, Hs + 10, s, { front: true }));
       }
       // the stamp
-      const stR = desk ? Math.min(H * 0.17, W * 0.1) : W * 0.2;
-      const stC = desk ? { x: W * 0.74, y: H * 0.3 } : { x: W * 0.72, y: z.top + z.h * 0.34 };
+      const stR = desk ? Math.min(H * 0.17, W * 0.1) : Math.min(W * 0.2, (W - head.right - 24) / 2);
+      const stC = desk ? { x: W * 0.74, y: H * 0.3 } : { x: Math.max(W * 0.72, head.right + 8 + stR), y: z.top + z.h * 0.34 };
+      if (!desk) {
+        // the ring (104 units) lands clear of the porthole below it, wherever the cards have lifted that to
+        const pr = { x: W - hudW - 8, y: STATIC ? cap[k].top - hudH * 0.52 : Math.min(cap[k].top - hudH * 0.52 - Math.min(hudH * 0.5, ovs[k] || 0), dock - tyEnd) };
+        const dx = Math.max(0, pr.x - stC.x);
+        const clear = stR * 1.04 + 8;
+        if (dx < clear) stC.y = Math.min(stC.y, pr.y - Math.sqrt(clear ** 2 - dx ** 2));
+      }
       L.push(LY(Infinity, stC.x - stR * 1.3, stC.y - stR * 1.3, stC.x + stR * 1.3, stC.y + stR * 1.3, '', { html: `<svg class="art" width="${N(stR * 2.6)}" height="${N(stR * 2.6)}" viewBox="-130 -130 260 260">${stampSVG()}</svg>`, name: 'stamp', front: true }));
       const pw = desk ? Math.min(W * 0.3, H * 0.5) : W * 0.6;
       const ps = pw / PLANE.w;
@@ -1925,12 +2203,14 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
         bg: SKY.booking[7],
         foot: '#5e4c45',
         title: t,
-        ttl: [S2.wIn * 0.6, tdT + 0.25],
+        ttl: [S2.wIn * TTL_IN, tdT + 0.25],
         cap: [S2.wIn + 0.25, tdT + 0.2],
         plane: (tau) => {
           const a = ramp(S2.wIn * 0.2, tdT, tau);
           const e = 1 - (1 - a) ** 2;
-          const x = lerp(desk ? W * 0.32 : W * 0.3, landX, e) + Math.max(0, tau - tdT) * W * 0.05;
+          // in portrait the contact card rises over the runway, so the plane taxis off before it gets there
+          const off = desk ? 0 : ramp(S2.body[1] + 0.1, S2.body[1] + 0.7, tau) ** 2 * W * 1.3;
+          const x = lerp(desk ? W * 0.32 : W * 0.3, landX, e) + Math.max(0, tau - tdT) * W * 0.05 + off;
           const y0 = desk ? H * 0.2 : z.top;
           const yy = lerp(y0, gyPlane, a ** 1.6);
           const flare = smooth(tdT - 0.4, tdT, tau) * (1 - smooth(tdT, tdT + 0.3, tau));
@@ -2029,7 +2309,7 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
       els.push(streak);
       sg.bank = { cfg, A, set, num, streak, els, vis: false };
     }
-    LAY = { W, H, Hs, VH, desk, segs, wsegs, S, scenes, planeEl, pb: $('.pb', planeEl), wh: $$('.wh', planeEl), gM: $('.gM', planeEl), gN: $('.gN', planeEl), top: track.getBoundingClientRect().top + scrollY, hudW, hudH, cap };
+    LAY = { W, H, Hs, VH, desk, chrome, segs, wsegs, S, scenes, planeEl, pb: $('.pb', planeEl), wh: $$('.wh', planeEl), gM: $('.gM', planeEl), gN: $('.gN', planeEl), top: track.getBoundingClientRect().top + scrollY, hudW, hudH, cap, dock };
     st.vis = null;
     st.act = '';
     if (QA) window.__lm = { moments: moments(), layout: LAY };
@@ -2118,7 +2398,7 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
     }
   }
 
-  function apply(y, now) {
+  function apply(y, now, ty = y) {
     const sg = segAt(y);
     const { VH, scenes } = LAY;
     let k;
@@ -2150,11 +2430,12 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
     if (act !== st.act) {
       st.act = act;
       for (const cp of copies) cp.classList.toggle('on', cp.dataset.k === act);
+      if (act) setGlobeStop(act);
     }
     if (act) {
       const ov = sc.S.extra * VH;
       if (ov) {
-        const lead = sc.cap[0] + 0.3;
+        const lead = capLead(sc.cap);
         const sh = clamp((tau - lead) * VH, 0, ov);
         const ci = cins[byK[k]];
         if (ci._sh !== sh) {
@@ -2213,7 +2494,9 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
     setPlane(p, now);
 
     // Luis
-    const hp = blendHud(sc, tau, other, y, w);
+    let hp = blendHud(sc, tau, other, y, w);
+    // the contact card scrolls natively, so it carries the porthole by the raw scroll rather than the eased one
+    if (LAY.dock - ty < hp.y) hp = { ...hp, y: LAY.dock - ty };
     setHud(hp, sc.hint ? sc.hint(tau) : false);
     if (turb !== HUD.turb) {
       HUD.turb = turb;
@@ -2287,7 +2570,8 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
 
   /* ---------- Luis rig ---------- */
   const rig = { x: 0, y: 0, vx: 0, vy: 0, bx: 0, by: 0, bvx: 0, bvy: 0, bump: 0, vb: 0, raf: 0, last: 0, script: null, ptr: { x: 0, y: 0, t: -1e9 }, glance: [0, 0], parts: null, expr: '', box: null };
-  const NOTE = `<p class="note">Luis, window seat<svg width="54" height="40" viewBox="0 0 54 40"><path d="M2 4Q30 0 40 18Q44 26 46 34M38 28L46 35L50 25" fill="none" stroke="${INK}" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" pathLength="1"/></svg></p>`;
+  const ARROW = 'M2 4Q30 0 40 18Q44 26 46 34M38 28L46 35L50 25';
+  const NOTE = `<p class="note">Luis, window seat<svg width="54" height="40" viewBox="0 0 54 40" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="${ARROW}" stroke="${C.paper}" stroke-width="8.6" pathLength="1"/><path d="${ARROW}" stroke="${INK}" stroke-width="2.6" pathLength="1"/></svg></p>`;
   function rigParts(L) {
     const q = (s) => $(s, L);
     const P = { head: q('.lu-head'), face: q('.lu-face'), nose: q('.lu-nose'), beard: q('.lu-beard'), hair: q('.lu-hair'), ears: q('.lu-ears'), bun: q('.lu-bun'), torso: q('.lu-torso'), seat: q('.lu-seat') };
@@ -2431,7 +2715,7 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
       st.sv += ((ts - st.str) * 160 - st.sv * 2 * 0.5 * Math.sqrt(160)) * dt;
       st.str += st.sv * dt;
     }
-    apply(st.y, now);
+    apply(st.y, now, ty);
     const settling = Math.abs(st.pv) + Math.abs(st.pitch) * 0.2 + Math.abs(st.sv) + Math.abs(st.str) > 0.002;
     if (st.y !== ty || settling) st.raf = requestAnimationFrame(frame);
     else st.last = 0;
@@ -2443,6 +2727,138 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
   function fontsReady() {
     const want = [document.fonts.load('800 100px "Bricolage Display"'), document.fonts.load('400 17px Bricolage'), document.fonts.load('700 17px Bricolage'), document.fonts.load('600 27px Caveat'), document.fonts.load('500 12px "IBM Plex Mono"')];
     return Promise.race([Promise.all(want), new Promise((r) => setTimeout(r, 2500))]);
+  }
+
+  let globeReveal = 1;
+  let globeK = 'hero';
+  let globeAnim = 0;
+
+  function paintGlobe(host, k, reveal) {
+    if (!host) return;
+    host.innerHTML = globeSvg(reveal, k);
+  }
+
+  function setGlobeStop(k) {
+    if (!k) return;
+    if (k === 'plan') k = 'hero';
+    globeK = k;
+    const mini = $('#globeOverlay')?.hidden ? routeStopIdx(globeK) / 5 : globeReveal;
+    paintGlobe($('#globeBtn'), globeK, STATIC ? routeStopIdx(globeK) / 5 : mini);
+    if ($('#globeOverlay') && !$('#globeOverlay').hidden) paintGlobe($('#globeStage'), globeK, STATIC ? 1 : globeReveal);
+  }
+
+  function syncMotionToggle() {
+    const btn = $('#motionToggle');
+    if (!btn) return;
+    const on = root.classList.contains('is-static');
+    btn.setAttribute('aria-pressed', String(on));
+    const long = btn.querySelector('.mt-s-long');
+    const short = btn.querySelector('.mt-s-short');
+    if (long) long.textContent = on ? 'Full flight' : 'Just the info';
+    if (short) short.textContent = on ? 'Flight' : 'Info';
+  }
+
+  function setupMotionToggle() {
+    syncMotionToggle();
+    $('#motionToggle')?.addEventListener('click', () => {
+      const next = !root.classList.contains('is-static');
+      writeStoredStatic(next);
+      const u = new URL(location.href);
+      if (qsMotion) u.searchParams.set('motion', next ? 'reduce' : 'on');
+      location.assign(`${u.pathname}${u.search}${u.hash}`);
+    });
+  }
+
+  function setupMore() {
+    for (const btn of $$('.more-btn')) {
+      btn.addEventListener('click', () => {
+        const open = btn.getAttribute('aria-expanded') !== 'true';
+        const body = document.getElementById(btn.getAttribute('aria-controls'));
+        btn.setAttribute('aria-expanded', String(open));
+        body.hidden = !open;
+        if (!STATIC && LAY) {
+          layout();
+          st.y = scrollY - LAY.top;
+          apply(st.y, performance.now());
+          kick();
+        } else if (STATIC) buildStatic();
+      });
+    }
+  }
+
+  function setupGlobe() {
+    const dock = $('#globeDock');
+    const btn = $('#globeBtn');
+    const overlay = $('#globeOverlay');
+    const close = $('#globeClose');
+    const stage = $('#globeStage');
+    if (!dock || !btn || !overlay || !stage) return;
+    dock.hidden = false;
+    paintGlobe(btn, globeK, routeStopIdx(globeK) / 5);
+
+    const openGlobe = () => {
+      overlay.hidden = false;
+      btn.setAttribute('aria-expanded', 'true');
+      close.focus();
+      if (STATIC) {
+        globeReveal = 1;
+        paintGlobe(stage, globeK, 1);
+        return;
+      }
+      globeReveal = 0;
+      paintGlobe(stage, globeK, 0);
+      const t0 = performance.now();
+      const run = (now) => {
+        globeReveal = clamp((now - t0) / 2200, 0, 1);
+        paintGlobe(stage, globeK, globeReveal);
+        if (globeReveal < 1) globeAnim = requestAnimationFrame(run);
+      };
+      cancelAnimationFrame(globeAnim);
+      globeAnim = requestAnimationFrame(run);
+    };
+
+    const shutGlobe = () => {
+      overlay.hidden = true;
+      btn.setAttribute('aria-expanded', 'false');
+      cancelAnimationFrame(globeAnim);
+      btn.focus();
+    };
+
+    btn.addEventListener('click', () => (overlay.hidden ? openGlobe() : shutGlobe()));
+    close.addEventListener('click', shutGlobe);
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) shutGlobe();
+    });
+    addEventListener(
+      'keydown',
+      (e) => {
+        if (e.key === 'Escape' && !overlay.hidden) shutGlobe();
+      },
+      { passive: true },
+    );
+    if (FINE && !QA) {
+      btn.addEventListener('mouseenter', () => {
+        if (overlay.hidden) openGlobe();
+      });
+    }
+  }
+
+  function watchStaticStops() {
+    const io = new IntersectionObserver(
+      (entries) => {
+        let best = null;
+        for (const e of entries) {
+          if (!e.isIntersecting) continue;
+          const cp = $('.copy', e.target) || e.target;
+          const k = cp.dataset?.k;
+          if (!k) continue;
+          if (!best || e.intersectionRatio > best.r) best = { k, r: e.intersectionRatio };
+        }
+        if (best) setGlobeStop(best.k);
+      },
+      { threshold: [0.25, 0.5, 0.75] },
+    );
+    for (const fr of $$('.frame')) io.observe(fr);
   }
 
   function setupPause() {
@@ -2483,16 +2899,30 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
       glanceLoop();
     }
     setupPause();
+    setupGlobe();
     let lastW = innerWidth;
     let lastH = innerHeight;
+    const relayout = () => {
+      layout();
+      st.y = scrollY - LAY.top;
+      apply(st.y, performance.now());
+    };
     addEventListener('resize', () => {
       if (innerWidth === lastW && Math.abs(innerHeight - lastH) < 140) return;
       lastW = innerWidth;
       lastH = innerHeight;
-      layout();
-      st.y = scrollY - LAY.top;
-      apply(st.y, performance.now());
+      relayout();
     });
+    if (window.visualViewport) {
+      let vvH = window.visualViewport.height;
+      window.visualViewport.addEventListener('resize', () => {
+        if (LAY?.desk) return;
+        const nh = window.visualViewport.height;
+        if (nh >= vvH - 2) return;
+        vvH = nh;
+        relayout();
+      });
+    }
   }
 
   /* ================= static version ================= */
@@ -2512,6 +2942,7 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
     layout();
     root.classList.replace('is-motion', 'is-static');
     spacer.style.height = '';
+    $('.arr', contact).style.maxWidth = '';
     const { H, Hs, desk, scenes, cap } = LAY;
     for (const [i, cp] of copies.entries()) {
       const k = cp.dataset.k;
@@ -2534,7 +2965,7 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
         fig.append(pe);
       }
       fig.insertAdjacentHTML('beforeend', grainHTML());
-      const fr = html(`<div class="frame" style="background:${sc.foot}"></div>`);
+      const fr = html(`<div class="frame" data-stop="${k}" style="background:${sc.foot}"></div>`);
       host.appendChild(fr);
       fr.append(fig, cp);
       cp.classList.remove('ov', 'on', 'sh');
@@ -2545,9 +2976,15 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
       let top;
       if (desk && k !== 'hero') top = Math.max(H * 0.95 - h, sc.title.y + sc.title.h + H * 0.03);
       else if (desk) top = c.top;
-      else top = Math.max(H - 12 - h, c.top - 10);
+      else {
+        const bottom = portChrome().bottom;
+        top = Math.max(H - bottom - h, c.top - 10);
+        const titleClear = sc.title.y + sc.title.h + H * 0.045;
+        top = Math.max(top, titleClear);
+        if (top + h > H - bottom) top = Math.max(titleClear, H - bottom - h);
+      }
       cp.style.top = `${N(top)}px`;
-      fr.style.height = `${N(Math.max(Hs, top + h + (desk ? H * 0.05 : 12)))}px`;
+      fr.style.height = `${N(Math.max(Hs, top + h + (desk ? H * 0.05 : portChrome().bottom)))}px`;
       const b = sc.hud(tau);
       const box = { ...b, y: b.y + (desk && k !== 'hero' ? 0 : top - c.top) };
       const e = sc.expr(tau);
@@ -2562,6 +2999,8 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
   async function startStatic() {
     await fontsReady();
     buildStatic();
+    setupGlobe();
+    watchStaticStops();
     let lastW = innerWidth;
     addEventListener('resize', () => {
       if (innerWidth === lastW) return;
@@ -2570,6 +3009,8 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
     });
   }
 
+  setupMotionToggle();
+  setupMore();
   if (STATIC) startStatic();
   else startMotion();
 })();
