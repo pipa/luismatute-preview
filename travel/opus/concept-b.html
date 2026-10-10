@@ -1,0 +1,1476 @@
+<!doctype html>
+<html lang="en">
+<head><meta name="robots" content="noindex,nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Greetings from… · Luis Matute · travel concept B</title>
+<meta name="description" content="Concept B for luismatute.me: a career told as large-letter postcards. Fly through each year into the next place.">
+<meta name="theme-color" content="#1E0B3D">
+<link rel="preload" href="fonts/Anybody-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/Fraunces-Italic-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/Fraunces-var.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+/* biome-ignore-all lint/style/noDescendingSpecificity: the .m-desk, .m-port and .is-static groups never apply together, and in-group overrides lean on specificity on purpose */
+@font-face { font-family: "Anybody"; src: url("fonts/Anybody-var.woff2") format("woff2"); font-weight: 500 900; font-stretch: 75% 150%; font-display: swap; }
+@font-face { font-family: "Fraunces"; src: url("fonts/Fraunces-var.woff2") format("woff2"); font-weight: 300 800; font-style: normal; font-display: swap; }
+@font-face { font-family: "Fraunces"; src: url("fonts/Fraunces-Italic-var.woff2") format("woff2"); font-weight: 300 800; font-style: italic; font-display: swap; }
+
+:root {
+  --night: #1e0b3d;
+  --ink: #1b1030;
+  --cream: #fff4e0;
+  --muted: #5a4a6e;
+  --peach: #ffc48a;
+  --rose: #d93a6b;
+  --lilac: #f1d5f0;
+  --serif: "Fraunces", Georgia, "Times New Roman", serif;
+  --wide: "Anybody", "Arial Black", system-ui, sans-serif;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { box-sizing: border-box; }
+html { background: var(--night); color: var(--cream); -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body { margin: 0; font: 400 17px/1.55 var(--serif); overflow-x: clip; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--peach); outline-offset: 3px; }
+.skip { position: absolute; left: 12px; top: -80px; z-index: 50; padding: 12px 16px; background: var(--cream); color: var(--ink); font: 700 14px/1 var(--wide); text-decoration: none; }
+.skip:focus { top: 12px; }
+
+/* ---------- hero ---------- */
+.kicker { margin: 0; font: 700 12px/1.4 var(--wide); letter-spacing: 0.16em; text-transform: uppercase; }
+.hero .kicker { color: var(--peach); }
+.hero h1 { margin: 0.14em 0 0.3em; font: italic 800 clamp(56px, 7.8vw, 150px)/0.9 var(--serif); letter-spacing: -0.025em; text-shadow: 0.035em 0.045em 0 var(--rose); }
+.hero .intro { margin: 0 0 0.6em; max-width: 31ch; font-size: clamp(17px, 1.35vw, 22px); line-height: 1.45; }
+.cue { display: inline-flex; align-items: center; gap: 12px; margin: 0.9em 0 0; color: var(--cream); font: 700 12px/1 var(--wide); letter-spacing: 0.16em; text-transform: uppercase; }
+.cue i { display: block; width: 2px; height: 28px; background: currentColor; transform-origin: 50% 0; animation: cue 1.9s var(--ease-out) infinite; }
+@keyframes cue { 0% { transform: scaleY(0); } 45% { transform: scaleY(1); } 100% { transform: translateY(28px) scaleY(0); } }
+
+/* ---------- postcard backs ---------- */
+.pc { position: relative; background: var(--cream); color: var(--ink); border-radius: 6px; box-shadow: 10px 12px 0 rgba(18, 5, 30, 0.42); }
+.pc .cin { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); column-gap: 26px; padding: 22px 26px; }
+.pc .kicker { color: var(--muted); }
+.pc h2 { margin: 0.42em 0 0.45em; font: 650 clamp(22px, 1.7vw, 30px)/1.12 var(--serif); letter-spacing: -0.01em; text-wrap: balance; }
+.pc p { margin: 0 0 0.7em; }
+.pc .small { color: var(--muted); font-size: 0.9em; }
+.pc .addr { border-left: 1.5px solid rgba(27, 16, 48, 0.2); padding-left: 24px; }
+.pc .post { position: relative; height: 92px; margin: 2px 0 4px; }
+.pc .stamp { position: absolute; right: 0; top: 0; width: 70px; height: 84px; transform: rotate(3deg); }
+.pc .pm { position: absolute; right: 52px; top: 20px; width: 128px; height: 64px; }
+.pc .lines { list-style: none; margin: 0; padding: 0; }
+.pc .lines li { padding: 7px 0 5px; border-bottom: 1.5px solid rgba(27, 16, 48, 0.22); font: italic 500 17px/1.3 var(--serif); }
+.pc .lines .feat::after { content: "featured"; margin-left: 8px; padding: 1px 6px 2px; border-radius: 3px; background: var(--ink); color: var(--cream); font: 700 10px/1 var(--wide); letter-spacing: 0.12em; text-transform: uppercase; vertical-align: 2px; }
+.st { font: 900 30px var(--wide); letter-spacing: -0.02em; }
+.pmt { font: 800 12px var(--wide); letter-spacing: 0.08em; fill: var(--ink); opacity: 0.72; }
+.pm .w { stroke-dasharray: 1; stroke-dashoffset: 0; }
+.is-motion .pm .w { stroke-dashoffset: 1; transition: stroke-dashoffset 0.3s ease; }
+.is-motion .copy.on .pm .w { stroke-dashoffset: 0; transition: stroke-dashoffset 1.3s var(--ease-out) 0.35s; }
+
+/* ---------- motion stage ---------- */
+.is-motion .track { position: relative; }
+.is-motion .stage { position: sticky; top: 0; height: 100lvh; overflow: hidden; background: var(--night); contain: strict; }
+.is-motion .copies { position: sticky; top: 0; height: 100svh; margin-top: -100lvh; pointer-events: none; z-index: 5; }
+.chap { position: absolute; left: 0; top: 0; width: 100%; height: 100%; visibility: hidden; }
+.chap.live { visibility: visible; }
+.chap.off { display: none; }
+.ly { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform; }
+.ly .art { display: block; overflow: visible; }
+.card, .shadow { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
+.shadow { background: rgba(18, 5, 30, 0.38); }
+.pv { position: absolute; overflow: hidden; }
+.wall { position: absolute; left: 0; top: 0; display: block; overflow: visible; }
+.gr { font-family: var(--serif); font-style: italic; font-weight: 700; }
+.lb { font-family: var(--wide); font-weight: 800; }
+
+/* ambient loops: transform and opacity only, on small layers of their own */
+.amb { position: absolute; }
+.amb svg { display: block; overflow: visible; }
+.tw { animation: tw 3.4s ease-in-out infinite alternate; }
+@keyframes tw { to { opacity: 0.3; } }
+.bird { animation: drift 9s ease-in-out infinite alternate; }
+.bird svg { transform-origin: 50% 70%; animation: flap 0.75s ease-in-out infinite alternate; }
+@keyframes flap { to { transform: scaleY(0.35); } }
+.drift { animation: drift 14s ease-in-out infinite alternate; }
+@keyframes drift { to { transform: translate3d(var(--dx, 24px), var(--dy, 0), 0); } }
+.shim { animation: shim 3.2s ease-in-out infinite alternate; }
+@keyframes shim { to { transform: translate3d(var(--dx, 8px), 0, 0); opacity: 0.45; } }
+.blink { animation: blink 1.5s steps(1, end) infinite; }
+@keyframes blink { 50% { opacity: 0.12; } }
+.rab { animation: rab 1.5s linear infinite; }
+@keyframes rab { 0%, 9% { opacity: 1; } 16%, 100% { opacity: 0.12; } }
+.bob { animation: bob 4.6s ease-in-out infinite alternate; }
+@keyframes bob { to { transform: translate3d(0, var(--dy, 4px), 0) rotate(2.5deg); } }
+.puff { animation: puff 4.8s linear infinite; }
+@keyframes puff { 0% { transform: translate3d(0, 0, 0) scale(0.45); opacity: 0; } 14% { opacity: 1; } 100% { transform: translate3d(var(--dx, 16px), var(--dy, -80px), 0) scale(1.7); opacity: 0; } }
+.spin { animation: spin 140s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.wave { animation: wave 7s linear infinite; }
+@keyframes wave { to { transform: translate3d(var(--dx, -60px), 0, 0); } }
+.glow { animation: glow 2.8s ease-in-out infinite alternate; }
+@keyframes glow { to { opacity: 0.35; transform: scale(0.82); } }
+.fly { animation: fly 30s linear infinite; }
+@keyframes fly { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(var(--dx, 1600px), var(--dy, -60px), 0); } }
+
+/* captions over the stage */
+.is-motion .copy { position: absolute; opacity: 0; transform: translate3d(0, 22px, 0) rotate(var(--rot, 0deg)); transition: opacity 0.3s ease, transform 0.3s ease; }
+.is-motion .copy.on { opacity: 1; transform: rotate(var(--rot, 0deg)); transition: opacity 0.6s var(--ease-out) 0.05s, transform 0.75s var(--ease-out) 0.05s; }
+.is-motion .copy.ov { overflow: hidden; }
+.is-motion .copy.ov::before, .is-motion .copy.ov::after { content: ""; position: absolute; z-index: 1; left: 0; right: 0; height: 30px; pointer-events: none; }
+.is-motion .copy.ov::before { top: 0; border-radius: 6px 6px 0 0; background: linear-gradient(var(--cream) 20%, rgba(255, 244, 224, 0)); opacity: 0; transition: opacity 0.2s ease; }
+.is-motion .copy.ov.sh::before { opacity: 1; }
+.is-motion .copy.ov::after { bottom: 0; border-radius: 0 0 6px 6px; background: linear-gradient(rgba(255, 244, 224, 0), var(--cream) 85%); }
+.is-motion .copy.ov .cin { will-change: transform; }
+.m-desk .pc { left: 4vw; width: min(640px, 46vw); font-size: clamp(15.5px, 0.45vw + 10px, 18px); container-type: inline-size; }
+/* below 440px the address column would be under 130px, too narrow for the postmark and the longer lines, so the back is one column as on phones */
+@container (max-width: 440px) {
+  .pc .cin { grid-template-columns: minmax(0, 1fr); padding: 16px 16px 14px; }
+  .pc .addr { border-left: 0; padding-left: 0; }
+  .pc .post { position: absolute; right: 12px; top: 12px; width: 52px; height: 62px; margin: 0; }
+  .pc .stamp { width: 52px; height: 62px; }
+  .pc .pm { display: none; }
+  .pc .kicker, .pc h2 { margin-right: 60px; }
+}
+.m-desk .pc:nth-of-type(odd) { --rot: -1.2deg; }
+.m-desk .pc:nth-of-type(even) { --rot: 1deg; }
+.m-desk .hero { left: 5vw; width: min(54vw, 860px); }
+.m-port .pc { left: 12px; right: 12px; font-size: 15.5px; }
+.m-port .pc .cin { grid-template-columns: minmax(0, 1fr); padding: 16px 16px 14px; }
+.m-port .pc .addr { border-left: 0; padding-left: 0; }
+.m-port .pc .post { position: absolute; right: 12px; top: 12px; width: 52px; height: 62px; margin: 0; }
+.m-port .pc .stamp { width: 52px; height: 62px; }
+.m-port .pc .pm { display: none; }
+.m-port .pc .kicker, .m-port .pc h2 { margin-right: 60px; }
+.m-port .pc h2 { font-size: clamp(20px, 5.4vw, 26px); }
+.m-port .pc .lines li { padding: 5px 0 4px; font-size: 15.5px; }
+.m-port .hero { left: 20px; right: 20px; }
+.m-port .hero h1 { font-size: clamp(52px, 15.5vw, 96px); }
+.m-port .hero .intro { font-size: 16.5px; }
+
+/* ---------- contact ---------- */
+.spacer { height: 0; }
+.contact { position: relative; z-index: 6; min-height: 100svh; padding: clamp(84px, 16vh, 180px) 5vw clamp(56px, 10vh, 120px); }
+.contact .kicker { color: var(--peach); }
+.contact h2 { margin: 0.12em 0 0; font: italic 800 clamp(64px, 11vw, 200px)/0.88 var(--serif); letter-spacing: -0.03em; text-shadow: 0.035em 0.045em 0 var(--rose); }
+@media (max-width: 374px) { .contact h2 { font-size: 16.6vw; } }
+.contact .sub { margin: 0.6em 0 1.2em; max-width: 34ch; font-size: clamp(18px, 1.5vw, 22px); }
+.contact ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px 44px; }
+.contact a { display: inline-block; padding: 8px 0; font: 600 clamp(22px, 2.8vw, 40px)/1.2 var(--serif); text-decoration: underline; text-decoration-color: #ff9a52; text-decoration-thickness: 3px; text-underline-offset: 8px; }
+.contact a:hover { color: var(--peach); }
+.contact .on-x { margin-left: 4px; color: var(--lilac); font: 500 clamp(15px, 1.2vw, 19px)/1.2 var(--serif); }
+.contact .meta { margin-top: 3em; color: var(--lilac); font-size: 14px; }
+.contact .meta a { padding: 0; font: inherit; text-decoration-color: currentColor; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+
+/* ---------- static (reduced motion) and no script ---------- */
+.is-static .stage, html:not(.is-motion) .stage { display: none; }
+.fig { position: relative; isolation: isolate; overflow: hidden; width: 100%; background: var(--night); }
+.fig > div { position: absolute; left: 0; top: 0; }
+.fig .card { transform-origin: 0 0; }
+.is-static .copy, html:not(.is-motion) .copy { position: relative; }
+.is-static .hero, html:not(.is-motion) .hero { max-width: 980px; margin: 0 auto; padding: 32px 20px 56px; }
+.is-static .pc, html:not(.is-motion) .pc { width: calc(100% - 24px); max-width: 780px; margin: -56px auto 72px; }
+html:not(.is-motion):not(.is-static) .pc { margin: 32px auto; }
+html:not(.is-motion):not(.is-static) .pc .post { display: none; }
+.is-static .cue { display: none; }
+.is-static .contact { padding-top: 40px; }
+.is-static .amb, .is-static .amb svg, .is-static .cue i { animation: none; }
+@media (max-width: 640px) {
+  .is-static .pc .cin, html:not(.is-motion) .pc .cin { grid-template-columns: minmax(0, 1fr); padding: 16px; }
+  .is-static .pc .addr, html:not(.is-motion) .pc .addr { border-left: 0; padding-left: 0; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#contact">Skip to contact</a>
+<main id="main">
+  <div class="track" id="track">
+    <div class="stage" id="stage" aria-hidden="true"></div>
+    <div class="copies" id="copies">
+      <header class="copy hero" data-ch="0">
+        <div class="cin">
+          <p class="kicker">Postcards from a career</p>
+          <h1>Luis Matute</h1>
+          <p class="intro">Born in Honduras. At Booking.com in Amsterdam since October 2017.</p>
+          <p class="intro">Five postcards from the road that led here. Scroll to fly through each one.</p>
+          <p class="cue"><i></i>Scroll</p>
+        </div>
+      </header>
+
+      <article class="copy pc" data-ch="1" aria-labelledby="h-aa">
+        <div class="cin">
+          <div class="msg">
+            <p class="kicker">Postcard 1 of 5 · 2006–2011</p>
+            <h2 id="h-aa">Security lead agent, American Airlines</h2>
+            <p>Not a tech role. Led about 25 security agents, enforcing TSA rules for airlines outside the US.</p>
+          </div>
+          <div class="addr">
+            <div class="post" aria-hidden="true"></div>
+            <ul class="lines">
+              <li>Luggage x-ray</li>
+              <li>Passenger profiling</li>
+              <li>Passport and visa checks</li>
+              <li>Security checks on aircraft</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <article class="copy pc" data-ch="2" aria-labelledby="h-sandals">
+        <div class="cin">
+          <div class="msg">
+            <p class="kicker">Postcard 2 of 5 · July 2011 – August 2017</p>
+            <h2 id="h-sandals">Front-end developer, Sandals Resorts</h2>
+            <p>Front end, with some back end. Led several full redesigns and re-engineering efforts, and introduced Sass, JS templating frameworks and pre-compilers that improved performance and productivity.</p>
+          </div>
+          <div class="addr">
+            <div class="post" aria-hidden="true"></div>
+            <ul class="lines">
+              <li>sandals.com</li>
+              <li>beaches.com</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <article class="copy pc" data-ch="3" aria-labelledby="h-fluky">
+        <div class="cin">
+          <div class="msg">
+            <p class="kicker">Postcard 3 of 5 · 2012</p>
+            <h2 id="h-fluky">BSc Computer Science, and Fluky Factory</h2>
+            <p>Graduated from Universidad Católica in 2012.</p>
+            <p>Alongside Sandals, one of four co-founders of Fluky Factory, c. 2012–2019. Owned all the engineering: databases, back end, front end and technical client handling, with 2–3 employees plus contractors.</p>
+            <p class="small">Freelance, too, from 2012 to c. 2019.</p>
+          </div>
+          <div class="addr">
+            <div class="post" aria-hidden="true"></div>
+            <ul class="lines" aria-label="Fluky Factory projects">
+              <li class="feat">Catch Advisory Group</li>
+              <li>Roatan Excursions</li>
+              <li>Mayan Princess</li>
+              <li>Roatan Ferry</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <article class="copy pc" data-ch="4" aria-labelledby="h-move">
+        <div class="cin">
+          <div class="msg">
+            <p class="kicker">Postcard 4 of 5 · 2017</p>
+            <h2 id="h-move">Honduras to the Netherlands</h2>
+            <p>Moved from Honduras to the Netherlands in 2017, and joined Booking.com in Amsterdam that October. The work there has included:</p>
+          </div>
+          <div class="addr">
+            <div class="post" aria-hidden="true"></div>
+            <ul class="lines">
+              <li>Accessibility</li>
+              <li>Fraud</li>
+              <li>The room selection org, 3–4 years</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <article class="copy pc" data-ch="5" aria-labelledby="h-ab">
+        <div class="cin">
+          <div class="msg">
+            <p class="kicker">Postcard 5 of 5 · 2024 – now</p>
+            <h2 id="h-ab">The experimentation tool</h2>
+            <p>Since 2024, on the experimentation (A/B testing) tool at Booking.com.</p>
+            <p class="small">This postcard comes in two variants.</p>
+          </div>
+          <div class="addr">
+            <div class="post" aria-hidden="true"></div>
+            <ul class="lines">
+              <li>Experimentation</li>
+              <li>A/B testing</li>
+              <li>Since 2024</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+    </div>
+    <div class="spacer" id="spacer"></div>
+    <section class="contact" id="contact" aria-labelledby="h-contact">
+      <p class="kicker">Last stop</p>
+      <h2 id="h-contact">Write back.</h2>
+      <p class="sub">Say hola by email or on X.</p>
+      <ul>
+        <li><a href="mailto:luis.matute@me.com">luis.matute@me.com</a></li>
+        <li><a href="https://x.com/luis_matute">@luis_matute</a> <span class="on-x">on X</span></li>
+      </ul>
+      <p class="meta">Concept B, “Greetings from…”. Prototype for luismatute.me. <a href="?motion=reduce">Reduced-motion version</a> · <a href="concept-a.html">Concept A</a></p>
+    </section>
+  </div>
+</main>
+
+<script>
+(() => {
+  'use strict';
+  const qs = new URLSearchParams(location.search);
+  const QA = qs.has('qa');
+  const mq = matchMedia('(prefers-reduced-motion: reduce)');
+  const STATIC = qs.get('motion') === 'reduce' || (qs.get('motion') !== 'on' && mq.matches);
+  const root = document.documentElement;
+  root.classList.add(STATIC ? 'is-static' : 'is-motion');
+  mq.addEventListener?.('change', () => location.reload());
+
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const smooth = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
+  const inOutSine = (t) => -(Math.cos(Math.PI * t) - 1) / 2;
+  const inOutCubic = (t) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2);
+  const outCubic = (t) => 1 - (1 - t) ** 3;
+  const outBack = (t) => 1 + 2.2 * (t - 1) ** 3 + 1.2 * (t - 1) ** 2;
+  const N = (v) => Math.round(v * 10) / 10;
+  const html = (s) => {
+    const t = document.createElement('template');
+    t.innerHTML = s.trim();
+    return t.content.firstElementChild;
+  };
+  const rng = (seed) => {
+    let s = seed;
+    return () => {
+      s = (s + 0x6d2b79f5) | 0;
+      let t = Math.imul(s ^ (s >>> 15), 1 | s);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  };
+
+  /* ---------- Anybody numerals, width 112, weight 900: [advance, x0, y0, x1, y1, deepX, deepY, deepR, path]
+     font units, y up, overlaps removed. The deep point is the centre of the largest circle that stays clear
+     of the jamb, so the dive can zoom into it until the hole covers the screen. ---------- */
+  const G = {"0":[1487,62,-16,1397,1362,1158,1002,227,"M730 -16Q1067 -16 1232 91Q1397 198 1397 432V914Q1397 1148 1232 1255Q1067 1362 730 1362Q393 1362 228 1255Q62 1148 62 914V432Q62 198 226 91Q390 -16 730 -16ZM730 305Q625 305 583 339Q541 373 541 447V901Q541 974 583 1008Q625 1041 730 1041Q830 1041 874 1007Q917 973 917 901V447Q917 374 872 340Q828 305 730 305Z"],"1":[1415,67,0,1355,1352,719,1052,244,"M68 0H1355V321H959V1352H566L67 1206V862L482 969V321H68Z"],"2":[1528,81,0,1439,1362,369,238,238,"M86 0H1436V321H589Q589 347 675 372Q761 398 943 452Q1159 526 1299 634Q1439 742 1439 926Q1439 1080 1317 1221Q1195 1362 784 1362Q382 1362 232 1216Q81 1069 81 874H558Q558 978 619 1010Q680 1041 782 1041Q867 1041 912 1017Q957 993 957 916Q957 856 910 824Q863 792 605 720Q340 642 213 540Q86 438 86 281Z"],"4":[1489,49,0,1430,1350,1049,410,251,"M769 0H1245V259H1430V557H1245V1350H562L49 566V259H769ZM527 557 767 1015H769V557Z"],"6":[1521,58,-14,1430,1362,350,686,244,"M724 -14Q1152 -14 1291 128Q1430 270 1430 481Q1430 679 1310 788Q1190 897 916 897Q705 897 547 819Q562 955 603 995Q668 1058 768 1058Q842 1058 877 1034Q912 1011 920 945H1400Q1400 1090 1271 1226Q1142 1362 767 1362Q338 1362 198 1168Q58 973 58 657Q58 337 184 162Q311 -14 724 -14ZM541 523Q560 564 606 592Q663 626 755 626Q850 626 896 596Q942 567 942 457Q942 354 896 324Q850 293 755 293Q663 293 600 337Q552 372 541 523Z"],"7":[1364,21,0,1341,1350,585,226,227,"M278 0H795Q793 324 948 573Q1104 822 1341 1034V1350H21V1030H830L828 1026Q601 871 439 604Q277 338 278 0Z"],"H":[1681,91,0,1555,1350,383,662,252,"M91 0H575V497H1071V0H1555V1350H1071V818H575V1350H91Z"],"O":[1681,54,-13,1623,1363,1402,719,220,"M838 -13Q1261 -13 1442 167Q1623 347 1623 675Q1623 1003 1442 1183Q1261 1363 838 1363Q415 1363 234 1184Q54 1005 54 675Q54 347 235 167Q416 -13 838 -13ZM838 308Q701 308 618 368Q536 429 536 675Q536 925 618 984Q701 1042 838 1042Q976 1042 1058 984Q1141 925 1141 675Q1141 429 1058 368Q976 308 838 308Z"],"L":[1250,91,0,1176,1350,363,230,232,"M91 0H1176V319H575V1350H91Z"],"A":[1770,65,0,1708,1351,1301,435,235,"M65 0H564L648 283H1126L1209 0H1708L1219 1351H553ZM738 592 886 1083H889L1036 592Z"]};
+  const CAPU = 1350;
+  const JAMB = [47, 61];
+
+  // font units to px: x right, y down from the baseline
+  const glyphPath = (d, ox, oy, k) => {
+    const tok = d.match(/[MLHVQZ]|-?\d+(?:\.\d+)?/g);
+    let out = '';
+    let cmd = '';
+    let cx = 0;
+    let cy = 0;
+    let i = 0;
+    const X = (v) => N(ox + v * k);
+    const Y = (v) => N(oy - v * k);
+    while (i < tok.length) {
+      const t = tok[i];
+      if (/[MLHVQZ]/.test(t)) {
+        cmd = t;
+        i++;
+        if (t === 'Z') out += 'Z';
+        continue;
+      }
+      if (cmd === 'M' || cmd === 'L') {
+        cx = +tok[i];
+        cy = +tok[i + 1];
+        out += `${cmd}${X(cx)} ${Y(cy)}`;
+        i += 2;
+        cmd = 'L';
+      } else if (cmd === 'H' || cmd === 'V') {
+        if (cmd === 'H') cx = +t;
+        else cy = +t;
+        out += `L${X(cx)} ${Y(cy)}`;
+        i++;
+      } else {
+        cx = +tok[i + 2];
+        cy = +tok[i + 3];
+        out += `Q${X(+tok[i])} ${Y(+tok[i + 1])} ${X(cx)} ${Y(cy)}`;
+        i += 4;
+      }
+    }
+    return out;
+  };
+
+  /* ---------- svg helpers ---------- */
+  const rect = (x, y, w, h, f, a = '') => `<rect x="${N(x)}" y="${N(y)}" width="${N(w)}" height="${N(h)}" fill="${f}"${a}/>`;
+  const circ = (x, y, r, f, a = '') => `<circle cx="${N(x)}" cy="${N(y)}" r="${N(r)}" fill="${f}"${a}/>`;
+  const ell = (x, y, rx, ry, f, a = '') => `<ellipse cx="${N(x)}" cy="${N(y)}" rx="${N(rx)}" ry="${N(ry)}" fill="${f}"${a}/>`;
+  const path = (d, f, a = '') => `<path d="${d}" fill="${f}"${a}/>`;
+  const pts = (p) => p.map(([x, y], i) => `${i ? 'L' : 'M'}${N(x)} ${N(y)}`).join('');
+  const poly = (p, f, a = '') => path(`${pts(p)}Z`, f, a);
+  const line = (d, s, w, a = '') => `<path d="${d}" fill="none" stroke="${s}" stroke-width="${N(w)}"${a}/>`;
+  const curve = (p) => {
+    let d = `M${N(p[0][0])} ${N(p[0][1])}`;
+    for (let k = 1; k < p.length - 1; k++) {
+      d += `Q${N(p[k][0])} ${N(p[k][1])} ${N((p[k][0] + p[k + 1][0]) / 2)} ${N((p[k][1] + p[k + 1][1]) / 2)}`;
+    }
+    const e = p[p.length - 1];
+    return `${d}L${N(e[0])} ${N(e[1])}`;
+  };
+  const hill = (p, base, f) => path(`${curve(p)}L${N(p[p.length - 1][0])} ${N(base)}L${N(p[0][0])} ${N(base)}Z`, f);
+  const amb = (cls, x, y, w, h, inner, style = '') =>
+    `<div class="amb ${cls}" style="left:${N(x)}px;top:${N(y)}px;width:${N(w)}px;height:${N(h)}px;${style}"><svg width="${N(w)}" height="${N(h)}" viewBox="0 0 ${N(w)} ${N(h)}" focusable="false">${inner}</svg></div>`;
+
+  // flat colour bands: thinner toward y1, the first and last bands bleed past the frame
+  const skyBands = (g, cols, y0, y1, p = 1.4, xa = g.X0, xb = g.X1) => {
+    let out = '';
+    const n = cols.length;
+    for (let k = 0; k < n; k++) {
+      const a = k === 0 ? y0 - g.H : y0 + (y1 - y0) * (1 - (1 - k / n) ** p);
+      const b = k === n - 1 ? y1 + g.H * 0.3 : y0 + (y1 - y0) * (1 - (1 - (k + 1) / n) ** p);
+      out += rect(xa, a, xb - xa, b - a + 1, cols[k]);
+    }
+    return out;
+  };
+  // bands below a horizon: thin near it, thicker toward the viewer
+  const downBands = (g, cols, y0, y1, p = 1.6, xa = g.X0, xb = g.X1) => {
+    let out = '';
+    const n = cols.length;
+    for (let k = 0; k < n; k++) {
+      const a = y0 + (y1 - y0) * (k / n) ** p;
+      const b = k === n - 1 ? y1 + g.H : y0 + (y1 - y0) * ((k + 1) / n) ** p;
+      out += rect(xa, a, xb - xa, b - a + 1, cols[k]);
+    }
+    return out;
+  };
+  // a horizontal slice of a circle, no clip paths needed
+  const slice = (cx, cy, r, y0, y1) => {
+    const ya = Math.max(y0, cy - r + 0.01);
+    const yb = Math.min(y1, cy + r - 0.01);
+    if (yb <= ya) return '';
+    const wa = Math.sqrt(r * r - (ya - cy) ** 2);
+    const wb = Math.sqrt(r * r - (yb - cy) ** 2);
+    return `M${N(cx - wa)} ${N(ya)}H${N(cx + wa)}A${N(r)} ${N(r)} 0 0 1 ${N(cx + wb)} ${N(yb)}H${N(cx - wb)}A${N(r)} ${N(r)} 0 0 1 ${N(cx - wa)} ${N(ya)}Z`;
+  };
+  // the retro sun: a dome in colour bands, then slices with widening gaps
+  const sun = (cx, cy, r, cols) => {
+    let out = '';
+    const top = cy - r;
+    const dome = cy + r * 0.04;
+    for (let k = 0; k < 3; k++) {
+      const a = top + ((dome - top) * k) / 3;
+      const b = top + ((dome - top) * (k + 1)) / 3;
+      out += path(slice(cx, cy, r, a, b + 0.6), cols[k]);
+    }
+    let y = dome;
+    for (let k = 0; k < 7 && y < cy + r; k++) {
+      y += r * (0.035 + 0.02 * k);
+      const h = r * Math.max(0.04, 0.15 - 0.021 * k);
+      const d = slice(cx, cy, r, y, y + h);
+      if (d) out += path(d, cols[Math.min(cols.length - 1, 3 + (k >> 1))]);
+      y += h;
+    }
+    return out;
+  };
+  const crescent = (x, y, r, f) => path(`M${N(x)} ${N(y - r)}A${N(r)} ${N(r)} 0 1 1 ${N(x)} ${N(y + r)}A${N(r * 0.58)} ${N(r)} 0 1 0 ${N(x)} ${N(y - r)}Z`, f);
+  const spark = (x, y, s, f) => path(`M${N(x)} ${N(y - s)}Q${N(x)} ${N(y)} ${N(x + s)} ${N(y)}Q${N(x)} ${N(y)} ${N(x)} ${N(y + s)}Q${N(x)} ${N(y)} ${N(x - s)} ${N(y)}Q${N(x)} ${N(y)} ${N(x)} ${N(y - s)}Z`, f);
+
+  // a palm frond along a quadratic spine, leaflets swept toward the tip
+  const frond = (bx, by, ang, len, w, droop, f) => {
+    const a = (ang * Math.PI) / 180;
+    const tx = bx + Math.cos(a) * len;
+    const ty = by + Math.sin(a) * len + droop * len;
+    const cx = bx + Math.cos(a) * len * 0.55;
+    const cy = by + Math.sin(a) * len * 0.55 - Math.abs(Math.cos(a)) * len * 0.16;
+    const at = (t) => {
+      const it = 1 - t;
+      const dx = 2 * it * (cx - bx) + 2 * t * (tx - cx);
+      const dy = 2 * it * (cy - by) + 2 * t * (ty - cy);
+      const l = Math.hypot(dx, dy) || 1;
+      return [it * it * bx + 2 * it * t * cx + t * t * tx, it * it * by + 2 * it * t * cy + t * t * ty, dx / l, dy / l];
+    };
+    const n = 15;
+    const side = (sg, sc) => {
+      const out = [];
+      for (let k = 0; k < n; k++) {
+        for (const [t, depth] of [[k / n, 0.42], [(k + 0.7) / n, 1]]) {
+          const [px, py, dx, dy] = at(t);
+          const e = w * Math.sin(Math.PI * Math.min(1, t * 1.04)) ** 0.7 * depth * sc;
+          out.push([px - sg * dy * e, py + sg * dx * e]);
+        }
+      }
+      out.push([tx, ty]);
+      return out;
+    };
+    return poly(side(1, 1).concat(side(-1, 0.85).reverse()), f);
+  };
+  const palm = (x, y, h, lean, f, tf = f) => {
+    const tx = x + lean * h;
+    const ty = y - h;
+    const w0 = h * 0.038;
+    const w1 = h * 0.02;
+    const qx = x + lean * h * 0.1;
+    const qy = y - h * 0.55;
+    let out = path(`M${N(x - w0)} ${N(y)}Q${N(qx - w0)} ${N(qy)} ${N(tx - w1)} ${N(ty)}L${N(tx + w1)} ${N(ty)}Q${N(qx + w0)} ${N(qy)} ${N(x + w0)} ${N(y)}Z`, tf);
+    const L = h * 0.48;
+    for (const [an, ls, dr] of [[-168, 0.92, 0.55], [-140, 1, 0.38], [-112, 0.8, 0.16], [-72, 0.78, 0.14], [-40, 1, 0.34], [-12, 0.94, 0.55], [160, 0.66, 0.5], [22, 0.62, 0.55]]) {
+      out += frond(tx, ty, an + lean * 25, L * ls, L * 0.12, dr, f);
+    }
+    return out + circ(tx, ty, h * 0.03, f);
+  };
+  const birdArt = (s, col) => line(`M${N(s * 0.1)} ${N(s * 0.12)}Q${N(s * 0.6)} ${N(s * 0.2)} ${N(s)} ${N(s * 0.62)}Q${N(s * 1.4)} ${N(s * 0.2)} ${N(s * 1.9)} ${N(s * 0.12)}`, col, s * 0.16, ' stroke-linecap="round" stroke-linejoin="round"');
+  const birds = (list, col) => list.map(([x, y, s, dl]) => amb('bird', x - s, y - s * 0.4, s * 2, s * 0.8, birdArt(s, col), `--dx:${N(s * 2.2)}px;--dy:${N(-s * 0.7)}px;animation-delay:${dl}s`)).join('');
+  const starField = (g, seed, x0, y0, x1, y1, n, col) => {
+    const r = rng(seed);
+    const groups = [[], [], []];
+    const sz = Math.max(1, g.m / 720);
+    for (let k = 0; k < n; k++) groups[k % 3].push([lerp(x0, x1, r()), lerp(y0, y1, r() ** 1.5), (0.6 + r() * 1.3) * sz]);
+    return groups.map((gp, gi) => amb('tw', x0, y0, x1 - x0, y1 - y0, gp.map(([x, y, s]) => circ(x - x0, y - y0, s, col)).join(''), `animation-delay:${-gi * 1.25}s`)).join('');
+  };
+  const cloud = (x, y, s, f, f2) => {
+    const body = circ(x, y, s * 0.42, f) + circ(x + s * 0.42, y - s * 0.2, s * 0.5, f) + circ(x + s * 0.95, y - s * 0.05, s * 0.4, f) + rect(x - s * 0.1, y - s * 0.05, s * 1.3, s * 0.42, f, ` rx="${N(s * 0.2)}"`);
+    return body + rect(x - s * 0.1, y + s * 0.18, s * 1.3, s * 0.18, f2, ` rx="${N(s * 0.09)}"`);
+  };
+  const layersOf = () => ({ sky: { a: '', b: '' }, far: { a: '', b: '' }, near: { a: '', b: '' }, fore: { a: '', b: '' } });
+
+  /* ================= scenes ================= */
+  const DUSK = ['#1e0b3d', '#260c46', '#2f0e50', '#3b0f5c', '#4c1266', '#5f166f', '#741a75', '#8b1f78', '#a3237a', '#bc2b76', '#d3386e', '#e85566', '#f7745e', '#ff9a52'];
+  const SUN = ['#ffe6a6', '#ffd885', '#ffc970', '#ffb45e', '#ff9f55', '#ff8a52', '#ff7550'];
+
+  // 0. Honduras at dusk
+  function dusk(g) {
+    const { W, H, F, port, m } = g;
+    const o = layersOf();
+    // the hero text rests on this sky, and the bands from the 11th of 14 on are too bright for cream. On short screens
+    // the horizon drops below any line that would sit in them, they thin out under the lowest line above the horizon,
+    // and the sun shrinks, then sets, until it clears every line
+    const text = g.text || [];
+    const pad = m * 0.02;
+    let hy = g.hy0;
+    for (let moved = true; moved; ) {
+      moved = false;
+      for (const [, t, , b] of text) {
+        if (t < hy && b + pad > hy * 0.96 && hy < H * 0.97) {
+          hy = Math.min(H * 0.97, (b + pad) / 0.96);
+          moved = true;
+        }
+      }
+    }
+    const low = Math.max(0, ...text.filter(([, t]) => t < hy).map(([, , , b]) => (b + pad) / hy));
+    const p = Math.max(1.6, Math.log(1 - Math.min(low, 0.96)) / Math.log(4 / 14));
+    let sr = m * (port ? 0.33 : 0.27);
+    let sy = hy - sr * 0.32;
+    const hits = () => text.some(([l, t, r, b]) => Math.hypot(F.x - clamp(F.x, l, r), sy - clamp(sy, t, b)) < sr + pad);
+    while (hits() && sr > m * 0.2) {
+      sr *= 0.97;
+      sy = hy - sr * 0.32;
+    }
+    while (hits() && sy - sr < hy) sy += m * 0.01;
+    o.bg = '#1e0b3d';
+    o.sky.a = skyBands(g, DUSK, 0, hy, p) + sun(F.x, sy, sr, SUN);
+    o.sky.b = starField(g, 11, -0.2 * W, 0, 1.2 * W, hy * 0.46, port ? 46 : 70, '#ffe9d6');
+    const gd = H - hy;
+    let far = downBands(g, ['#c0306f', '#9c276f', '#7a1f6a', '#5d1862', '#451357', '#310e4a'], hy, H * 1.02, 1.8);
+    far += poly([[g.X0, hy + 1], [-0.06 * W, hy - 0.15 * m], [0.05 * W, hy - 0.24 * m], [0.12 * W, hy - 0.16 * m], [0.2 * W, hy - 0.21 * m], [0.29 * W, hy - 0.08 * m], [0.4 * W, hy + 1]], '#b8307a');
+    far += poly([[g.X0, hy + 1], [0.0 * W, hy - 0.09 * m], [0.08 * W, hy - 0.135 * m], [0.15 * W, hy - 0.06 * m], [0.23 * W, hy - 0.035 * m], [0.31 * W, hy + 1]], '#7e2068');
+    far += poly([[0.86 * W, hy + 1], [0.91 * W, hy - 0.04 * m], [0.96 * W, hy - 0.065 * m], [1.03 * W, hy - 0.03 * m], [1.14 * W, hy + 1]], '#7e2068');
+    o.far.a = far;
+    let refl = '';
+    for (let k = 0; k < 7; k++) {
+      const y = gd * (0.05 + 0.13 * k ** 1.15);
+      const w = sr * (1.5 - 0.15 * k) * (k % 2 ? 0.7 : 1);
+      refl += rect(sr * 1.3 - w / 2, y, w, Math.max(2, gd * (0.012 + 0.006 * k)), k % 2 ? '#ff9a52' : '#ffc670', ` rx="${N(gd * 0.01)}"`);
+    }
+    if (sy - sr < hy) o.far.b = amb('shim', F.x - sr * 1.3, hy, sr * 2.6, gd, refl, `--dx:${N(sr * 0.05)}px`);
+    const by = hy + gd * 0.2;
+    // palms frame the sun and stay clear of the hero text and the first card
+    const pl = port ? [[0.1, 0.3, -0.12], [0.97, 0.34, 0.08]] : [[0.04, 0.24, 0.12], [0.945, 0.34, -0.04], [0.98, 0.54, -0.14]];
+    let near = pl.map(([x, h, ln]) => palm(x * W, by + gd * 0.12, H * h, ln, '#1a0620')).join('');
+    near += hill([[g.X0, by + gd * 0.1], [0.04 * W, by - gd * 0.12], [0.2 * W, by - gd * 0.02], [0.4 * W, hy + gd * 0.62], [0.62 * W, hy + gd * 0.78], [0.84 * W, hy + gd * 0.45], [W, by + gd * 0.05], [g.X1, by + gd * 0.1]], H * 1.5, '#3a0f3f');
+    near += hill([[g.X0, H - gd * 0.12], [0.3 * W, H - gd * 0.22], [0.7 * W, H - gd * 0.08], [g.X1, H - gd * 0.2]], H * 1.5, '#250a2c');
+    o.near.a = near;
+    o.near.b = birds(port ? [[0.2 * W, 0.47 * H, 9, 0], [0.3 * W, 0.44 * H, 7, -2]] : [[0.43 * W, 0.18 * H, 12, 0], [0.5 * W, 0.13 * H, 9, -3], [0.38 * W, 0.12 * H, 8, -5]], '#1a0620');
+    const L = m * (port ? 0.36 : 0.46);
+    let fore = '';
+    for (const [an, ls] of [[22, 1], [48, 0.9], [72, 0.75], [8, 0.8]]) fore += frond(-0.03 * W, -0.06 * H, an, L * ls, L * 0.16, 0.25, '#13041b');
+    for (const [an, ls] of [[158, 1], [132, 0.88], [108, 0.72]]) fore += frond(1.03 * W, -0.06 * H, an, L * ls, L * 0.16, 0.25, '#13041b');
+    for (const [an, ls] of [[-24, 0.8], [-52, 0.7], [-78, 0.55]]) fore += frond(-0.04 * W, H * 1.04, an, L * ls, L * 0.15, -0.1, '#13041b');
+    o.fore.a = fore;
+    o.hy = hy;
+    return o;
+  }
+
+  // 1. The apron at night, runway lights leading to the next card
+  function airport(g) {
+    const { W, H, F, port, m, hy } = g;
+    const o = layersOf();
+    const gd = H - hy;
+    o.bg = '#021820';
+    o.sky.a = skyBands(g, ['#021820', '#03212b', '#052c36', '#073842', '#0a454e', '#0f535b', '#166369', '#217477', '#2e8684'], 0, hy, 1.3) + crescent(port ? 0.84 * W : 0.14 * W, port ? 0.08 * H : 0.17 * H, m * 0.045, '#fff4e0');
+    o.sky.b = starField(g, 21, -0.2 * W, 0, 1.2 * W, hy * 0.5, port ? 40 : 64, '#d9fff8');
+    let far = downBands(g, ['#062a2f', '#05252a', '#042025', '#031b1f', '#02161a'], hy, H * 1.02, 1.5);
+    // terminal, tower and hangars on the horizon
+    const t0 = port ? -0.12 * W : 0.02 * W;
+    const t1 = port ? 0.4 * W : 0.38 * W;
+    const th = m * 0.04;
+    far += path(`M${N(t0)} ${N(hy)}V${N(hy - th)}Q${N((t0 + t1) / 2)} ${N(hy - th * 1.9)} ${N(t1)} ${N(hy - th)}V${N(hy)}Z`, '#0d4650') + rect(t0, hy - th, t1 - t0, th, '#0a3a40');
+    for (let x = t0 + th * 0.4; x < t1 - th * 0.5; x += th * 0.55) far += rect(x, hy - th * 0.72, th * 0.4, th * 0.26, '#ffcf7a');
+    const tx = port ? 0.2 * W : 0.27 * W;
+    const tt = m * (port ? 0.3 : 0.27);
+    const u = m * 0.01;
+    far += poly([[tx - 2 * u, hy], [tx + 2 * u, hy], [tx + 1.3 * u, hy - tt * 0.78], [tx - 1.3 * u, hy - tt * 0.78]], '#0b3138');
+    far += poly([[tx - 4 * u, hy - tt * 0.78], [tx + 4 * u, hy - tt * 0.78], [tx + 5.2 * u, hy - tt * 0.86], [tx - 5.2 * u, hy - tt * 0.86]], '#0e4049');
+    far += poly([[tx - 5.2 * u, hy - tt * 0.86], [tx + 5.2 * u, hy - tt * 0.86], [tx + 4.6 * u, hy - tt * 0.93], [tx - 4.6 * u, hy - tt * 0.93]], '#7ff5e6');
+    for (let k = -3; k <= 3; k++) far += rect(tx + k * 1.4 * u - 0.15 * u, hy - tt * 0.93, 0.3 * u, tt * 0.07, '#0e4049');
+    far += poly([[tx - 5 * u, hy - tt * 0.93], [tx + 5 * u, hy - tt * 0.93], [tx + 3 * u, hy - tt * 0.96], [tx - 3 * u, hy - tt * 0.96]], '#0b3138') + rect(tx - 0.2 * u, hy - tt, 0.4 * u, tt * 0.05, '#0b3138');
+    const h0 = port ? 0.66 * W : 0.8 * W;
+    for (const [x, w] of [[h0, 0.09], [h0 + 0.1 * W, 0.08]]) {
+      const ww = w * W * (port ? 1.4 : 1);
+      far += path(`M${N(x)} ${N(hy)}V${N(hy - m * 0.03)}Q${N(x + ww / 2)} ${N(hy - m * 0.075)} ${N(x + ww)} ${N(hy - m * 0.03)}V${N(hy)}Z`, '#08343a') + rect(x + ww * 0.2, hy - m * 0.03, ww * 0.6, m * 0.03, '#0b3e45');
+    }
+    // runway in one-point perspective
+    const vx = F.x;
+    const Yb = H * 1.06;
+    const hwN = W * (port ? 0.62 : 0.34);
+    const hwAt = (y) => (hwN * (y - hy)) / (Yb - hy);
+    const yAt = (z) => hy + (Yb - hy) / z;
+    far += poly([[vx - 1.5, hy + 1], [vx + 1.5, hy + 1], [vx + hwN, Yb], [vx - hwN, Yb]], '#0b3036');
+    far += poly([[vx - 1, hy + 1], [vx - 0.4, hy + 1], [vx - hwN * 0.97, Yb], [vx - hwN, Yb]], '#bfede6', ' opacity=".55"') + poly([[vx + 0.4, hy + 1], [vx + 1, hy + 1], [vx + hwN, Yb], [vx + hwN * 0.97, Yb]], '#bfede6', ' opacity=".55"');
+    for (let k = 0; k < 16; k++) {
+      const z0 = 1.05 * 1.3 ** k;
+      const ya = yAt(z0 * 1.16);
+      const yb = yAt(z0);
+      const wa = hwAt(ya) * 0.03;
+      const wb = hwAt(yb) * 0.03;
+      far += poly([[vx - wa, ya], [vx + wa, ya], [vx + wb, yb], [vx - wb, yb]], '#d9f7f1', ' opacity=".8"');
+      const ye = yAt(z0 * 1.08);
+      const r = Math.max(0.7, (m * 0.012) / z0);
+      far += circ(vx - hwAt(ye) * 1.05, ye, r, '#effff9') + circ(vx + hwAt(ye) * 1.05, ye, r, '#effff9');
+    }
+    const thy = yAt(2.2);
+    for (let k = -6; k <= 6; k++) far += circ(vx + (hwAt(thy) * k) / 6, thy, Math.max(0.8, m * 0.004), '#53f2a0');
+    o.far.a = far;
+    let rab = '';
+    for (let k = 0; k < 5; k++) {
+      const y = yAt(1.12 + k * 0.22);
+      const r = (m * 0.012) / (1 + k * 0.25);
+      rab += amb('rab', vx - r * 3, y - r * 3, r * 6, r * 6, circ(r * 3, r * 3, r * 2.8, '#ffffff', ' opacity=".18"') + circ(r * 3, r * 3, r, '#ffffff'), `animation-delay:${N(k * 0.11)}s`);
+    }
+    o.far.b = rab + amb('blink', tx - u, hy - tt - u, 2 * u, 2 * u, circ(u, u, u * 0.8, '#ff4d5e'));
+    // a tail fin and baggage carts
+    const yb = hy + gd * (port ? 0.36 : 0.42);
+    const s = m * (port ? 0.42 : 0.5);
+    const fx = port ? 0.62 * W : 0.8 * W;
+    let near = poly([[fx - s * 0.1, yb + s * 0.02], [fx + s * 0.06, yb - s * 0.08], [W * 1.5, yb - s * 0.08], [W * 1.5, yb + s * 0.07], [fx + s * 0.08, yb + s * 0.07]], '#0b3a41');
+    near += poly([[fx + s * 0.08, yb - s * 0.07], [fx + s * 0.3, yb - s * 0.6], [fx + s * 0.46, yb - s * 0.6], [fx + s * 0.48, yb - s * 0.56], [fx + s * 0.42, yb - s * 0.07]], '#0e434a');
+    near += poly([[fx + s * 0.3, yb - s * 0.6], [fx + s * 0.34, yb - s * 0.6], [fx + s * 0.13, yb - s * 0.07], [fx + s * 0.08, yb - s * 0.07]], '#2a7c7e');
+    near += poly([[fx + s * 0.02, yb - s * 0.04], [fx + s * 0.18, yb - s * 0.17], [fx + s * 0.3, yb - s * 0.17], [fx + s * 0.26, yb - s * 0.04]], '#12525a');
+    const cx0 = port ? 0.04 * W : 0.08 * W;
+    const cs = m * 0.06;
+    for (let k = 0; k < 2; k++) {
+      const x = cx0 + k * cs * 2.3;
+      const y = hy + gd * (port ? 0.3 : 0.34) + k * cs * 0.3;
+      near += rect(x, y - cs * 0.62, cs * 0.7, cs * 0.5, '#13606a', ` rx="${N(cs * 0.06)}"`) + rect(x + cs * 0.78, y - cs * 0.8, cs * 0.9, cs * 0.68, '#0f4d55', ` rx="${N(cs * 0.06)}"`) + rect(x + cs * 0.2, y - cs * 1.04, cs * 0.5, cs * 0.42, '#1b7380', ` rx="${N(cs * 0.05)}"`);
+      near += rect(x - cs * 0.1, y - cs * 0.12, cs * 2, cs * 0.14, '#0b3a41') + circ(x + cs * 0.2, y + cs * 0.06, cs * 0.12, '#021317') + circ(x + cs * 1.6, y + cs * 0.06, cs * 0.12, '#021317');
+    }
+    o.near.a = near;
+    o.near.b = amb('blink', fx + s * 0.44 - u, yb - s * 0.6 - u * 2, 2 * u, 2 * u, circ(u, u, u * 0.9, '#ff4d5e'), 'animation-delay:-.7s');
+    // the perimeter fence
+    const fy = H * (port ? 0.9 : 0.85);
+    const fb = H * 1.08;
+    let mesh = '';
+    const st = W * 0.024;
+    for (let x = g.X0; x < g.X1; x += st) mesh += `M${N(x)} ${N(fy)}L${N(x + (fb - fy))} ${N(fb)}M${N(x)} ${N(fy)}L${N(x - (fb - fy))} ${N(fb)}`;
+    let fore = line(mesh, '#0b4a50', Math.max(1, m * 0.0016), ' opacity=".9"') + line(`M${N(g.X0)} ${N(fy)}H${N(g.X1)}`, '#0b4a50', Math.max(1.5, m * 0.003));
+    let barbs = '';
+    for (let x = g.X0; x < g.X1; x += W * 0.03) barbs += `M${N(x)} ${N(fy - m * 0.03)}l${N(m * 0.008)} ${N(m * 0.008)}m0 ${N(-m * 0.008)}l${N(-m * 0.008)} ${N(m * 0.008)}`;
+    fore += line(`M${N(g.X0)} ${N(fy - m * 0.026)}H${N(g.X1)}`, '#0b4a50', Math.max(1, m * 0.002)) + line(barbs, '#0b4a50', Math.max(1, m * 0.002));
+    for (let x = -0.02 * W; x < 1.1 * W; x += W * (port ? 0.3 : 0.16)) fore += rect(x, fy - m * 0.04, m * 0.01, fb - fy + m * 0.04, '#021317');
+    o.fore.a = fore;
+    o.hy = hy;
+    return o;
+  }
+
+  // 2. A resort beach at noon
+  function resort(g) {
+    const { W, H, F, port, m, hy } = g;
+    const o = layersOf();
+    const gd = H - hy;
+    o.bg = '#0899c2';
+    const sr = m * 0.15;
+    o.sky.a = skyBands(g, ['#0899c2', '#0ea5cb', '#18b1d3', '#27bdda', '#3cc8e0', '#56d2e5', '#74dcea', '#94e5ee', '#b6eef2'], 0, hy, 1.3) + circ(F.x, F.y, sr * 1.45, '#fffbe6', ' opacity=".35"') + circ(F.x, F.y, sr, '#fff6cf');
+    let rays = '';
+    const R = m * 0.62;
+    for (let k = 0; k < 14; k++) {
+      const a = (k / 14) * Math.PI * 2;
+      const a2 = a + 0.1;
+      rays += poly([[R, R], [R + Math.cos(a) * R, R + Math.sin(a) * R], [R + Math.cos(a2) * R, R + Math.sin(a2) * R]], '#ffffff', ' opacity=".16"');
+    }
+    o.sky.b = amb('spin', F.x - R, F.y - R, R * 2, R * 2, rays) + amb('drift', 0.06 * W, 0.12 * H, m * 0.4, m * 0.2, cloud(m * 0.06, m * 0.12, m * 0.22, '#ffffff', '#dff6fa'), `--dx:${N(W * 0.05)}px`) + amb('drift', port ? 0.55 * W : 0.38 * W, 0.24 * H, m * 0.3, m * 0.15, cloud(m * 0.04, m * 0.09, m * 0.15, '#ffffff', '#dff6fa'), `--dx:${N(-W * 0.04)}px;animation-delay:-4s`);
+    const shore = hy + gd * 0.42;
+    let far = downBands(g, ['#0a5fa8', '#0a6fb3', '#0b82bc', '#0f97c3', '#18acc6', '#28c0c6'], hy, shore + gd * 0.08, 1.35);
+    far += hill([[g.X0, hy + 1], [0.02 * W, hy - m * 0.02], [0.1 * W, hy - m * 0.035], [0.18 * W, hy + 1]], hy + 2, '#1e7f6a');
+    let sp = '';
+    for (let x = g.X0; x <= g.X1; x += W * 0.05) sp += `${x === g.X0 ? 'M' : 'L'}${N(x)} ${N(shore + Math.sin(x / (W * 0.05)) * gd * 0.02)}`;
+    far += path(`${sp}L${N(g.X1)} ${N(H * 1.6)}L${N(g.X0)} ${N(H * 1.6)}Z`, '#f2c48a');
+    far += path(`${sp}L${N(g.X1)} ${N(H * 1.6)}L${N(g.X0)} ${N(H * 1.6)}Z`, '#ffe1ae', ` transform="translate(0 ${N(gd * 0.05)})"`);
+    o.far.a = far;
+    const bs = m * 0.05;
+    const boat = poly([[bs * 0.2, bs * 1.3], [bs * 1.8, bs * 1.3], [bs * 1.6, bs * 1.55], [bs * 0.4, bs * 1.55]], '#fff4e0') + poly([[bs, bs * 1.25], [bs, 0], [bs * 1.7, bs * 1.25]], '#ffffff') + poly([[bs * 0.92, bs * 1.25], [bs * 0.92, bs * 0.3], [bs * 0.35, bs * 1.25]], '#ff5c8a');
+    const wl = W * 0.12;
+    let wv = '';
+    for (let x = 0; x <= W * 2.2; x += wl) wv += `${x ? '' : 'M0 6'}q${N(wl / 4)} -6 ${N(wl / 2)} 0t${N(wl / 2)} 0`;
+    o.far.b = amb('bob', port ? 0.24 * W : 0.32 * W, hy - bs * 1.4, bs * 2, bs * 1.6, boat, '--dy:3px') + amb('wave', g.X0 * 0.2, shore + gd * 0.01, W * 2.2, 14, line(wv, '#ffffff', 3, ' stroke-linecap="round" opacity=".85"'), `--dx:${N(-wl)}px`);
+    const ub = shore + (H - shore) * 0.5;
+    const ux = port ? 0.78 * W : 0.82 * W;
+    const ur = m * 0.13;
+    const ay = ub - ur * 1.25;
+    const rimY = ay + ur * 0.42;
+    let near = ell(ux + ur * 0.2, ub + ur * 0.04, ur * 1.05, ur * 0.15, '#e9bf86');
+    const tw = ux - ur * 1.9;
+    near += poly([[tw, ub - ur * 0.02], [tw + ur * 0.95, ub - ur * 0.02], [tw + ur * 0.72, ub + ur * 0.3], [tw - ur * 0.24, ub + ur * 0.3]], '#2e3bdb');
+    for (const f of [0.3, 0.62]) near += poly([[tw + ur * 0.95 * f - ur * 0.06, ub - ur * 0.02], [tw + ur * 0.95 * f + ur * 0.06, ub - ur * 0.02], [tw + ur * 0.95 * f - ur * 0.2, ub + ur * 0.3], [tw + ur * 0.95 * f - ur * 0.32, ub + ur * 0.3]], '#fff4e0');
+    near += rect(ux - ur * 0.025, ay, ur * 0.05, ub - ay, '#fff4e0');
+    for (let k = 0; k < 8; k++) {
+      const a0 = Math.PI - (k / 8) * Math.PI;
+      const a1 = Math.PI - ((k + 1) / 8) * Math.PI;
+      const r0 = [ux + Math.cos(a0) * ur, rimY + Math.sin(a0) * ur * 0.16];
+      const r1 = [ux + Math.cos(a1) * ur, rimY + Math.sin(a1) * ur * 0.16];
+      const mid = [(r0[0] + r1[0]) / 2, (r0[1] + r1[1]) / 2 + ur * 0.07];
+      near += path(`M${N(ux)} ${N(ay)}L${N(r0[0])} ${N(r0[1])}Q${N(mid[0])} ${N(mid[1])} ${N(r1[0])} ${N(r1[1])}Z`, k % 2 ? '#fff4e0' : '#ff5c8a');
+    }
+    near += circ(ux, ay, ur * 0.045, '#fff4e0');
+    near += palm(port ? 0.06 * W : 0.1 * W, H * 0.98, H * (port ? 0.48 : 0.7), 0.16, '#11865f', '#8a5a3b');
+    o.near.a = near;
+    const L = m * (port ? 0.34 : 0.44);
+    let fore = '';
+    for (const [an, ls] of [[-20, 1], [-48, 0.85], [-74, 0.7]]) fore += frond(-0.04 * W, H * 1.03, an, L * ls, L * 0.2, -0.05, '#0e7a57');
+    for (const [an, ls] of [[200, 1], [228, 0.8], [176, 0.85]]) fore += frond(1.04 * W, H * 1.04, an, L * ls, L * 0.2, -0.05, '#13906a');
+    for (const [an, ls] of [[160, 0.9], [130, 0.75]]) fore += frond(1.04 * W, -0.05 * H, an, L * ls, L * 0.18, 0.3, '#0e7a57');
+    o.fore.a = fore;
+    o.hy = hy;
+    return o;
+  }
+
+  // 3. 2012: a degree and a factory, golden afternoon
+  function golden(g) {
+    const { W, H, F, port, m, hy } = g;
+    const o = layersOf();
+    const gd = H - hy;
+    o.bg = '#ffad1f';
+    o.sky.a = skyBands(g, ['#ffad1f', '#ffb72b', '#ffc038', '#ffc947', '#ffd258', '#ffdb6c', '#ffe483', '#ffed9e', '#fff4bc'], 0, hy, 1.3) + circ(F.x, F.y, m * 0.1, '#fffbea');
+    const R = Math.hypot(W, H) * 0.9;
+    let rays = '';
+    for (let k = 0; k < 18; k++) {
+      const a = (k / 18) * Math.PI * 2;
+      const a2 = a + Math.PI / 18;
+      rays += poly([[R, R], [R + Math.cos(a) * R, R + Math.sin(a) * R], [R + Math.cos(a2) * R, R + Math.sin(a2) * R]], '#ffffff', ' opacity=".14"');
+    }
+    o.sky.b = amb('spin', F.x - R, F.y - R, R * 2, R * 2, rays);
+    let far = rect(g.X0, hy, g.X1 - g.X0, gd * 0.1, '#2c86c8') + rect(g.X0, hy + gd * 0.035, g.X1 - g.X0, gd * 0.065, '#3b98d3');
+    far += hill([[g.X0, hy + gd * 0.12], [0.1 * W, hy + gd * 0.02], [0.3 * W, hy + gd * 0.1], [0.55 * W, hy + gd * 0.04], [0.8 * W, hy + gd * 0.12], [W, hy + gd * 0.03], [g.X1, hy + gd * 0.08]], H * 1.6, '#8fcb6b');
+    far += hill([[g.X0, hy + gd * 0.3], [0.2 * W, hy + gd * 0.2], [0.45 * W, hy + gd * 0.3], [0.7 * W, hy + gd * 0.18], [0.95 * W, hy + gd * 0.28], [g.X1, hy + gd * 0.22]], H * 1.6, '#5baf57');
+    o.far.a = far;
+    const fs = m * 0.05;
+    const ferry = rect(0, fs * 0.55, fs * 3, fs * 0.45, '#fff4e0', ` rx="${N(fs * 0.12)}"`) + rect(0, fs * 0.82, fs * 3, fs * 0.12, '#e8412c') + rect(fs * 0.7, fs * 0.2, fs * 1.5, fs * 0.38, '#fff4e0') + rect(fs * 1.7, 0, fs * 0.3, fs * 0.3, '#e8412c');
+    o.far.b = amb('drift', port ? 0.12 * W : 0.84 * W, hy + gd * 0.045 - fs, fs * 3, fs, ferry, `--dx:${N(port ? W * 0.2 : -W * 0.16)}px;animation-duration:38s`);
+    // the factory on its hill
+    const fw = m * (port ? 0.48 : 0.34);
+    const fx = port ? 0.5 * W - fw / 2 : 0.6 * W;
+    const fy = hy + gd * (port ? 0.22 : 0.36);
+    const fh = fw * 0.36;
+    let near = hill([[g.X0, hy + gd * 0.62], [0.25 * W, hy + gd * 0.5], [fx - fw * 0.4, fy + gd * 0.04], [fx + fw * 0.45, fy - gd * 0.03], [fx + fw * 1.4, fy + gd * 0.06], [g.X1, fy + gd * 0.1]], H * 1.6, '#3e9a4b');
+    near += rect(fx + fw * 0.78, fy - fh * 2.1, fw * 0.08, fh * 1.4, '#b83a0b') + rect(fx + fw * 0.76, fy - fh * 2.16, fw * 0.12, fh * 0.12, '#8f2d08');
+    near += rect(fx, fy - fh, fw, fh, '#fff4e0');
+    const teeth = 4;
+    for (let k = 0; k < teeth; k++) {
+      const x = fx + (fw / teeth) * k;
+      near += poly([[x, fy - fh], [x, fy - fh * 1.55], [x + fw / teeth, fy - fh]], '#d9480f') + rect(x + fw * 0.012, fy - fh * 1.5, fw * 0.03, fh * 0.48, '#2e3bdb');
+      near += rect(x + fw * 0.06, fy - fh * 0.7, fw * 0.12, fh * 0.32, '#2e3bdb');
+    }
+    near += rect(fx + fw * 0.42, fy - fh * 0.42, fw * 0.14, fh * 0.42, '#1b1030');
+    near += rect(fx + fw * 0.1, fy - fh * 2.28, fw * 0.6, fh * 0.42, '#1b1030', ` rx="${N(fh * 0.06)}"`) + rect(fx + fw * 0.22, fy - fh * 1.86, fw * 0.02, fh * 0.32, '#1b1030') + rect(fx + fw * 0.56, fy - fh * 1.86, fw * 0.02, fh * 0.32, '#1b1030');
+    const sfs = Math.min(fh * 0.24, (fw * 0.52) / (measure('FLUKY FACTORY', '800 100px Anybody') / 100 + 0.08 * 13));
+    near += `<text x="${N(fx + fw * 0.4 + sfs * 0.04)}" y="${N(fy - fh * 2.07 + sfs * 0.36)}" text-anchor="middle" class="lb" style="font-size:${N(sfs)}px;letter-spacing:.08em" fill="#fff4e0">FLUKY FACTORY</text>`;
+    near += path(`M${N(fx + fw * 0.44)} ${N(fy)}Q${N(fx + fw * 0.3)} ${N(fy + gd * 0.3)} ${N(fx - fw * 0.7)} ${N(H * 1.1)}L${N(fx - fw * 0.25)} ${N(H * 1.1)}Q${N(fx + fw * 0.5)} ${N(fy + gd * 0.3)} ${N(fx + fw * 0.54)} ${N(fy)}Z`, '#e9a13b');
+    o.near.a = near;
+    const ps = fw * 0.12;
+    let puffs = '';
+    for (let k = 0; k < 3; k++) puffs += amb('puff', fx + fw * 0.82 - ps / 2, fy - fh * 2.2 - ps, ps, ps, circ(ps / 2, ps / 2, ps / 2, '#ffffff'), `--dx:${N(ps * 0.8)}px;--dy:${N(-fh * 2.6)}px;animation-delay:${N(-k * 1.6)}s`);
+    const cap = (s) => poly([[0, s * 0.3], [s, 0], [s * 2, s * 0.3], [s, s * 0.6]], '#1b1030') + path(`M${N(s * 0.45)} ${N(s * 0.45)}V${N(s * 0.85)}Q${N(s)} ${N(s * 1.05)} ${N(s * 1.55)} ${N(s * 0.85)}V${N(s * 0.45)}Z`, '#2a1b48') + line(`M${N(s)} ${N(s * 0.3)}L${N(s * 1.75)} ${N(s * 0.5)}V${N(s * 0.95)}`, '#ffad1f', s * 0.06);
+    const caps = port ? [[0.12, 0.3, 0.035], [0.3, 0.4, 0.028], [0.82, 0.38, 0.03]] : [[0.36, 0.12, 0.03], [0.46, 0.26, 0.024], [0.22, 0.2, 0.026], [0.9, 0.16, 0.022]];
+    o.near.b = puffs + caps.map(([x, y, s], k) => amb('bob', x * W, y * H, m * s * 2, m * s * 1.1, cap(m * s), `--dy:${N(m * 0.02)}px;animation-delay:${-k * 1.3}s`)).join('');
+    let fore = '';
+    const tr = (x, y, r, f) => rect(x - r * 0.08, y, r * 0.16, r * 1.2, '#6b3e1f') + circ(x, y, r, f) + circ(x - r * 0.6, y + r * 0.3, r * 0.7, f) + circ(x + r * 0.62, y + r * 0.25, r * 0.66, f);
+    fore += tr(-0.02 * W, H * 0.9, m * 0.16, '#2e8b45') + tr(1.02 * W, H * 0.88, m * 0.18, '#237a3a') + tr(0.9 * W, H * 1.02, m * 0.1, '#2e8b45');
+    o.fore.a = fore;
+    o.fore.b = amb('bob', port ? 0.68 * W : 0.06 * W, port ? 0.04 * H : 0.06 * H, m * 0.12, m * 0.07, cap(m * 0.06), `--dy:${N(m * 0.02)}px;animation-delay:-2s`);
+    o.hy = hy;
+    return o;
+  }
+
+  // 4. Amsterdam, a canal at blue hour
+  function canal(g) {
+    const { W, H, port, m, hy } = g;
+    const o = layersOf();
+    const gd = H - hy;
+    o.bg = '#0b1846';
+    o.sky.a = skyBands(g, ['#0b1846', '#102056', '#162965', '#1d3374', '#263e82', '#31498e', '#3f5598', '#5161a1', '#6870a9', '#837fb0', '#9f8fb6'], 0, hy, 1.25);
+    o.sky.b = starField(g, 41, -0.2 * W, 0, 1.2 * W, hy * 0.42, port ? 26 : 40, '#e6e9ff');
+    const ps = m * 0.03;
+    const plane = line(`M${N(-ps * 14)} ${N(ps * 0.55)}H0`, 'rgba(255,255,255,.55)', ps * 0.14, ' stroke-linecap="round"') + path(`M0 ${N(ps * 0.4)}H${N(ps * 2.4)}Q${N(ps * 2.9)} ${N(ps * 0.55)} ${N(ps * 2.4)} ${N(ps * 0.7)}H0Z`, '#e6e9ff') + poly([[ps * 0.9, ps * 0.55], [ps * 1.5, ps * 0.55], [ps * 0.8, ps * 1.2], [ps * 0.5, ps * 1.2]], '#e6e9ff') + poly([[0, ps * 0.45], [ps * 0.3, ps * 0.45], [ps * 0.1, 0], [-ps * 0.1, 0]], '#e6e9ff') + circ(ps * 2.2, ps * 0.42, ps * 0.08, '#ff4d5e');
+    o.sky.b += amb('fly', -0.15 * W, (port ? 0.1 : 0.14) * H, ps * 3, ps * 1.3, plane, `--dx:${N(W * 1.35)}px;--dy:${N(-H * 0.05)}px`);
+    // houses along the far quay, with their reflections
+    const r = rng(7);
+    const cols = ['#1e2a4a', '#3a2340', '#24384a', '#4a2a2a', '#2e2e52', '#1f3d3a', '#3b2f22'];
+    const hw0 = W * (port ? 0.13 : 0.062);
+    let houses = '';
+    let refl = '';
+    let lit = '';
+    let x = g.X0 * 0.3;
+    let n = 0;
+    while (x < W * 1.12) {
+      const w = hw0 * (0.8 + r() * 0.5);
+      const h = m * (0.17 + r() * 0.1) * (port ? 0.9 : 1);
+      const col = cols[n % cols.length];
+      const top = hy - h;
+      const type = n % 4;
+      let gp;
+      if (type === 0) gp = [[x, top], [x + w * 0.15, top], [x + w * 0.15, top - w * 0.18], [x + w * 0.32, top - w * 0.18], [x + w * 0.32, top - w * 0.36], [x + w * 0.68, top - w * 0.36], [x + w * 0.68, top - w * 0.18], [x + w * 0.85, top - w * 0.18], [x + w * 0.85, top], [x + w, top]];
+      else if (type === 1) gp = [[x, top], [x + w * 0.5, top - w * 0.5], [x + w, top]];
+      else if (type === 2) gp = [[x, top], [x + w * 0.22, top - w * 0.1], [x + w * 0.3, top - w * 0.42], [x + w * 0.7, top - w * 0.42], [x + w * 0.78, top - w * 0.1], [x + w, top]];
+      else gp = [[x, top], [x + w * 0.1, top - w * 0.12], [x + w * 0.5, top - w * 0.3], [x + w * 0.9, top - w * 0.12], [x + w, top]];
+      houses += poly([[x, hy], ...gp, [x + w, hy]], col);
+      refl += poly([[x, hy], ...gp.map(([px, py]) => [px, hy + (hy - py) * 0.62]), [x + w, hy]], col, ' opacity=".42"');
+      const cw = w / 3;
+      for (let row = 0; row < 4; row++) {
+        for (let c = 0; c < 2; c++) {
+          const wx = x + cw * (0.55 + c * 1.3);
+          const wy = top + h * (0.12 + row * 0.21);
+          const on = r() < 0.45;
+          houses += rect(wx, wy, cw * 0.62, h * 0.12, on ? '#ffc864' : '#16204a');
+          if (on) lit += rect(wx, hy + (hy - wy) * 0.62 - h * 0.06, cw * 0.62, Math.max(1.5, h * 0.025), '#ffc864', ' opacity=".7"');
+        }
+      }
+      x += w + W * 0.002;
+      n++;
+    }
+    let trees = '';
+    for (let tx = 0.08 * W; tx < W * 1.1; tx += W * (port ? 0.42 : 0.24)) trees += rect(tx - m * 0.004, hy - m * 0.06, m * 0.008, m * 0.06, '#0a1633') + circ(tx, hy - m * 0.08, m * 0.05, '#101c3e') + circ(tx + m * 0.035, hy - m * 0.06, m * 0.035, '#101c3e');
+    o.far.a = downBands(g, ['#1b2a68', '#182662', '#15215a', '#121c50', '#0f1846'], hy, H * 1.02, 1.4) + refl + houses + trees + rect(g.X0, hy - 1, g.X1 - g.X0, m * 0.012, '#0c1430');
+    o.far.b = amb('shim', g.X0 * 0.3, 0, W * 1.5, H, `<g transform="translate(${N(-g.X0 * 0.3)} 0)">${lit}</g>`, `--dx:${N(m * 0.012)}px`);
+    // a canal boat, a railing with bikes
+    const bs = m * 0.09;
+    const by = hy + gd * 0.45;
+    const boat = path(`M0 ${N(bs * 0.4)}H${N(bs * 3)}Q${N(bs * 3.2)} ${N(bs * 0.4)} ${N(bs * 2.9)} ${N(bs * 0.75)}H${N(bs * 0.25)}Q0 ${N(bs * 0.7)} 0 ${N(bs * 0.4)}Z`, '#3a2340') + rect(bs * 0.8, bs * 0.05, bs * 1.6, bs * 0.38, '#24384a', ` rx="${N(bs * 0.06)}"`) + rect(bs * 0.95, bs * 0.14, bs * 0.3, bs * 0.16, '#ffc864') + rect(bs * 1.45, bs * 0.14, bs * 0.3, bs * 0.16, '#ffc864') + rect(bs * 1.95, bs * 0.14, bs * 0.3, bs * 0.16, '#ffc864');
+    const bike = (bx, byy, s, f) => {
+      const wheel = (x) => circ(x, byy, s * 0.32, 'none', ` stroke="${f}" stroke-width="${N(s * 0.04)}"`);
+      return line(`M${N(bx - s * 0.5)} ${N(byy)}L${N(bx - s * 0.12)} ${N(byy - s * 0.42)}H${N(bx + s * 0.32)}L${N(bx + s * 0.5)} ${N(byy)}M${N(bx - s * 0.12)} ${N(byy - s * 0.42)}L${N(bx)} ${N(byy)}L${N(bx + s * 0.32)} ${N(byy - s * 0.42)}M${N(bx - s * 0.18)} ${N(byy - s * 0.55)}H${N(bx - s * 0.02)}M${N(bx + s * 0.28)} ${N(byy - s * 0.42)}L${N(bx + s * 0.24)} ${N(byy - s * 0.58)}H${N(bx + s * 0.38)}`, f, s * 0.045, ' stroke-linecap="round" stroke-linejoin="round"') + wheel(bx - s * 0.5) + wheel(bx + s * 0.5);
+    };
+    const ry = H * (port ? 0.9 : 0.86);
+    let near = rect(g.X0, ry, g.X1 - g.X0, H, '#0a1029') + line(`M${N(g.X0)} ${N(ry - m * 0.05)}H${N(g.X1)}`, '#0a1029', Math.max(2, m * 0.006));
+    for (let px = 0; px < W * 1.05; px += W * 0.08) near += rect(px, ry - m * 0.05, Math.max(2, m * 0.006), m * 0.05, '#0a1029');
+    near += bike(port ? 0.22 * W : 0.14 * W, ry - m * 0.01, m * 0.12, '#0a1029') + bike(port ? 0.48 * W : 0.27 * W, ry - m * 0.01, m * 0.12, '#0a1029');
+    o.near.a = near;
+    o.near.b = amb('drift', port ? 0.08 * W : 0.56 * W, by - bs * 0.4, bs * 3.2, bs * 0.8, boat, `--dx:${N(W * 0.08)}px;animation-duration:22s`);
+    const lx = port ? 0.92 * W : 0.06 * W;
+    const lh = H * 0.62;
+    let fore = rect(lx - m * 0.008, H - lh, m * 0.016, lh * 1.1, '#070c22') + rect(lx - m * 0.026, H - lh - m * 0.01, m * 0.052, m * 0.012, '#070c22');
+    fore += poly([[lx - m * 0.03, H - lh - m * 0.01], [lx + m * 0.03, H - lh - m * 0.01], [lx + m * 0.022, H - lh - m * 0.08], [lx - m * 0.022, H - lh - m * 0.08]], '#ffd27a') + poly([[lx - m * 0.03, H - lh - m * 0.08], [lx + m * 0.03, H - lh - m * 0.08], [lx, H - lh - m * 0.11]], '#070c22');
+    fore += bike(port ? 0.32 * W : 0.82 * W, H * 1.02, m * 0.34, '#070c22');
+    o.fore.a = fore;
+    const gr = m * 0.12;
+    o.fore.b = amb('glow', lx - gr, H - lh - m * 0.045 - gr, gr * 2, gr * 2, circ(gr, gr, gr, '#ffd27a', ' opacity=".22"') + circ(gr, gr, gr * 0.55, '#ffd27a', ' opacity=".28"'));
+    o.hy = hy;
+    return o;
+  }
+
+  // 5. 2024: the same view in two variants
+  function split(g) {
+    const { W, H, port, m, hy } = g;
+    const o = layersOf();
+    const gd = H - hy;
+    const sx = W * 0.5;
+    o.bg = '#120734';
+    o.sky.a = skyBands(g, ['#120734', '#190a47', '#210d5a', '#2b126e', '#371883', '#452095', '#5429a6'], 0, hy, 1.2, g.X0, sx) + skyBands(g, ['#ff8a78', '#ff9883', '#ffa68f', '#ffb49b', '#ffc2a8', '#ffd0b6', '#ffdcc4'], 0, hy, 1.2, sx, g.X1);
+    o.sky.a += crescent(port ? 0.16 * W : 0.2 * W, 0.16 * H, m * 0.05, '#fff4e0') + circ(port ? 0.84 * W : 0.86 * W, 0.13 * H, m * 0.06, '#fff1d6') + circ(port ? 0.84 * W : 0.86 * W, 0.13 * H, m * 0.085, '#fff1d6', ' opacity=".35"');
+    o.sky.b = starField(g, 51, -0.2 * W, 0, sx, hy * 0.6, port ? 24 : 40, '#f1e6ff') + amb('drift', sx + W * 0.04, 0.26 * H, m * 0.3, m * 0.15, cloud(m * 0.04, m * 0.09, m * 0.15, '#fff4ea', '#ffd9c8'), `--dx:${N(W * 0.06)}px`);
+    let far = hill([[g.X0, hy - m * 0.02], [0.1 * W, hy - m * 0.1], [0.3 * W, hy - m * 0.05], [sx, hy - m * 0.12]], hy + 2, '#2a0f66');
+    far += hill([[sx, hy - m * 0.12], [0.7 * W, hy - m * 0.06], [0.9 * W, hy - m * 0.11], [g.X1, hy - m * 0.03]], hy + 2, '#f26f78');
+    far += downBands(g, ['#1f0b55', '#1a0849', '#15063d'], hy, H * 1.02, 1.3, g.X0, sx) + downBands(g, ['#f2646a', '#ea5763', '#e04e5e'], hy, H * 1.02, 1.3, sx, g.X1);
+    // one building, two variants
+    const bw = W * (port ? 0.52 : 0.3);
+    const bh = m * (port ? 0.5 : 0.46);
+    const bx = sx - bw / 2;
+    const cols = 6;
+    const rows = 7;
+    far += rect(bx, hy - bh, bw / 2, bh, '#2b1670') + rect(sx, hy - bh, bw / 2, bh, '#fff1e6');
+    far += rect(bx - bw * 0.03, hy - bh - bh * 0.04, bw / 2 + bw * 0.03, bh * 0.05, '#1a0b45') + rect(sx, hy - bh - bh * 0.04, bw / 2 + bw * 0.03, bh * 0.05, '#c2405a');
+    const r = rng(3);
+    for (let c = 0; c < cols; c++) {
+      for (let rw = 0; rw < rows; rw++) {
+        const wx = bx + (bw / cols) * (c + 0.22);
+        const wy = hy - bh + (bh / (rows + 0.6)) * (rw + 0.5);
+        const ww = (bw / cols) * 0.56;
+        const wh = (bh / (rows + 0.6)) * 0.55;
+        far += c < cols / 2 ? rect(wx, wy, ww, wh, r() < 0.6 ? '#ffd27a' : '#1a0b45') : rect(wx, wy, ww, wh, '#ff9e8a') + rect(wx, wy, ww * 0.4, wh, '#ffd0c2');
+      }
+    }
+    far += rect(sx - bw * 0.06, hy - bh * 0.1, bw * 0.12, bh * 0.1, '#1b1030');
+    o.far.a = far;
+    const bush = (x, y, s, f) => circ(x, y, s, f) + circ(x + s * 0.9, y + s * 0.1, s * 0.8, f) + circ(x - s * 0.85, y + s * 0.15, s * 0.7, f) + rect(x - s * 1.5, y + s * 0.1, s * 3.2, s, f);
+    let near = bush(0.12 * W, hy + gd * 0.45, m * 0.06, '#24095e') + bush(0.36 * W, hy + gd * 0.6, m * 0.05, '#2c0d6e') + bush(0.66 * W, hy + gd * 0.56, m * 0.055, '#e2485a') + bush(0.9 * W, hy + gd * 0.42, m * 0.065, '#d63c50');
+    const hr = m * 0.032;
+    const hyH = H * (port ? 0.46 : 0.56);
+    near += rect(sx - 1.25, -H, 2.5, H * 3, '#fff4e0') + circ(sx, hyH, hr, '#fff4e0') + poly([[sx - hr * 0.25, hyH - hr * 0.35], [sx - hr * 0.62, hyH], [sx - hr * 0.25, hyH + hr * 0.35]], '#1b1030') + poly([[sx + hr * 0.25, hyH - hr * 0.35], [sx + hr * 0.62, hyH], [sx + hr * 0.25, hyH + hr * 0.35]], '#1b1030');
+    const tg = m * 0.05;
+    near += rect(sx - tg * 1.3, H * 0.07, tg, tg, '#6a3bff', ` rx="${N(tg * 0.18)}"`) + rect(sx + tg * 0.3, H * 0.07, tg, tg, '#ff4f5e', ` rx="${N(tg * 0.18)}"`);
+    near += `<text x="${N(sx - tg * 0.8)}" y="${N(H * 0.07 + tg * 0.74)}" text-anchor="middle" class="lb" style="font-size:${N(tg * 0.66)}px;font-weight:900" fill="#fff4e0">A</text><text x="${N(sx + tg * 0.8)}" y="${N(H * 0.07 + tg * 0.74)}" text-anchor="middle" class="lb" style="font-size:${N(tg * 0.66)}px;font-weight:900" fill="#1b1030">B</text>`;
+    o.near.a = near;
+    o.near.b = amb('glow', sx - hr * 2, hyH - hr * 2, hr * 4, hr * 4, `<circle cx="${N(hr * 2)}" cy="${N(hr * 2)}" r="${N(hr * 1.6)}" fill="none" stroke="#fff4e0" stroke-width="2"/>`);
+    const L = m * (port ? 0.34 : 0.42);
+    let fore = '';
+    for (const [an, ls] of [[22, 1], [50, 0.85], [76, 0.7]]) fore += frond(-0.03 * W, -0.06 * H, an, L * ls, L * 0.16, 0.25, '#0d0526');
+    for (const [an, ls] of [[200, 1], [226, 0.8], [176, 0.8]]) fore += frond(1.04 * W, H * 1.04, an, L * ls, L * 0.18, -0.05, '#b8303f');
+    o.fore.a = fore;
+    o.hy = hy;
+    return o;
+  }
+
+  // 6. Back to dusk, for the last stop
+  function finale(g) {
+    const { W, H, port, m } = g;
+    // the last tenth of sky above the horizon is too bright for the lilac notes, so the contact text stays above it,
+    // even when that takes the horizon below the frame on short landscape screens
+    const text = g.text || [];
+    const hy = Math.max(g.hy6, (Math.max(0, ...text.map((b) => b[3])) + m * 0.02) / 0.9);
+    const o = layersOf();
+    o.bg = '#1e0b3d';
+    // the contact text comes to rest on this sky: the sun shrinks, then sets, until it clears every line
+    const sx = W * 0.66;
+    const pad = m * 0.02;
+    let sr = m * (port ? 0.4 : 0.3);
+    let sy = hy + sr * 0.05;
+    const hits = () => text.some(([l, t, r, b]) => Math.hypot(sx - clamp(sx, l, r), sy - clamp(sy, t, b)) < sr + pad);
+    while (hits() && sr > m * 0.22) {
+      sr *= 0.97;
+      sy = hy + sr * 0.05;
+    }
+    while (hits() && sy - sr < hy) sy += m * 0.01;
+    o.sky.a = skyBands(g, ['#1e0b3d', '#220c42', '#260c46', '#2b0d4b', '#2f0e50', '#3b0f5c', '#4c1266', '#5f166f', '#741a75', '#8b1f78', '#a3237a', '#bc2b76', '#d3386e', '#e85566', '#f7745e', '#ff9a52'], 0, hy, 2) + sun(sx, sy, sr, SUN);
+    o.sky.b = starField(g, 61, -0.2 * W, 0, 1.2 * W, hy * 0.6, port ? 50 : 80, '#ffe9d6');
+    const gd = H - hy;
+    o.far.a = downBands(g, ['#c0306f', '#9c276f', '#7a1f6a', '#5d1862'], hy, Math.max(H * 1.02, hy + 1), 1.6) + poly([[g.X0, hy + 1], [0.05 * W, hy - 0.1 * m], [0.16 * W, hy - 0.05 * m], [0.27 * W, hy - 0.08 * m], [0.4 * W, hy + 1]], '#7e2068') + poly([[0.86 * W, hy + 1], [0.95 * W, hy - 0.06 * m], [1.1 * W, hy + 1]], '#7e2068');
+    let refl = '';
+    for (let k = 0; k < 5; k++) refl += rect(sr * 1.2 - sr * (1.2 - 0.18 * k) / 2, gd * (0.1 + 0.2 * k), sr * (1.2 - 0.18 * k), Math.max(2, gd * 0.04), k % 2 ? '#ff9a52' : '#ffc670', ` rx="${N(gd * 0.02)}"`);
+    if (gd > 0 && sy - sr < hy) o.far.b = amb('shim', W * 0.66 - sr * 1.2, hy, sr * 2.4, gd, refl, `--dx:${N(sr * 0.04)}px`);
+    o.near.a = palm(0.94 * W, H * 1.02, H * (port ? 0.3 : 0.44), -0.12, '#1a0620') + palm(1.02 * W, H * 1.02, H * (port ? 0.22 : 0.32), -0.2, '#1a0620');
+    o.near.b = birds([[0.5 * W, hy - gd * 2.2, port ? 8 : 11, 0], [0.56 * W, hy - gd * 2.5, port ? 6 : 8, -3]], '#1a0620');
+    o.hy = hy;
+    return o;
+  }
+
+  const SCENES = [dusk, airport, resort, golden, canal, split, finale];
+
+  /* ================= cards ================= */
+  const CARDS = [
+    { txt: '2006', wall: '#ffb000', jamb: '#b06600', ink: '#1b1030', rule: 'rgba(27,16,48,.35)', greet: 'Greetings from', label: 'AMERICAN AIRLINES · 2006–2011', short: 'AMERICAN AIRLINES', tilt: -5 },
+    { txt: '2011', wall: '#ff5c8a', jamb: '#ad2d58', ink: '#1b1030', rule: 'rgba(27,16,48,.35)', greet: 'Greetings from', label: 'SANDALS RESORTS · 2011–2017', short: 'SANDALS RESORTS', tilt: 4 },
+    { txt: '2012', wall: '#2e3bdb', jamb: '#18208f', ink: '#fff4e0', rule: 'rgba(255,244,224,.45)', greet: 'Greetings from', label: 'UNIVERSIDAD CATÓLICA · FLUKY FACTORY', short: 'BSC · FLUKY FACTORY', tilt: -3.5 },
+    { txt: '2017', wall: '#ff6b1a', jamb: '#ad4206', ink: '#1b1030', rule: 'rgba(27,16,48,.35)', greet: 'Greetings from', label: 'THE NETHERLANDS · BOOKING.COM', short: 'THE NETHERLANDS', tilt: 4.5 },
+    { txt: '2024', wall: '#6a3bff', jamb: '#4421b3', wall2: '#ff4f5e', jamb2: '#ad2a37', ink: '#fff4e0', ink2: '#1b1030', rule: 'rgba(255,244,224,.45)', greet: 'Greetings from', label: 'A/B TESTING · 2024–NOW', short: 'A/B TESTING', tilt: -4 },
+    { txt: 'HOLA', wall: '#14c4b1', jamb: '#0b7a6f', ink: '#1b1030', rule: 'rgba(27,16,48,.35)', greet: 'Say', label: 'WRITE BACK', short: 'WRITE BACK', tilt: 3 },
+  ];
+
+  const cv = document.createElement('canvas').getContext('2d');
+  const measure = (s, font) => {
+    cv.font = font;
+    return cv.measureText(s).width;
+  };
+
+  // fitted geometry of a card: one row of glyphs on wide screens, two rows of two in portrait
+  function cardGeo(j, W, H, port) {
+    const cd = CARDS[j];
+    const rows = port ? [cd.txt.slice(0, 2), cd.txt.slice(2)] : [cd.txt];
+    const GAP = 0.1;
+    const SIDE = 0.2;
+    const MT = 0.52;
+    const MB = 0.44;
+    const RG = 0.1;
+    const FR = 0.075;
+    const rowC = rows.map((rw) => [...rw].reduce((a, ch) => a + (G[ch][3] - G[ch][1]) / CAPU, 0) + GAP * (rw.length - 1));
+    const iwC = Math.max(...rowC) + 2 * SIDE;
+    const ihC = MT + rows.length + RG * (rows.length - 1) + MB;
+    const cap = Math.min((W * (port ? 0.88 : 0.86)) / (iwC + 2 * FR), (H * (port ? 0.78 : 0.8)) / (ihC + 2 * FR));
+    const k = cap / CAPU;
+    // a whole-pixel inset: compositors snap a child's offset inside a scaled parent, and at the end of
+    // the dive the card is scaled ~20x, so a fractional inset would show as a jump of several pixels
+    const fr = Math.round(FR * cap);
+    const geo = { cd, rows, cap, k, fr, cw: iwC * cap + 2 * fr, ch: ihC * cap + 2 * fr, ix: fr, iy: fr, iw: iwC * cap, ih: ihC * cap, holes: '', shifted: '', Pl: null, r: 0, side: SIDE * cap };
+    for (let ri = 0; ri < rows.length; ri++) {
+      let x = geo.ix + (geo.iw - rowC[ri] * cap) / 2;
+      const base = geo.iy + (MT + 1 + ri * (1 + RG)) * cap;
+      for (const chr of rows[ri]) {
+        const gl = G[chr];
+        const ox = x - gl[1] * k;
+        geo.holes += glyphPath(gl[8], ox, base, k);
+        geo.shifted += glyphPath(gl[8], ox + JAMB[0] * k, base + JAMB[1] * k, k);
+        geo.Pl = { x: ox + gl[5] * k, y: base - gl[6] * k };
+        geo.r = gl[7] * k;
+        x += (gl[3] - gl[1]) * k + GAP * cap;
+      }
+    }
+    geo.rowTop = geo.iy + MT * cap;
+    geo.rowBot = geo.iy + (MT + rows.length + RG * (rows.length - 1)) * cap;
+    geo.label = port ? cd.short : cd.label;
+    return geo;
+  }
+
+  function wallSVG(geo, id) {
+    const { cd, cw, ch, ix, iy, iw, ih, cap, holes, shifted } = geo;
+    const R = cap * 0.05;
+    const outer = `M${N(R)} 0H${N(cw - R)}A${N(R)} ${N(R)} 0 0 1 ${N(cw)} ${N(R)}V${N(ch - R)}A${N(R)} ${N(R)} 0 0 1 ${N(cw - R)} ${N(ch)}H${N(R)}A${N(R)} ${N(R)} 0 0 1 0 ${N(ch - R)}V${N(R)}A${N(R)} ${N(R)} 0 0 1 ${N(R)} 0Z`;
+    const inner = `M${N(ix)} ${N(iy)}H${N(ix + iw)}V${N(iy + ih)}H${N(ix)}Z`;
+    const innerX = `M${N(ix - 1)} ${N(iy - 1)}H${N(ix + iw + 1)}V${N(iy + ih + 1)}H${N(ix - 1)}Z`;
+    let s = `<defs><clipPath id="${id}h"><path d="${holes}" clip-rule="evenodd"/></clipPath>`;
+    if (cd.wall2) s += `<clipPath id="${id}l"><rect width="${N(cw / 2)}" height="${N(ch)}"/></clipPath><clipPath id="${id}r"><rect x="${N(cw / 2)}" width="${N(cw / 2)}" height="${N(ch)}"/></clipPath>`;
+    s += '</defs>';
+    const wall = (fill, jamb, clip) => `<g${clip ? ` clip-path="url(#${clip})"` : ''}><path d="${innerX}${holes}" fill="${fill}" fill-rule="evenodd"/><path d="${holes}${shifted}" fill="${jamb}" fill-rule="evenodd" clip-path="url(#${id}h)"/></g>`;
+    s += cd.wall2 ? wall(cd.wall, cd.jamb, `${id}l`) + wall(cd.wall2, cd.jamb2, `${id}r`) : wall(cd.wall, cd.jamb);
+    s += `<path d="${outer}${inner}" fill="#fff4e0" fill-rule="evenodd"/>`;
+    const ins = cap * 0.06;
+    s += `<rect x="${N(ix + ins)}" y="${N(iy + ins)}" width="${N(iw - 2 * ins)}" height="${N(ih - 2 * ins)}" fill="none" stroke="${cd.rule}" stroke-width="${N(Math.max(1, cap * 0.008))}"/>`;
+    const gs = cap * 0.3;
+    const gx = ix + geo.side;
+    const gy = iy + cap * 0.4;
+    s += `<text x="${N(gx + gs * 0.06)}" y="${N(gy + gs * 0.08)}" class="gr" style="font-size:${N(gs)}px" fill="${cd.jamb}">${cd.greet}</text><text x="${N(gx)}" y="${N(gy)}" class="gr" style="font-size:${N(gs)}px" fill="${cd.ink}">${cd.greet}</text>`;
+    const half = !!cd.wall2;
+    const avail = half ? iw * 0.4 : iw * 0.7;
+    const chars = geo.label.length;
+    const w100 = measure(geo.label, '800 100px Anybody') / 100 + 0.16 * chars;
+    const fs = Math.min(cap * 0.1, avail / w100);
+    const lx = half ? ix + iw * 0.75 : ix + iw / 2;
+    const ly = geo.rowBot + cap * 0.27;
+    // letter-spacing trails the last glyph, so shift by half of it to centre what is visible
+    const ls = 0.16 * fs;
+    const lw = w100 * fs - ls;
+    const lc = half ? cd.ink2 : cd.ink;
+    s += `<text x="${N(lx + ls / 2)}" y="${N(ly)}" text-anchor="middle" class="lb" style="font-size:${N(fs)}px;letter-spacing:.16em" fill="${lc}">${geo.label}</text>`;
+    s += spark(lx - lw / 2 - fs * 0.85, ly - fs * 0.36, fs * 0.5, lc) + spark(lx + lw / 2 + fs * 0.85, ly - fs * 0.36, fs * 0.5, lc);
+    return `<svg class="wall" width="${N(cw)}" height="${N(ch)}" viewBox="0 0 ${N(cw)} ${N(ch)}" focusable="false">${s}</svg>`;
+  }
+
+  /* ---------- stamps and postmarks on the postcard backs ---------- */
+  const stampSVG = (cd, yy) => {
+    let perf = '';
+    for (let x = 3; x <= 68; x += 8) perf += circ(x, 0, 3, '#fff4e0') + circ(x, 84, 3, '#fff4e0');
+    for (let y = 4; y <= 82; y += 8) perf += circ(0, y, 3, '#fff4e0') + circ(70, y, 3, '#fff4e0');
+    const inner = cd.wall2 ? rect(7, 7, 28, 70, cd.wall) + rect(35, 7, 28, 70, cd.wall2) : rect(7, 7, 56, 70, cd.wall);
+    return `<svg class="stamp" viewBox="0 0 70 84" focusable="false">${rect(0, 0, 70, 84, '#fffdf7')}${perf}${inner}${circ(48, 24, 8, '#fff4e0', ' opacity=".85"')}<text x="35" y="67" text-anchor="middle" class="st" fill="${cd.wall2 ? '#fff4e0' : cd.ink}">${yy}</text></svg>`;
+  };
+  const pmSVG = (year) => {
+    const wave = (y) => `<path class="w" pathLength="1" d="M2 ${y}q8 -5 16 0t16 0t16 0t16 0"/>`;
+    return `<svg class="pm" viewBox="0 0 128 64" focusable="false"><g fill="none" stroke="#1b1030" stroke-width="1.6" opacity=".6">${wave(17)}${wave(27)}${wave(37)}${wave(47)}<circle class="w" pathLength="1" cx="96" cy="32" r="27"/><circle cx="96" cy="32" r="21.5" stroke-width="1"/></g><text x="96" y="36.5" text-anchor="middle" class="pmt">${year}</text></svg>`;
+  };
+  function dressPostcards() {
+    for (const pc of $$('.pc')) {
+      const cd = CARDS[+pc.dataset.ch - 1];
+      const post = $('.post', pc);
+      if (post) post.innerHTML = stampSVG(cd, cd.txt.slice(2)) + pmSVG(cd.txt);
+    }
+  }
+
+  /* ================= shared builders ================= */
+  const LAYERS = [['sky', Infinity], ['far', 3], ['near', 0.55], ['fore', 0.25]];
+  const ZI = { sky: 1, far: 2, near: 5, fore: 6 };
+  const layerHTML = (l, W, H, name) => `<div class="ly ${name}"><svg class="art" width="${N(W)}" height="${N(H)}" viewBox="0 0 ${N(W)} ${N(H)}" focusable="false">${l.a}</svg>${l.b}</div>`;
+  const geom = (W, H, port, F) => ({ W, H, port, F, m: Math.min(W, H), X0: -0.45 * W, X1: 1.45 * W, hy: H * (port ? 0.52 : 0.64), hy0: H * (port ? 0.8 : 0.72), hy6: H * (port ? 0.82 : 0.84) });
+
+  // 2d affine [a b c d e f] as in CSS matrix()
+  const mul = (A, B) => [A[0] * B[0] + A[2] * B[1], A[1] * B[0] + A[3] * B[1], A[0] * B[2] + A[2] * B[3], A[1] * B[2] + A[3] * B[3], A[0] * B[4] + A[2] * B[5] + A[4], A[1] * B[4] + A[3] * B[5] + A[5]];
+  const inv = (M) => {
+    const det = M[0] * M[3] - M[1] * M[2];
+    return [M[3] / det, -M[1] / det, -M[2] / det, M[0] / det, (M[2] * M[5] - M[3] * M[4]) / det, (M[1] * M[4] - M[0] * M[5]) / det];
+  };
+  const at = (M, x, y) => ({ x: M[0] * x + M[2] * y + M[4], y: M[1] * x + M[3] * y + M[5] });
+  const css = (M) => `matrix(${M[0].toFixed(6)},${M[1].toFixed(6)},${M[2].toFixed(6)},${M[3].toFixed(6)},${M[4].toFixed(2)},${M[5].toFixed(2)})`;
+
+  /* ================= static version ================= */
+  function buildStatic() {
+    dressPostcards();
+    const W = document.documentElement.clientWidth;
+    const port = W < 700;
+    const Hf = Math.round(port ? Math.min(W * 1.2, 640) : Math.min(W * 0.56, 760));
+    const c = { x: W / 2, y: Hf / 2 };
+    const make = (i, j) => {
+      const g = geom(W, Hf, port, c);
+      const sc = SCENES[i](g);
+      const fig = document.createElement('div');
+      fig.className = 'fig';
+      fig.setAttribute('aria-hidden', 'true');
+      fig.style.height = `${Hf}px`;
+      fig.style.background = sc.bg;
+      let h = '';
+      for (const [name] of LAYERS) {
+        h += layerHTML(sc[name], W, Hf, name).replace('class="ly', `style="z-index:${ZI[name]}" class="ly`);
+        if (name === 'far' && j >= 0) {
+          const geo = cardGeo(j, W, Hf * 0.92, port);
+          const s = 0.9;
+          const x0 = c.x - (geo.cw * s) / 2;
+          const y0 = c.y - (geo.ch * s) / 2;
+          h += `<div class="card" style="z-index:7;width:${N(geo.cw)}px;height:${N(geo.ch)}px;transform:matrix(${s},0,0,${s},${N(x0)},${N(y0)})">${wallSVG(geo, `s${j}`)}</div>`;
+        }
+      }
+      fig.innerHTML = h;
+      return fig;
+    };
+    for (const copy of $$('.copy')) {
+      const i = +copy.dataset.ch;
+      copy.before(make(i, i - 1));
+    }
+    const contact = $('#contact');
+    contact.before(make(6, 5));
+  }
+
+  /* ================= motion version ================= */
+  const stage = $('#stage');
+  const track = $('#track');
+  const copies = $$('.copy');
+  const spacer = $('#spacer');
+  const contact = $('#contact');
+  const cins = copies.map((c) => $('.cin', c));
+  let L = null;
+  const st = { y: 0, raf: 0, last: 0, ch: -1, act: -1, shift: [], introStart: 0 };
+
+  let svhEl;
+  function svh() {
+    if (!svhEl) {
+      svhEl = document.createElement('div');
+      svhEl.style.cssText = 'position:fixed;left:0;top:0;width:1px;height:100vh;height:100svh;visibility:hidden;pointer-events:none';
+      document.body.appendChild(svhEl);
+    }
+    return svhEl.offsetHeight || innerHeight;
+  }
+
+  // line boxes [left, top, right, bottom] of the text in el, measured from its top left plus (dx, dy)
+  function textBoxes(el, dx, dy) {
+    const er = el.getBoundingClientRect();
+    const out = [];
+    const tw = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    for (let n = tw.nextNode(); n; n = tw.nextNode()) {
+      if (!n.data.trim()) continue;
+      const rg = document.createRange();
+      rg.selectNodeContents(n);
+      for (const b of rg.getClientRects()) out.push([b.left - er.left + dx, b.top - er.top + dy, b.right - er.left + dx, b.bottom - er.top + dy]);
+    }
+    return out;
+  }
+
+  function layout() {
+    const W = stage.clientWidth;
+    const Hs = stage.clientHeight;
+    const H = svh();
+    const VH = innerHeight;
+    const desk = W >= 640 && W / H >= 1.15;
+    const port = !desk;
+    root.classList.toggle('m-desk', desk);
+    root.classList.toggle('m-port', port);
+    root.classList.toggle('m-phone', port && W < 600);
+    const c = { x: W / 2, y: H / 2 };
+    const s0 = desk ? 0.2 : 0.34;
+    const Zc = 1 / s0;
+    const geos = CARDS.map((_, j) => cardGeo(j, W, H, port));
+
+    // captions first: the hero's height decides where card 1 waits on phones
+    for (const [i, cp] of copies.entries()) {
+      cp.classList.remove('ov');
+      cp.style.top = '0px';
+      cp.style.height = '';
+      cins[i].style.transform = '';
+    }
+    const hero = copies[0];
+    hero.style.top = `${N(desk ? H * 0.13 : H * 0.06)}px`;
+    const heroBottom = hero.offsetTop + hero.offsetHeight;
+    const F0 = desk ? { x: W * 0.72, y: H * 0.5 } : { x: W * 0.5, y: Math.max(H * 0.62, heroBottom + (geos[0].ch * s0) / 2 + H * 0.05) };
+    const F = desk ? { x: W * 0.72, y: H * 0.34 } : { x: W * 0.5, y: H * 0.205 };
+    const Fs = [F0, F, F, F, F, F, F];
+    const cardBottom = F.y + (geos[1].ch * s0) / 2 + H * 0.035;
+    const ovs = [0];
+    for (let i = 1; i < copies.length; i++) {
+      const cp = copies[i];
+      const h = cins[i].offsetHeight;
+      const maxH = desk ? H * 0.84 : H - 12 - cardBottom;
+      const bh = Math.min(h, maxH);
+      cp.style.top = `${N(desk ? H * 0.95 - bh : H - 12 - bh)}px`;
+      cp.style.height = `${N(bh)}px`;
+      const ov = h > maxH ? Math.ceil(h - maxH + 36) : 0;
+      cp.classList.toggle('ov', ov > 0);
+      ovs.push(ov);
+    }
+
+    // the text that comes to rest on a scene, in stage pixels: the hero on dusk, and on the finale the contact block,
+    // which stops at the top of the stage
+    const rest = { 0: textBoxes(hero, hero.offsetLeft, hero.offsetTop), 6: textBoxes(contact, 0, 0) };
+    const scenes = SCENES.map((fn, i) => fn({ ...geom(W, H, port, Fs[i]), text: rest[i] }));
+    stage.innerHTML = '';
+    const chapters = [];
+    for (let i = 0; i < 7; i++) {
+      const sc = scenes[i];
+      const wrap = document.createElement('div');
+      wrap.className = 'chap off';
+      wrap.style.background = sc.bg;
+      const layers = [];
+      for (const [name, z] of LAYERS) {
+        const el = html(layerHTML(sc[name], W, H, name));
+        el.style.zIndex = ZI[name];
+        wrap.appendChild(el);
+        layers.push({ el, z, front: z < 1, hz: name === 'far', tf: '', o: -1 });
+      }
+      let card = null;
+      if (i < 6) {
+        const geo = geos[i];
+        const x0 = c.x - geo.cw / 2;
+        const y0 = c.y - geo.ch / 2;
+        const sh = html(`<div class="shadow" style="z-index:3;width:${N(geo.cw)}px;height:${N(geo.ch)}px;border-radius:${N(geo.cap * 0.05)}px"></div>`);
+        const el = html(`<div class="card" style="z-index:4;width:${N(geo.cw)}px;height:${N(geo.ch)}px"><div class="pv" style="left:${N(geo.ix)}px;top:${N(geo.iy)}px;width:${N(geo.iw)}px;height:${N(geo.ih)}px;background:${scenes[i + 1].bg}"></div>${wallSVG(geo, `c${i}`)}</div>`);
+        const pv = $('.pv', el);
+        const pvs = [];
+        for (const [name, z] of LAYERS) {
+          const pl = html(layerHTML(scenes[i + 1][name], W, H, name));
+          pv.appendChild(pl);
+          pvs.push({ el: pl, z });
+        }
+        wrap.append(sh, el);
+        const maxCD = Math.hypot(Math.max(c.x, W - c.x), Math.max(c.y, Hs - c.y));
+        card = { el, sh, pvs, geo, x0, y0, P: { x: x0 + geo.Pl.x, y: y0 + geo.Pl.y }, Smax: (maxCD / geo.r) * 1.04, tilt: CARDS[i].tilt, so: [geo.cap * 0.06, geo.cap * 0.08], tf: '', o: -1 };
+      }
+      stage.appendChild(wrap);
+      chapters.push({ wrap, layers, card, F: Fs[i], hy: sc.hy });
+    }
+
+    // scroll timeline in px
+    const segs = [];
+    let y = 0;
+    const push = (s) => {
+      s.start = y;
+      segs.push(s);
+      y += s.len;
+    };
+    push({ t: 'rest', i: 0, len: 0.35 * VH, lead: 0, ov: 0 });
+    for (let i = 0; i < 6; i++) {
+      push({ t: 'app', i, len: (i ? 1.1 : 1.4) * VH });
+      push({ t: 'hold', i, len: 0.25 * VH });
+      push({ t: 'dive', i, len: 0.85 * VH });
+      if (i < 5) push({ t: 'rest', i: i + 1, len: 0.92 * VH + ovs[i + 1], lead: 0.36 * VH, ov: ovs[i + 1] });
+    }
+    push({ t: 'rest', i: 6, len: 0, lead: 0, ov: 0 });
+    spacer.style.height = `${N(Math.max(0, y + VH - H))}px`;
+
+    L = { W, H, Hs, VH, desk, c, s0, Zc, chapters, segs, ovs, top: track.getBoundingClientRect().top + scrollY };
+    st.ch = -1;
+    st.act = -1;
+    st.shift = [];
+    if (QA) window.__lm = { moments: moments(), layout: L };
+  }
+
+  function moments() {
+    const top = track.getBoundingClientRect().top + scrollY;
+    const m = {};
+    for (const s of L.segs) {
+      if (s.t === 'rest' && s.i < 6) {
+        m[`rest-${s.i}`] = Math.round(top + s.start + s.lead);
+        if (s.ov) m[`end-${s.i}`] = Math.round(top + s.start + s.lead + s.ov);
+      } else if (s.t === 'app') m[`app-${s.i}`] = Math.round(top + s.start + s.len * 0.5);
+      else if (s.t === 'hold') m[`fit-${s.i}`] = Math.round(top + s.start + s.len * 0.5);
+      else if (s.t === 'dive') m[`dive-${s.i}`] = Math.round(top + s.start + s.len * 0.55);
+    }
+    const last = L.segs[L.segs.length - 1];
+    m.final = Math.round(top + last.start + 2);
+    m.contact = Math.round($('#contact').getBoundingClientRect().top + scrollY);
+    return m;
+  }
+
+  function segAt(y) {
+    let s = L.segs[0];
+    for (const sg of L.segs) {
+      if (y >= sg.start) s = sg;
+    }
+    return s;
+  }
+
+  function setChapter(i) {
+    st.ch = i;
+    for (const [k, C] of L.chapters.entries()) {
+      const near = Math.abs(k - i) <= 1;
+      const was = !C.wrap.classList.contains('off');
+      C.wrap.classList.toggle('off', !near);
+      C.wrap.classList.toggle('live', k === i);
+      // ambient loops share one clock, so the preview inside a card matches the scene it opens into
+      if (near && !was) {
+        for (const a of C.wrap.getAnimations({ subtree: true })) a.startTime = 0;
+      }
+      for (const l of C.layers) {
+        l.tf = '';
+        l.o = -1;
+      }
+      if (C.card) {
+        C.card.tf = '';
+        C.card.o = -1;
+      }
+    }
+  }
+
+  function apply(y, now) {
+    const { c, s0, Zc, H, VH } = L;
+    const sg = segAt(y);
+    const i = sg.i;
+    if (i !== st.ch) setChapter(i);
+    const C = L.chapters[i];
+    const lt = y - sg.start;
+    const t = sg.len ? clamp(lt / sg.len, 0, 1) : 0;
+    const cd = C.card;
+    let d = 0;
+    let m = 0;
+    let s = s0;
+    let md = 0;
+    let rise = 0;
+    let op = 1;
+    let tiltX = 0;
+    if (sg.t === 'rest') {
+      if (i > 0) {
+        const e = clamp(lt / (0.32 * VH), 0, 1);
+        rise = (1 - outCubic(e)) * H * 0.22;
+        op = smooth(0, 0.5, e);
+      } else if (st.introStart) {
+        const e = clamp((now - st.introStart) / 1500, 0, 1);
+        rise = -(1 - outBack(e)) * H * 0.55;
+        tiltX = (1 - outCubic(e)) * -14;
+        if (e >= 1) st.introStart = 0;
+      }
+    } else if (sg.t === 'app') {
+      d = (Zc - 1) * inOutSine(t);
+      m = smooth(0, 1, t);
+    } else if (sg.t === 'hold') {
+      d = Zc - 1;
+      m = 1;
+    } else if (sg.t === 'dive') {
+      s = cd.Smax ** inOutCubic(t);
+      d = Zc - 1 / s;
+      m = 1;
+      md = inOutSine(Math.min(1, t / 0.85));
+    }
+    if (sg.t !== 'dive') s = 1 / (Zc - d);
+
+    // scene layers: perspective scale z/(z - d) plus lateral parallax toward the card. The far layer
+    // scales about its horizon so the horizon line holds still; the rest scale about the centre.
+    const F = C.F;
+    const g1 = 1 - ((1 - m) * s0) / s;
+    for (const l of C.layers) {
+      if (l.z === Infinity) {
+        if (l.tf !== 'none') {
+          l.tf = 'none';
+          l.el.style.transform = '';
+        }
+        continue;
+      }
+      const z = l.z * Zc;
+      const k = d < z ? z / (z - d) : 99;
+      const o = l.front ? Math.round((1 - smooth(2.2, 4, k)) * 100) / 100 : 1;
+      if (o !== l.o) {
+        l.o = o;
+        l.el.style.opacity = o;
+        l.el.style.visibility = o ? '' : 'hidden';
+      }
+      if (!o) continue;
+      const dx = (F.x - c.x) * (Zc / z) * g1;
+      const dy = (F.y - c.y) * (Zc / z) * g1;
+      const tf = css([k, 0, 0, k, c.x - k * (c.x + dx), l.hz ? C.hy * (1 - k) : c.y - k * (c.y + dy)]);
+      if (tf !== l.tf) {
+        l.tf = tf;
+        l.el.style.transform = tf;
+      }
+    }
+
+    if (cd) {
+      let M;
+      if (sg.t !== 'dive') {
+        const A = { x: lerp(F.x, c.x, m), y: lerp(F.y, c.y, m) + rise };
+        const th = ((cd.tilt * (1 - m) + tiltX) * Math.PI) / 180;
+        const co = Math.cos(th) * s;
+        const si = Math.sin(th) * s;
+        const ux = cd.x0 - c.x;
+        const uy = cd.y0 - c.y;
+        M = [co, si, -si, co, A.x + co * ux - si * uy, A.y + si * ux + co * uy];
+      } else {
+        const O = { x: lerp(cd.P.x, c.x, md), y: lerp(cd.P.y, c.y, md) };
+        M = [s, 0, 0, s, O.x + s * (cd.x0 - cd.P.x), O.y + s * (cd.y0 - cd.P.y)];
+      }
+      const tf = css(M);
+      if (tf !== cd.tf) {
+        cd.tf = tf;
+        cd.el.style.transform = tf;
+        cd.sh.style.transform = css(mul(M, [1, 0, 0, 1, cd.so[0], cd.so[1]]));
+        // the next scene seen through the holes: anchored on the card centre, then on the deep point,
+        // each layer at its own depth beyond the card. At the end of the dive this is the identity.
+        const anc = at(M, lerp(c.x, cd.P.x, md) - cd.x0, lerp(c.y, cd.P.y, md) - cd.y0);
+        const Mi = inv(mul(M, [1, 0, 0, 1, cd.geo.ix, cd.geo.iy]));
+        const eps = 1 / cd.Smax;
+        for (const pl of cd.pvs) {
+          const zl = pl.z * Zc;
+          const q = pl.z === Infinity ? 1 : (zl + eps) / (zl + Zc - d);
+          pl.el.style.transform = css(mul(Mi, [q, 0, 0, q, anc.x - q * c.x, anc.y - q * c.y]));
+        }
+      }
+      if (op !== cd.o) {
+        cd.o = op;
+        cd.el.style.opacity = cd.sh.style.opacity = op;
+      }
+    }
+
+    // captions
+    const act = sg.t === 'rest' && i < 6 && lt >= (i ? 0.05 * VH : -1) && lt <= sg.len - 0.03 * VH ? i : -1;
+    if (act !== st.act) {
+      st.act = act;
+      for (const [k, cp] of copies.entries()) cp.classList.toggle('on', k === act);
+    }
+    if (act > 0 && sg.ov) {
+      const sh = clamp(lt - sg.lead, 0, sg.ov);
+      if (st.shift[act] !== sh) {
+        st.shift[act] = sh;
+        cins[act].style.transform = sh ? `translate3d(0,${N(-sh)}px,0)` : '';
+        copies[act].classList.toggle('sh', sh > 2);
+      }
+    }
+  }
+
+  function frame(now) {
+    st.raf = 0;
+    const dt = Math.min(0.05, st.last ? (now - st.last) / 1000 : 1 / 60);
+    st.last = now;
+    const ty = scrollY - L.top;
+    const a = QA ? 1 : 1 - Math.exp(-dt / 0.085);
+    st.y += (ty - st.y) * a;
+    if (Math.abs(ty - st.y) < 0.3) st.y = ty;
+    apply(st.y, now);
+    if (st.y !== ty || st.introStart) st.raf = requestAnimationFrame(frame);
+    else st.last = 0;
+  }
+  const kick = () => {
+    if (!st.raf) st.raf = requestAnimationFrame(frame);
+  };
+
+  async function startMotion() {
+    dressPostcards();
+    await fontsReady();
+    layout();
+    st.y = scrollY - L.top;
+    if (!QA && scrollY < 40) st.introStart = performance.now();
+    apply(st.y, performance.now());
+    kick();
+    addEventListener('scroll', kick, { passive: true });
+    let lastW = innerWidth;
+    let lastH = innerHeight;
+    addEventListener('resize', () => {
+      if (innerWidth === lastW && Math.abs(innerHeight - lastH) < 140) return;
+      lastW = innerWidth;
+      lastH = innerHeight;
+      layout();
+      st.y = scrollY - L.top;
+      apply(st.y, performance.now());
+    });
+  }
+
+  function fontsReady() {
+    const want = [document.fonts.load('800 100px Anybody'), document.fonts.load('italic 700 100px Fraunces'), document.fonts.load('400 17px Fraunces')];
+    return Promise.race([Promise.all(want), new Promise((r) => setTimeout(r, 2500))]);
+  }
+
+  if (STATIC) fontsReady().then(buildStatic);
+  else startMotion();
+})();
+</script>
+</body>
+</html>

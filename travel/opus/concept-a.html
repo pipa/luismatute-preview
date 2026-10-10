@@ -104,6 +104,7 @@ a { color: inherit; }
 .hud .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--xp); box-shadow: 0 0 10px var(--xp); animation: blink 1.6s steps(1, end) infinite; }
 @keyframes blink { 50% { opacity: 0.25; } }
 .hud .sep { color: var(--muted); }
+.hud .hud-t { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 .legend { display: flex; gap: 16px; color: var(--muted); font: 500 12px/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; }
 .legend span { display: inline-flex; align-items: center; gap: 7px; }
 .legend i { width: 12px; height: 12px; border-radius: 3px; }
@@ -128,6 +129,8 @@ a { color: inherit; }
 .m-desk .copy h2 { font-size: clamp(21px, 1.9vw, 32px); }
 .m-desk .copy p { max-width: 54ch; }
 .m-desk .copy .found { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.55em 1.4em; }
+/* the caption is 42% of the width, so below 900px a column is too narrow for "experimentation" */
+@media (max-width: 899px) { .m-desk .copy .found { grid-template-columns: minmax(0, 1fr); } }
 .m-desk .copy .found li::before { box-shadow: 0 0 0 2px var(--ink); }
 .m-desk .hero { left: calc(4vw - 6px); right: calc(4vw - 6px); max-width: none; color: var(--text); font-size: clamp(15px, 0.5vw + 9.6px, 19px); }
 .m-desk .hero .cin { display: grid; grid-template-columns: calc(var(--beam) - 8vw) 1fr; grid-template-rows: auto 1fr; column-gap: 8vw; row-gap: 1.2em; }
@@ -208,6 +211,14 @@ html:not(.is-motion):not(.is-static) .copy { max-width: 760px; margin: 0 auto; p
 .ph .o45 { opacity: 0.45; }
 .ph .o6 { opacity: 0.6; }
 .ph .dash { stroke-dasharray: 2 7; }
+.ph .tb { fill: var(--ink); font: 600 17px/1 var(--mono); }
+.ph .lt { fill: none; stroke: var(--ink); stroke-width: 1.4; }
+.ph .st1 { fill: none; stroke: var(--ink); stroke-width: 1.2; stroke-dasharray: 3 2.5; }
+.ph .lyt { fill: none; stroke: var(--yellow); stroke-width: 1.6; stroke-linecap: round; opacity: 0.5; }
+.ph .lk { fill: none; stroke: var(--ink); stroke-width: 7; stroke-linecap: round; }
+.ph .wr { fill: #fff; stroke: #fff; stroke-width: 4; stroke-linejoin: round; }
+.ph .stc { fill: var(--yellow); font: 900 30px/1 var(--display); letter-spacing: 0.04em; }
+.sw { transform-box: view-box; }
 .xr .s { fill: rgba(8, 18, 46, 0.88); stroke: rgba(154, 246, 204, 0.75); stroke-width: 2.2; }
 .xr .o { fill: rgba(255, 154, 61, 0.38); stroke: var(--xo-hi); stroke-width: 1.4; }
 .xr .od { fill: rgba(255, 154, 61, 0.66); stroke: #ffd6a6; stroke-width: 1.4; }
@@ -220,6 +231,7 @@ html:not(.is-motion):not(.is-static) .copy { max-width: 760px; margin: 0 auto; p
 .xr .lmw { fill: none; stroke: var(--xm-hi); stroke-width: 4; }
 .xr .lx { fill: none; stroke: var(--xg-hi); stroke-width: 1.6; stroke-linecap: round; }
 .xr .lsx { fill: none; stroke: rgba(154, 246, 204, 0.75); stroke-width: 12; stroke-linecap: round; opacity: 0.35; }
+.xr .lor { fill: none; stroke: rgba(255, 154, 61, 0.4); stroke-width: 11; stroke-linecap: round; }
 .xr .dash { stroke-dasharray: 2 6; }
 .xr .tx { fill: #ffe6c7; font: 600 11px/1 var(--mono); }
 .xr .txb { fill: #fff3e3; font: 600 17px/1 var(--mono); }
@@ -256,11 +268,11 @@ html:not(.is-motion):not(.is-static) .copy { max-width: 760px; margin: 0 auto; p
         <dl class="manifest">
           <div><dt>Origin</dt><dd>Honduras</dd></div>
           <div><dt>Now</dt><dd>Booking.com, Amsterdam</dd></div>
-          <div><dt>Bags</dt><dd>6, in the order I packed them</dd></div>
+          <div><dt>Bags</dt><dd>6, in packing order</dd></div>
         </dl>
         <div class="intro">
           <p>Born in Honduras. At Booking.com in Amsterdam since October 2017.</p>
-          <p>Every stop on the way went into a bag. Send them through the scanner and see what is inside.</p>
+          <p>Every stop on the way went into a bag. Send the bags through the scanner to see what is inside.</p>
           <p class="cue"><i></i>Scroll to run the belt</p>
         </div>
       </header>
@@ -268,7 +280,7 @@ html:not(.is-motion):not(.is-static) .copy { max-width: 760px; margin: 0 auto; p
       <article class="copy" data-ch="1" aria-labelledby="h-aa">
         <p class="kicker">Bag 1 of 6 · 2006–2011</p>
         <h2 id="h-aa">Security lead agent, American Airlines</h2>
-        <p>I led about 25 security agents, enforcing TSA rules for airlines outside the US. Back then, I was the one reading this screen.</p>
+        <p>Led about 25 security agents, enforcing TSA rules for airlines outside the US. Reading this screen was part of the job.</p>
         <ol class="found">
           <li>Luggage x-ray</li>
           <li>Passenger profiling</li>
@@ -283,7 +295,7 @@ html:not(.is-motion):not(.is-static) .copy { max-width: 760px; margin: 0 auto; p
         <p>Front end, with some back end, on two resort sites.</p>
         <ol class="found">
           <li>sandals.com and beaches.com</li>
-          <li>Several full redesigns and re-engineering efforts, which I led</li>
+          <li>Led several full redesigns and re-engineering efforts</li>
           <li>Sass, JS templating frameworks and pre-compilers, brought in to improve performance and productivity</li>
         </ol>
       </article>
@@ -301,7 +313,7 @@ html:not(.is-motion):not(.is-static) .copy { max-width: 760px; margin: 0 auto; p
       <article class="copy" data-ch="4" aria-labelledby="h-fluky">
         <p class="kicker">Bag 4 of 6 · c. 2012–2019</p>
         <h2 id="h-fluky">Co-founder, Fluky Factory</h2>
-        <p>One of four co-founders, alongside Sandals. I owned all the engineering, with 2–3 employees plus contractors.</p>
+        <p>One of four co-founders, alongside Sandals. Owned all the engineering, with 2–3 employees plus contractors.</p>
         <ol class="found">
           <li>Four keys: one of four co-founders</li>
           <li>Databases and back end</li>
@@ -326,7 +338,7 @@ html:not(.is-motion):not(.is-static) .copy { max-width: 760px; margin: 0 auto; p
       <article class="copy" data-ch="6" aria-labelledby="h-booking">
         <p class="kicker">Bag 6 of 6 · October 2017 – now</p>
         <h2 id="h-booking">Booking.com, Amsterdam</h2>
-        <p>Since October 2017, in this order:</p>
+        <p>Since October 2017, the work has included:</p>
         <ol class="found">
           <li>Accessibility</li>
           <li>Fraud</li>
@@ -389,154 +401,247 @@ html:not(.is-motion):not(.is-static) .copy { max-width: 760px; margin: 0 auto; p
   const SOLE = 'M23 0C38 0 46 14 46 32C46 50 40 60 40 74C40 96 34 110 22 110C10 110 4 98 4 80C4 62 0 50 0 32C0 14 8 0 23 0Z';
   const WRENCH = 'M0 18C0 8 8 0 18 0H20V14H32V0H34C44 0 52 8 52 18C52 28 45 34 36 36V100C36 106 31 110 26 110C21 110 16 106 16 100V36C7 34 0 28 0 18Z';
   const key = (a) => g(ci(0, -30, 9, 'm') + r(-3.5, -22, 7, 34, 2, 'm') + r(3, 2, 7, 4, 1, 'md') + r(3, 8, 5, 4, 1, 'md'), `rotate(${a})`);
+  const f1 = (v) => Math.round(v * 10) / 10;
+  // hangs from (x, y) and swings as the belt speeds up and slows down; never wrap it in X()
+  const sw = (inner, x, y) => `<g class="sw" style="transform-origin:${x}px ${y}px">${inner}</g>`;
+  const GLOVE = p('M4 58V12a3.5 3.5 0 0 1 7 0V26V6a3.5 3.5 0 0 1 7 0V26V4a3.5 3.5 0 0 1 7 0V26V8a3.5 3.5 0 0 1 7 0V34L38 26a3.5 3.5 0 0 1 5 5L33 46V58Z', 'o') + r(2, 52, 33, 10, 3, 'od');
+  const BARS = 'M8 66v8M11 66v8M15.5 66v8M18 66v8M22 66v8M27 66v8M29.5 66v8M34 66v8M38 66v8M41 66v8M45.5 66v8M50 66v8M54 66v8';
+  const STAR = 'M0 -15L4.4 -6.1L14.3 -4.6L7.1 2.3L8.8 12.1L0 7.5L-8.8 12.1L-7.1 2.3L-14.3 -4.6L-4.4 -6.1Z';
+  const gear = (rr, c, n = 8) => {
+    const pts = [];
+    for (let i = 0; i < n * 2; i++) {
+      const rad = i % 2 ? rr : rr * 1.28;
+      for (const a of [i, i + 1]) pts.push(`${f1(rad * Math.cos((a * Math.PI) / n))} ${f1(rad * Math.sin((a * Math.PI) / n))}`);
+    }
+    return p(`M${pts.join('L')}Z`, c);
+  };
 
   /* ---------- bags (units: px at a 340-unit reference height) ---------- */
   const BAGS = {
-    carry() {
+    // American Airlines: a security officer's trolley, hi-vis bands, radio and ID badge
+    duty() {
+      const lanyard = 'M150 27C153 56 170 80 187 104';
+      const badge = 'translate(158 96) rotate(7)';
       const ph = [
-        r(80, 24, 9, 62, 0, 'n'), r(161, 24, 9, 62, 0, 'n'), r(66, 6, 118, 24, 12, 'n'),
-        r(22, 80, 206, 246, 26, 'n'), r(22, 80, 206, 34, 16, 'n2'),
-        p('M76 124V302M125 124V302M174 124V302', 'ly o45'),
-        r(46, 320, 30, 12, 4, 'n'), r(174, 320, 30, 12, 4, 'n'),
-        ci(62, 330, 11, 'n'), ci(188, 330, 11, 'n'), ci(62, 330, 4, 'y'), ci(188, 330, 4, 'y'),
-        p('M150 28C150 58 172 70 176 96', 'lw'),
-        g(r(0, 0, 80, 42, 6, 'w') + ci(11, 21, 4.5, 'n') + tx(22, 18, 'AA', 'tt') + tx(22, 33, '2006–11', 'tt'), 'translate(150 96) rotate(9)'),
+        r(80, 24, 9, 62, 0, 'n'), r(161, 24, 9, 62, 0, 'n'), r(66, 6, 118, 24, 12, 'n'), r(86, 13, 78, 6, 3, 'n2'),
+        r(234, 176, 5, 44, 2.5, 'n'),
+        r(22, 80, 206, 246, 20, 'n'), r(22, 80, 206, 40, 20, 'n2'), r(22, 100, 206, 12, 0, 'n2'),
+        r(32, 190, 186, 18, 2, 'y'), r(32, 197, 186, 4, 0, 'w'), r(32, 280, 186, 18, 2, 'y'), r(32, 287, 186, 4, 0, 'w'),
+        g(r(0, 0, 88, 28, 5, 'w') + r(3.5, 3.5, 81, 21, 3, 'st1') + tx(44, 18.5, 'SECURITY', 'tt', 'text-anchor="middle"'), 'translate(38 128) rotate(-2)'),
+        r(212, 216, 30, 58, 7, 'n2'), r(212, 216, 30, 58, 7, 'ly'), p('M219 232h16M219 239h16M219 246h16', 'lw'), ci(227, 261, 4, 'y'),
+        r(46, 320, 30, 12, 4, 'n'), r(174, 320, 30, 12, 4, 'n'), ci(62, 330, 11, 'n'), ci(188, 330, 11, 'n'), ci(62, 330, 4, 'y'), ci(188, 330, 4, 'y'),
+        sw(p(lanyard, 'lw') + g(r(0, 0, 62, 80, 7, 'w') + r(0, 0, 62, 22, 7, 'pk') + r(0, 14, 62, 8, 0, 'pk') + r(24, 6, 14, 5, 2.5, 'n') + tx(8, 44, 'AA', 'tb') + tx(8, 59, '2006–11', 'tt') + p(BARS, 'lt'), badge), 150, 27),
       ].join('');
       const xr = [
-        X(r(22, 80, 206, 246, 26, 's')),
+        X(r(22, 80, 206, 246, 20, 's')),
         X(r(82, 20, 6, 292, 3, 'm') + r(162, 20, 6, 292, 3, 'm') + r(66, 6, 118, 24, 12, 'm')),
         X(ci(62, 330, 11, 'm') + ci(188, 330, 11, 'm')), ci(62, 330, 4, 'md'), ci(188, 330, 4, 'md'),
-        X(g(r(0, 0, 76, 98, 6, 'o') + r(22, -7, 32, 14, 4, 'm'), 'translate(38 116) rotate(-5)')),
-        g(p('M12 30h50M12 44h40M12 58h50M12 72h28', 'ln'), 'translate(38 116) rotate(-5)'),
-        X(g(r(0, 10, 66, 48, 8, 'o') + p('M20 10V2H46V10', 'lm') + ci(14, 52, 4, 'm') + ci(52, 52, 4, 'm'), 'translate(140 110) rotate(4)')),
-        g(r(10, 22, 20, 15, 3, 'x') + r(36, 24, 18, 10, 2, 'm') + p('M12 44h40', 'ln'), 'translate(140 110) rotate(4)'),
-        X(g(r(0, 0, 62, 86, 6, 'od'), 'translate(128 186) rotate(7)')),
-        g(ci(31, 32, 14, 'ln') + p('M17 32h28M31 18v28', 'ln') + r(9, 58, 44, 16, 3, 'x'), 'translate(128 186) rotate(7)'),
-        X(g(r(0, 0, 150, 26, 8, 'm') + r(150, -7, 28, 40, 7, 'md'), 'translate(30 282) rotate(-4)')),
-        g(r(14, 6, 42, 14, 4, 'x') + r(62, 6, 42, 14, 4, 'x') + p('M112 6v14', 'lm'), 'translate(30 282) rotate(-4)'),
-        p('M60 236C70 262 96 268 120 262', 'lx'),
-        mk(1, 146, 106), mk(2, 40, 110), mk(3, 196, 186), mk(4, 30, 270),
+        r(32, 190, 186, 18, 2, 'x o3'), r(32, 280, 186, 18, 2, 'x o3'),
+        X(g(r(0, 0, 76, 98, 6, 'o') + r(22, -7, 32, 14, 4, 'm'), 'translate(36 112) rotate(-5)')),
+        g(p('M12 30h50M12 44h40M12 58h50M12 72h28', 'ln'), 'translate(36 112) rotate(-5)'),
+        X(g(GLOVE, 'translate(124 198) rotate(-14)') + g(GLOVE, 'translate(152 190) rotate(10)')),
+        X(g(r(0, 0, 62, 86, 6, 'od'), 'translate(42 222) rotate(-6)')),
+        g(ci(31, 32, 14, 'ln') + p('M17 32h28M31 18v28', 'ln') + r(9, 58, 44, 16, 3, 'x'), 'translate(42 222) rotate(-6)'),
+        X(g(ci(0, 0, 17, 'x') + ci(0, 0, 17, 'lmw') + r(-4.5, 17, 9, 30, 4, 'md'), 'translate(100 250) rotate(-36)')),
+        X(g(r(0, 0, 84, 22, 7, 'm') + r(84, -6, 24, 34, 7, 'md'), 'translate(108 290) rotate(-6)')),
+        X(r(212, 216, 30, 58, 7, 'md') + r(234, 176, 5, 44, 2.5, 'm')), r(217, 244, 20, 22, 3, 'm'),
+        sw(p(lanyard, 'ln') + g(r(0, 0, 62, 80, 7, 'x') + r(24, 6, 14, 5, 2.5, 'md') + r(38, 50, 16, 12, 2, 'md'), badge), 150, 27),
+        mk(1, 128, 190), mk(2, 38, 110), mk(3, 38, 222), mk(4, 202, 280),
       ].join('');
       return { w: 250, h: 340, ph, xr };
     },
-    spinner() {
+    // Sandals: a woven beach tote with a rolled towel, rope handles and a starfish charm
+    tote() {
+      const body = 'M20 116H280L258 326Q256 340 242 340H58Q44 340 42 326Z';
+      const lx = (y) => 20 + (y - 116) * 0.1048;
+      const rx = (y) => 280 - (y - 116) * 0.1048;
+      let weave = '';
+      for (let y = 136, i = 0; y <= 316; y += 20, i++) {
+        weave += `M${f1(lx(y) + 6)} ${y}H${f1(rx(y) - 6)}`;
+        if (y < 316) for (let x = 32 + (i % 2) * 12; x < rx(y + 10) - 10; x += 24) if (x > lx(y + 10) + 10) weave += `M${x} ${y + 4}v12`;
+      }
+      const h1 = 'M72 118C72 40 132 40 132 118';
+      const h2 = 'M168 118C168 40 228 40 228 118';
+      const towel = 'translate(34 22) rotate(-14)';
+      const star = 'translate(98 148) rotate(12)';
+      const tagAt = 'translate(174 146) rotate(6)';
+      const tagStr = 'M228 122C236 140 250 160 260 177';
+      const flop = p(SOLE, 'o') + p('M8 42q15-14 30 0', 'lo');
       const ph = [
-        r(110, 12, 80, 20, 10, 'n'), r(120, 24, 10, 16, 0, 'n'), r(170, 24, 10, 16, 0, 'n'),
-        r(16, 36, 268, 294, 38, 'n'),
-        p('M66 62V304M108 62V304M150 62V304M192 62V304M234 62V304', 'ly o45'),
-        ci(214, 112, 32, 'w'), p('M194 106q10-9 20 0t20 0M194 121q10-9 20 0t20 0', 'ln'),
-        g(r(0, 0, 108, 44, 6, 'w') + ci(11, 22, 4.5, 'n') + tx(22, 19, 'sandals.com', 'tt') + tx(22, 35, 'beaches.com', 'tt'), 'translate(36 222) rotate(-5)'),
-        r(46, 328, 30, 14, 5, 'n'), r(224, 328, 30, 14, 5, 'n'), ci(61, 344, 11, 'n'), ci(239, 344, 11, 'n'), ci(61, 344, 4, 'y'), ci(239, 344, 4, 'y'),
+        g(r(0, 0, 46, 112, 23, 'w') + r(0, 26, 46, 7, 0, 'pk') + r(0, 52, 46, 7, 0, 'pk') + r(0, 0, 46, 112, 23, 'ln'), towel),
+        p(h1, 'lnn'), p(h1, 'ly dash o45'), p(h2, 'lnn'), p(h2, 'ly dash o45'),
+        p(body, 'n'), p(weave, 'lyt'),
+        r(12, 102, 276, 22, 9, 'n'), p('M26 113H274', 'lw dash'),
+        ci(150, 222, 36, 'w'), p('M124 222a26 26 0 0 1 52 0Z', 'pk'), p('M122 234q7-5 14 0t14 0t14 0t14 0M128 246q7-5 14 0t14 0t14 0', 'ln'),
+        sw(p('M98 113V134', 'lw') + g(p(STAR, 'wr') + ci(0, -7, 1.6, 'n') + ci(6.6, -2.2, 1.6, 'n') + ci(4.1, 5.7, 1.6, 'n') + ci(-4.1, 5.7, 1.6, 'n') + ci(-6.6, -2.2, 1.6, 'n'), star), 98, 113),
+        sw(p(tagStr, 'lw') + g(r(0, 0, 100, 44, 6, 'w') + ci(89, 22, 4.5, 'n') + tx(8, 19, 'sandals.com', 'tt') + tx(8, 35, 'beaches.com', 'tt'), tagAt), 228, 122),
       ].join('');
       const xr = [
-        X(r(16, 36, 268, 294, 38, 's')),
-        X(r(110, 12, 80, 20, 10, 'm')), p('M30 62V306M270 62V306', 'lm', 'opacity=".6"'),
-        X(ci(61, 344, 11, 'm') + ci(239, 344, 11, 'm')),
-        X(g(r(0, 0, 214, 138, 9, 'm'), 'translate(43 58) rotate(-2)')),
-        g(r(10, 10, 194, 110, 4, 'x') + r(20, 24, 84, 60, 3, 'o') + r(110, 24, 84, 60, 3, 'o') + p('M20 34h84M110 34h84', 'ln') + tx(22, 104, 'sandals.com', 'tx') + tx(112, 104, 'beaches.com', 'tx') + r(30, 124, 154, 8, 3, 'md'), 'translate(43 58) rotate(-2)'),
-        X(g(p(SOLE, 'o') + p('M8 42q15-14 30 0', 'lo'), 'translate(36 214) rotate(-12)')),
-        X(g(p(SOLE, 'o') + p('M8 42q15-14 30 0', 'lo'), 'translate(82 222) rotate(8)')),
-        X(g(r(0, 0, 78, 96, 3, 'o o5') + r(10, 8, 78, 96, 3, 'o o5') + r(20, 16, 78, 96, 3, 'o'), 'translate(126 208) rotate(-6)')),
-        g(r(30, 28, 58, 16, 2, 'x') + p('M30 52h58M30 60h40M30 68h52', 'ln') + r(30, 76, 26, 20, 2, 'x') + r(62, 76, 26, 20, 2, 'x'), 'translate(126 208) rotate(-6)'),
-        X(g(p(WRENCH, 'm'), 'translate(214 210) rotate(16) scale(.9)')),
-        X(g(r(0, 0, 12, 52, 3, 'md') + r(-4, 52, 20, 42, 6, 'o'), 'translate(258 214) rotate(-14)')),
-        mk(1, 46, 60), mk(2, 130, 204), mk(3, 232, 204),
+        p(h1, 'lor'), p(h1, 'lo o5'), p(h2, 'lor'), p(h2, 'lo o5'),
+        X(p(body, 's') + r(12, 102, 276, 22, 9, 's')), p(weave, 'ln o3'),
+        X(g(r(0, 0, 46, 112, 23, 'o'), towel)), g(p('M0 29.5H46M0 55.5H46', 'ln o5'), towel),
+        X(g(r(0, 0, 200, 114, 8, 'm'), 'translate(50 128) rotate(-3)')),
+        g(r(10, 10, 180, 84, 4, 'x') + r(16, 18, 80, 58, 3, 'o') + r(104, 18, 80, 58, 3, 'o') + p('M16 28h80M104 28h80', 'ln') + tx(19, 68, 'sandals.com', 'tx') + tx(107, 68, 'beaches.com', 'tx') + r(30, 100, 140, 7, 3, 'md'), 'translate(50 128) rotate(-3)'),
+        X(g(flop, 'translate(62 334) rotate(-92) scale(.72)') + g(flop, 'translate(150 326) rotate(-84) scale(.72)')),
+        X(g(r(0, 0, 52, 58, 3, 'o o5') + r(8, 5, 52, 58, 3, 'o'), 'translate(180 236) rotate(4)')),
+        g(p('M16 18h34M16 25h26M16 32h34', 'ln') + r(16, 40, 15, 14, 2, 'x') + r(35, 40, 15, 14, 2, 'x'), 'translate(180 236) rotate(4)'),
+        X(g(p(WRENCH, 'm'), 'translate(238 236) rotate(30) scale(.55)')),
+        X(g(r(0, 0, 78, 24, 6, 'o') + r(-5, -1, 7, 26, 1, 'od') + r(78, 5, 13, 14, 3, 'm'), 'translate(58 258) rotate(-8)')),
+        g(tx(14, 16.5, 'Sass', 'tx'), 'translate(58 258) rotate(-8)'),
+        X(g(r(0, 10, 28, 40, 8, 'x') + r(7, 0, 14, 12, 3, 'm'), 'translate(150 248) rotate(8)')),
+        g(tx(6, 36, 'JS', 'tx'), 'translate(150 248) rotate(8)'),
+        sw(p('M98 113V134', 'ln') + g(p(STAR, 'o o5'), star), 98, 113),
+        sw(p(tagStr, 'ln') + g(r(0, 0, 100, 44, 6, 'o o3') + ci(89, 22, 4.5, 'md'), tagAt), 228, 122),
+        mk(1, 54, 126), mk(2, 182, 232), mk(3, 52, 254),
       ].join('');
-      return { w: 300, h: 356, ph, xr };
+      return { w: 300, h: 350, ph, xr };
     },
-    duffel() {
+    // BSc: a student backpack with a diploma tube strapped to its side and a graduation tassel
+    student() {
+      const body = 'M28 96C28 40 70 18 140 18C210 18 252 40 252 96V318C252 330 242 338 230 338H50C38 338 28 330 28 318Z';
+      const grab = 'M118 24C118 2 162 2 162 24';
+      const tagS = 'translate(140 54) rotate(5)';
+      const tagStr = 'M152 12C153 34 154 54 154 75';
+      const cap = 'translate(118 100)';
+      const books = 'translate(62 262) rotate(-2)';
       const ph = [
-        p('M104 74C110 22 150 8 190 8C230 8 270 22 276 74', 'lnn'),
-        r(12, 58, 356, 148, 66, 'n'),
-        ci(74, 132, 46, 'n2'), ci(306, 132, 46, 'n2'), ci(74, 132, 46, 'ly'), ci(306, 132, 46, 'ly'),
-        p('M118 72H262', 'ly dash'),
-        g(r(0, 0, 86, 40, 6, 'w') + ci(11, 20, 4.5, 'n') + tx(22, 17, 'BSc CS', 'tt') + tx(22, 32, '2012', 'tt'), 'translate(148 112) rotate(-3)'),
+        p(grab, 'lnn'), p(body, 'n'),
+        r(18, 150, 14, 120, 6, 'n2'),
+        p('M60 72C92 48 188 48 220 72', 'ly o6'),
+        r(60, 196, 160, 120, 24, 'n2'), p('M78 214H202', 'ly'),
+        ci(84, 128, 17, 'w'), tx(84, 132, '&lt;/&gt;', 'tt', 'text-anchor="middle"'),
+        ci(124, 160, 14, 'w'), tx(124, 164, '{ }', 'tt', 'text-anchor="middle"'),
+        r(236, 34, 30, 222, 15, 'w'), r(236, 34, 30, 222, 15, 'ln'),
+        r(232, 26, 38, 22, 8, 'n'), r(232, 246, 38, 18, 7, 'n'),
+        r(228, 118, 46, 10, 3, 'n'), r(228, 200, 46, 10, 3, 'n'),
+        sw(p('M196 214V230', 'ly') + r(190, 228, 12, 10, 3, 'y') + p('M191 238H201L204 262H188Z', 'y') + p('M193 242v18M196 242v18M199 242v18', 'ln o45'), 196, 214),
+        sw(p(tagStr, 'lw') + g(r(0, 0, 86, 40, 6, 'w') + ci(16, 20, 4.5, 'n') + tx(28, 17, 'BSc CS', 'tt') + tx(28, 32, '2012', 'tt'), tagS), 152, 12),
       ].join('');
       const xr = [
-        X(r(12, 58, 356, 148, 66, 's')),
-        p('M104 74C110 22 150 8 190 8C230 8 270 22 276 74', 'lsx'),
-        p('M118 72H262', 'lm dash'), X(r(96, 64, 16, 14, 3, 'm') + r(268, 64, 16, 14, 3, 'm')),
-        X(g(r(0, 0, 236, 46, 23, 'o') + ci(214, 23, 19, 'od'), 'translate(40 94) rotate(-2)')),
-        g(p('M214 23m-12 0a12 12 0 1 0 24 0a9 9 0 1 0-18 0a6 6 0 1 0 12 0', 'ln') + r(118, -5, 14, 56, 3, 'x'), 'translate(40 94) rotate(-2)'),
-        X(g(p('M0 22L58 0L116 22L58 44Z', 'od') + p('M28 32V54C28 64 88 64 88 54V32', 'o'), 'translate(222 120)')),
-        g(p('M58 22C80 30 96 36 104 56', 'lx') + ci(104, 60, 5, 'x'), 'translate(222 120)'),
-        X(g(r(0, 0, 92, 20, 3, 'o') + r(8, 20, 84, 20, 3, 'o'), 'translate(64 152)')),
-        mk(1, 44, 90), mk(2, 222, 118),
+        X(p(body, 's')), p(grab, 'lsx'),
+        p('M60 72C92 48 188 48 220 72', 'lm dash'), r(60, 196, 160, 120, 24, 'ln o3'), p('M78 214H202', 'lm dash'),
+        X(g(r(0, 0, 152, 24, 3, 'o') + r(6, 24, 140, 22, 3, 'o') + r(-4, 46, 156, 24, 3, 'o'), books)),
+        g(p('M14 6v12M126 30v10M8 52v12M140 52v12', 'ln'), books),
+        X(g(p('M0 22L58 0L116 22L58 44Z', 'od') + p('M28 32V54C28 64 88 64 88 54V32', 'o'), cap)),
+        g(p('M58 22C80 30 96 36 104 56', 'lx') + ci(104, 60, 5, 'x') + tx(45, 54, '2012', 'tx'), cap),
+        X(g(r(0, 0, 92, 10, 2, 'o') + p('M92 0L104 5L92 10Z', 'od') + r(-12, 0, 12, 10, 2, 'm'), 'translate(52 186) rotate(-62)')),
+        X(r(236, 34, 30, 222, 15, 'o')), p('M246 52V238M256 52V238', 'ln o5'),
+        X(r(232, 26, 38, 22, 8, 'm') + r(232, 246, 38, 18, 7, 'm')),
+        ci(84, 128, 5, 'md'), ci(124, 160, 5, 'md'),
+        sw(p('M196 214V230', 'lo') + r(190, 228, 12, 10, 3, 'o') + p('M191 238H201L204 262H188Z', 'o o5'), 196, 214),
+        sw(p(tagStr, 'ln') + g(r(0, 0, 86, 40, 6, 'o o3') + ci(16, 20, 4.5, 'md'), tagS), 152, 12),
+        mk(1, 251, 18), mk(2, 118, 118),
       ].join('');
-      return { w: 380, h: 212, ph, xr };
+      return { w: 280, h: 344, ph, xr };
     },
+    // Fluky Factory: a flight case with metal corners, stickers and a tag per project
     case() {
+      const corners = [[8, 40], [312, 40], [8, 240], [312, 240]];
+      const rivets = (c) => corners.map(([x, y]) => ci(x + (x < 100 ? 26 : 14), y + (y < 100 ? 26 : 14), 3.5, c)).join('');
+      const strings = ['M170 28C150 60 120 100 104 126', 'M176 30C178 72 196 112 214 142', 'M184 30C192 92 168 150 124 184', 'M190 28C230 80 276 150 258 206'];
+      const tags = [['Catch Advisory Group', 34, 124, -4, 152, true], ['Roatan Excursions', 196, 140, 5, 128], ['Mayan Princess', 58, 182, 3, 116], ['Roatan Ferry', 214, 204, -6, 102]];
+      const pivot = (k) => strings[k].slice(1, strings[k].indexOf('C')).split(' ').map(Number);
       const ph = [
         r(140, 6, 80, 22, 11, 'n'), r(150, 22, 12, 22, 0, 'n'), r(198, 22, 12, 22, 0, 'n'),
         r(8, 40, 344, 240, 18, 'n'),
         p('M8 96H352', 'ly o6'),
-        r(58, 84, 38, 24, 5, 'w'), r(264, 84, 38, 24, 5, 'w'),
-        r(8, 40, 40, 40, 14, 'n2'), r(312, 40, 40, 40, 14, 'n2'), r(8, 240, 40, 40, 14, 'n2'), r(312, 240, 40, 40, 14, 'n2'),
-        p('M170 28C150 60 120 100 104 126M176 30C178 72 196 112 214 142M184 30C192 92 168 150 124 184M190 28C230 80 276 150 258 206', 'lw'),
-        tag('Catch Advisory Group', 34, 124, -4, 152, true), tag('Roatan Excursions', 196, 140, 5, 128),
-        tag('Mayan Princess', 58, 182, 3, 116), tag('Roatan Ferry', 214, 204, -6, 102),
+        r(58, 84, 38, 24, 5, 'w'), r(70, 92, 14, 8, 2, 'n'), r(264, 84, 38, 24, 5, 'w'), r(276, 92, 14, 8, 2, 'n'),
+        corners.map(([x, y]) => r(x, y, 40, 40, 14, 'n2')).join(''), rivets('w'),
+        g(r(0, 0, 50, 26, 5, 'pk') + tx(25, 17.5, '&lt;/&gt;', 'tt', 'text-anchor="middle"'), 'translate(66 52) rotate(-6)'),
+        g(gear(15, 'w') + ci(0, 0, 5.5, 'n'), 'translate(240 66) rotate(10)'),
+        tx(180, 268, 'FLUKY FACTORY', 'stc', 'text-anchor="middle"'),
+        ...tags.map((t, k) => sw(p(strings[k], 'lw') + tag(...t), ...pivot(k))),
       ].join('');
       const xr = [
         X(r(8, 40, 344, 240, 18, 's')), X(r(140, 6, 80, 22, 11, 'm')),
         r(22, 106, 316, 162, 10, 'o o3'),
+        X(corners.map(([x, y]) => r(x, y, 40, 40, 14, 'm')).join('') + r(58, 84, 38, 24, 5, 'm') + r(264, 84, 38, 24, 5, 'm')), rivets('md'),
         X(g(ci(0, 0, 16, 'lmw') + key(0) + key(90) + key(180) + key(270), 'translate(84 182) scale(.92)')),
         X(g(el(0, 0, 34, 10, 'x') + r(-34, 0, 68, 64, 0, 'x') + el(0, 64, 34, 10, 'x'), 'translate(172 128)')),
         g(p('M-34 22a34 10 0 0 0 68 0M-34 44a34 10 0 0 0 68 0', 'lx'), 'translate(172 128)'),
         X(g(r(0, 0, 86, 64, 6, 'm') + r(8, 10, 70, 10, 2, 'md') + r(8, 27, 70, 10, 2, 'md') + r(8, 44, 70, 10, 2, 'md'), 'translate(232 116)')),
         X(g(r(0, 0, 86, 56, 6, 'o') + p('M28 16L16 28L28 40M58 16L70 28L58 40M47 12L39 44', 'lo'), 'translate(132 212) rotate(-4)')),
         X(g(r(0, 0, 40, 72, 8, 'x') + r(6, 9, 28, 50, 3, 'm'), 'translate(262 192) rotate(10)')),
-        mk(1, 58, 136), mk(2, 140, 126), mk(3, 232, 112), mk(4, 132, 210), mk(5, 300, 196),
+        ...tags.map(([, x, y, rot, w = 120], k) => sw(p(strings[k], 'ln o3') + g(r(0, 0, w, 26, 4, 'o o3') + ci(10, 13, 3.5, 'md'), `translate(${x} ${y}) rotate(${rot})`), ...pivot(k))),
+        mk(1, 58, 136), mk(2, 140, 126), mk(3, 132, 210), mk(4, 300, 196),
       ].join('');
       return { w: 360, h: 290, ph, xr };
     },
+    // 2017 move: overstuffed and strapped shut, an umbrella along for the new weather
     big() {
+      const body = 'M40 34H380Q412 34 412 66Q420 112 404 159Q420 224 404 289Q420 330 412 354Q412 386 380 386H40Q8 386 8 354Q0 330 16 289Q0 224 16 159Q0 112 8 66Q8 34 40 34Z';
+      const canopy = 'M374 50C390 70 392 200 381 330L374 350L367 330C356 200 358 70 374 50Z';
+      const hook = 'M374 52V24C374 8 396 8 396 24';
+      const route = 'translate(14 60) rotate(-6)';
+      const heavy = 'translate(238 60) rotate(8)';
+      const fold = (x, y, w) => r(x, y, w, 26, 8, 'o') + p(`M${x + 8} ${y + 13}q${w / 8} -7 ${w / 4} 0t${w / 4} 0t${w / 4} 0`, 'ln');
+      const shoe = (t) => X(g(p(SOLE, 'o') + ci(23, 30, 3, 'md') + ci(23, 44, 3, 'md') + ci(23, 58, 3, 'md'), t));
       const ph = [
         r(170, 8, 80, 22, 11, 'n'), r(180, 22, 12, 16, 0, 'n'), r(228, 22, 12, 16, 0, 'n'),
-        r(8, 34, 404, 352, 32, 'n'),
-        r(8, 146, 404, 26, 0, 'n2'), r(8, 276, 404, 26, 0, 'n2'),
+        p(body, 'n'),
+        p(hook, 'lk'), p(canopy, 'w'), p('M374 56C369 140 367 240 370 330M374 56C379 140 381 240 378 330', 'ln o45'), r(371, 348, 6, 14, 3, 'w'),
+        r(16, 146, 388, 26, 0, 'n2'), r(16, 276, 388, 26, 0, 'n2'),
         r(190, 140, 40, 38, 5, 'w'), r(190, 270, 40, 38, 5, 'w'), r(200, 150, 20, 18, 3, 'n'), r(200, 280, 20, 18, 3, 'n'),
-        g(r(0, 0, 188, 52, 6, 'w') + ci(12, 26, 5, 'n') + tx(26, 22, 'HONDURAS →', 'tt') + tx(26, 40, 'THE NETHERLANDS', 'tt'), 'translate(38 66) rotate(-3)'),
-        ci(342, 92, 30, 'y'), ci(342, 92, 18, 'n'), ci(342, 92, 8, 'y'),
         r(40, 384, 30, 12, 4, 'n'), r(350, 384, 30, 12, 4, 'n'), ci(55, 398, 12, 'n'), ci(365, 398, 12, 'n'), ci(55, 398, 4, 'y'), ci(365, 398, 4, 'y'),
+        sw(p('M186 30L191 68', 'lw') + g(r(0, 0, 188, 52, 6, 'w') + ci(176, 26, 5, 'n') + tx(10, 22, 'HONDURAS →', 'tb') + tx(10, 43, 'THE NETHERLANDS', 'tb'), route), 186, 30),
+        sw(p('M234 30L244 76', 'lw') + g(r(0, 0, 76, 30, 5, 'pk') + ci(10, 15, 3.5, 'n') + tx(22, 20, 'HEAVY', 'tt'), heavy), 234, 30),
       ].join('');
-      const fold = (x, y, w) => r(x, y, w, 26, 8, 'o') + p(`M${x + 8} ${y + 13}q${w / 8} -7 ${w / 4} 0t${w / 4} 0t${w / 4} 0`, 'ln');
       const xr = [
-        X(r(8, 34, 404, 352, 32, 's')), X(r(170, 8, 80, 22, 11, 'm')),
+        X(p(body, 's')), X(r(170, 8, 80, 22, 11, 'm')),
         X(r(184, 20, 6, 352, 3, 'm') + r(230, 20, 6, 352, 3, 'm')),
         X(ci(55, 398, 12, 'm') + ci(365, 398, 12, 'm')),
-        X(fold(30, 60, 140) + fold(26, 90, 148) + fold(32, 120, 136) + fold(28, 150, 144) + fold(34, 180, 132)),
-        X(g(p(SOLE, 'o') + ci(23, 30, 3, 'md') + ci(23, 44, 3, 'md') + ci(23, 58, 3, 'md'), 'translate(40 232) rotate(-80) scale(.95)')),
-        X(g(p(SOLE, 'o') + ci(23, 30, 3, 'md') + ci(23, 44, 3, 'md') + ci(23, 58, 3, 'md'), 'translate(46 300) rotate(-96) scale(.95)')),
-        X(g(r(0, 0, 150, 108, 8, 'm') + r(10, 10, 130, 74, 3, 'x'), 'translate(244 70) rotate(3)')),
-        X(g(r(0, 0, 70, 96, 3, 'o') + r(10, 6, 70, 96, 3, 'o'), 'translate(166 214) rotate(-4)')),
-        g(el(0, 0, 32, 20, 'lm') + el(0, 0, 24, 14, 'lm') + el(0, 0, 16, 9, 'lm'), 'translate(318 252)'),
-        X(g(p('M0 0L10 150M10 0L10 150M20 0L10 150', 'lm') + r(4, 150, 12, 26, 5, 'md'), 'translate(372 176) rotate(8)')),
+        X(fold(30, 70, 140) + fold(26, 100, 148) + fold(32, 130, 136)),
+        X(g(r(0, 0, 120, 86, 8, 'm') + r(8, 8, 104, 62, 3, 'x'), 'translate(230 62) rotate(3)')),
+        shoe('translate(40 236) rotate(-80) scale(.95)'), shoe('translate(46 304) rotate(-96) scale(.95)'),
+        X(g(r(0, 0, 70, 96, 3, 'o') + r(10, 6, 70, 96, 3, 'o'), 'translate(170 186) rotate(-4)')),
+        g(el(0, 0, 32, 20, 'lm') + el(0, 0, 24, 14, 'lm') + el(0, 0, 16, 9, 'lm'), 'translate(300 228)'),
+        X(fold(140, 318, 150) + fold(146, 346, 140)),
+        X(g(r(0, 0, 40, 30, 6, 'm') + r(9, 30, 6, 12, 3, 'md') + r(25, 30, 6, 12, 3, 'md'), 'translate(268 290) rotate(-10)')),
+        r(16, 146, 388, 26, 0, 'x o3'), r(16, 276, 388, 26, 0, 'x o3'),
+        X(r(190, 140, 40, 38, 5, 'm') + r(190, 270, 40, 38, 5, 'm')),
+        p(canopy, 'o o5'), p('M374 56V350', 'lm'), X(p(hook, 'lmw')),
+        sw(p('M186 30L191 68', 'ln') + g(r(0, 0, 188, 52, 6, 'o o3') + ci(176, 26, 5, 'md'), route), 186, 30),
+        sw(p('M234 30L244 76', 'ln') + g(r(0, 0, 76, 30, 5, 'o o3') + ci(10, 15, 3.5, 'md'), heavy), 234, 30),
       ].join('');
       return { w: 420, h: 410, ph, xr };
     },
-    pack() {
-      const body = 'M28 96C28 40 70 18 140 18C210 18 252 40 252 96V318C252 330 242 338 230 338H50C38 338 28 330 28 318Z';
+    // Booking.com: a laptop messenger bag with an A/B pin
+    laptop() {
+      const strap = 'M28 128C28 -6 312 -6 312 128';
+      const flap = 'M10 132Q10 114 28 114H312Q330 114 330 132V200Q330 218 312 218H28Q10 218 10 200Z';
+      const tagL = 'translate(196 150) rotate(-7)';
+      const tagStr = 'M312 136C308 148 298 156 287 159';
+      const aa = 'translate(36 144) rotate(-6)';
+      const card = 'translate(182 182) rotate(4)';
+      const vials = 'translate(262 138)';
       const ph = [
-        p('M118 24C118 2 162 2 162 24', 'lnn'),
-        p(body, 'n'),
-        r(60, 196, 160, 120, 24, 'n2'),
-        p('M78 214H202', 'ly'), p('M60 72C92 48 188 48 220 72', 'ly o6'),
-        r(18, 150, 14, 120, 6, 'n2'), r(248, 150, 14, 120, 6, 'n2'),
-        p('M196 56C204 72 206 84 200 96', 'lw'),
-        g(r(0, 0, 100, 40, 6, 'w') + ci(11, 20, 4.5, 'n') + tx(22, 17, 'AMSTERDAM', 'tt') + tx(22, 32, '2017–NOW', 'tt'), 'translate(160 94) rotate(7)'),
+        p(strap, 'lnn'), r(128, 15, 84, 26, 13, 'n2'),
+        r(10, 114, 320, 148, 18, 'n'),
+        p(flap, 'n2'), p('M24 206H316', 'lw dash'),
+        r(84, 200, 24, 46, 4, 'n2'), r(232, 200, 24, 46, 4, 'n2'),
+        r(80, 222, 32, 20, 4, 'lw'), r(228, 222, 32, 20, 4, 'lw'), p('M96 224v16M244 224v16', 'lw'),
+        ci(28, 128, 8, 'lw'), ci(312, 128, 8, 'lw'),
+        ci(160, 166, 19, 'w'), p('M160 147a19 19 0 0 1 0 38Z', 'pk'), tx(146.5, 172, 'A', 'tb'), tx(163.3, 172, 'B', 'tb'),
+        sw(ci(28, 142, 6, 'lw') + r(16, 148, 24, 46, 12, 'w') + r(19.5, 151.5, 17, 39, 8.5, 'lt') + ci(28, 160, 3, 'n'), 28, 136),
+        sw(p(tagStr, 'lw') + g(r(0, 0, 100, 40, 6, 'w') + ci(89, 20, 4.5, 'n') + tx(10, 17, 'AMSTERDAM', 'tt') + tx(10, 32, '2017–NOW', 'tt'), tagL), 312, 136),
       ].join('');
       const xr = [
-        X(p(body, 's')), p('M60 72C92 48 188 48 220 72', 'lm dash'), p('M78 214H202', 'lm dash'),
-        X(r(48, 58, 184, 126, 8, 'm', 'opacity=".7"')),
-        X(g(r(0, 0, 80, 54, 6, 'o') + ci(60, 27, 12, 'ln') + p('M60 15a12 12 0 0 1 0 24z', 'od'), 'translate(56 82) rotate(-6)')),
-        g(tx(10, 36, 'Aa', 'txb'), 'translate(56 82) rotate(-6)'),
-        X(g(p('M12 26V16C12 2 40 2 40 16V26', 'lmw') + r(0, 24, 52, 42, 7, 'm') + ci(26, 44, 5, 'md') + r(24, 46, 4, 10, 1, 'md'), 'translate(166 84)')),
-        X(g(r(0, 0, 88, 56, 6, 'o') + r(10, 10, 18, 14, 3, 'm') + p('M40 38h36M40 46h22', 'ln'), 'translate(54 206) rotate(4)')),
-        X(g(r(0, 0, 26, 92, 13, 'x') + r(36, 0, 26, 92, 13, 'x') + r(2, 44, 22, 46, 11, 'o') + r(38, 28, 22, 62, 11, 'o'), 'translate(168 198)')),
-        g(tx(6, 26, 'A', 'txb') + tx(43, 26, 'B', 'txb'), 'translate(168 198)'),
-        mk(1, 56, 80), mk(2, 222, 86), mk(3, 54, 204), mk(4, 236, 196),
+        p(strap, 'lor'), X(r(10, 114, 320, 148, 18, 's')), p('M10 218H330', 'ln o5'),
+        X(r(24, 126, 292, 122, 8, 'm', 'opacity=".7"')), r(34, 134, 272, 106, 4, 'x o5'),
+        X(ci(28, 128, 8, 'lmw') + ci(312, 128, 8, 'lmw')),
+        X(g(r(0, 0, 80, 54, 6, 'o') + ci(60, 27, 12, 'ln') + p('M60 15a12 12 0 0 1 0 24z', 'od'), aa)),
+        g(tx(10, 36, 'Aa', 'txb'), aa),
+        X(g(p('M12 26V16C12 2 40 2 40 16V26', 'lmw') + r(0, 24, 52, 42, 7, 'm') + ci(26, 44, 5, 'md') + r(24, 46, 4, 10, 1, 'md'), 'translate(126 150)')),
+        X(g(r(0, 0, 76, 50, 6, 'x') + r(10, 10, 16, 12, 3, 'md'), card)),
+        g(p('M38 36V20M38 30H66V36M42 26h9', 'lx'), card),
+        X(g(r(0, 0, 24, 92, 12, 'x') + r(32, 0, 24, 92, 12, 'x') + r(2, 40, 20, 50, 10, 'o') + r(34, 26, 20, 64, 10, 'o'), vials)),
+        g(tx(6, 24, 'A', 'txb') + tx(38, 24, 'B', 'txb'), vials),
+        ci(160, 166, 5, 'md'),
+        sw(ci(28, 142, 6, 'lm') + X(g(key(0), 'translate(28 184)')) + r(16, 148, 24, 46, 12, 'x o3'), 28, 136),
+        sw(p(tagStr, 'ln') + g(r(0, 0, 100, 40, 6, 'o o3') + ci(89, 20, 4.5, 'md'), tagL), 312, 136),
+        mk(1, 52, 136), mk(2, 130, 146), mk(3, 186, 178), mk(4, 266, 134),
       ].join('');
-      return { w: 280, h: 340, ph, xr };
+      return { w: 340, h: 270, ph, xr };
     },
   };
 
@@ -555,12 +660,12 @@ html:not(.is-motion):not(.is-static) .copy { max-width: 760px; margin: 0 auto; p
   /* ---------- items on the belt ---------- */
   const ITEMS = [
     { kind: 'word', text: 'LUIS MATUTE', lines: ['LUIS', 'MATUTE'], hud: 'Passenger' },
-    { kind: 'bag', bag: 'carry', title: '2006–2011', hud: 'American Airlines' },
-    { kind: 'bag', bag: 'spinner', title: '2011–2017', hud: 'Sandals Resorts' },
-    { kind: 'bag', bag: 'duffel', title: '2012', hud: 'BSc Computer Science' },
+    { kind: 'bag', bag: 'duty', title: '2006–2011', hud: 'American Airlines' },
+    { kind: 'bag', bag: 'tote', title: '2011–2017', hud: 'Sandals Resorts' },
+    { kind: 'bag', bag: 'student', title: '2012', hud: 'BSc Computer Science' },
     { kind: 'bag', bag: 'case', title: 'C. 2012–2019', hud: 'Fluky Factory' },
     { kind: 'bag', bag: 'big', title: '2017', hud: 'Honduras → Netherlands' },
-    { kind: 'bag', bag: 'pack', title: '2017–NOW', hud: 'Booking.com' },
+    { kind: 'bag', bag: 'laptop', title: '2017–NOW', hud: 'Booking.com' },
     { kind: 'word', text: 'CLEARED', lines: ['CLEARED'], hud: 'Cleared', cleared: true },
   ];
   const BAG = Object.fromEntries(Object.entries(BAGS).map(([k, f]) => [k, f()]));
@@ -814,7 +919,8 @@ html:not(.is-motion):not(.is-static) .copy { max-width: 760px; margin: 0 auto; p
 
     S.panel.style.cssText = `top:${panelTop}px;display:${desk ? 'none' : 'block'}`;
     const hudTop = desk ? H * 0.045 : 14;
-    S.hud.style.cssText = `left:${desk ? W * 0.04 : 16}px;top:${hudTop}px;max-width:${beam - 24}px;overflow:hidden`;
+    const hudL = desk ? W * 0.04 : 16;
+    S.hud.style.cssText = `left:${hudL}px;top:${hudTop}px;max-width:${beam - hudL - 24}px;overflow:hidden`;
     S.legend.style.cssText = desk ? `left:${W * 0.04}px;top:${H * 0.93}px` : 'display:none';
     S.pipsBox.style.cssText = desk ? `right:${W * 0.04}px;top:${H * 0.93 + 2}px` : `left:${beam + 12}px;top:${hudTop + 3}px;transform:scale(.7);transform-origin:0 50%`;
     S.cam.style.transformOrigin = S.phys.style.transformOrigin = `${beam}px ${beltY}px`;
@@ -834,6 +940,7 @@ html:not(.is-motion):not(.is-static) .copy { max-width: 760px; margin: 0 auto; p
     track.style.height = `${at0 + VH}px`;
 
     L = { W, H, desk, phone, beam, beltY, items, titles, k, rr, rollersP, rollersX, texs, segs, ovs };
+    swingSetup(items);
     if (QA) window.__lm = { moments: moments(), layout: L };
   }
 
@@ -867,6 +974,64 @@ html:not(.is-motion):not(.is-static) .copy { max-width: 760px; margin: 0 auto; p
     return svhEl.offsetHeight || innerHeight;
   }
 
+  /* ---------- swinging tags ---------- */
+  // each tag, badge and charm is a damped pendulum pushed by the belt's acceleration. Its physical and x-ray
+  // copies share one pendulum, so the halves still meet at the beam. Longer strings swing slower and less far.
+  const swing = { list: [], P: null, v: 0 };
+  const SWING = { k: 0.45, zeta: 0.2, max: 18 };
+
+  function swingSetup(items) {
+    swing.list = [];
+    swing.P = null;
+    for (const it of items) {
+      const xs = $$(':scope > svg > .sw', it.ix);
+      $$(':scope > svg > .sw', it.ip).forEach((el, k) => {
+        const [ox, oy] = el.style.transformOrigin.split(' ').map(parseFloat);
+        const bb = el.getBBox();
+        const len = Math.max(30, Math.hypot(bb.x + bb.width / 2 - ox, bb.y + bb.height / 2 - oy));
+        const f = clamp(1.25 * Math.sqrt(70 / len), 0.75, 1.6) * (1 + 0.05 * (k % 3));
+        swing.list.push({ it, els: [el, xs[k]].filter(Boolean), w: 2 * Math.PI * f, th: 0, om: 0, shown: 0 });
+      });
+    }
+  }
+
+  // true while any tag is still moving
+  function swingStep(P, dt) {
+    if (QA || !swing.list.length) return false;
+    if (swing.P === null) {
+      swing.P = P;
+      swing.v = 0;
+      return false;
+    }
+    const v = (P - swing.P) / dt / L.W;
+    const dv = v - swing.v;
+    swing.P = P;
+    swing.v = v;
+    let live = false;
+    for (const s of swing.list) {
+      const w2 = s.w * s.w;
+      s.om += (-w2 * s.th - 2 * SWING.zeta * s.w * s.om) * dt - SWING.k * w2 * dv;
+      s.th += s.om * dt;
+      const A = Math.hypot(s.th, s.om / s.w);
+      if (A > SWING.max) {
+        s.th *= SWING.max / A;
+        s.om *= SWING.max / A;
+      } else if (A < 0.1) {
+        s.th = 0;
+        s.om = 0;
+      }
+      if (s.th || s.om) live = true;
+      const deg = Math.round(s.th * 10) / 10;
+      if (deg === s.shown) continue;
+      // off-screen bags skip the swing but still come to rest
+      const left = s.it.baseX - s.it.w / 2 - P;
+      if (deg && (left > L.W + 60 || left + s.it.w < -60)) continue;
+      s.shown = deg;
+      for (const el of s.els) el.style.transform = deg ? `rotate(${deg}deg)` : '';
+    }
+    return live;
+  }
+
   /* ---------- frame loop ---------- */
   const st = { Bt: 0, B: 0, introStart: 0, raf: 0, last: 0, active: -1, near: -1, shift: [] };
 
@@ -897,10 +1062,12 @@ html:not(.is-motion):not(.is-static) .copy { max-width: 760px; margin: 0 auto; p
       introOff = -L.W * 0.55 * (1 - outQuart(it));
       if (it >= 1) st.introStart = 0;
     }
-    apply(st.B + introOff, tg);
+    const P = st.B + introOff;
+    apply(P, tg);
+    const swinging = swingStep(P, dt);
     if (tg.active !== st.active) setActive(tg.active);
     if (tg.near !== st.near) setHud(tg.near);
-    if (st.B !== st.Bt || st.introStart) st.raf = requestAnimationFrame(frame);
+    if (st.B !== st.Bt || st.introStart || swinging) st.raf = requestAnimationFrame(frame);
     else st.last = 0;
   }
 
