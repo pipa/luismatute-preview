@@ -30,6 +30,15 @@
   --hand: "Caveat", "Segoe Print", cursive;
   --pop: cubic-bezier(0.34, 1.56, 0.64, 1);
   --out: cubic-bezier(0.16, 1, 0.3, 1);
+  --lu-skin: #c98e62;
+  --lu-skin-d: #a96f47;
+  --lu-blush: #e0805f;
+  --lu-hair: #231812;
+  --lu-fade: #5a463a;
+  --lu-beard: #2a1c15;
+  --lu-amber: #b0662f;
+  --lu-tort: #5a2f18;
+  --lu-lip: #7a2e22;
 }
 
 * { box-sizing: border-box; }
@@ -84,8 +93,11 @@ a { color: inherit; }
 .chips .feat { background: var(--marigold); }
 .chips .feat b { margin-left: 6px; font: 500 10.5px/1 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; vertical-align: 1px; }
 .stops { list-style: none; margin: 0.4em 0 0; padding: 0; counter-reset: s; }
-.stops li { display: grid; grid-template-columns: 1.7em 7.6em 1fr; align-items: baseline; padding: 5px 0 4px; border-top: 2px dashed rgba(43, 27, 20, 0.28); counter-increment: s; font-weight: 600; }
-.stops li::before { content: counter(s); color: var(--tomato-d); font: 500 13px/1 var(--mono); }
+.stops li { border-top: 2px dashed rgba(43, 27, 20, 0.28); counter-increment: s; }
+.stops a.plan-jump { display: grid; grid-template-columns: 1.7em 7.6em 1fr; align-items: baseline; padding: 5px 0 4px; color: inherit; font-weight: 600; text-decoration: none; border-radius: 8px; }
+.stops a.plan-jump::before { content: counter(s); color: var(--tomato-d); font: 500 13px/1 var(--mono); }
+.stops a.plan-jump:hover { background: rgba(246, 180, 60, 0.22); }
+.stops a.plan-jump:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
 .stops .yr { color: var(--ink2); font: 500 13px/1.3 var(--mono); }
 .teaser { margin: 0 0 0.35em; }
 .more-btn { display: inline-flex; align-items: center; gap: 8px; margin: 0.45em 0 0; padding: 7px 14px 8px; border: 2.5px solid var(--ink); border-radius: 999px; background: #fff; color: var(--ink); font: 600 14px/1 var(--text); box-shadow: 3px 3px 0 var(--ink); cursor: pointer; }
@@ -100,13 +112,13 @@ a { color: inherit; }
 .shots.two { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
 .shot-link { display: block; color: inherit; text-decoration: none; }
 .shot-link:focus-visible { outline-offset: 4px; }
-.shot-frame { overflow: hidden; border: 2.5px solid var(--ink); border-radius: 14px; background: #fff; box-shadow: 4px 4px 0 var(--ink); }
-.shot-chrome { display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-bottom: 2px solid var(--ink); background: var(--sand); font: 500 10.5px/1 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; }
-.shot-dots { display: flex; gap: 5px; }
-.shot-dots i { display: block; width: 7px; height: 7px; border: 2px solid var(--ink); border-radius: 50%; background: var(--marigold); }
+.shot-frame { overflow: hidden; border: 2.5px solid var(--ink); border-radius: 14px; background: #fff; box-shadow: 4px 4px 0 var(--ink); line-height: 0; isolation: isolate; }
+.shot-chrome { display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-bottom: 2px solid var(--ink); margin: 0; background: var(--sand); font: 500 10.5px/1 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; }
+.shot-dots { display: flex; gap: 5px; flex: none; }
+.shot-dots i { display: block; width: 7px; height: 7px; border: 2px solid var(--ink); border-radius: 50%; background: var(--marigold); box-sizing: border-box; }
 .shot-dots i:nth-child(2) { background: var(--paper); }
 .shot-dots i:nth-child(3) { background: var(--tomato); }
-.shot-frame img { display: block; width: 100%; height: auto; vertical-align: middle; background: #f0f0f0; }
+.shot-frame img { display: block; width: 100%; height: auto; margin: 0; border: 0; background: #e8e0d4; }
 .shot-cap { margin: 0.35em 0 0; font: 600 13px/1.35 var(--text); }
 .is-static .more-btn { display: none; }
 .is-static .more-body { display: block !important; border-top: 0; padding-top: 0; margin-top: 0.5em; }
@@ -259,6 +271,13 @@ a { color: inherit; }
 .lu.ex-sleep .zz { opacity: 1; }
 .lu .shade { transition: transform 1.1s var(--out); }
 .lu.ex-sleep .shade { transform: translate3d(0, 66px, 0); }
+.lu .lu-cap, .lu .lu-glasses, .lu .lu-book, .lu .lu-wave { opacity: 0; pointer-events: none; }
+.lu.ex-grad .lu-cap { opacity: 1; }
+.lu.ex-beach .eo, .lu.ex-beach .ec, .lu.ex-beach .brw { opacity: 0; }
+.lu.ex-beach .lu-glasses { opacity: 1; }
+.lu.ex-read .ms { opacity: 0; }
+.lu.ex-read .lu-book { opacity: 1; }
+.lu.ex-wave .lu-wave { opacity: 1; }
 /* a die-cut sticker edge keeps the handwriting readable over any art */
 .note { position: absolute; right: 100%; top: 4%; margin: 0 6px 0 0; color: var(--ink); font: 600 27px/1 var(--hand); white-space: nowrap; -webkit-text-stroke: 8px var(--paper); paint-order: stroke fill; transform: rotate(-7deg); transform-origin: 100% 50%; transition: opacity 0.35s ease; }
 .note svg { position: absolute; right: -12px; top: 26px; overflow: visible; }
@@ -334,6 +353,8 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
 /* mini route globe */
 .globe-dock { position: fixed; z-index: 42; right: 12px; bottom: 12px; pointer-events: none; }
 .m-port .globe-dock { top: 68px; bottom: auto; }
+.is-static .globe-dock { top: 12px; right: 12px; bottom: auto; left: auto; }
+.is-static.m-port .globe-dock { top: 12px; }
 .globe-btn { pointer-events: auto; display: block; width: 72px; height: 72px; padding: 6px; border: 3px solid var(--ink); border-radius: 50%; background: var(--paper); box-shadow: 4px 4px 0 var(--ink); cursor: pointer; }
 .globe-btn svg { display: block; width: 100%; height: 100%; }
 .globe-btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); }
@@ -388,17 +409,17 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
           <p class="kicker">Flight plan</p>
           <h2 id="h-plan">Six stops on the way from Honduras to Amsterdam</h2>
           <ol class="stops">
-            <li><span class="yr">2006–2011</span><span>American Airlines</span></li>
-            <li><span class="yr">2011–2017</span><span>Sandals Resorts</span></li>
-            <li><span class="yr">2012</span><span>BSc Computer Science</span></li>
-            <li><span class="yr">c. 2012–2019</span><span>Fluky Factory</span></li>
-            <li><span class="yr">2017</span><span>The move</span></li>
-            <li><span class="yr">Since 2017</span><span>Booking.com</span></li>
+            <li><a class="plan-jump" href="#stop-aa" data-stop="aa"><span class="yr">2006–2011</span><span>American Airlines</span></a></li>
+            <li><a class="plan-jump" href="#stop-sandals" data-stop="sandals"><span class="yr">2011–2017</span><span>Sandals Resorts</span></a></li>
+            <li><a class="plan-jump" href="#stop-bsc" data-stop="bsc"><span class="yr">2012</span><span>BSc Computer Science</span></a></li>
+            <li><a class="plan-jump" href="#stop-fluky" data-stop="fluky"><span class="yr">c. 2012–2019</span><span>Fluky Factory</span></a></li>
+            <li><a class="plan-jump" href="#stop-move" data-stop="move"><span class="yr">2017</span><span>The move</span></a></li>
+            <li><a class="plan-jump" href="#stop-booking" data-stop="booking"><span class="yr">Since 2017</span><span>Booking.com</span></a></li>
           </ol>
         </div>
       </section>
 
-      <article class="copy card" data-k="aa" aria-labelledby="h-aa">
+      <article class="copy card" data-k="aa" id="stop-aa" aria-labelledby="h-aa">
         <div class="cin">
           <p class="kicker">Stop 1 of 6 · 2006–2011</p>
           <h2 id="h-aa">Security lead agent, American Airlines</h2>
@@ -416,7 +437,7 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
         </div>
       </article>
 
-      <article class="copy card" data-k="sandals" aria-labelledby="h-sandals">
+      <article class="copy card" data-k="sandals" id="stop-sandals" aria-labelledby="h-sandals">
         <div class="cin">
           <p class="kicker">Stop 2 of 6 · July 2011 – August 2017</p>
           <h2 id="h-sandals">Front-end developer, Sandals Resorts</h2><!-- TITLE: pending -->
@@ -425,7 +446,7 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
           <div class="more-body" id="more-sandals" hidden>
             <p>Led several full redesigns and re-engineering efforts. Introduced Sass, JS templating frameworks, pre-compilers and other frontend tooling that was a breakthrough at the time, improving performance and productivity.</p>
             <div class="shots two">
-              <a class="shot-link" href="https://web.archive.org/web/20150109010108/http://www.sandals.com/" rel="noopener"><span class="shot-frame"><span class="shot-chrome"><span class="shot-dots" aria-hidden="true"><i></i><i></i><i></i></span> sandals.com</span><img src="shots/sandals-600.webp" srcset="shots/sandals-600.webp 600w, shots/sandals.webp 1200w" sizes="(max-width: 480px) 45vw, 220px" width="600" height="390" alt="" loading="lazy" decoding="async"></span><p class="shot-cap">sandals.com</p></a>
+              <a class="shot-link" href="https://web.archive.org/web/20160620110713/http://www.sandals.com/" rel="noopener"><span class="shot-frame"><span class="shot-chrome"><span class="shot-dots" aria-hidden="true"><i></i><i></i><i></i></span> sandals.com</span><img src="shots/sandals-600.webp" srcset="shots/sandals-600.webp 600w, shots/sandals.webp 1200w" sizes="(max-width: 480px) 45vw, 220px" width="600" height="390" alt="" loading="lazy" decoding="async"></span><p class="shot-cap">sandals.com</p></a>
               <a class="shot-link" href="https://web.archive.org/web/20150110181715/http://www.beaches.com/" rel="noopener"><span class="shot-frame"><span class="shot-chrome"><span class="shot-dots" aria-hidden="true"><i></i><i></i><i></i></span> beaches.com</span><img src="shots/beaches-600.webp" srcset="shots/beaches-600.webp 600w, shots/beaches.webp 1200w" sizes="(max-width: 480px) 45vw, 220px" width="600" height="390" alt="" loading="lazy" decoding="async"></span><p class="shot-cap">beaches.com</p></a>
             </div>
           </div>
@@ -436,7 +457,7 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
         </div>
       </article>
 
-      <article class="copy card" data-k="bsc" aria-labelledby="h-bsc">
+      <article class="copy card" data-k="bsc" id="stop-bsc" aria-labelledby="h-bsc">
         <div class="cin">
           <p class="kicker">Stop 3 of 6 · 2012</p>
           <h2 id="h-bsc">BSc Computer Science</h2>
@@ -448,7 +469,7 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
         </div>
       </article>
 
-      <article class="copy card" data-k="fluky" aria-labelledby="h-fluky">
+      <article class="copy card" data-k="fluky" id="stop-fluky" aria-labelledby="h-fluky">
         <div class="cin">
           <p class="kicker">Stop 4 of 6 · c. 2012–2019</p>
           <h2 id="h-fluky">Co-founder, Fluky Factory</h2>
@@ -473,7 +494,7 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
         </div>
       </article>
 
-      <article class="copy card" data-k="move" aria-labelledby="h-move">
+      <article class="copy card" data-k="move" id="stop-move" aria-labelledby="h-move">
         <div class="cin">
           <p class="kicker">Stop 5 of 6 · 2017</p>
           <h2 id="h-move">Honduras to the Netherlands</h2>
@@ -481,7 +502,7 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
         </div>
       </article>
 
-      <article class="copy card" data-k="booking" aria-labelledby="h-booking">
+      <article class="copy card" data-k="booking" id="stop-booking" aria-labelledby="h-booking">
         <div class="cin">
           <p class="kicker">Stop 6 of 6 · Since October 2017</p>
           <h2 id="h-booking">Booking.com, Amsterdam</h2>
@@ -510,6 +531,7 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
         <ul>
           <li><a href="mailto:luis.matute@me.com">luis.matute@me.com</a></li>
           <li><a href="https://x.com/luis_matute">@luis_matute</a> <span class="on-x">on X</span></li>
+          <li><a href="https://github.com/pipa">@pipa</a></li>
         </ul>
         <p class="meta">Concept C, “Wheels up”. Prototype for luismatute.me. <a href="concept-a.html">Concept A</a> · <a href="concept-b.html">Concept B</a></p>
       </div>
@@ -592,7 +614,27 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
     steel: '#8d8178',
     glass: '#bfe6ee',
   };
-  const SK = { skin: '#c98e62', skinD: '#a96f47', blush: '#e0805f', hair: '#231812', fade: '#5a463a', beard: '#2a1c15', amber: '#b0662f', tort: '#5a2f18', lip: '#7a2e22' };
+  const SK = {
+    skin: 'var(--lu-skin)',
+    skinD: 'var(--lu-skin-d)',
+    blush: 'var(--lu-blush)',
+    hair: 'var(--lu-hair)',
+    fade: 'var(--lu-fade)',
+    beard: 'var(--lu-beard)',
+    amber: 'var(--lu-amber)',
+    tort: 'var(--lu-tort)',
+    lip: 'var(--lu-lip)',
+  };
+  const STATIC_EXPR = {
+    hero: 'wow',
+    plan: 'wave',
+    aa: 'read',
+    sandals: 'beach',
+    bsc: 'grad',
+    fluky: 'wave',
+    move: 'sleep',
+    booking: 'wink',
+  };
   const hexRGB = (h) => [1, 3, 5].map((i) => Number.parseInt(h.slice(i, i + 2), 16));
   const mix = (a, b, t) => {
     const A = hexRGB(a);
@@ -804,6 +846,10 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
     s += line('M97.5 112Q100 108.5 102.5 112', SK.tort, 3.6) + line('M72.5 110L64 106', SK.tort, 3) + line('M127.5 110L136 106', SK.tort, 3);
     s += line('M78 106Q81 103 85 103', '#fff', 1.8, ' opacity=".75"') + line('M108 106Q111 103 115 103', '#fff', 1.8, ' opacity=".75"');
     s += `<g class="brw">${line('M75 96Q85 90.5 94 95', SK.hair, 4.8)}${line('M106 95Q115 90.5 125 96', SK.hair, 4.8)}</g>`;
+    s += `<g class="lu-cap">${path('M72 78L128 78L100 58Z', '#1a1a1a', ol(2.5))}${rect(72, 78, 56, 8, '#1a1a1a', ol(2))}${circ(100, 90, 3, C.marigold)}</g>`;
+    s += `<g class="lu-glasses">${rect(72, 108, 26, 12, '#1a1a1a', ol(2))}${rect(102, 108, 26, 12, '#1a1a1a', ol(2))}${line('M98 114H102', '#1a1a1a', 2.5)}</g>`;
+    s += `<g class="lu-book">${rr(118, 168, 34, 26, 4, '#fff', ol(2.5))}${line('M124 174H146M124 180H146M124 186H140', INK, 1.8)}</g>`;
+    s += `<g class="lu-wave">${path('M28 178Q38 150 52 162L58 178Z', SK.skin, ol(2.5))}${path('M30 178L48 168L56 178Z', C.cream, ol(2))}</g>`;
     s += '</g></g>';
     s += `<g class="zz" font-family="Bricolage Display, sans-serif" font-weight="800" fill="${INK}">${text(146, 92, 'z', 18, INK)}${text(156, 74, 'z', 22, INK)}${text(166, 54, 'z', 26, INK)}</g>`;
     s += path('M38 74L74 38L88 38L42 84Z', '#fff', ' opacity=".2"') + path('M42 104L106 40L116 40L46 114Z', '#fff', ' opacity=".12"');
@@ -1123,28 +1169,69 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
 
   /* ---------- globe: Natural Earth 110 m land (public domain), orthographic about 46° W 31° N, R = 500 ---------- */
   const GLOBE = { land: 'M286 571Q290 571 299 574Q309 578 314 583Q320 589 318 590Q317 592 309 589Q302 587 299 589Q296 592 292 589Q289 585 283 584Q277 584 276 581Q275 578 282 579Q290 581 287 576Q283 571 286 571ZM236 527Q244 532 261 549Q277 566 265 563Q252 560 255 559Q258 557 253 550Q249 544 239 538Q229 531 230 530Q230 528 219 527Q208 526 218 524Q228 522 236 527ZM446 325Q444 329 442 332Q440 336 442 335Q444 333 444 336Q445 338 451 340Q458 342 456 345Q455 348 457 347Q459 347 460 352Q461 357 459 360Q458 364 455 363Q451 362 452 358Q452 354 448 357Q444 361 442 360Q441 360 443 358Q445 357 443 355Q440 354 431 353Q423 352 430 340Q438 328 442 325Q447 321 446 325ZM691 274Q693 283 691 287Q689 291 685 291Q682 292 681 287Q681 283 678 279Q675 276 676 270Q678 264 683 264Q688 265 691 274ZM674 234Q677 232 678 237Q679 241 683 239Q686 237 688 244Q690 250 707 257Q724 264 727 269Q730 274 730 277Q730 280 723 284Q716 288 713 292Q710 297 708 297Q707 297 709 290Q711 283 706 283Q701 282 702 280Q704 278 700 274Q697 270 700 269Q703 268 702 266Q701 264 695 263Q690 262 687 258Q684 255 684 257Q684 259 680 254Q676 250 673 242Q671 235 674 234ZM596 200Q604 195 608 199Q613 203 608 211Q602 219 595 219Q587 219 588 217Q589 215 584 214Q580 213 582 211Q584 209 580 209Q576 208 576 206Q577 204 582 204Q588 205 596 200ZM376 161Q377 163 374 166Q371 169 375 167Q379 166 375 173Q372 180 381 173Q391 166 393 168Q396 170 392 178Q387 187 383 188Q379 189 376 187Q373 186 366 190Q359 195 339 202Q319 209 312 215Q306 221 308 222Q310 224 307 231Q304 237 306 237Q309 238 315 250Q321 262 326 264Q331 267 327 274Q324 281 324 290Q325 300 331 296Q336 292 338 283Q339 274 349 269Q360 265 360 255Q361 246 365 243Q369 240 373 231Q377 222 384 224Q392 225 394 231Q397 237 400 238Q403 239 401 247Q398 255 400 258Q403 262 412 255Q421 248 424 262Q428 276 426 278Q425 281 434 289Q443 297 446 302Q449 308 449 313Q448 317 435 324Q422 330 405 328Q389 325 372 336Q355 347 370 340Q385 334 389 334Q393 334 395 337Q397 339 394 341Q391 344 391 352Q390 359 399 362Q407 365 411 361Q415 357 416 361Q417 366 398 373Q380 381 378 380Q375 379 376 376Q377 372 383 370Q389 367 381 366Q373 366 363 370Q352 374 349 379Q345 384 347 388Q348 391 336 391Q324 391 330 393Q335 394 329 393Q322 393 317 399Q312 406 311 403Q310 400 310 405Q310 410 305 414Q301 418 303 410Q304 402 303 406Q301 411 300 409Q298 408 298 420Q298 433 276 444Q253 456 252 476Q250 497 247 503Q245 510 241 505Q237 501 237 486Q238 471 235 466Q233 460 229 461Q226 462 223 457Q220 452 213 449Q205 446 202 450Q200 455 191 447Q181 439 177 438Q173 437 163 441Q153 446 145 464Q136 483 136 492Q135 500 137 509Q138 519 141 524Q145 529 156 530Q168 531 171 525Q174 519 184 521Q195 523 184 544Q172 564 185 569Q198 574 202 579Q207 584 203 601Q199 617 206 629Q213 642 220 641Q227 640 237 647Q247 654 251 652Q256 650 259 645Q263 639 269 640Q274 641 281 637Q288 634 290 636Q292 638 289 640Q286 642 286 652Q286 662 289 659Q292 656 290 652Q289 647 294 646Q299 646 301 643Q302 640 308 648Q314 656 327 660Q341 665 343 663Q346 661 356 662Q366 664 362 664Q358 665 360 667Q361 669 367 673Q374 676 374 679Q375 682 381 686Q388 689 396 698Q404 707 417 709Q431 711 442 718Q454 724 457 733Q461 742 463 743Q465 744 462 749Q459 755 468 757Q477 759 477 763Q477 766 481 764Q484 762 497 765Q510 769 511 773Q512 777 532 777Q552 777 564 783Q576 790 584 791Q593 793 595 799Q597 805 595 811Q593 817 578 831Q562 846 559 860Q556 875 548 886Q541 898 537 901Q532 904 510 909Q487 914 484 916Q480 919 479 925Q478 931 461 942Q444 953 427 950Q411 948 418 953Q425 958 423 961Q420 963 405 962Q390 961 392 964Q395 967 386 966Q377 965 383 968Q390 971 381 972Q373 974 379 977Q386 979 381 981Q376 982 380 983Q385 985 368 981Q352 977 341 971Q330 965 330 963Q329 961 333 962Q337 964 335 961Q334 959 331 959Q327 959 321 950Q315 941 317 933Q319 926 315 918Q312 910 311 893Q310 875 307 866Q304 858 281 841Q258 824 241 795Q224 766 219 760Q213 755 212 750Q211 745 217 739Q222 734 218 731Q214 728 214 723Q214 719 217 713Q220 707 224 707Q229 706 230 702Q232 697 237 694Q242 691 241 680Q241 668 235 657Q230 646 225 647Q221 648 222 652Q223 655 221 656Q220 656 209 648Q199 639 195 631Q190 622 190 624Q189 626 187 624Q186 621 186 617Q186 612 182 601Q178 589 167 581Q155 573 147 558Q139 544 134 543Q128 542 114 519Q100 497 97 487Q95 477 98 467Q101 458 99 439Q97 419 101 386Q104 353 101 360Q97 366 93 401Q90 436 88 437Q86 438 85 426Q85 415 87 410Q89 405 88 394Q87 382 90 381Q92 379 98 357Q103 336 103 324Q103 313 112 293Q120 273 147 244Q173 214 171 220Q169 227 175 221Q181 215 184 203Q188 192 212 166Q236 141 237 135Q239 130 250 116Q261 101 258 102Q255 102 254 99Q253 96 260 95Q268 93 255 91Q242 90 243 85Q245 79 247 83Q249 86 254 86Q259 85 263 80Q266 75 280 68Q294 62 298 62Q302 62 300 65Q299 68 312 60Q326 53 322 58Q318 63 331 58Q344 54 343 55Q342 56 345 57Q349 59 350 62Q350 65 344 70Q338 74 329 87Q320 99 326 103Q332 106 330 107Q328 109 331 108Q335 108 331 111Q328 115 331 115Q334 114 331 116Q328 117 330 118Q332 118 332 126Q332 133 328 137Q325 141 328 143Q332 145 330 147Q329 150 336 148Q343 147 343 153Q343 159 347 161Q350 163 353 161Q357 159 354 164Q352 168 359 165Q367 161 368 157Q369 153 376 149Q383 145 381 151Q379 158 377 159Q374 160 376 161ZM357 117Q365 118 363 118Q361 119 363 120Q366 120 364 122Q363 124 366 124Q368 123 365 127Q361 131 367 129Q373 127 365 138Q357 150 353 151Q349 152 348 149Q346 145 339 141Q331 137 334 132Q338 126 342 128Q346 131 344 127Q342 123 345 122Q349 122 349 119Q348 117 357 117ZM408 145Q406 146 405 149Q404 151 411 149Q417 147 415 152Q412 157 417 156Q422 156 423 161Q425 167 427 167Q430 167 433 176Q436 185 433 186Q430 187 438 195Q446 203 441 209Q435 215 432 209Q429 204 427 204Q425 204 426 215Q428 226 427 229Q425 231 420 226Q414 221 417 228Q419 236 411 230Q404 225 400 217Q397 209 391 208Q384 206 387 204Q390 202 396 203Q403 205 408 199Q413 194 411 182Q408 170 404 170Q400 171 393 165Q386 160 390 154Q394 148 399 146Q404 143 408 143Q411 144 408 145ZM357 115Q346 116 343 115Q341 114 344 110Q347 107 357 104Q367 101 369 103Q370 104 368 110Q367 115 357 115ZM413 120Q416 120 416 126Q415 132 422 134Q429 137 428 139Q428 142 421 141Q413 140 409 136Q405 133 409 129Q412 124 412 122Q411 120 413 120ZM381 15Q397 11 390 14Q383 17 396 13Q408 9 437 5Q465 1 512 2Q558 3 589 9Q619 14 663 30Q707 45 735 60Q762 74 800 102Q837 130 858 153Q880 175 907 213Q934 251 937 260Q940 269 935 265Q930 261 931 266Q932 270 942 282Q952 294 948 281Q943 269 958 302Q972 336 980 372Q988 409 983 395Q979 382 967 366Q956 350 946 343Q935 335 933 330Q930 324 933 333Q936 341 930 336Q925 331 942 350Q960 369 976 395Q992 422 988 401Q985 380 991 414Q997 449 997 501Q997 552 988 597Q980 641 969 671Q958 700 935 741Q913 782 893 808Q873 833 887 808Q901 783 903 769Q905 755 914 733Q923 711 923 693Q922 674 915 665Q908 657 911 639Q913 622 909 617Q906 613 899 620Q892 627 887 622Q883 617 864 633Q846 649 838 652Q829 654 820 661Q810 669 805 669Q800 669 787 664Q774 659 764 647Q754 636 747 632Q740 629 739 623Q738 618 734 614Q730 610 733 603Q737 596 737 588Q737 579 731 564Q725 549 730 528Q735 507 746 486Q757 466 755 455Q752 443 756 434Q761 425 761 417Q761 409 772 407Q783 405 789 395Q796 384 809 374Q822 365 825 360Q828 356 830 357Q833 359 834 356Q835 353 840 367Q846 380 869 379Q892 378 890 364Q888 350 896 348Q903 346 909 342Q914 338 915 331Q915 325 917 325Q919 326 920 320Q921 315 909 294Q897 272 897 281Q896 289 894 289Q892 288 892 293Q891 299 888 300Q885 302 876 295Q867 288 866 268Q865 248 871 243Q876 238 875 231Q874 224 871 221Q867 218 858 218Q849 219 844 209Q838 200 840 209Q841 218 846 219Q850 221 851 227Q852 233 848 232Q844 231 843 228Q841 224 838 227Q835 229 844 246Q853 263 859 266Q864 269 864 276Q864 283 862 282Q860 280 858 281Q857 283 858 288Q860 293 857 293Q855 293 863 300Q872 308 870 308Q869 309 871 315Q874 322 861 313Q847 305 843 300Q840 294 820 290Q800 285 803 292Q806 298 826 303Q845 308 845 310Q846 311 842 311Q839 311 843 321Q848 331 842 325Q836 319 827 318Q817 316 805 311Q792 306 791 314Q790 321 783 326Q776 330 779 335Q781 339 778 346Q775 352 778 361Q781 371 779 382Q778 393 772 396Q766 398 765 403Q764 407 759 404Q754 401 748 404Q741 407 730 383Q718 359 720 354Q722 350 738 345Q753 340 753 337Q753 334 749 326Q745 319 733 315Q722 311 720 308Q718 306 725 303Q731 300 728 296Q725 292 727 293Q730 293 733 288Q736 283 734 280Q733 277 735 272Q737 267 735 261Q732 255 737 250Q741 245 731 233Q721 221 722 217Q723 213 728 221Q734 229 740 233Q746 236 747 233Q748 229 752 230Q756 230 757 223Q758 215 761 214Q765 213 764 209Q763 205 756 198Q749 192 749 190Q748 188 752 188Q756 188 748 183Q740 178 742 173Q744 167 743 164Q741 162 739 162Q737 162 736 169Q734 176 730 175Q726 175 719 170Q712 166 704 155Q696 144 694 144Q691 144 691 147Q691 149 702 164Q714 180 720 182Q726 183 736 198Q746 212 744 213Q742 214 744 217Q746 220 745 221Q743 223 727 213Q711 203 712 209Q714 214 709 216Q704 217 693 208Q683 198 681 186Q680 174 668 155Q657 135 656 126Q655 117 663 118Q670 118 669 117Q668 116 673 114Q677 112 684 110Q691 109 697 114Q702 119 699 122Q695 126 707 127Q719 129 714 127Q709 124 712 123Q714 122 707 116Q699 110 701 109Q703 108 693 105Q683 102 684 100Q685 98 691 100Q698 102 688 93Q678 85 681 85Q683 84 679 80Q674 76 676 76Q678 76 672 74Q665 72 667 67Q670 63 660 62Q650 62 640 58Q630 54 654 56Q678 58 670 56Q662 53 645 52Q627 52 632 51Q636 50 630 47Q624 44 619 45Q613 46 607 43Q601 40 577 37Q553 34 553 32Q553 30 547 27Q542 25 549 25Q557 24 553 22Q550 20 534 18Q517 17 513 14Q508 11 464 14Q420 18 396 27Q371 36 359 36Q348 36 350 34Q353 33 344 35Q336 36 344 31Q351 25 364 21Q376 17 371 18Q365 19 381 15ZM865 195Q874 200 884 210Q895 220 896 217Q897 214 895 210Q892 206 882 194Q871 183 868 182Q866 180 869 184Q872 188 863 184Q854 179 846 169Q838 160 847 175Q856 190 865 195ZM463 102Q477 103 479 106Q482 108 472 114Q462 119 457 120Q452 120 452 122Q451 125 445 127Q438 129 439 131Q440 133 436 134Q432 134 426 131Q420 127 425 124Q430 121 431 123Q432 125 432 122Q433 119 439 115Q445 111 448 111Q451 112 448 110Q445 109 447 105Q450 101 463 102ZM510 103Q518 102 523 103Q527 104 522 107Q517 110 522 109Q527 108 528 111Q530 113 533 110Q535 107 539 108Q542 109 540 113Q537 117 545 126Q552 134 550 136Q548 137 554 144Q561 150 558 151Q556 151 558 153Q561 155 558 157Q555 158 558 161Q561 164 558 164Q555 165 561 169Q568 173 566 174Q564 176 560 173Q556 171 556 175Q557 179 563 178Q568 177 563 184Q557 191 552 193Q546 195 540 204Q534 212 528 214Q522 216 518 227Q513 237 512 247Q511 257 508 257Q505 257 502 254Q499 251 495 251Q490 251 484 240Q478 230 476 217Q473 204 479 195Q485 186 480 186Q474 187 475 183Q476 179 480 180Q484 181 479 177Q473 173 475 170Q477 167 475 158Q473 148 463 145Q454 141 453 138Q452 135 457 135Q461 134 457 131Q452 128 461 126Q469 123 468 121Q468 119 474 115Q479 111 487 110Q495 109 498 111Q502 113 501 111Q499 108 501 106Q503 105 510 103Z', hon: [185.6, 578.7], ams: [736.9, 259.7], car: [263.9, 636.4], route: [[185.6,578.7],[192.3,570.6],[199.8,562.2],[207.9,553.4],[216.7,544.3],[226.2,535.0],[236.5,525.3],[247.4,515.5],[259.0,505.4],[271.3,495.1],[284.3,484.6],[297.8,474.0],[312.0,463.3],[326.8,452.5],[342.0,441.7],[357.8,430.9],[373.9,420.2],[390.5,409.5],[407.3,399.0],[424.4,388.6],[441.7,378.5],[459.0,368.6],[476.5,358.9],[493.9,349.7],[511.3,340.7],[528.5,332.1],[545.5,324.0],[562.2,316.3],[578.7,309.0],[594.7,302.2],[610.4,295.9],[625.6,290.1],[640.3,284.8],[654.4,280.0],[668.0,275.7],[681.0,271.8],[693.4,268.5],[705.2,265.6],[716.4,263.2],[727.0,261.3],[736.9,259.7]] };
-  const routeStopIdx = (k) =>
-    ({ hero: 0, plan: 0, aa: 1, bsc: 1, sandals: 2, fluky: 3, move: 4, booking: 5 })[k] ?? 0;
+  GLOBE.rtb = [188.4, 658.6];
+  function sampleGlobeLegs() {
+    const [hx, hy] = GLOBE.hon;
+    const [jx, jy] = GLOBE.car;
+    const [rx, ry] = GLOBE.rtb;
+    const [ax, ay] = GLOBE.ams;
+    const ds = [
+      `M${hx} ${hy} C${hx + 26} ${hy + 30} ${hx + 52} ${hy + 4} ${hx + 38} ${hy - 18} C${hx + 26} ${hy - 36} ${hx - 8} ${hy - 22} ${hx} ${hy}`,
+      `M${hx} ${hy} C${hx + 24} ${hy - 18} ${jx - 40} ${jy - 34} ${jx} ${jy}`,
+      `M${jx} ${jy} C${jx - 24} ${jy + 42} ${rx + 30} ${ry + 20} ${rx} ${ry}`,
+      `M${rx} ${ry} C${rx + 120} ${ry - 300} ${ax - 320} ${ay - 200} ${ax} ${ay}`,
+    ];
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    const legs = [];
+    const route = [];
+    for (const d of ds) {
+      path.setAttribute('d', d);
+      const len = path.getTotalLength();
+      const pts = [];
+      const n = 22;
+      for (let k = 0; k < n; k++) {
+        const pt = path.getPointAtLength((k / (n - 1)) * len);
+        pts.push([pt.x, pt.y]);
+      }
+      if (route.length) pts.shift();
+      const start = route.length;
+      route.push(...pts);
+      legs.push({ start, end: route.length - 1, pts });
+    }
+    GLOBE.legs = legs;
+    GLOBE.route = route;
+  }
+  sampleGlobeLegs();
+  const STOP_LEG = { hero: 0, plan: 0, aa: 0, bsc: 0, sandals: 1, fluky: 2, move: 3, booking: 3 };
+  const STOP_T = { hero: 0.02, plan: 0.06, aa: 0.14, bsc: 0.2, sandals: 0.42, fluky: 0.58, move: 0.78, booking: 0.98 };
+  function routeStopLeg(k) {
+    if (k === 'plan') k = 'hero';
+    return STOP_LEG[k] ?? 0;
+  }
   function globeRoutePoint(k) {
     const rt = GLOBE.route;
-    const t = routeStopIdx(k) / 5;
+    const t = STOP_T[k] ?? 0;
     return rt[Math.round(t * (rt.length - 1))];
   }
   function globeSvg(reveal, activeK) {
-    const rt = GLOBE.route;
     const rv = STATIC ? 1 : reveal;
+    const leg = routeStopLeg(activeK);
     let dash = '';
-    for (let i = 1; i < rt.length; i++) {
-      const [a, b] = [rt[i - 1], rt[i]];
-      const on = i / (rt.length - 1) <= rv + 0.001;
-      dash += `<path class="rd" d="M${a[0]} ${a[1]}L${N(lerp(a[0], b[0], 0.6))} ${N(lerp(a[1], b[1], 0.6))}" fill="none" stroke="${C.tomato}" stroke-width="5" stroke-linecap="round" vector-effect="non-scaling-stroke" style="opacity:${on ? 1 : 0.12}"/>`;
+    for (const [li, lg] of GLOBE.legs.entries()) {
+      for (let i = 1; i < lg.pts.length; i++) {
+        const [a, b] = [lg.pts[i - 1], lg.pts[i]];
+        const frac = (lg.start + i) / (GLOBE.route.length - 1);
+        const lit = li < leg || (li === leg && frac <= rv + 0.02);
+        const hot = li === leg;
+        dash += `<path class="rd" d="M${N(a[0])} ${N(a[1])}L${N(b[0])} ${N(b[1])}" fill="none" stroke="${hot ? C.tomato : '#e8a090'}" stroke-width="${hot ? 5.5 : 4}" stroke-linecap="round" vector-effect="non-scaling-stroke" style="opacity:${lit ? (hot ? 1 : 0.55) : 0.14}"/>`;
+      }
     }
     const tip = globeRoutePoint(activeK);
     const rot = (Math.atan2(tip[1] - GLOBE.hon[1], tip[0] - GLOBE.hon[0]) * 180) / Math.PI;
     const pin = (p, on) =>
       `<g opacity="${on ? 1 : 0.45}">${circ(p[0], p[1], 9, C.marigold, ol(3.5))}${circ(p[0], p[1], 3, INK)}</g>`;
-    const idx = routeStopIdx(activeK);
-    return `<svg class="art" viewBox="0 0 1000 1000" width="100%" height="100%" role="img" aria-hidden="true"><defs><clipPath id="mgclip"><circle cx="500" cy="500" r="500"/></clipPath></defs><g transform="translate(0 0) scale(1)"><g class="gz">${circ(500, 500, 500, '#2f86a8')}<g clip-path="url(#mgclip)">${circ(500, 500, 430, '#3592b3')}<path d="${GLOBE.land}" fill="#8cc06a" stroke="${INK}" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>${path('M-20 -20H1020V1020H-20ZM-110 420A530 530 0 1 0 950 420A530 530 0 1 0 -110 420Z', '#163a52', ' fill-rule="evenodd" opacity=".26"')}${path('M-20 -20H1020V1020H-20ZM10 540A530 530 0 1 0 1070 540A530 530 0 1 0 10 540Z', '#fffaf0', ' fill-rule="evenodd" opacity=".3"')}</g>${circ(500, 500, 500, 'none', ' stroke="#2b1b14" stroke-width="4.5" vector-effect="non-scaling-stroke"')}${dash}${pin(GLOBE.hon, idx <= 1)}${pin(GLOBE.car, idx >= 2 && idx <= 3)}${pin(GLOBE.ams, idx >= 5)}<g transform="translate(${N(tip[0])} ${N(tip[1])}) rotate(${N(rot)}) scale(0.55)">${planeTop()}</g></g></g></svg>`;
+    const lg = routeStopLeg(activeK);
+    return `<svg class="art" viewBox="0 0 1000 1000" width="100%" height="100%" role="img" aria-hidden="true"><defs><clipPath id="mgclip"><circle cx="500" cy="500" r="500"/></clipPath></defs><g transform="translate(0 0) scale(1)"><g class="gz">${circ(500, 500, 500, '#2f86a8')}<g clip-path="url(#mgclip)">${circ(500, 500, 430, '#3592b3')}<path d="${GLOBE.land}" fill="#8cc06a" stroke="${INK}" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>${path('M-20 -20H1020V1020H-20ZM-110 420A530 530 0 1 0 950 420A530 530 0 1 0 -110 420Z', '#163a52', ' fill-rule="evenodd" opacity=".26"')}${path('M-20 -20H1020V1020H-20ZM10 540A530 530 0 1 0 1070 540A530 530 0 1 0 10 540Z', '#fffaf0', ' fill-rule="evenodd" opacity=".3"')}</g>${circ(500, 500, 500, 'none', ' stroke="#2b1b14" stroke-width="4.5" vector-effect="non-scaling-stroke"')}${dash}${pin(GLOBE.hon, lg <= 1)}${pin(GLOBE.car, lg === 1)}${pin(GLOBE.rtb, lg === 2)}${pin(GLOBE.ams, lg >= 3)}<g transform="translate(${N(tip[0])} ${N(tip[1])}) rotate(${N(rot)}) scale(0.55)">${planeTop()}</g></g></g></svg>`;
   }
 
   /* ================= scenes ================= */
@@ -2742,8 +2829,8 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
     if (!k) return;
     if (k === 'plan') k = 'hero';
     globeK = k;
-    const mini = $('#globeOverlay')?.hidden ? routeStopIdx(globeK) / 5 : globeReveal;
-    paintGlobe($('#globeBtn'), globeK, STATIC ? routeStopIdx(globeK) / 5 : mini);
+    const mini = $('#globeOverlay')?.hidden ? STOP_T[globeK] ?? 0 : globeReveal;
+    paintGlobe($('#globeBtn'), globeK, STATIC ? STOP_T[globeK] ?? 0 : mini);
     if ($('#globeOverlay') && !$('#globeOverlay').hidden) paintGlobe($('#globeStage'), globeK, STATIC ? 1 : globeReveal);
   }
 
@@ -2794,7 +2881,7 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
     const stage = $('#globeStage');
     if (!dock || !btn || !overlay || !stage) return;
     dock.hidden = false;
-    paintGlobe(btn, globeK, routeStopIdx(globeK) / 5);
+    paintGlobe(btn, globeK, STOP_T[globeK] ?? 0);
 
     const openGlobe = () => {
       overlay.hidden = false;
@@ -2987,8 +3074,8 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
       fr.style.height = `${N(Math.max(Hs, top + h + (desk ? H * 0.05 : portChrome().bottom)))}px`;
       const b = sc.hud(tau);
       const box = { ...b, y: b.y + (desk && k !== 'hero' ? 0 : top - c.top) };
-      const e = sc.expr(tau);
-      const hint = sc.hint?.(tau);
+      const e = STATIC_EXPR[k] || sc.expr(tau);
+      const hint = STATIC ? false : sc.hint?.(tau);
       const hd = html(`<div class="hud${hint ? ' hint' : ''}" aria-hidden="true" style="left:${N(box.x)}px;top:${N(box.y)}px;width:${N((box.h * 200) / 240)}px;height:${N(box.h)}px"><svg class="lu${e ? ` ex-${e}` : ''}" viewBox="0 0 200 240">${luisSVG(`s${i}`)}</svg>${hint ? NOTE : ''}</div>`);
       fr.appendChild(hd);
       const [gx, gy] = e === 'sleep' ? SLEEP : gaze(box, sc.look(tau));
@@ -3009,8 +3096,44 @@ html:not(.is-motion):not(.is-static) .contact { width: calc(100% - 24px); max-wi
     });
   }
 
+  function setupExternalLinks() {
+    for (const a of $$('a[href^="http"]')) {
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      if (!a.querySelector('.vh')) {
+        const s = document.createElement('span');
+        s.className = 'vh';
+        s.textContent = ' (opens in a new tab)';
+        a.appendChild(s);
+      }
+    }
+  }
+  function setupPlanJumps() {
+    const instant = STATIC || mq.matches;
+    for (const a of $$('.plan-jump')) {
+      a.addEventListener('click', (ev) => {
+        ev.preventDefault();
+        const k = a.dataset.stop;
+        if (!k) return;
+        if (STATIC) {
+          const fr = $(`.frame[data-stop="${k}"]`) || $(`#stop-${k}`);
+          fr?.scrollIntoView({ behavior: instant ? 'instant' : 'smooth', block: 'start' });
+        } else if (window.__lm?.moments?.[k] != null) {
+          scrollTo({ top: window.__lm.moments[k], behavior: instant ? 'instant' : 'smooth' });
+        }
+        const h = $(`#h-${k}`);
+        if (h) {
+          h.setAttribute('tabindex', '-1');
+          h.focus({ preventScroll: true });
+        }
+      });
+    }
+  }
+
+  setupExternalLinks();
   setupMotionToggle();
   setupMore();
+  setupPlanJumps();
   if (STATIC) startStatic();
   else startMotion();
 })();
