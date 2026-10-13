@@ -1942,9 +1942,19 @@
         L.push(LY(0.7, -0.4 * W, Hs - 200 * U, 1.4 * W, Hs + 10, s, { front: true }));
       }
       // the stamp
-      const stR = desk ? Math.min(H * 0.17, W * 0.1) : Math.min(W * 0.2, (W - head.right - 24) / 2);
+      let stR = desk ? Math.min(H * 0.17, W * 0.1) : Math.min(W * 0.2, (W - head.right - 24) / 2);
       const stC = desk ? { x: W * 0.74, y: H * 0.3 } : { x: Math.max(W * 0.72, head.right + 8 + stR), y: z.top + z.h * 0.34 };
-      if (!desk) {
+      if (W < 600) {
+        // phones (#38): 0.8x, in the sky right of the title, ring 16px in from the right edge and 8px above the
+        // tallest roofline (the red step house's crane, 1.86 w plus the beam's rise)
+        stR *= 0.8;
+        const hw = W * 0.212;
+        const hq = hw / 130;
+        const roof = base - 1.86 * hw - Math.max(26 * hq, Math.min(hw * 0.46, 52 * hq)) * 0.06;
+        stC.x = W - 16 - stR * 1.04;
+        // 8px clear of the roof outline itself (half its stroke) plus 1px for rounding
+        stC.y = roof - 9 - Math.max(2.5, W * 0.0075) / 2 - stR * 1.04;
+      } else if (!desk) {
         // the ring (104 units) lands clear of the porthole below it, wherever the cards have lifted that to
         const pr = { x: W - hudW - 8, y: STATIC ? cap[k].top - hudH * 0.52 : Math.min(cap[k].top - hudH * 0.52 - Math.min(hudH * 0.5, ovs[k] || 0), dock - tyEnd) };
         const dx = Math.max(0, pr.x - stC.x);
