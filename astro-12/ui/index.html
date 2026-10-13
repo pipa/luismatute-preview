@@ -1,0 +1,378 @@
+<!doctype html>
+<html data-cc-flow lang="en">
+  <head><meta name="robots" content="noindex">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Luis Matute UI: design system</title>
+<meta name="description" content="Luis Matute UI (@luismatute/ui): the design tokens, web components and illustrations behind luismatute.me.">
+<link rel="canonical" href="https://luismatute.me/ui/">
+<meta name="theme-color" content="#f6b43c">
+<link rel="icon" href="/luismatute-preview/astro-12/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/luismatute-preview/astro-12/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/luismatute-preview/astro-12/apple-touch-icon.png">
+<link rel="manifest" href="/luismatute-preview/astro-12/site.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Luis Matute">
+<meta property="og:title" content="Luis Matute UI: design system">
+<meta property="og:description" content="Luis Matute UI (@luismatute/ui): the design tokens, web components and illustrations behind luismatute.me.">
+<meta property="og:url" content="https://luismatute.me/ui/">
+<meta property="og:image" content="https://luismatute.me/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@luis_matute">
+<meta name="generator" content="@luismatute/ui v0.1.2">
+<link rel="stylesheet" href="./ui/tokens.css" />
+    <link rel="stylesheet" href="./ui/fonts.css" />
+    <link rel="stylesheet" href="./ui/base.css" />
+    <link rel="stylesheet" href="./playground.css" />
+  <style>
+/* Consent banner + footer "Cookie settings" link. Inlined into <head> at build
+   time by scripts/prototype-analytics.mjs; uses the page tokens (--ink, --paper,
+   --marigold, --text, --mono). Position slots are picked by analytics.js. */
+.cc {
+  position: fixed;
+  z-index: 50;
+  box-sizing: border-box;
+  width: min(
+    400px,
+    calc(
+      100vw -
+      24px -
+      env(safe-area-inset-left, 0px) -
+      env(safe-area-inset-right, 0px)
+    )
+  );
+  margin: 0;
+  padding: 14px 16px 16px;
+  border: 3px solid var(--ink, #2b1b14);
+  border-radius: 20px;
+  background: var(--paper, #fff6e4);
+  color: var(--ink, #2b1b14);
+  box-shadow: 5px 6px 0 var(--ink, #2b1b14);
+  font: 500 15px / 1.4 var(--text, system-ui, sans-serif);
+  opacity: 1;
+  transform: none;
+}
+.cc[hidden] {
+  display: none;
+}
+.cc.cc-moving {
+  visibility: hidden;
+  opacity: 0;
+}
+.cc.cc-in {
+  animation: cc-in 0.28s var(--out, ease-out) both;
+}
+@keyframes cc-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+.cc.s-bl {
+  left: max(12px, env(safe-area-inset-left, 0px));
+  bottom: max(12px, calc(env(safe-area-inset-bottom, 0px) + 8px));
+}
+.cc.s-br {
+  right: calc(max(12px, env(safe-area-inset-right, 0px)) + 84px);
+  bottom: max(12px, calc(env(safe-area-inset-bottom, 0px) + 8px));
+  width: min(
+    400px,
+    calc(
+      100vw -
+      108px -
+      env(safe-area-inset-left, 0px) -
+      env(safe-area-inset-right, 0px)
+    )
+  );
+}
+.cc.s-tl {
+  left: max(12px, env(safe-area-inset-left, 0px));
+  top: calc(max(12px, env(safe-area-inset-top, 0px)) + 56px);
+  width: min(
+    400px,
+    calc(
+      100vw -
+      108px -
+      env(safe-area-inset-left, 0px) -
+      env(safe-area-inset-right, 0px)
+    )
+  );
+}
+.cc.s-tr {
+  right: max(12px, env(safe-area-inset-right, 0px));
+  top: calc(max(12px, env(safe-area-inset-top, 0px)) + 56px);
+}
+.cc-k {
+  margin: 0 0 4px;
+  color: var(--tomato-d, #a8321e);
+  font: 500 11px / 1.2 var(--mono, ui-monospace, monospace);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.cc-t {
+  margin: 0;
+  text-wrap: pretty;
+}
+.cc-b {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+.cc-btn {
+  flex: 1 1 0;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 2.5px solid var(--ink, #2b1b14);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ink, #2b1b14);
+  box-shadow: 3px 3px 0 var(--ink, #2b1b14);
+  font: 700 15px / 1 var(--text, system-ui, sans-serif);
+  cursor: pointer;
+}
+.cc-btn:hover {
+  background: var(--marigold, #f6b43c);
+}
+.cc-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--ink, #2b1b14);
+}
+.cc-btn:focus-visible {
+  outline: 3px solid var(--ink, #2b1b14);
+  outline-offset: 3px;
+}
+.cc-open {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.cc-open:focus-visible {
+  outline: 3px solid var(--ink, #2b1b14);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+@media (max-width: 420px) {
+  .cc {
+    padding: 12px 14px 14px;
+    font-size: 14px;
+  }
+  .cc-btn {
+    font-size: 14px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cc.cc-in {
+    animation: none;
+  }
+  .cc-btn:active {
+    transform: none;
+  }
+}
+.is-static .cc.cc-in {
+  animation: none;
+}
+html.cc-pad body {
+  padding-bottom: var(--cc-h, 0px);
+}
+@media (max-width: 360px), (max-height: 600px) {
+  .cc-k {
+    display: none;
+  }
+  .cc-b {
+    margin-top: 10px;
+  }
+}
+.cc-short {
+  display: none;
+}
+/* Compact one-line banner: 320px phones and phones in landscape. */
+.cc.cc-compact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  padding: 7px 8px 7px 12px;
+  border-width: 2.5px;
+  border-radius: 16px;
+  box-shadow: 4px 4px 0 var(--ink, #2b1b14);
+  font-size: 13.5px;
+  line-height: 1.25;
+}
+.cc.cc-compact[hidden] {
+  display: none;
+}
+.cc.cc-compact .cc-k {
+  display: none;
+}
+.cc.cc-compact .cc-t {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.cc.cc-compact .cc-long {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.cc.cc-compact .cc-short {
+  display: inline;
+}
+.cc.cc-compact .cc-b {
+  flex: none;
+  gap: 6px;
+  margin: 0;
+}
+.cc.cc-compact .cc-btn {
+  flex: none;
+  min-height: 32px;
+  padding: 0 11px;
+  border-width: 2px;
+  box-shadow: 2px 2px 0 var(--ink, #2b1b14);
+  font-size: 13px;
+}
+.cc.cc-compact.s-bl,
+.cc.cc-compact.s-tr {
+  width: min(
+    360px,
+    calc(
+      100vw -
+      24px -
+      env(safe-area-inset-left, 0px) -
+      env(safe-area-inset-right, 0px)
+    )
+  );
+}
+.cc.cc-compact.s-br,
+.cc.cc-compact.s-tl {
+  width: min(
+    360px,
+    calc(
+      100vw -
+      108px -
+      env(safe-area-inset-left, 0px) -
+      env(safe-area-inset-right, 0px)
+    )
+  );
+}
+/* Bottom, full width; the card layer, avatar and a bottom globe slide up. */
+.cc.s-lift {
+  left: max(12px, env(safe-area-inset-left, 0px));
+  right: max(12px, env(safe-area-inset-right, 0px));
+  bottom: max(10px, calc(env(safe-area-inset-bottom, 0px) + 6px));
+  width: auto;
+}
+html.cc-lift .copies,
+html.cc-lift .hud,
+html.cc-lift.m-desk .globe-btn {
+  translate: 0 calc(-1 * var(--cc-lift, 0px));
+}
+/* /ui/ docs pages: small footer with the way home and Cookie settings. */
+.cc-foot {
+  margin: 48px 0 0;
+  padding: 16px max(20px, 5vw) calc(24px + env(safe-area-inset-bottom, 0px));
+  border-top: 2px dashed rgba(43, 27, 20, 0.28);
+  color: var(--ink2, #5b4536);
+  font: 500 14px / 1.5 var(--text, system-ui, sans-serif);
+}
+.cc-foot a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+}
+</style>
+<script src="/luismatute-preview/astro-12/analytics.js" defer></script>
+</head>
+  <body>
+    <section class="cc" id="cc" role="region" aria-label="Cookie consent" aria-live="polite" hidden>
+  <p class="cc-k">Cookies</p>
+  <p class="cc-t"><span class="cc-long">Mind if I count visits? Anonymous Google Analytics, only if you say yes.</span><span class="cc-short" aria-hidden="true">Count visits with GA?</span></p>
+  <div class="cc-b"><button class="cc-btn" type="button" data-cc="granted">Accept</button><button class="cc-btn" type="button" data-cc="denied">Decline</button></div>
+</section>
+<a class="lm-skip" href="#main">Skip to playground</a>
+    <header class="lm-topbar">
+      <lm-motion-toggle></lm-motion-toggle>
+      <lm-pause></lm-pause>
+    </header>
+    <main class="docs" id="main">
+      <p class="lm-kicker">Design system · v0.1.2</p>
+      <h1>Wheels up</h1>
+      <p>Tokens, components and illustrations extracted from the approved takeoff page. <a class="nav" href="./demo.html">Sandals stop demo</a></p>
+
+      <h2>Colour</h2>
+      <div class="swatches" id="swatches"></div>
+
+      <h2>Scenes</h2>
+      <p class="token-note">Click a theme. Sky and sea bands follow <code>data-theme</code>.</p>
+      <div class="bands" id="themes"></div>
+
+      <h2>Type</h2>
+      <div id="type"></div>
+
+      <h2>Motion</h2>
+      <div class="motion-row">
+        <div class="motion-box sway lm-art"></div>
+        <div class="motion-box spin lm-art"></div>
+        <p id="motion-note"></p>
+      </div>
+
+      <h2>Components</h2>
+      <div class="stack">
+        <lm-card variant="pass">
+          <p class="lm-kicker">Boarding pass</p>
+          <h1>Luis Matute</h1>
+          <dl class="lm-route">
+            <div><dt>From</dt><dd>Honduras</dd></div>
+            <div><dt>To</dt><dd>Amsterdam</dd></div>
+            <div><dt>Stops</dt><dd>6</dd></div>
+          </dl>
+          <p class="lm-intro">Born in Honduras. At Booking.com in Amsterdam since October 2017.</p>
+        </lm-card>
+        <lm-card variant="stop">
+          <p class="lm-kicker">Stop 2 of 6 · July 2011 – August 2017</p>
+          <h2>Front-end developer, Sandals Resorts</h2>
+          <p>Frontend developer with some backend on sandals.com and beaches.com.</p>
+          <lm-more label="More" panel="more-demo">
+            <p>Led several full redesigns and re-engineering efforts.</p>
+          </lm-more>
+          <ul class="lm-chips">
+            <li><lm-chip>sandals.com</lm-chip></li>
+            <li><lm-chip variant="featured">Catch Advisory Group</lm-chip></li>
+          </ul>
+        </lm-card>
+        <lm-shot
+          href="https://web.archive.org/web/20160620110713/http://www.sandals.com/"
+          src="./shots/sandals-600.webp"
+          chrome="sandals.com"
+          caption="sandals.com"
+          alt=""
+          width="600"
+          height="390"
+        ></lm-shot>
+        <lm-flight-plan id="plan"></lm-flight-plan>
+        <lm-globe heading="Route" description="Honduras, the Caribbean, then Amsterdam."></lm-globe>
+      </div>
+
+      <h2>Avatar</h2>
+      <div class="pose-grid" id="poses"></div>
+
+      <h2>Illustrations</h2>
+      <div class="art-grid" id="art"></div>
+    </main>
+    <script type="module" src="./index.page.js"></script>
+  <footer class="cc-foot"><a href="/">luismatute.me</a> · <button class="cc-open" type="button" data-cc-open>Cookie settings</button></footer>
+</body>
+</html>
