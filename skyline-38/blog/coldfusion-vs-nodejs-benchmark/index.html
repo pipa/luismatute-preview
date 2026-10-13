@@ -1,0 +1,382 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="I started out as a front-end developer, my main skills lies in javascript. It was an obvious step for me to get involved with NodeJS, and I have loved every bit of it. On the other hand, at my day job, we use CFML to power our backend..."><link rel="canonical" href="https://luismatute.me/luismatute-preview/skyline-38/blog/coldfusion-vs-nodejs-benchmark/"><link rel="icon" href="/luismatute-preview/skyline-38/favicon.svg" type="image/svg+xml"><title>NodeJS vs. Coldfusion Benchmark · Luis Matute</title><script>(function(){const variantStorageKey = "lm.variant";
+
+      ((key) => {
+        const exact = (value) => value === 'a' || value === 'b' || value === 'c';
+        let query = null;
+        try {
+          query = new URLSearchParams(location.search).get('v');
+        } catch {
+          query = null;
+        }
+        let variant = null;
+        let persist = false;
+        if (exact(query)) {
+          variant = query;
+          persist = true;
+        } else {
+          try {
+            const stored = localStorage.getItem(key);
+            if (exact(stored)) variant = stored;
+          } catch {
+            variant = null;
+          }
+        }
+        if (!variant) {
+          const roll = Math.random();
+          variant = roll < 1 / 3 ? 'a' : roll < 2 / 3 ? 'b' : 'c';
+          persist = true;
+        }
+        if (persist) {
+          try {
+            localStorage.setItem(key, variant);
+          } catch {
+            /* Storage blocked: keep the assignment on this page only. */
+          }
+        }
+        document.documentElement.setAttribute('data-variant', variant);
+      })(variantStorageKey);
+    })();</script><link rel="stylesheet" href="/luismatute-preview/skyline-38/_astro/BaseLayout.BlHXXqgk.css"></head> <body class="flex min-h-dvh flex-col bg-white text-base leading-relaxed text-neutral-950"> <a href="#content" class="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-10 focus:bg-white focus:px-3 focus:py-2">
+Skip to content
+</a> <header class="border-b border-neutral-300"> <div class="mx-auto flex max-w-3xl items-center justify-between gap-4 px-4 py-4"> <a href="/luismatute-preview/skyline-38/" class="font-semibold">Luis Matute</a> <nav aria-label="Primary"> <a href="/luismatute-preview/skyline-38/blog">Blog</a> </nav> </div> </header> <aside class="variant-panel" aria-label="Experiment assignment"> <p class="variant-panel-row variant-panel-status"> <span class="variant-swatch" aria-hidden="true"></span> <span>
+You're in variant
+<span class="variant-name" data-variant-name="a">A</span> <span class="variant-name" data-variant-name="b">B</span> <span class="variant-name" data-variant-name="c">C</span> </span> </p> <button type="button" class="variant-panel-row variant-panel-toggle" aria-expanded="false" aria-controls="variant-panel-details"> <span class="variant-swatch" aria-hidden="true"></span> <span>
+You're in variant
+<span class="variant-name" data-variant-name="a">A</span> <span class="variant-name" data-variant-name="b">B</span> <span class="variant-name" data-variant-name="c">C</span> </span> <span class="sr-only">Show or hide the variant controls.</span> </button> <div id="variant-panel-details" class="variant-panel-details"> <p class="variant-odds"> <span class="sr-only">Equal thirds. </span> <span data-odds="a">A 33.3%</span> <span aria-hidden="true"> · </span> <span data-odds="b">B 33.3%</span> <span aria-hidden="true"> · </span> <span data-odds="c">C 33.3%</span> </p> <fieldset class="variant-segments"> <legend class="sr-only">Switch variant</legend> <button type="button" data-variant-switch="a" aria-pressed="false">A</button> <button type="button" data-variant-switch="b" aria-pressed="false">B</button> <button type="button" data-variant-switch="c" aria-pressed="false">C</button> </fieldset> <button type="button" class="variant-why" aria-expanded="false" aria-controls="variant-why-copy">
+What's this?
+</button> <p id="variant-why-copy" class="variant-why-copy" hidden>
+This site runs as an A/B test, like the ones I build tools for at Booking.com. You were randomly
+      assigned a variant.
+</p> </div> </aside> <script type="module" src="/luismatute-preview/skyline-38/_astro/VariantPanel.astro_astro_type_script_index_0_lang.Cq_gOzLg.js"></script> <main id="content" class="mx-auto w-full max-w-3xl flex-1 px-4 py-8">  <article> <p class="text-sm"> <a href="/luismatute-preview/skyline-38/blog">Blog</a> <span> · Archive</span> </p> <h1 class="mt-3 text-3xl font-semibold tracking-tight">NodeJS vs. Coldfusion Benchmark</h1> <p class="mt-3 text-sm"> <time datetime="2014-06-09T08:48:00.000Z">June 9, 2014</time> <span> · NodeJS, Coldfusion, Benchmark</span> </p> <div class="prose prose-neutral mt-8 max-w-none"> <p>I started out as a front-end developer, my main skills lies in javascript. It was an obvious step for me to get involved with NodeJS, and I have loved every bit of it. On the other hand, at my day job, we use CFML to power our backend logic. So I decided to make some tests between how well does CFML performs against NodeJS and how do they compare. I prepared a couple of simple examples that goes from making a simple ‘hello world’ to querying a mysql db and displaying the results.</p>
+<p>The tests were done on a <a href="https://www.digitalocean.com/">Digital Ocean</a> instance of 8gb of ram, 4 core processor and having MySQL served locally. The tests were performed under the same conditions, using CentOS with NGINX as proxy server, Railo v4.2 for CFML and v0.10.28 for NodeJS. <em>Note: I used the cluster module for NodeJS in order to use all CPU cores for the tests.</em></p>
+<p>For benchmarking, <a href="http://httpd.apache.org/docs/2.2/programs/ab.html">Apache HTTP Server Benchmarking Tool</a> was selected for measuring the performance of the HTTP web servers (originally designed to test the Apache HTTP Server, though, it is generic enough to test any web server).</p>
+<p>What I’m focusing on these tests is how many requests can CFML and NodeJS handle per second. The two commands used specify 1000 requests with 10 and 100 concurrent connections.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">ab</span><span style="color:#79B8FF"> -r</span><span style="color:#79B8FF"> -n</span><span style="color:#79B8FF"> 1000</span><span style="color:#79B8FF"> -c</span><span style="color:#79B8FF"> 10</span><span style="color:#E1E4E8"> [url]</span></span>
+<span class="line"><span style="color:#B392F0">ab</span><span style="color:#79B8FF"> -r</span><span style="color:#79B8FF"> -n</span><span style="color:#79B8FF"> 1000</span><span style="color:#79B8FF"> -c</span><span style="color:#79B8FF"> 100</span><span style="color:#E1E4E8"> [url]</span></span></code></pre>
+<h2 id="hello-world-test">Hello World Test</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#6A737D">&#x3C;!--- hello.cfm ---></span></span>
+<span class="line"><span style="color:#E1E4E8">Hello World</span></span></code></pre>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#6A737D">// hello.js</span></span>
+<span class="line"><span style="color:#6A737D">// Simple Server Initialization for NodeJS</span></span>
+<span class="line"><span style="color:#6A737D">// Responding with 'Hello World'</span></span>
+<span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> sys </span><span style="color:#F97583">=</span><span style="color:#B392F0"> require</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'sys'</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#E1E4E8">    http </span><span style="color:#F97583">=</span><span style="color:#B392F0"> require</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'http'</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#E1E4E8">    cluster </span><span style="color:#F97583">=</span><span style="color:#B392F0"> require</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'cluster'</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#E1E4E8">    numCPUs </span><span style="color:#F97583">=</span><span style="color:#B392F0"> require</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'os'</span><span style="color:#E1E4E8">).</span><span style="color:#B392F0">cpus</span><span style="color:#E1E4E8">().</span><span style="color:#79B8FF">length</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">if</span><span style="color:#E1E4E8">(cluster.isMaster) {</span></span>
+<span class="line"><span style="color:#6A737D">    // Fork workers.</span></span>
+<span class="line"><span style="color:#F97583">    for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">var</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">; i </span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8"> numCPUs; i</span><span style="color:#F97583">++</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">        cluster.</span><span style="color:#B392F0">fork</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    cluster.</span><span style="color:#B392F0">on</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'exit'</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">function</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">worker</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">code</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">signal</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">        console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'worker '</span><span style="color:#F97583"> +</span><span style="color:#E1E4E8"> worker.process.pid </span><span style="color:#F97583">+</span><span style="color:#9ECBFF"> ' died'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">    });</span></span>
+<span class="line"><span style="color:#E1E4E8">} </span><span style="color:#F97583">else</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">    var</span><span style="color:#E1E4E8"> server </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> http.</span><span style="color:#B392F0">createServer</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">req</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">res</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">        res.</span><span style="color:#B392F0">writeHead</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">200</span><span style="color:#E1E4E8">, {</span><span style="color:#9ECBFF">'Content-Type'</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">'text/html'</span><span style="color:#E1E4E8">});</span></span>
+<span class="line"><span style="color:#E1E4E8">        res.</span><span style="color:#B392F0">write</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Hello World!'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">        res.</span><span style="color:#B392F0">end</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">    }).</span><span style="color:#B392F0">listen</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">3000</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p><strong>Spoiler Alert</strong>: This is the only test that CFML won over NodeJS. This is a simple ‘hello world’, nothing else. I really thought Node would beat the heck out of CF (because CF loads all the wiring for a server instance and Node only creates the server and responds with a “hello world”), surprisingly for me, this was the test that CF won. We can see, from the first chart, that Coldfusion did better than Node, but the difference is really small, just <strong>0.25%</strong> better than NodeJS. However, on the second chart, I increased to 100 concurrent connections and Node improved, it was <strong>13.18%</strong> better than CF. Here are both charts:</p>
+<p>Hello World. Requests per second, 1000 requests, 10 concurrent.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Coldfusion</th><th>NodeJS</th></tr></thead><tbody><tr><td>68.23</td><td>68.06</td></tr></tbody></table>
+<p>Hello World. Requests per second, 1000 requests, 100 concurrent.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Coldfusion</th><th>NodeJS</th></tr></thead><tbody><tr><td>583.59</td><td>660.49</td></tr></tbody></table>
+<hr>
+<h2 id="loop-test">Loop Test</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#6A737D">&#x3C;!--- loop.cfm ---></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#FDAEB7;font-style:italic">cfoutput</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#FDAEB7;font-style:italic">cfloop</span><span style="color:#B392F0"> from</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"0"</span><span style="color:#B392F0"> to</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"1000"</span><span style="color:#B392F0"> index</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"step"</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">        #step# &#x3C;</span><span style="color:#85E89D">br</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;/</span><span style="color:#FDAEB7;font-style:italic">cfloop</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#FDAEB7;font-style:italic">cfoutput</span><span style="color:#E1E4E8">></span></span></code></pre>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#6A737D">// loop.js</span></span>
+<span class="line"><span style="color:#6A737D">// Simple Server Initialization for NodeJS</span></span>
+<span class="line"><span style="color:#6A737D">// Creates a loop of 1000 and writes to browser</span></span>
+<span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> sys </span><span style="color:#F97583">=</span><span style="color:#B392F0"> require</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'sys'</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#E1E4E8">    http </span><span style="color:#F97583">=</span><span style="color:#B392F0"> require</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'http'</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#E1E4E8">    cluster </span><span style="color:#F97583">=</span><span style="color:#B392F0"> require</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'cluster'</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#E1E4E8">    numCPUs </span><span style="color:#F97583">=</span><span style="color:#B392F0"> require</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'os'</span><span style="color:#E1E4E8">).</span><span style="color:#B392F0">cpus</span><span style="color:#E1E4E8">().</span><span style="color:#79B8FF">length</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">if</span><span style="color:#E1E4E8">(cluster.isMaster) {</span></span>
+<span class="line"><span style="color:#6A737D">    // Fork workers.</span></span>
+<span class="line"><span style="color:#F97583">    for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">var</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">; i </span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8"> numCPUs; i</span><span style="color:#F97583">++</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">        cluster.</span><span style="color:#B392F0">fork</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    cluster.</span><span style="color:#B392F0">on</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'exit'</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">function</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">worker</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">code</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">signal</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">        console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'worker '</span><span style="color:#F97583"> +</span><span style="color:#E1E4E8"> worker.process.pid </span><span style="color:#F97583">+</span><span style="color:#9ECBFF"> ' died'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">    });</span></span>
+<span class="line"><span style="color:#E1E4E8">} </span><span style="color:#F97583">else</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">    var</span><span style="color:#E1E4E8"> server </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> http.</span><span style="color:#B392F0">createServer</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">req</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">res</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">        var</span><span style="color:#E1E4E8"> body </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> ''</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">        for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">var</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">; i </span><span style="color:#F97583">&#x3C;=</span><span style="color:#79B8FF"> 1000</span><span style="color:#E1E4E8">; i</span><span style="color:#F97583">++</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">            body </span><span style="color:#F97583">+=</span><span style="color:#E1E4E8"> i</span><span style="color:#F97583">+</span><span style="color:#9ECBFF">'&#x3C;br>'</span></span>
+<span class="line"><span style="color:#E1E4E8">        };</span></span>
+<span class="line"><span style="color:#E1E4E8">        res.</span><span style="color:#B392F0">writeHead</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">200</span><span style="color:#E1E4E8">, {</span><span style="color:#9ECBFF">'Content-Type'</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">'text/html'</span><span style="color:#E1E4E8">});</span></span>
+<span class="line"><span style="color:#E1E4E8">        res.</span><span style="color:#B392F0">write</span><span style="color:#E1E4E8">(body);</span></span>
+<span class="line"><span style="color:#E1E4E8">        res.</span><span style="color:#B392F0">end</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">    }).</span><span style="color:#B392F0">listen</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">3000</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>For the loop test, I created a loop of 1000 iterations, each time printing HTML. With 10 concurrent connections, we see that NodeJS did <strong>25%</strong> better than CF. For the 100 concurrent connections, NodeJS was a staggering <strong>98.96%</strong> better! Another point for NodeJS!</p>
+<p>Loop. Requests per second, 1000 requests, 10 concurrent.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Coldfusion</th><th>NodeJS</th></tr></thead><tbody><tr><td>51.74</td><td>64.79</td></tr></tbody></table>
+<p>Loop. Requests per second, 1000 requests, 100 concurrent.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Coldfusion</th><th>NodeJS</th></tr></thead><tbody><tr><td>276.94</td><td>551</td></tr></tbody></table>
+<hr>
+<h2 id="file-read-and-json-parsing-test">File Read and JSON parsing Test</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#6A737D">&#x3C;!--- json.cfm ---></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#FDAEB7;font-style:italic">cffile</span></span>
+<span class="line"><span style="color:#B392F0">    action</span><span style="color:#E1E4E8"> = </span><span style="color:#9ECBFF">"read"</span></span>
+<span class="line"><span style="color:#B392F0">    file</span><span style="color:#E1E4E8"> = </span><span style="color:#9ECBFF">"#getDirectoryFromPath(getCurrentTemplatePath())#random.json"</span></span>
+<span class="line"><span style="color:#B392F0">    variable</span><span style="color:#E1E4E8"> = </span><span style="color:#9ECBFF">"data"</span></span>
+<span class="line"><span style="color:#E1E4E8">    ></span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#FDAEB7;font-style:italic">cfoutput</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#FDAEB7;font-style:italic">cfloop</span><span style="color:#B392F0"> array</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"#DeserializeJSON(data)#"</span><span style="color:#B392F0"> index</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"row"</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">        &#x3C;</span><span style="color:#85E89D">h2</span><span style="color:#E1E4E8">>#row.company#&#x3C;/</span><span style="color:#85E89D">h2</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">        &#x3C;</span><span style="color:#85E89D">p</span><span style="color:#E1E4E8">>#row.about#&#x3C;/</span><span style="color:#85E89D">p</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">        &#x3C;</span><span style="color:#85E89D">img</span><span style="color:#B392F0"> src</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"#row.picture#"</span><span style="color:#B392F0"> alt</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">""</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;/</span><span style="color:#FDAEB7;font-style:italic">cfloop</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#FDAEB7;font-style:italic">cfoutput</span><span style="color:#E1E4E8">></span></span></code></pre>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#6A737D">// json.js</span></span>
+<span class="line"><span style="color:#6A737D">// Simple Server Initialization for NodeJS</span></span>
+<span class="line"><span style="color:#6A737D">// Reads a file(json) and parse it</span></span>
+<span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> sys </span><span style="color:#F97583">=</span><span style="color:#B392F0"> require</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'sys'</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#E1E4E8">    http </span><span style="color:#F97583">=</span><span style="color:#B392F0"> require</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'http'</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#E1E4E8">    fs </span><span style="color:#F97583">=</span><span style="color:#B392F0"> require</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'fs'</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#E1E4E8">    cluster </span><span style="color:#F97583">=</span><span style="color:#B392F0"> require</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'cluster'</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#E1E4E8">    numCPUs </span><span style="color:#F97583">=</span><span style="color:#B392F0"> require</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'os'</span><span style="color:#E1E4E8">).</span><span style="color:#B392F0">cpus</span><span style="color:#E1E4E8">().</span><span style="color:#79B8FF">length</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">if</span><span style="color:#E1E4E8">(cluster.isMaster) {</span></span>
+<span class="line"><span style="color:#6A737D">    // Fork workers.</span></span>
+<span class="line"><span style="color:#F97583">    for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">var</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">; i </span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8"> numCPUs; i</span><span style="color:#F97583">++</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">        cluster.</span><span style="color:#B392F0">fork</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    cluster.</span><span style="color:#B392F0">on</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'exit'</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">function</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">worker</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">code</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">signal</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">        console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'worker '</span><span style="color:#F97583"> +</span><span style="color:#E1E4E8"> worker.process.pid </span><span style="color:#F97583">+</span><span style="color:#9ECBFF"> ' died'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">    });</span></span>
+<span class="line"><span style="color:#E1E4E8">} </span><span style="color:#F97583">else</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">    var</span><span style="color:#E1E4E8"> server </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> http.</span><span style="color:#B392F0">createServer</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">req</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">res</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">        var</span><span style="color:#E1E4E8"> body </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> ''</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">        fs.</span><span style="color:#B392F0">readFile</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'./random.json'</span><span style="color:#E1E4E8">,</span><span style="color:#F97583">function</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">err</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">data</span><span style="color:#E1E4E8">){</span></span>
+<span class="line"><span style="color:#F97583">            var</span><span style="color:#E1E4E8"> data </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> JSON</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">parse</span><span style="color:#E1E4E8">(data);</span></span>
+<span class="line"><span style="color:#F97583">            for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">var</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">; i </span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8"> data.</span><span style="color:#79B8FF">length</span><span style="color:#E1E4E8">; i</span><span style="color:#F97583">++</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">                body </span><span style="color:#F97583">+=</span><span style="color:#9ECBFF"> '&#x3C;h2>'</span><span style="color:#F97583">+</span><span style="color:#E1E4E8">data[i].company</span><span style="color:#F97583">+</span><span style="color:#9ECBFF">'&#x3C;/h2>'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">                body </span><span style="color:#F97583">+=</span><span style="color:#9ECBFF"> '&#x3C;p>'</span><span style="color:#F97583">+</span><span style="color:#E1E4E8">data[i].about</span><span style="color:#F97583">+</span><span style="color:#9ECBFF">'&#x3C;/p>'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">                body </span><span style="color:#F97583">+=</span><span style="color:#9ECBFF"> '&#x3C;img src="'</span><span style="color:#F97583">+</span><span style="color:#E1E4E8">data[i].picture</span><span style="color:#F97583">+</span><span style="color:#9ECBFF">'" alt="" />'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">            };</span></span>
+<span class="line"><span style="color:#E1E4E8">            res.</span><span style="color:#B392F0">writeHead</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">200</span><span style="color:#E1E4E8">, {</span><span style="color:#9ECBFF">'Content-Type'</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">'text/html'</span><span style="color:#E1E4E8">});</span></span>
+<span class="line"><span style="color:#E1E4E8">            res.</span><span style="color:#B392F0">write</span><span style="color:#E1E4E8">(body);</span></span>
+<span class="line"><span style="color:#E1E4E8">            res.</span><span style="color:#B392F0">end</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">        });</span></span>
+<span class="line"><span style="color:#E1E4E8">    }).</span><span style="color:#B392F0">listen</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">3000</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>In this test, I used a random json structure saved in a file. Then Coldfusion and NodeJS, had to read that file, parse the JSON and show the results in the browser. As you can see, the first test (10 concurrent connections), Node won by <strong>9.74%</strong> and with 100 concurrent connections, the difference was by <strong>25.79%</strong>.</p>
+<p>File read and JSON. Requests per second, 1000 requests, 10 concurrent.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Coldfusion</th><th>NodeJS</th></tr></thead><tbody><tr><td>58.18</td><td>63.84</td></tr></tbody></table>
+<p>File read and JSON. Requests per second, 1000 requests, 100 concurrent.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Coldfusion</th><th>NodeJS</th></tr></thead><tbody><tr><td>516.76</td><td>650.04</td></tr></tbody></table>
+<hr>
+<h2 id="mysql-query-test">MySQL Query Test</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#6A737D">&#x3C;!--- mysql.cfm ---></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#FDAEB7;font-style:italic">cfquery</span><span style="color:#B392F0"> datasource</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"classicmodels"</span><span style="color:#B392F0"> name</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"test"</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">    SELECT *</span></span>
+<span class="line"><span style="color:#E1E4E8">    FROM customers</span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#FDAEB7;font-style:italic">cfquery</span><span style="color:#E1E4E8">></span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">table</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#85E89D">tr</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">        &#x3C;</span><span style="color:#85E89D">th</span><span style="color:#E1E4E8">>Customer #&#x3C;/</span><span style="color:#85E89D">th</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">        &#x3C;</span><span style="color:#85E89D">th</span><span style="color:#E1E4E8">>Customer Name&#x3C;/</span><span style="color:#85E89D">th</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">        &#x3C;</span><span style="color:#85E89D">th</span><span style="color:#E1E4E8">>Phone&#x3C;/</span><span style="color:#85E89D">th</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">        &#x3C;</span><span style="color:#85E89D">th</span><span style="color:#E1E4E8">>City&#x3C;/</span><span style="color:#85E89D">th</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">        &#x3C;</span><span style="color:#85E89D">th</span><span style="color:#E1E4E8">>Country&#x3C;/</span><span style="color:#85E89D">th</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">        &#x3C;</span><span style="color:#85E89D">th</span><span style="color:#E1E4E8">>Credit Limit&#x3C;/</span><span style="color:#85E89D">th</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;/</span><span style="color:#85E89D">tr</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#FDAEB7;font-style:italic">cfloop</span><span style="color:#B392F0"> query</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"#test#"</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">        &#x3C;</span><span style="color:#FDAEB7;font-style:italic">cfoutput</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">            &#x3C;</span><span style="color:#85E89D">tr</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">                &#x3C;</span><span style="color:#85E89D">td</span><span style="color:#E1E4E8">>#customerNumber#&#x3C;/</span><span style="color:#85E89D">td</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">                &#x3C;</span><span style="color:#85E89D">td</span><span style="color:#E1E4E8">>#customerName#&#x3C;/</span><span style="color:#85E89D">td</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">                &#x3C;</span><span style="color:#85E89D">td</span><span style="color:#E1E4E8">>#phone#&#x3C;/</span><span style="color:#85E89D">td</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">                &#x3C;</span><span style="color:#85E89D">td</span><span style="color:#E1E4E8">>#city#&#x3C;/</span><span style="color:#85E89D">td</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">                &#x3C;</span><span style="color:#85E89D">td</span><span style="color:#E1E4E8">>#country#&#x3C;/</span><span style="color:#85E89D">td</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">                &#x3C;</span><span style="color:#85E89D">td</span><span style="color:#E1E4E8">>#creditLimit#&#x3C;/</span><span style="color:#85E89D">td</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">            &#x3C;/</span><span style="color:#85E89D">tr</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">        &#x3C;/</span><span style="color:#FDAEB7;font-style:italic">cfoutput</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;/</span><span style="color:#FDAEB7;font-style:italic">cfloop</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#85E89D">table</span><span style="color:#E1E4E8">></span></span></code></pre>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#6A737D">// mysql.js</span></span>
+<span class="line"><span style="color:#6A737D">// Simple Server Initialization for NodeJS</span></span>
+<span class="line"><span style="color:#6A737D">// Query a DB and show results</span></span>
+<span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> http </span><span style="color:#F97583">=</span><span style="color:#B392F0"> require</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'http'</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#E1E4E8">    mysql </span><span style="color:#F97583">=</span><span style="color:#B392F0"> require</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'mysql'</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#E1E4E8">    cluster </span><span style="color:#F97583">=</span><span style="color:#B392F0"> require</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'cluster'</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#E1E4E8">    numCPUs </span><span style="color:#F97583">=</span><span style="color:#B392F0"> require</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'os'</span><span style="color:#E1E4E8">).</span><span style="color:#B392F0">cpus</span><span style="color:#E1E4E8">().</span><span style="color:#79B8FF">length</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    connection </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> mysql.</span><span style="color:#B392F0">createConnection</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#E1E4E8">        host     : </span><span style="color:#9ECBFF">'localhost'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">        user     : </span><span style="color:#9ECBFF">'root'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">        password : </span><span style="color:#9ECBFF">'*******'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    });</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">if</span><span style="color:#E1E4E8">(cluster.isMaster) {</span></span>
+<span class="line"><span style="color:#6A737D">    // Fork workers.</span></span>
+<span class="line"><span style="color:#F97583">    for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">var</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">; i </span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8"> numCPUs; i</span><span style="color:#F97583">++</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">        cluster.</span><span style="color:#B392F0">fork</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    cluster.</span><span style="color:#B392F0">on</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'exit'</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">function</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">worker</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">code</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">signal</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">        console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'worker '</span><span style="color:#F97583"> +</span><span style="color:#E1E4E8"> worker.process.pid </span><span style="color:#F97583">+</span><span style="color:#9ECBFF"> ' died'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">    });</span></span>
+<span class="line"><span style="color:#E1E4E8">} </span><span style="color:#F97583">else</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">    var</span><span style="color:#E1E4E8"> server </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> http.</span><span style="color:#B392F0">createServer</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">req</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">res</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">        var</span><span style="color:#E1E4E8"> body </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> ''</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">        connection.</span><span style="color:#B392F0">query</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'SELECT * FROM classicmodels.customers'</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">function</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">err</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">rows</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">            if</span><span style="color:#E1E4E8">(err) console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(err);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">            body</span><span style="color:#F97583">+=</span><span style="color:#9ECBFF"> '&#x3C;table>&#x3C;tr>'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">            body</span><span style="color:#F97583">+=</span><span style="color:#9ECBFF"> '&#x3C;th>Customer #&#x3C;/th>'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">            body</span><span style="color:#F97583">+=</span><span style="color:#9ECBFF"> '&#x3C;th>Customer Name&#x3C;/th>'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">            body</span><span style="color:#F97583">+=</span><span style="color:#9ECBFF"> '&#x3C;th>Phone&#x3C;/th>'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">            body</span><span style="color:#F97583">+=</span><span style="color:#9ECBFF"> '&#x3C;th>City&#x3C;/th>'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">            body</span><span style="color:#F97583">+=</span><span style="color:#9ECBFF"> '&#x3C;th>Country&#x3C;/th>'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">            body</span><span style="color:#F97583">+=</span><span style="color:#9ECBFF"> '&#x3C;th>Credit limit&#x3C;/th>&#x3C;/tr>'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">            for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">var</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">; i </span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8"> rows.</span><span style="color:#79B8FF">length</span><span style="color:#E1E4E8">; i</span><span style="color:#F97583">++</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">                var</span><span style="color:#E1E4E8"> row </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> rows[i];</span></span>
+<span class="line"><span style="color:#E1E4E8">                body</span><span style="color:#F97583">+=</span><span style="color:#9ECBFF"> '&#x3C;tr>&#x3C;td>'</span><span style="color:#F97583">+</span><span style="color:#E1E4E8">row.customerNumber</span><span style="color:#F97583">+</span><span style="color:#9ECBFF">'&#x3C;/td>'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">                body</span><span style="color:#F97583">+=</span><span style="color:#9ECBFF"> '&#x3C;td>'</span><span style="color:#F97583">+</span><span style="color:#E1E4E8">row.customerName</span><span style="color:#F97583">+</span><span style="color:#9ECBFF">'&#x3C;/td>'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">                body</span><span style="color:#F97583">+=</span><span style="color:#9ECBFF"> '&#x3C;td>'</span><span style="color:#F97583">+</span><span style="color:#E1E4E8">row.phone</span><span style="color:#F97583">+</span><span style="color:#9ECBFF">'&#x3C;/td>'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">                body</span><span style="color:#F97583">+=</span><span style="color:#9ECBFF"> '&#x3C;td>'</span><span style="color:#F97583">+</span><span style="color:#E1E4E8">row.city</span><span style="color:#F97583">+</span><span style="color:#9ECBFF">'&#x3C;/td>'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">                body</span><span style="color:#F97583">+=</span><span style="color:#9ECBFF"> '&#x3C;td>'</span><span style="color:#F97583">+</span><span style="color:#E1E4E8">row.country</span><span style="color:#F97583">+</span><span style="color:#9ECBFF">'&#x3C;/td>'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">                body</span><span style="color:#F97583">+=</span><span style="color:#9ECBFF"> '&#x3C;td>'</span><span style="color:#F97583">+</span><span style="color:#E1E4E8">row.creditLimit</span><span style="color:#F97583">+</span><span style="color:#9ECBFF">'&#x3C;/td>&#x3C;/tr>'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">            };</span></span>
+<span class="line"><span style="color:#E1E4E8">            body</span><span style="color:#F97583">+=</span><span style="color:#9ECBFF"> '&#x3C;/table>'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">            res.</span><span style="color:#B392F0">writeHead</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">200</span><span style="color:#E1E4E8">, {</span><span style="color:#9ECBFF">'Content-Type'</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">'text/html'</span><span style="color:#E1E4E8">});</span></span>
+<span class="line"><span style="color:#E1E4E8">            res.</span><span style="color:#B392F0">write</span><span style="color:#E1E4E8">(body);</span></span>
+<span class="line"><span style="color:#E1E4E8">            res.</span><span style="color:#B392F0">end</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">        })</span></span>
+<span class="line"><span style="color:#E1E4E8">    }).</span><span style="color:#B392F0">listen</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">3000</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    process.</span><span style="color:#B392F0">on</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'SIGINT'</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">function</span><span style="color:#E1E4E8">(){</span></span>
+<span class="line"><span style="color:#E1E4E8">        connection.</span><span style="color:#B392F0">destroy</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#E1E4E8">        server.</span><span style="color:#B392F0">close</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">    });</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>This was the test I was most interested in, querying a database and showing the results in the browser, which is the core of a dynamic website. At the initial 10c test, I saw that Node won by <strong>0.39%</strong> only… I was kind of disappointed, as I thought Node would beat the crap out of CFML here. Then I try using 50 concurrent connections and Node won by only <strong>4.74%</strong>… it had improved, but not as I expected/wanted. But when I tried the 100 concurrent connections, Node improved significantly to <strong>51%</strong> better than CF. Here are the results for 10c and 100c:</p>
+<p>MySQL query. Requests per second, 1000 requests, 10 concurrent.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Coldfusion</th><th>NodeJS</th></tr></thead><tbody><tr><td>43.43</td><td>43.60</td></tr></tbody></table>
+<p>MySQL query. Requests per second, 1000 requests, 100 concurrent.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Coldfusion</th><th>NodeJS</th></tr></thead><tbody><tr><td>179.18</td><td>270.71</td></tr></tbody></table>
+<hr>
+<h2 id="conclusion">Conclusion</h2>
+<p>Based on these results, NodeJS vs CFML… the winner is… NodeJS! Coldfusion only won on one category (A simple Hello World) and it wasn’t by much —just 0.25% better—.</p>
+<p>With a small amount of concurrent connections, both CF and Node did ok, but it was until a higher amount of concurrent connections hit the server that we can really see NodeJS as the shinning winner, performing significantly better than Coldfusion.</p>
+<p>If anyone thinks that the tests are not accurate, please let me know in the comments so I can improve them. No caching or framework was used so that we can get a more accurate result. Here are the links to github of the code used for these tests as well as the screenshots of each test. <a href="https://github.com/pipa/CF_Benchmark">CFML Link</a> , <a href="https://github.com/pipa/Node_Benchmark">NodeJS Link</a>.</p> </div> </article>  </main> <footer class="mx-auto w-full max-w-3xl px-4 py-8 text-sm" data-contact> <a href="mailto:luis.matute@me.com">luis.matute@me.com</a>  ·  <a href="https://x.com/luis_matute">@luis_matute</a> </footer> </body></html>

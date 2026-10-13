@@ -1,0 +1,61 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="This one is a quick thing that I keep forgetting how to do. While developing iOS apps, sometimes we need to change the color of the font in the status bar (which is dark by default). We have the option to change the status bar to a..."><link rel="canonical" href="https://luismatute.me/luismatute-preview/skyline-38/blog/status-bar-style-in-ios8/"><link rel="icon" href="/luismatute-preview/skyline-38/favicon.svg" type="image/svg+xml"><title>Status Bar Style in iOS8 · Luis Matute</title><script>(function(){const variantStorageKey = "lm.variant";
+
+      ((key) => {
+        const exact = (value) => value === 'a' || value === 'b' || value === 'c';
+        let query = null;
+        try {
+          query = new URLSearchParams(location.search).get('v');
+        } catch {
+          query = null;
+        }
+        let variant = null;
+        let persist = false;
+        if (exact(query)) {
+          variant = query;
+          persist = true;
+        } else {
+          try {
+            const stored = localStorage.getItem(key);
+            if (exact(stored)) variant = stored;
+          } catch {
+            variant = null;
+          }
+        }
+        if (!variant) {
+          const roll = Math.random();
+          variant = roll < 1 / 3 ? 'a' : roll < 2 / 3 ? 'b' : 'c';
+          persist = true;
+        }
+        if (persist) {
+          try {
+            localStorage.setItem(key, variant);
+          } catch {
+            /* Storage blocked: keep the assignment on this page only. */
+          }
+        }
+        document.documentElement.setAttribute('data-variant', variant);
+      })(variantStorageKey);
+    })();</script><link rel="stylesheet" href="/luismatute-preview/skyline-38/_astro/BaseLayout.BlHXXqgk.css"></head> <body class="flex min-h-dvh flex-col bg-white text-base leading-relaxed text-neutral-950"> <a href="#content" class="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-10 focus:bg-white focus:px-3 focus:py-2">
+Skip to content
+</a> <header class="border-b border-neutral-300"> <div class="mx-auto flex max-w-3xl items-center justify-between gap-4 px-4 py-4"> <a href="/luismatute-preview/skyline-38/" class="font-semibold">Luis Matute</a> <nav aria-label="Primary"> <a href="/luismatute-preview/skyline-38/blog">Blog</a> </nav> </div> </header> <aside class="variant-panel" aria-label="Experiment assignment"> <p class="variant-panel-row variant-panel-status"> <span class="variant-swatch" aria-hidden="true"></span> <span>
+You're in variant
+<span class="variant-name" data-variant-name="a">A</span> <span class="variant-name" data-variant-name="b">B</span> <span class="variant-name" data-variant-name="c">C</span> </span> </p> <button type="button" class="variant-panel-row variant-panel-toggle" aria-expanded="false" aria-controls="variant-panel-details"> <span class="variant-swatch" aria-hidden="true"></span> <span>
+You're in variant
+<span class="variant-name" data-variant-name="a">A</span> <span class="variant-name" data-variant-name="b">B</span> <span class="variant-name" data-variant-name="c">C</span> </span> <span class="sr-only">Show or hide the variant controls.</span> </button> <div id="variant-panel-details" class="variant-panel-details"> <p class="variant-odds"> <span class="sr-only">Equal thirds. </span> <span data-odds="a">A 33.3%</span> <span aria-hidden="true"> · </span> <span data-odds="b">B 33.3%</span> <span aria-hidden="true"> · </span> <span data-odds="c">C 33.3%</span> </p> <fieldset class="variant-segments"> <legend class="sr-only">Switch variant</legend> <button type="button" data-variant-switch="a" aria-pressed="false">A</button> <button type="button" data-variant-switch="b" aria-pressed="false">B</button> <button type="button" data-variant-switch="c" aria-pressed="false">C</button> </fieldset> <button type="button" class="variant-why" aria-expanded="false" aria-controls="variant-why-copy">
+What's this?
+</button> <p id="variant-why-copy" class="variant-why-copy" hidden>
+This site runs as an A/B test, like the ones I build tools for at Booking.com. You were randomly
+      assigned a variant.
+</p> </div> </aside> <script type="module" src="/luismatute-preview/skyline-38/_astro/VariantPanel.astro_astro_type_script_index_0_lang.Cq_gOzLg.js"></script> <main id="content" class="mx-auto w-full max-w-3xl flex-1 px-4 py-8">  <article> <p class="text-sm"> <a href="/luismatute-preview/skyline-38/blog">Blog</a> <span> · Archive</span> </p> <h1 class="mt-3 text-3xl font-semibold tracking-tight">Status Bar Style in iOS8</h1> <p class="mt-3 text-sm"> <time datetime="2015-04-29T19:57:33.000Z">April 29, 2015</time> <span> · Swift, iOS8, StatusBar</span> </p> <div class="prose prose-neutral mt-8 max-w-none"> <p>This one is a quick thing that I keep forgetting how to do. While developing iOS apps, sometimes we need to change the color of the font in the status bar (which is dark by default). We have the option to change the status bar to a white color (or “light” style).</p>
+<p>First we need to define the following to the app’s info.plist: <code>View controller-based status bar appearance</code>. It takes a <code>BOOL</code> (YES or NO). Let’s look at what each means:</p>
+<ul>
+<li><code>YES</code>: This will allow us to to set the <code>preferredStatusBarStyle</code> in our view controllers, like so:</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="swift"><code><span class="line"><span style="color:#F97583">override</span><span style="color:#F97583"> func</span><span style="color:#B392F0"> preferredStatusBarStyle</span><span style="color:#E1E4E8">() </span><span style="color:#F97583">-></span><span style="color:#E1E4E8"> UIStatusBarStyle {</span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> UIStatusBarStyle.LightContent</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<ul>
+<li><code>No</code>: We can still set it with the following (it has worked for me either in the <code>appDelegate</code> and/or inside each <code>ViewController</code>:</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="swift"><code><span class="line"><span style="color:#E1E4E8">UIApplication.</span><span style="color:#79B8FF">sharedApplication</span><span style="color:#E1E4E8">().</span><span style="color:#79B8FF">setStatusBarStyle</span><span style="color:#E1E4E8">(UIStatusBarStyle.LightContent, </span><span style="color:#79B8FF">animated</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8">)</span></span></code></pre>
+<p>Hope this helps someone :)</p> </div> </article>  </main> <footer class="mx-auto w-full max-w-3xl px-4 py-8 text-sm" data-contact> <a href="mailto:luis.matute@me.com">luis.matute@me.com</a>  ·  <a href="https://x.com/luis_matute">@luis_matute</a> </footer> </body></html>

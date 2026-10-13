@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- PLACEHOLDER mark (little plane on marigold) until Muse's logo lands.
+       Swap this file and run `node scripts/seo-icons.mjs` to regenerate the PNG/ICO icons. -->
+  <title>Luis Matute</title>
+  <rect width="64" height="64" rx="14" fill="#f6b43c"/>
+  <g transform="rotate(45 32 32)" stroke="#2b1b14" stroke-width="2.5" stroke-linejoin="round">
+    <path d="M32 24 L57 37 L57 41 L32 35 L7 41 L7 37 Z" fill="#fff6e4"/>
+    <path d="M32 48 L42 53.5 L42 56 L32 53.5 L22 56 L22 53.5 Z" fill="#fff6e4"/>
+    <path d="M28.5 13 Q32 5 35.5 13 L35.5 52 Q32 57 28.5 52 Z" fill="#fff6e4"/>
+    <path d="M28.5 22 L35.5 22" stroke="#e2492f" stroke-width="3"/>
+  </g>
+</svg>
