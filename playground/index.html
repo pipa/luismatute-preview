@@ -33,6 +33,7 @@ a{color:inherit}
 .back-link:focus-visible{outline:4px solid var(--tomato);outline-offset:4px}
 @media(max-width:640px){.back-link{display:none}}
 .hero{position:relative;padding:48px 0 64px;text-align:center}
+@media(max-width:640px){.hero{padding-bottom:100px}}
 .title{font-family:var(--display);font-size:var(--h1);font-weight:800;font-stretch:100%;line-height:.86;letter-spacing:-.01em;text-transform:uppercase;margin:0;display:flex;flex-wrap:wrap;justify-content:center;gap:0 .02em}
 @media(max-width:640px){.title{font-stretch:75%}}
 .title span{display:inline-block;-webkit-text-stroke:var(--line-lg) var(--ink);paint-order:stroke fill;text-shadow:6px 6px 0 var(--ink)}
@@ -43,24 +44,31 @@ body.ready .title span{opacity:1;transition:transform var(--t-hero) var(--ease-p
 body.ready .title span:nth-child(1){transition-delay:0ms}body.ready .title span:nth-child(2){transition-delay:40ms}body.ready .title span:nth-child(3){transition-delay:80ms}body.ready .title span:nth-child(4){transition-delay:120ms}body.ready .title span:nth-child(5){transition-delay:160ms}body.ready .title span:nth-child(6){transition-delay:200ms}body.ready .title span:nth-child(7){transition-delay:240ms}body.ready .title span:nth-child(8){transition-delay:280ms}body.ready .title span:nth-child(9){transition-delay:320ms}body.ready .title span:nth-child(10){transition-delay:360ms}
 body.ready .title span:nth-child(1){transform:rotate(-4deg) translateY(0)}body.ready .title span:nth-child(2){transform:rotate(3deg) translateY(-6px)}body.ready .title span:nth-child(3){transform:rotate(-2deg) translateY(4px)}body.ready .title span:nth-child(4){transform:rotate(5deg) translateY(-3px)}body.ready .title span:nth-child(5){transform:rotate(-3deg) translateY(6px)}body.ready .title span:nth-child(6){transform:rotate(2deg) translateY(-4px)}body.ready .title span:nth-child(7){transform:rotate(-5deg) translateY(2px)}body.ready .title span:nth-child(8){transform:rotate(3deg) translateY(-6px)}body.ready .title span:nth-child(9){transform:rotate(-2deg) translateY(3px)}body.ready .title span:nth-child(10){transform:rotate(4deg) translateY(0)}
 .ribbon{display:inline-block;margin:20px auto 0;background:var(--pink);border:var(--line) solid var(--ink);box-shadow:var(--shadow);transform:rotate(-2deg);padding:10px 22px;font:700 22px/1.2 var(--text)}
-.lede{max-width:46ch;margin:24px auto 0;font-size:18px}
-.badge-star{position:absolute;right:4%;top:8%;width:100px;height:100px;transform:rotate(12deg);filter:drop-shadow(5px 5px 0 #111)}
-.badge-star text{font-family:var(--display);font-weight:800;font-size:22px;fill:var(--ink)}
-@media(max-width:640px){.badge-star{width:72px;height:72px;right:var(--gutter);top:12%}.badge-star text{font-size:16px}}
-.stickers{pointer-events:none;position:absolute;inset:0;overflow:hidden}
+.lede{max-width:46ch;margin:24px auto 0;font-size:18px;position:relative;z-index:2}
+.hero-copy{position:relative;z-index:2;max-width:720px;margin:0 auto;padding-inline:8px}
+.badge-star{position:absolute;width:100px;height:100px;transform:rotate(12deg);filter:drop-shadow(5px 5px 0 #111);z-index:4;pointer-events:none}
+.badge-star svg{display:block;width:100%;height:100%}
+.badge-star-label{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;color:var(--ink);line-height:1.05;text-align:center;transform:rotate(-12deg)}
+.badge-star-label span:first-child{font-size:26px}
+.badge-star-label span:last-child{font-size:15px;letter-spacing:.04em}
+@media(min-width:760px){.badge-star{left:calc(50% + 368px);right:auto;top:24px}}
+@media(max-width:759px){.badge-star{right:max(8px,var(--gutter));left:auto;top:16px}}
+@media(max-width:640px){.badge-star{width:72px;height:72px;right:14px;left:auto;top:118px}.badge-star-label span:first-child{font-size:20px}.badge-star-label span:last-child{font-size:11px}}
+.stickers{pointer-events:none;position:absolute;inset:0;z-index:1;overflow:visible}
 .stk{position:absolute;filter:drop-shadow(5px 5px 0 #111)}
-.stk-sq{left:2%;top:6%;width:88px}
-.stk-dots{right:22%;top:4%;width:52px}
-.stk-ring{left:-2%;top:38%;width:64px}
-.stk-tri{left:8%;bottom:18%;width:56px}
-.stk-plus{right:28%;top:22%;width:40px}
-.stk-zig{right:6%;top:14%;width:72px}
-.stk-strip{left:4%;bottom:8%;width:70px}
-.stk-polka{left:-3%;bottom:28%;width:80px}
-.stk-moon{right:-2%;bottom:22%;width:56px}
-@media(max-width:640px){.stk-plus,.stk-tri,.stk-strip,.stk-moon{display:none}.stk-sq,.stk-dots,.stk-ring,.stk-zig,.stk-polka{transform:scale(.6);transform-origin:center}}
-@media(min-width:641px) and (max-width:900px){.stk{transform:scale(.85)}}
-@media(min-width:1920px){.stk{transform:scale(1.15)}}
+.stk-sq{left:max(4px,var(--gutter));top:2px;width:64px}
+.stk-dots{right:max(4px,var(--gutter));top:2px;width:44px}
+.stk-ring{left:-22px;top:88px;width:52px}
+.stk-tri{left:max(16px,var(--gutter));bottom:12px;width:44px}
+.stk-plus{left:max(4px,var(--gutter));top:248px;width:32px}
+.stk-zig{right:max(4px,var(--gutter));top:248px;width:56px}
+.stk-strip{left:max(56px,var(--gutter));bottom:8px;width:52px}
+.stk-polka{left:-38px;bottom:6px;width:64px}
+.stk-moon{right:-22px;bottom:10px;width:44px}
+@media(min-width:760px){.stk-sq,.stk-ring,.stk-tri,.stk-strip{left:max(8px,calc(50% - 432px));right:auto}.stk-plus{left:max(8px,calc(50% - 432px));top:auto;bottom:14px}.stk-polka{left:max(-42px,calc(50% - 456px));bottom:6px}.stk-dots,.stk-zig,.stk-moon{left:calc(50% + 368px);right:auto}.stk-dots{top:2px}.stk-zig{top:auto;bottom:14px}.stk-moon{bottom:10px}}
+@media(max-width:640px){.stk-plus,.stk-tri,.stk-strip,.stk-moon{display:none}.stk-sq{top:4px;left:20px;width:50px}.stk-dots{top:4px;right:20px;width:36px}.stk-ring{top:auto;bottom:16px;left:20px;width:40px}.stk-zig{bottom:16px;right:20px;top:auto;width:48px}.stk-polka{left:8px;top:auto;bottom:10px;width:48px;transform:scale(.6);transform-origin:bottom left}}
+@media(min-width:641px) and (max-width:900px){.stk-sq,.stk-dots{width:60px}}
+@media(min-width:1920px){.stk{transform:scale(1.15);transform-origin:center}}
 .cards{margin-top:56px}
 .cards h2{font-family:var(--display);font-size:var(--h2);font-weight:800;font-stretch:88%;text-transform:uppercase;margin:0 0 28px}
 .card-grid{display:grid;gap:28px;grid-template-columns:1fr;align-items:start;justify-items:center}
@@ -116,8 +124,8 @@ body.ready .toy-card:nth-child(1){transition-delay:400ms}body.ready .toy-card:nt
 footer{padding:40px 0 56px;font-size:15px;line-height:1.6}
 footer a{text-underline-offset:3px;text-decoration-thickness:2px}
 footer a:focus-visible{outline:4px solid var(--tomato);outline-offset:2px}
-.footer-back{display:none}
-@media(max-width:640px){.footer-back{display:inline}}
+.footer-back,.footer-sep-mobile{display:none}
+@media(max-width:640px){.footer-back,.footer-sep-mobile{display:inline}}
 .snake-head{transition:transform var(--t-ui) var(--ease-out)}
 .life-g0,.life-g1{transition:opacity var(--t-ui) var(--ease-out)}
 .life-g1{opacity:0}
@@ -145,10 +153,12 @@ body:not(.ready) .title span,body:not(.ready) .toy-card{opacity:1}
 <svg class="stk stk-polka" viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="36" fill="var(--teal)" stroke="var(--ink)" stroke-width="3"/><g fill="var(--ink)"><circle cx="24" cy="24" r="4"/><circle cx="40" cy="20" r="4"/><circle cx="56" cy="28" r="4"/><circle cx="30" cy="40" r="4"/><circle cx="50" cy="44" r="4"/></g></svg>
 <svg class="stk stk-moon" viewBox="0 0 56 56" aria-hidden="true"><path d="M36 8a24 24 0 1 0 16 40A20 20 0 0 1 36 8z" fill="var(--cream)" stroke="var(--ink)" stroke-width="3"/></svg>
 </div>
-<svg class="badge-star" viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,2 61,35 96,35 68,56 79,90 50,68 21,90 32,56 4,35 39,35" fill="var(--tomato)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/><text x="50" y="46" text-anchor="middle">4</text><text x="50" y="72" text-anchor="middle">TOYS</text></svg>
+<div class="hero-copy">
+<div class="badge-star" aria-hidden="true"><svg viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,2 61,35 96,35 68,56 79,90 50,68 21,90 32,56 4,35 39,35" fill="#f04e23" stroke="#111" stroke-width="3" stroke-linejoin="round"/></svg><div class="badge-star-label"><span>4</span><span>TOYS</span></div></div>
 <h1 class="title" aria-label="Playground"><span class="c0" aria-hidden="true">P</span><span class="c1" aria-hidden="true">L</span><span class="c2" aria-hidden="true">A</span><span class="c3" aria-hidden="true">Y</span><span class="c0" aria-hidden="true">G</span><span class="c1" aria-hidden="true">R</span><span class="c2" aria-hidden="true">O</span><span class="c3" aria-hidden="true">U</span><span class="c0" aria-hidden="true">N</span><span class="c1" aria-hidden="true">D</span></h1>
 <p class="ribbon">small things I build for fun</p>
 <p class="lede">Toys, tools and experiments. Some help me understand something, some help plan a trip, some are just fun to poke.</p>
+</div>
 </header>
 <main class="wrap cards">
 <h2 class="sr-only">The toys</h2>
@@ -163,7 +173,7 @@ body:not(.ready) .title span,body:not(.ready) .toy-card{opacity:1}
 </a>
 <a class="toy-card card-snake" href="https://pipa.github.io/SnakeGame/" rel="noopener">
 <div class="card-head"><span class="tab">No. 2</span><span class="card-meta">Card 2/4 · Game</span></div>
-<div class="art-win" style="background:var(--ink)"><svg viewBox="0 0 240 180" aria-hidden="true"><defs><pattern id="sg" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#222" stroke-width="1"/></pattern></defs><rect width="240" height="180" fill="url(#sg)"/><g fill="var(--pink)"><rect x="40" y="70" width="18" height="18" rx="4"/><rect x="60" y="70" width="18" height="18" rx="4"/><rect x="80" y="70" width="18" height="18" rx="4"/><rect x="100" y="70" width="18" height="18" rx="4"/><rect x="100" y="90" width="18" height="18" rx="4"/><rect x="100" y="110" width="18" height="18" rx="4"/></g><g class="snake-head"><rect x="118" y="62" width="22" height="22" rx="4" fill="var(--pink)"/><circle cx="126" cy="71" r="2" fill="var(--ink)"/><circle cx="134" cy="71" r="2" fill="var(--ink)"/></g><circle cx="162" cy="52" r="8" fill="var(--tomato)" stroke="var(--ink)" stroke-width="3"/><path d="M154 34l6-6" stroke="var(--cream)" stroke-width="3" stroke-linecap="round"/></svg></div>
+<div class="art-win" style="background:var(--ink)"><svg viewBox="0 0 240 180" aria-hidden="true"><defs><pattern id="sg" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#222" stroke-width="1"/></pattern></defs><rect width="240" height="180" fill="url(#sg)"/><g fill="var(--pink)"><rect x="41" y="81" width="18" height="18" rx="4"/><rect x="61" y="81" width="18" height="18" rx="4"/><rect x="81" y="81" width="18" height="18" rx="4"/><rect x="101" y="81" width="18" height="18" rx="4"/><rect x="101" y="101" width="18" height="18" rx="4"/><rect x="101" y="121" width="18" height="18" rx="4"/></g><g class="snake-head"><rect x="119" y="79" width="22" height="22" rx="4" fill="var(--pink)"/><circle cx="127" cy="88" r="2" fill="var(--ink)"/><circle cx="135" cy="88" r="2" fill="var(--ink)"/></g><circle cx="170" cy="90" r="8" fill="var(--tomato)" stroke="var(--ink)" stroke-width="3"/><path d="M174 84l4-4" stroke="var(--cream)" stroke-width="3" stroke-linecap="round"/></svg></div>
 <h3>Snake</h3>
 <p class="desc">The classic. Eat the apples, don't bite yourself.</p>
 <div class="tags"><span>JS</span><span>Keyboard + touch</span></div>
@@ -196,7 +206,7 @@ body:not(.ready) .title span,body:not(.ready) .toy-card{opacity:1}
 </div>
 <footer class="wrap">
 Made by Luis Matute · plain HTML, CSS and SVG<br>
-<a href="https://luismatute.me/">luismatute.me</a> · <a href="../ds/">Design system</a> · <a class="footer-back" href="https://luismatute.me/">← luismatute.me</a>
+<a href="https://luismatute.me/">luismatute.me</a> · <a href="../ds/">Design system</a><span class="footer-sep-mobile"> · </span><a class="footer-back" href="https://luismatute.me/">← luismatute.me</a>
 </footer>
 <script>
 (function(){
