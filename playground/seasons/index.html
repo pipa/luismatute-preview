@@ -95,7 +95,6 @@ footer{color:var(--mute);font-size:12.5px;margin-top:20px;text-align:center}
 #planet{position:absolute;inset:0;width:100%;height:100%;z-index:1;touch-action:pan-y;cursor:grab}
 #planet:active{cursor:grabbing}
 #heroSvg{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none;overflow:visible;animation:fadeIn 1.2s ease 1.4s both}
-.heroSun{position:absolute;width:min(110vw,900px);aspect-ratio:1;transform:translate(-50%,-50%);mix-blend-mode:screen;z-index:0;pointer-events:none;opacity:.95;animation:fadeIn 2.2s ease .4s both}
 @keyframes rise{from{transform:translateY(14%) scale(.9);opacity:0}to{transform:none;opacity:1}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes up{from{transform:translateY(18px);opacity:0}to{transform:none;opacity:1}}
@@ -104,7 +103,7 @@ footer{color:var(--mute);font-size:12.5px;margin-top:20px;text-align:center}
 .heroTxt>*{pointer-events:auto;position:relative}
 .heroTxt::before{content:"";position:absolute;inset:-60px -80px -60px -120px;background:radial-gradient(closest-side,rgba(5,6,15,.62),rgba(5,6,15,0));pointer-events:none}
 .heroTitle{font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:var(--sun);font-weight:600;margin:0}
-.heroNum{font-weight:800;letter-spacing:-.045em;line-height:.9;font-size:clamp(72px,21vw,190px);font-variant-numeric:tabular-nums;white-space:nowrap;background:linear-gradient(180deg,#fff 30%,#ffe2a8 70%,#ffb35a);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 6px 30px rgba(0,0,0,.55));margin:2px 0 4px}
+.heroNum{font-weight:800;letter-spacing:-.045em;line-height:.9;font-size:clamp(64px,18vw,190px);font-variant-numeric:tabular-nums;white-space:nowrap;background:linear-gradient(180deg,#fff 30%,#ffe2a8 70%,#ffb35a);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 6px 30px rgba(0,0,0,.55));margin:2px 0 4px}
 .heroNum small{font-size:.34em;letter-spacing:0;margin:0 .22em 0 .06em;font-weight:700}
 .heroSub{margin:0 0 12px;font-size:clamp(15px,2vw,19px);color:#dfe3ff;text-shadow:0 1px 12px #000}
 .heroSub b{color:#fff}
@@ -129,14 +128,35 @@ footer{color:var(--mute);font-size:12.5px;margin-top:20px;text-align:center}
 .hLats{margin-top:8px}
 .oLbl{font:600 13px ui-sans-serif,system-ui,-apple-system,sans-serif;fill:#e6e9ff;paint-order:stroke;stroke:rgba(5,6,15,.8);stroke-width:4px}
 .oSub{font-weight:400;fill:#9aa3c7}
-.hero[data-view=orbit] .heroNum{font-size:clamp(64px,17vw,150px)}
+.hero[data-view=orbit] .heroNum{font-size:clamp(60px,16vw,150px)}
 @media(max-width:899px){.hero.latmode .heroMore,.heroSub .ref{display:none}.heroNav span{display:none}.viewSeg{top:46px}.spinLbl{top:92px}.hero[data-view=surface] .heroLean{display:none}}
 @media(min-width:900px){.hero[data-view=orbit] .heroNum{font-size:clamp(72px,7.4vw,118px)}.viewSeg{left:auto;right:18px;transform:none;top:44px}.spinLbl{left:auto;right:18px;transform:none;top:92px}}
+.dateRow{display:flex;align-items:center;gap:6px;margin:6px 0 2px}
+.stp{min-width:40px;min-height:40px;padding:0;font-size:20px;line-height:1;border-radius:12px;background:rgba(10,12,30,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);touch-action:manipulation;user-select:none;-webkit-user-select:none}
+.dateWrap{position:relative;display:inline-block}
+.heroDate{background:none;border:0;padding:0 6px;min-height:44px;cursor:pointer;border-bottom:1px dashed rgba(255,210,140,.45);border-radius:0;white-space:nowrap}
+.heroDate.long{font-size:clamp(19px,5vw,26px)}
+@media(max-width:899px){.dateRow{gap:5px}.stp{min-width:36px}.dateWrap{flex:1 1 auto;min-width:0;text-align:center}.heroDate.long{font-size:17px}#hPlay{flex:none}}
+#hDateIn{position:absolute;left:0;bottom:0;width:100%;height:1px;opacity:0;pointer-events:none;border:0;padding:0}
+#hPlay{margin-left:auto;min-width:44px;min-height:44px;padding:8px 14px;font-size:15px}
+.scrub{position:relative;margin:4px 0 0;padding-bottom:16px}
+#hScrub{height:40px;touch-action:none}
+#hScrub::-webkit-slider-runnable-track{height:8px;border-radius:8px;background:linear-gradient(90deg,#9fb3ff,#9be37a 22%,#ffc35a 47%,#ff8a3d 72%,#9fb3ff)}
+#hScrub::-moz-range-track{height:8px;border-radius:8px;background:linear-gradient(90deg,#9fb3ff,#9be37a 22%,#ffc35a 47%,#ff8a3d 72%,#9fb3ff)}
+#hScrub::-webkit-slider-thumb{width:30px;height:30px;margin-top:-11px;box-shadow:0 0 0 5px rgba(255,195,90,.35),0 2px 12px rgba(0,0,0,.6)}
+#hScrub::-moz-range-thumb{width:28px;height:28px}
+.ticks{position:absolute;left:15px;right:15px;top:30px;height:18px;pointer-events:none;font-size:10.5px;color:rgba(210,215,245,.75)}
+.ticks span{position:absolute;transform:translateX(-50%);top:4px;letter-spacing:.02em}
+.ticks i{position:absolute;top:-12px;width:2px;height:12px;margin-left:-1px;border-radius:2px;background:#ffd27a;box-shadow:0 0 6px rgba(255,200,100,.7)}
+.qChips{margin:2px 0 10px;position:relative;z-index:2}.heroNum{pointer-events:none}
+.qChips button{min-height:34px;font-size:13px;padding:5px 11px}
+.heroSub .cityLink{color:#fff;text-decoration:none;border-bottom:1px dashed rgba(255,255,255,.4)}
+@media(max-width:899px){.pl{display:none}.heroMore{display:none}}
 .pin{animation:pinPulse 2.2s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
 @keyframes pinPulse{0%,100%{transform:scale(.7);opacity:.9}50%{transform:scale(1.5);opacity:.15}}
 .pinLbl{font:700 13px ui-sans-serif,system-ui,-apple-system,sans-serif;fill:#fff;paint-order:stroke;stroke:rgba(5,6,15,.85);stroke-width:4px;stroke-linejoin:round}
 @media(min-width:900px){
-  .heroTxt{left:max(18px,calc(50vw - 590px));right:auto;bottom:auto;top:50%;transform:translateY(-50%);max-width:480px;padding-bottom:0;animation-name:fadeIn}
+  .heroTxt{left:max(18px,calc(50vw - 590px));right:auto;bottom:auto;top:50%;transform:translateY(-50%);max-width:520px;padding-bottom:0;animation-name:fadeIn}
   .heroNum{font-size:clamp(96px,9.4vw,160px)}
   .hero::after{height:22%}
 }
@@ -146,7 +166,6 @@ footer{color:var(--mute);font-size:12.5px;margin-top:20px;text-align:center}
 <body>
 <div class="introFade" aria-hidden="true"></div>
 <section class="hero" id="hero" aria-label="Live planet">
-  <img class="heroSun" id="heroSun" src="img/sun.webp" alt="" aria-hidden="true">
   <div class="stage">
   <canvas id="planet" aria-label="Rotating planet lit by the sun. Drag to spin it." role="img"></canvas>
   <svg id="heroSvg" aria-hidden="true"></svg>
@@ -154,12 +173,20 @@ footer{color:var(--mute);font-size:12.5px;margin-top:20px;text-align:center}
   <nav class="top heroNav" aria-label="Site"><a href="../">← Playground</a><span>Tilt &amp; seasons</span></nav>
   <div class="heroTxt">
     <h1 class="heroTitle">How long is your day?</h1>
-    <div class="heroDate" id="hDate"></div>
+    <div class="dateRow" role="group" aria-label="Date">
+      <button class="stp" data-step="-7" aria-label="Back one week" title="Back one week">«</button>
+      <button class="stp" data-step="-1" aria-label="Back one day (hold for weeks)" title="Back one day (hold for weeks)">‹</button>
+      <span class="dateWrap"><button class="heroDate" id="hDate" aria-label="Pick an exact date"></button><input type="date" id="hDateIn" tabindex="-1" aria-hidden="true" min="2026-01-01" max="2026-12-31"></span>
+      <button class="stp" data-step="1" aria-label="Forward one day (hold for weeks)" title="Forward one day (hold for weeks)">›</button>
+      <button class="stp" data-step="7" aria-label="Forward one week" title="Forward one week">»</button>
+      <button id="hPlay" aria-pressed="false" aria-label="Play the year">▶<span class="pl"> Play</span></button>
+    </div>
+    <div class="scrub"><input type="range" id="hScrub" min="1" max="365" step="1" value="1" aria-label="Day of the year"><div class="ticks" id="hTicks" aria-hidden="true"></div></div>
+    <div class="hChips qChips" id="hQuick" role="group" aria-label="Jump to"></div>
     <div class="heroNum" aria-live="off"><span id="hH">0</span><small>h</small><span id="hM">00</span><small>min</small></div>
     <p class="heroSub" id="hSub"></p>
     <p class="heroLean" id="hLean"></p>
     <div class="heroBar">
-      <button id="hPlay" aria-pressed="false">▶ Play the year</button>
       <div class="hChips" id="hChips" role="group" aria-label="Pick a planet"></div>
     </div>
     <div class="hChips hLats" id="hLats" role="group" aria-label="Pick a latitude" hidden></div>
@@ -377,7 +404,8 @@ function orbit(){
   const g=$("orbit");g.textContent="";const defs=el("defs",{},g);
   const sg=el("radialGradient",{id:"sunG"},defs);[[0,"#fff7da",1],[.35,"#ffd27a",1],[.6,"#ff9a3d",.55],[1,"#ff7a2d",0]].forEach(([o,c,a])=>el("stop",{offset:o,"stop-color":c,"stop-opacity":a},sg));
   const cx0=260,cy0=150,R=205,sq=.38;
-  el("image",{href:"img/sun.webp",x:cx0-95,y:cy0-95,width:190,height:190,style:"mix-blend-mode:screen",opacity:.9},g);
+  const hg=el("radialGradient",{id:"sunHalo"},defs);[[0,"#ffb35a",.5],[.5,"#ff8a3d",.12],[1,"#ff7a2d",0]].forEach(([o,c,a])=>el("stop",{offset:o,"stop-color":c,"stop-opacity":a},hg));
+  el("circle",{cx:cx0,cy:cy0,r:90,fill:"url(#sunHalo)"},g);
   const pos=L=>[cx0+Math.sin(L*D)*R,cy0+Math.cos(L*D)*R*sq];
   const orb=el("ellipse",{cx:cx0,cy:cy0,rx:R,ry:R*sq,fill:"none",stroke:"rgba(180,190,255,.3)","stroke-dasharray":"3 6"},g);
   const L=orbitAngle(S.day),[px,py]=pos(L),behind=Math.cos(L*D)<0;
@@ -495,8 +523,51 @@ const KIND={Earth:0,Mercury:1,Mars:2,Saturn:3,Neptune:4,Uranus:5};
 const kind=()=>S.planet in KIND?KIND[S.planet]:0;   // custom tilt keeps Earth's surface
 const ATMO=[[.35,.62,1],[0,0,0],[1,.55,.3],[1,.85,.55],[.3,.5,1],[.5,.9,1]];
 
-const cv=$("planet");let gl=null,prog=null,U={},tex={day:null,night:null},ctx2=null;
+const cv=$("planet");let gl=null,prog=null,sunProg=null,SU={},U={},tex={day:null,night:null},ctx2=null;
 const VS=`attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}`;
+const SUNFS=`precision highp float;
+uniform vec2 uC;uniform float uR,uTime,uBox;
+float h3(vec3 p){p=fract(p*.3183099+.1);p*=17.;return fract(p.x*p.y*p.z*(p.x+p.y+p.z));}
+float n3(vec3 x){vec3 i=floor(x),f=fract(x);f=f*f*(3.-2.*f);
+ return mix(mix(mix(h3(i),h3(i+vec3(1,0,0)),f.x),mix(h3(i+vec3(0,1,0)),h3(i+vec3(1,1,0)),f.x),f.y),
+            mix(mix(h3(i+vec3(0,0,1)),h3(i+vec3(1,0,1)),f.x),mix(h3(i+vec3(0,1,1)),h3(i+vec3(1,1,1)),f.x),f.y),f.z);}
+float fbm(vec3 p){float s=0.,a=.5;for(int i=0;i<4;i++){s+=a*n3(p);p=p*2.07+vec3(3.1,1.7,5.3);a*=.5;}return s;}
+void main(){
+ vec2 q=(gl_FragCoord.xy-uC)/uR;float r=length(q);float t=uTime;
+ vec3 col=vec3(0.);float al=0.;
+ if(r<1.){
+  float mu=sqrt(1.-r*r);vec3 p=vec3(q,mu);
+  // slow rotation + churning granulation (domain-warped cells)
+  float ca=cos(t*.02),sa=sin(t*.02);vec3 rp=vec3(ca*p.x+sa*p.z,p.y,-sa*p.x+ca*p.z);
+  vec3 w=vec3(fbm(rp*3.+t*.05),fbm(rp*3.+vec3(5.2,1.3,2.8)-t*.04),0.);
+  float g=fbm(rp*9.+w*1.8+vec3(0.,0.,t*.12));
+  float fine=n3(rp*38.+vec3(t*.3));
+  float spots=smoothstep(.72,.8,fbm(rp*2.2+vec3(9.,2.,t*.01)));
+  float v=g*.85+fine*.15;
+  vec3 hot=vec3(1.,.98,.88),mid=vec3(1.,.78,.32),cool=vec3(.95,.42,.08);
+  vec3 c=mix(cool,mid,smoothstep(.25,.6,v));c=mix(c,hot,smoothstep(.55,.85,v));
+  float limb=pow(mu,.55);                       // limb darkening
+  c*=mix(.42,1.25,limb);c=mix(c,hot*1.4,pow(mu,6.)*.55);   // white-hot core
+  c*=1.-spots*.55;
+  col=c*1.35;
+  float edge=smoothstep(1.,1.-1.6/uR,r);col*=edge;al=edge;
+ }
+ if(r>.97){
+  float h=max(r-1.,0.);float a=atan(q.y,q.x);
+  vec3 dir=vec3(cos(a),sin(a),0.);
+  float str=fbm(vec3(dir.xy*2.2,t*.03))*.9+fbm(vec3(dir.xy*7.,t*.06))*.5;   // corona streamers
+  float corona=exp(-h*3.2)*(.45+1.4*str*str)+exp(-h*1.1)*.22*(.5+str);
+  // prominences: bright loops hugging the limb
+  float pr=fbm(vec3(dir.xy*9.,h*14.-t*.25));pr=smoothstep(.62,.78,pr)*exp(-h*14.)*smoothstep(0.,.02,h);
+  float bloom=1.1/(1.+h*h*5.)*exp(-h*.55);
+  float fade=smoothstep(uBox,uBox*.55,r);
+  vec3 cc=vec3(1.,.72,.32)*corona+vec3(1.,.38,.12)*pr*1.6+vec3(1.,.62,.3)*bloom*.45+vec3(1.,.95,.8)*exp(-h*40.)*.9;
+  cc*=fade;
+  col+=cc*(1.-al);al=max(al,clamp(max(cc.r,max(cc.g,cc.b)),0.,1.));
+ }
+ col=1.-exp(-col*1.3);
+ gl_FragColor=vec4(col,al);
+}`;
 const FSBODY=`precision highp float;
 uniform vec2 uC;uniform float uR,uSpin,uTime,uKind,uReady;uniform vec3 uN,uE1,uE2,uU,uAtmo;
 uniform sampler2D uDay,uNight;
@@ -586,6 +657,9 @@ function initGL(){
       if(pot&&H.mip){gl.generateMipmap(gl.TEXTURE_2D);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR_MIPMAP_LINEAR)}else gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
       tex[src]=true;};im.src=`img/earth-${src}.webp`;};
   mk(0,"day");mk(1,"night");
+  const sv=sh(gl.VERTEX_SHADER,VS),sf=sh(gl.FRAGMENT_SHADER,SUNFS);
+  if(sv&&sf){sunProg=gl.createProgram();gl.attachShader(sunProg,sv);gl.attachShader(sunProg,sf);gl.linkProgram(sunProg);
+    if(!gl.getProgramParameter(sunProg,gl.LINK_STATUS))sunProg=null;else["uC","uR","uTime","uBox"].forEach(k=>SU[k]=gl.getUniformLocation(sunProg,k));}
   gl.enable(gl.BLEND);gl.blendFunc(gl.ONE,gl.ONE_MINUS_SRC_ALPHA);
   return true;
 }
@@ -608,7 +682,7 @@ function render2D(lay,G,spin){
     const tw=Math.exp(-((L/.11)**2))*.4;
     px[o]=Math.min(255,R*lit*d+(1-d)*nl*255+tw*255);px[o+1]=Math.min(255,Gc*lit*d+(1-d)*nl*185+tw*105);px[o+2]=Math.min(255,B*lit*d+(1-d)*nl*105+tw*30);px[o+3]=255;}
   fb.c.getContext("2d").putImageData(fb.img,0,0);
-  ctx2.clearRect(0,0,cv.width,cv.height);ctx2.imageSmoothingEnabled=true;
+  ctx2.imageSmoothingEnabled=true;
   ctx2.drawImage(fb.c,lay.cx-lay.R,lay.cy-lay.R,lay.R*2,lay.R*2);
 }
 const useGL=initGL();if(!useGL)initFallback();
@@ -618,11 +692,12 @@ function layout(){
   const W=cv.clientWidth||innerWidth,Hh=cv.clientHeight||innerHeight,dpr=Math.min(devicePixelRatio||1,2);
   const pw=Math.round(W*dpr),ph=Math.round(Hh*dpr);if(cv.width!==pw||cv.height!==ph){cv.width=pw;cv.height=ph}
   const wide=W>=900;
-  const cx=wide?W*.665:W*.5,cy=wide?Hh*.5:Hh*.34,R=wide?Math.min(Hh*.39,W*.25):Math.min(W*.44,Hh*.25);
+  const cx=wide?W*.665:W*.5,cy=wide?Hh*.5:Hh*.305,R=wide?Math.min(Hh*.39,W*.25):Math.min(W*.42,Hh*.225);
   // orbit view
-  const ox=wide?W*.69:W*.5,oy=wide?Hh*.52:Hh*.33,orx=wide?Math.min(W*.25,Hh*.6):W*.39,oel=wide?27:40,rp=wide?Math.max(24,orx*.09):Math.max(20,orx*.13);
+  const ox=wide?W*.69:W*.5,oy=wide?Hh*.52:Hh*.31,orx=wide?Math.min(W*.25,Hh*.6):W*.39,oel=wide?27:40,rp=wide?Math.max(24,orx*.09):Math.max(20,orx*.13);
+  const rs=wide?Math.max(26,orx*.12):Math.max(22,orx*.14);
   const te=document.querySelector(".heroTxt"),tx={right:te.offsetLeft+te.offsetWidth};
-  return {W,H:Hh,cx,cy,R,dpr,wide,ox,oy,orx,oel,rp,txtR:wide?tx.right:0};
+  return {W,H:Hh,cx,cy,R,dpr,wide,ox,oy,orx,oel,rp,rs,txtR:wide?tx.right:0};
 }
 let LAY=layout();addEventListener("resize",()=>{LAY=layout()});
 const orbitXY=L=>[LAY.ox+Math.sin(L*D)*LAY.orx,LAY.oy+Math.cos(L*D)*Math.sin(LAY.oel*D)*LAY.orx];
@@ -678,10 +753,8 @@ function overlaySurface(G){
   const dec=decl(S.tilt,S.day),pins=[[PA(),"#ffc35a"]];if(S.cmp)pins.push([PB(),"#62e3ff"]);
   for(const [c,col] of pins){const w=G.C(bodyDir(G,c[1],lonOf(c),H.spin));if(w[2]<-.02)continue;
     const op=Math.min(1,Math.max(0,(w[2]+.02)/.18)),[x,y]=Pp(w),h=dayHours(c[1],dec),hr=hourAt(G,c,H.spin);
-    out+=pinSvg(x,y,col,`${c[0]} <tspan fill="${col}">· ${short(h)}</tspan><tspan fill="#cfd5ff" font-weight="400"> · ${hhmm(hr)}${isDay(c[1],dec,hr)?" ☀":" ☾"}</tspan>`,op,x<LAY.W*.5||x<cx+R*.3);}
+    out+=pinSvg(x,y,col,`${c[0]} <tspan fill="${col}">· ${short(h)}</tspan><tspan fill="#cfd5ff" font-weight="400"> · ${hhmm(hr)}${isDay(c[1],dec,hr)?" ☀":" ☾"}</tspan>`,op,x+210<LAY.W);}
   hs.innerHTML=out;
-  const su=G.cU,sl=Math.hypot(su[0],su[1])||1,sx=cx+su[0]/sl*R*1.75,sy=cy-su[1]/sl*R*1.75;
-  const sun=$("heroSun");sun.style.left=sx+"px";sun.style.top=sy+"px";sun.style.width=Math.max(R*3.2,280)+"px";
 }
 function orbitLabels(){
   return isEarth()?[[0,"March equinox","20 Mar"],[90,"June solstice","21 Jun"],[180,"September equinox","22 Sep"],[270,"December solstice","21 Dec"]]
@@ -695,7 +768,6 @@ function overlayOrbit(G){
   // trail: the last ~60 days
   let tr="";for(let k=0;k<=30;k++){const a=L-k*2*360/365;const [x,y]=orbitXY(a);tr+=(k?"L":"M")+f1(x)+" "+f1(y)}
   out+=`<path d="${tr}" fill="none" stroke="#ffd27a" stroke-width="3" stroke-linecap="round" opacity=".55"/>`;
-  out+=`<circle cx="${f1(ox)}" cy="${f1(oy)}" r="${f1(Math.max(16,orx*.085))}" fill="url(#oCore)"/>`;
   // season markers + ghost planets whose axes all point the same way
   const n=G.cN,nl=Math.hypot(n[0],n[1])||1,ax=[n[0]/nl,-n[1]/nl],gr=wide?9:7,fs=wide?13:11;
   for(const [a,t1,t2] of orbitLabels()){const [x,y]=orbitXY(a);const ang=Math.atan2(oy-y,ox-x)/D;
@@ -718,18 +790,17 @@ function overlayOrbit(G){
   const lw=wide?190:170,lxx=Math.max(lw/2+6,Math.min(W-lw/2-6,px)),lyy=py+rp+(Math.cos(G.L)>0?34:22);
   out+=`<text x="${f1(lxx)}" y="${f1(lyy)}" text-anchor="middle" class="pinLbl">${yLbl}${w[2]>-.05?"":` <tspan fill="#cfd5ff" font-weight="400">(night side)</tspan>`}</text>`;
   hs.innerHTML=out;
-  const sun=$("heroSun");sun.style.left=ox+"px";sun.style.top=oy+"px";sun.style.width=Math.max(orx*1.25,260)+"px";
 }
 let lastNum="";
 function heroText(G){
   const dec=decl(S.tilt,S.day),c=PA(),h=dayHours(c[1],dec),{H:hh,M}=fmtH(h);const num=hh+":"+M;
   if(num!==lastNum){$("hH").textContent=hh;$("hM").textContent=String(M).padStart(2,"0");lastNum=num}
-  const date=isEarth()||S.planet==null?dateOf(S.day):whenLabel(S.day);if($("hDate").textContent!==date)$("hDate").textContent=date;
+  const earthCal=isEarth()||S.planet==null,date=earthCal?dateOf(S.day):`${Math.round(((S.day-80+365)%365)/365*100)}% of its year`;if($("hDate").textContent!==date)$("hDate").textContent=date;$("hDate").classList.toggle("long",!earthCal);syncDateCtl();
   $("hDate").classList.toggle("live",S.playing);
   const where=S.planet&&S.planet!=="Earth"?` on <b>${S.planet}</b>`:S.planet?"":` · tilt ${S.tilt.toFixed(1)}°`;
   const extra=h>=23.99?" · polar day, the sun never sets":h<=0.01?" · polar night, the sun never rises":"";
   const ref=!cityMode()&&S.ref?` <span class="ref">(${S.ref[0]} is at ${latLabel(Math.round(S.ref[1]))} on Earth)</span>`:"";
-  const sub=`of daylight ${c[2]?"at":"in"} <b>${c[0]}</b>${where}${extra}${ref}`;
+  const sub=`of daylight ${c[2]?"at":"in"} <a class="cityLink" href="#controls">${c[0]} ✎</a>${where}${extra}${ref}`;
   if($("hSub").innerHTML!==sub)$("hSub").innerHTML=sub;
   const lean=S.tilt<.5?"No tilt: neither hemisphere leans toward the sun, so there are no seasons.":Math.abs(dec)<1.2?"Equinox: neither hemisphere leans toward the sun. Day and night are close to equal everywhere.":dec>0?`The <b>northern</b> hemisphere leans toward the sun: long days in the north, short in the south.`:`The <b>southern</b> hemisphere leans toward the sun: long days in the south, short in the north.`;
   if($("hLean").innerHTML!==lean)$("hLean").innerHTML=lean;
@@ -738,19 +809,65 @@ function heroText(G){
   else if(S.playing)tag=`same time every day (${hhmm(hourAt(G,c,H.spin))} at ${c[0]}) · watch the day/night line`;
   else tag=`⟳ spin = time of day · ${hhmm(hourAt(G,c,H.spin))} at ${c[0]} · date unchanged`;
   if($("spinLbl").textContent!==tag)$("spinLbl").textContent=tag;
-  $("hPlay").textContent=S.playing?"❚❚ Pause":"▶ Play the year";$("hPlay").setAttribute("aria-pressed",S.playing);
+  $("hPlay").innerHTML=S.playing?"❚❚<span class=\"pl\"> Pause</span>":"▶<span class=\"pl\"> Play</span>";$("hPlay").setAttribute("aria-label",S.playing?"Pause":"Play the year");$("hPlay").setAttribute("aria-pressed",S.playing);
   hc.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.p===S.planet));
   hl.hidden=cityMode();$("hero").classList.toggle("latmode",!cityMode());hl.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",+b.dataset.l===S.latA));
 }
+// ---- hero date controls: scrubber, day/week steps, quick jumps, exact date
+const wrapDay=d=>((Math.round(d)-1)%365+365)%365+1;
+function setDay(d,keepPlay){if(S.playing&&!keepPlay)$("play").click();S.day=wrapDay(d);draw()}
+const hs2=$("hScrub");
+hs2.addEventListener("input",()=>setDay(+hs2.value));
+hs2.addEventListener("keydown",e=>{if((e.key==="ArrowLeft"||e.key==="ArrowRight")&&e.shiftKey){e.preventDefault();setDay(S.day+(e.key==="ArrowRight"?7:-7))}});
+document.querySelectorAll(".stp").forEach(b=>{let tm=null,iv=null;const st=+b.dataset.step;
+  const stop=()=>{clearTimeout(tm);clearInterval(iv);tm=iv=null};
+  b.addEventListener("pointerdown",e=>{e.preventDefault();setDay(S.day+st);stop();tm=setTimeout(()=>{iv=setInterval(()=>setDay(S.day+Math.sign(st)*7),140)},450)});
+  ["pointerup","pointerleave","pointercancel"].forEach(ev=>b.addEventListener(ev,stop));
+  b.addEventListener("click",e=>{if(e.detail===0)setDay(S.day+st)});   // keyboard
+  b.addEventListener("contextmenu",e=>e.preventDefault());});
+const iso=d=>new Date(Date.UTC(2026,0,Math.round(d))).toISOString().slice(0,10);
+$("hDate").addEventListener("click",()=>{if(!(isEarth()||S.planet==null))return;const i=$("hDateIn");i.value=iso(S.day);
+  try{if(i.showPicker){i.showPicker();return}}catch(e){}i.style.pointerEvents="auto";i.focus();i.click();});
+$("hDateIn").addEventListener("change",e=>{const v=e.target.value;if(!v)return;const [y,m,d]=v.split("-").map(Number);setDay((Date.UTC(2026,m-1,d)-Date.UTC(2026,0,0))/864e5);e.target.style.pointerEvents="none"});
+let quickKey="";
+function syncDateCtl(){
+  const earthCal=isEarth()||S.planet==null;
+  if(document.activeElement!==hs2||S.playing){const v=String(wrapDay(S.day));if(hs2.value!==v)hs2.value=v}
+  hs2.setAttribute("aria-valuetext",earthCal?dateOf(S.day):whenLabel(S.day));
+  const key=earthCal?"e":"o";
+  if(key!==quickKey){quickKey=key;
+    const marks=earthCal?[["Today",Math.min(365,todayDoy)],["Mar equinox",79],["Jun solstice",172],["Sep equinox",265],["Dec solstice",355]]:[["N spring",80],["N summer",171],["N autumn",263],["N winter",354]];
+    $("hQuick").innerHTML=marks.map(([t,d])=>`<button data-d="${d}">${t}</button>`).join("");
+    let tk="";if(earthCal)"JFMAMJJASOND".split("").forEach((m,i)=>{const d=(Date.UTC(2026,i,15)-Date.UTC(2026,0,0))/864e5;tk+=`<span style="left:${((d-1)/364*100).toFixed(2)}%">${m}</span>`});
+    else[["spring",80],["summer",171],["autumn",263],["winter",354]].forEach(([m,d])=>{tk+=`<span style="left:${((d-1)/364*100).toFixed(2)}%">${m}</span>`});
+    (earthCal?[79,172,265,355]:[80,171,263,354]).forEach(d=>{tk+=`<i style="left:${((d-1)/364*100).toFixed(2)}%"></i>`});
+    $("hTicks").innerHTML=tk;}
+  $("hQuick").querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",+b.dataset.d===wrapDay(S.day)&&!S.playing));
+}
+$("hQuick").addEventListener("click",e=>{const b=e.target.closest("button");if(b)setDay(+b.dataset.d)});
+
 let faced=null;
+function useP(p){gl.useProgram(p);const loc=gl.getAttribLocation(p,"p");gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0)}
+function scissorBox(cx,cy,half){const {dpr,H:Hh}=LAY;const x=Math.floor((cx-half)*dpr),y=Math.floor((Hh-cy-half)*dpr),s=Math.ceil(half*2*dpr);
+  const x0=Math.max(0,x),y0=Math.max(0,y),x1=Math.min(cv.width,x+s),y1=Math.min(cv.height,y+s);if(x1<=x0||y1<=y0)return false;gl.scissor(x0,y0,x1-x0,y1-y0);return true}
+// the sun: real-time shader (granulation, limb darkening, corona, prominences); 2D fallback = crisp gradient disc
+function drawSun(cx,cy,Rs,box){
+  const {dpr,H:Hh}=LAY;
+  if(useGL&&sunProg){if(!scissorBox(cx,cy,Rs*box))return;useP(sunProg);
+    gl.uniform2f(SU.uC,cx*dpr,(Hh-cy)*dpr);gl.uniform1f(SU.uR,Rs*dpr);gl.uniform1f(SU.uTime,reduce?20:performance.now()/1000);gl.uniform1f(SU.uBox,box);
+    gl.drawArrays(gl.TRIANGLE_STRIP,0,4);return}
+  if(!useGL){const x=cx*dpr,y=cy*dpr,r=Rs*dpr;let g=ctx2.createRadialGradient(x,y,r*.9,x,y,r*box*.8);g.addColorStop(0,"rgba(255,190,90,.55)");g.addColorStop(.25,"rgba(255,140,50,.18)");g.addColorStop(1,"rgba(255,120,40,0)");
+    ctx2.fillStyle=g;ctx2.beginPath();ctx2.arc(x,y,r*box*.8,0,7);ctx2.fill();
+    g=ctx2.createRadialGradient(x-r*.15,y-r*.15,0,x,y,r);g.addColorStop(0,"#fffbe8");g.addColorStop(.6,"#ffd27a");g.addColorStop(1,"#ff9a3d");ctx2.fillStyle=g;ctx2.beginPath();ctx2.arc(x,y,r,0,7);ctx2.fill()}
+}
 function drawPlanet(G,cx,cy,R){
   const {dpr,H:Hh}=LAY;
-  if(useGL){
+  if(useGL){if(!scissorBox(cx,cy,R*1.2))return;useP(prog);
     gl.uniform2f(U.uC,cx*dpr,(Hh-cy)*dpr);gl.uniform1f(U.uR,R*dpr);gl.uniform1f(U.uSpin,H.spin);gl.uniform1f(U.uTime,performance.now()/1000);
     gl.uniform1f(U.uKind,kind());gl.uniform1f(U.uReady,(kind()>0||tex.day)?1:.25);
     gl.uniform3fv(U.uN,G.cN);gl.uniform3fv(U.uE1,G.cE1);gl.uniform3fv(U.uE2,G.cE2);gl.uniform3fv(U.uU,G.cU);gl.uniform3fv(U.uAtmo,ATMO[kind()]);
     gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
-  }else{ctx2.setTransform(1,0,0,1,0,0);ctx2.clearRect(0,0,cv.width,cv.height);render2D({cx:cx*dpr,cy:cy*dpr,R:R*dpr},G,H.spin)}
+  }else{render2D({cx:cx*dpr,cy:cy*dpr,R:R*dpr},G,H.spin)}
 }
 function frame(t){
   requestAnimationFrame(frame);
@@ -769,15 +886,16 @@ function frame(t){
   }else if(!H.drag){H.holdHA=null;H.spin+=H.vel*dt;H.vel*=Math.exp(-dt*2.2);if(H.auto)H.spin+=dt*.05}
   heroText(G);
   if(!H.visible)return;
-  if(useGL){gl.viewport(0,0,cv.width,cv.height);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT)}
-  if(S.view==="orbit"){const GO=geom(H.tilt,S.day,LAY.oel),[px,py]=orbitXY(GO.L/D);drawPlanet(GO,px,py,LAY.rp);overlayOrbit(GO)}
-  else{drawPlanet(G,LAY.cx,LAY.cy,LAY.R);overlaySurface(G)}
+  if(useGL){gl.disable(gl.SCISSOR_TEST);gl.viewport(0,0,cv.width,cv.height);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);gl.enable(gl.SCISSOR_TEST)}
+  else{ctx2.setTransform(1,0,0,1,0,0);ctx2.clearRect(0,0,cv.width,cv.height)}
+  if(S.view==="orbit"){const GO=geom(H.tilt,S.day,LAY.oel),[px,py]=orbitXY(GO.L/D);drawSun(LAY.ox,LAY.oy,LAY.rs,5.5);drawPlanet(GO,px,py,LAY.rp);overlayOrbit(GO)}
+  else{const w=LAY.wide;drawSun(LAY.cx-LAY.R*(w?1.12:.95),LAY.cy-LAY.R*(w?.92:1.02),LAY.R*(w?.2:.19),5);drawPlanet(G,LAY.cx,LAY.cy,LAY.R);overlaySurface(G)}
 }
 new IntersectionObserver(es=>{H.visible=es[0].isIntersecting}).observe($("hero"));
 $("play").addEventListener("click",()=>{S.playing=!S.playing;H.holdHA=null;if(!S.playing)S.day=Math.round(S.day)||1;draw()});
 document.addEventListener("keydown",e=>{if(e.target.matches("input,select,textarea,button,canvas"))return;if(e.key===" "){e.preventDefault();$("play").click()}});
 setView(S.view);draw();requestAnimationFrame(frame);
-window.__hero={H,geom,LAY:()=>LAY,renderer:useGL?"webgl":"2d",setView,
+window.__hero={H,geom,LAY:()=>LAY,renderer:useGL?"webgl":"2d",sun:()=>!!sunProg,setView,
   cityPx:(name)=>{const c=find(name);const G=geom(H.tilt,S.day);const w=G.C(bodyDir(G,c[1],lonOf(c),H.spin));return [LAY.cx+w[0]*LAY.R,LAY.cy-w[1]*LAY.R,w[2]]},
   planetPx:()=>orbitXY(orbitAngle(S.day))};
 
