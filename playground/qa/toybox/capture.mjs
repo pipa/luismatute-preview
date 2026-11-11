@@ -8,17 +8,48 @@ const out = __dirname;
 const base = 'http://127.0.0.1:8765/playground/index.html';
 const widths = [360, 375, 390, 768, 1280, 1920];
 
-function intersect(a, b) {
-  return !(a.right <= b.left || a.left >= b.right || a.bottom <= b.top || a.top >= b.bottom);
-}
-
 async function assertViewport(page, vw) {
   return page.evaluate((viewportWidth) => {
+    function intersect(a, b) {
+      return !(a.right <= b.left || a.left >= b.right || a.bottom <= b.top || a.top >= b.bottom);
+    }
     const fail = [];
-    const docW = document.documentElement.scrollWidth;
     const innerW = window.innerWidth;
+    const innerH = window.innerHeight;
+    const docW = document.documentElement.scrollWidth;
     if (docW > innerW) {
       fail.push({ kind: 'page-overflow', scrollWidth: docW, innerWidth: innerW });
+    }
+
+    const visibleBadges = [...document.querySelectorAll('.badge-star')].filter((el) => {
+      const s = getComputedStyle(el);
+      return s.display !== 'none' && s.visibility !== 'hidden' && Number(s.opacity) > 0.99;
+    });
+    if (visibleBadges.length !== 1) {
+      fail.push({ kind: 'badge-visibility-count', count: visibleBadges.length });
+    }
+    const badge = visibleBadges[0];
+    if (badge) {
+      const b = badge.getBoundingClientRect();
+      if (b.width < 1 || b.height < 1) {
+        fail.push({ kind: 'badge-zero-rect', width: b.width, height: b.height });
+      }
+      if (b.left < -1 || b.right > innerW + 1 || b.top < -1 || b.bottom > innerH + 1) {
+        fail.push({
+          kind: 'badge-outside-viewport',
+          rect: { left: b.left, right: b.right, top: b.top, bottom: b.bottom },
+          viewport: { innerW, innerH },
+        });
+      }
+      const ribbon = document.querySelector('.ribbon');
+      if (ribbon && ribbon.firstChild) {
+        const range = document.createRange();
+        range.selectNodeContents(ribbon);
+        const textR = range.getBoundingClientRect();
+        if (intersect(b, textR)) {
+          fail.push({ kind: 'badge-on-ribbon-text', decor: 'badge-star', zone: 'ribbon-text' });
+        }
+      }
     }
 
     const zones = [];
@@ -33,36 +64,18 @@ async function assertViewport(page, vw) {
       zones.push({ name: `card-${i + 1}`, r: el.getBoundingClientRect() });
     });
 
-    const ribbon = document.querySelector('.ribbon');
     const decor = [
       ...document.querySelectorAll('.stk'),
-      document.querySelector('.badge-star'),
-    ].filter(Boolean);
-
+      ...visibleBadges,
+    ];
     for (const el of decor) {
       const d = el.getBoundingClientRect();
-      const label =
-        el.classList.contains('badge-star')
-          ? 'badge-star'
-          : [...el.classList].find((c) => c.startsWith('stk-')) || 'sticker';
+      const label = el.classList.contains('badge-star')
+        ? 'badge-star'
+        : [...el.classList].find((c) => c.startsWith('stk-')) || 'sticker';
       for (const z of zones) {
         if (intersect(d, z.r)) {
-          const allowed =
-            label === 'badge-star' &&
-            viewportWidth <= 640 &&
-            z.name === 'lede' &&
-            false;
-          if (!allowed) {
-            fail.push({ kind: 'overlap', decor: label, zone: z.name });
-          }
-        }
-      }
-      if (ribbon && el.classList.contains('badge-star')) {
-        const rr = ribbon.getBoundingClientRect();
-        if (viewportWidth <= 640) {
-          /* ribbon overlap allowed; h1/lede/cards/topbar still checked above */
-        } else if (intersect(d, rr)) {
-          fail.push({ kind: 'overlap', decor: 'badge-star', zone: 'ribbon' });
+          fail.push({ kind: 'overlap', decor: label, zone: z.name });
         }
       }
     }
@@ -86,10 +99,6 @@ async function assertViewport(page, vw) {
     }
 
     return fail;
-
-    function intersect(a, b) {
-      return !(a.right <= b.left || a.left >= b.right || a.bottom <= b.top || a.top >= b.bottom);
-    }
   }, vw);
 }
 
