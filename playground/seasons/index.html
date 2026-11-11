@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#05060f">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2210%22 fill=%22%23ffc35a%22/%3E%3C/svg%3E">
+<title>How long is your day? · Tilt & seasons</title>
+<meta name="description" content="Pick a planet and a place, scrub through the year, and see how many hours of daylight you get. Seasons come from axial tilt.">
+<style>
+:root{--bg:#05060f;--ink:#eef1ff;--mute:#9aa3c7;--line:rgba(160,175,255,.15);--card:rgba(12,15,34,.68);--sun:#ffc35a;--sun2:#ff8a3d;--cool:#62e3ff;--violet:#9b7bff;--night:#151a3a;--r:20px}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;background:url(img/space.webp) center/cover no-repeat;opacity:.85;z-index:-2}
+body::after{content:"";position:fixed;inset:0;background:radial-gradient(ellipse at 15% -10%,rgba(255,170,60,.13),transparent 55%),linear-gradient(180deg,rgba(5,6,15,0),rgba(5,6,15,.6) 75%);z-index:-1}
+a{color:var(--cool)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 18px calc(40px + env(safe-area-inset-bottom))}
+.top{display:flex;justify-content:space-between;align-items:center;padding:16px 0 0;font-size:14px;color:var(--mute)}
+.top a{color:var(--mute);text-decoration:none}.top a:hover,.top a:focus-visible{color:var(--ink)}
+.kicker{letter-spacing:.22em;text-transform:uppercase;font-size:12px;color:var(--sun)}
+h1{font-size:clamp(30px,5vw,52px);line-height:1.04;margin:.15em 0 .2em;letter-spacing:-.02em;font-weight:800}
+h1 em{font-style:normal;background:linear-gradient(90deg,var(--sun),var(--sun2) 45%,var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lede{max-width:60ch;color:#cdd3f3;margin:0;font-size:clamp(15px,1.8vw,18px)}
+header{padding:22px 0 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:18px;position:relative;overflow:hidden}
+.card h2{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);margin:0 0 10px;font-weight:600}
+.layout{display:grid;gap:16px;grid-template-columns:1fr}
+@media(min-width:980px){.layout{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr)}.yearCard{grid-column:1/-1}}
+/* hero readout */
+.readout{display:grid;gap:16px;grid-template-columns:1fr;align-items:center}
+@media(min-width:620px){.readout{grid-template-columns:minmax(0,1fr) minmax(0,260px)}}
+@media(min-width:980px) and (max-width:1120px){.big{font-size:64px}}
+.place{font-size:clamp(17px,2.2vw,21px);color:#d8ddf8}
+.place b{color:var(--ink)}
+.big{white-space:nowrap;font-size:clamp(50px,13vw,86px);font-weight:800;letter-spacing:-.035em;line-height:.95;font-variant-numeric:tabular-nums;margin:4px 0 6px;background:linear-gradient(180deg,#fff,#ffe1a6 60%,#ffb35a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.big small{font-size:.42em;letter-spacing:0}
+.sub{display:flex;flex-wrap:wrap;gap:8px 18px;color:var(--mute);font-size:15px}
+.sub b{color:var(--ink);font-variant-numeric:tabular-nums}
+.seasonTag{display:inline-flex;align-items:center;gap:10px;margin-top:12px;padding:6px 14px 6px 6px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid var(--line)}
+.seasonTag img{width:34px;height:34px;border-radius:50%;object-fit:cover}
+.seasonTag span{font-weight:700}
+.cmpLine{margin-top:12px;color:var(--mute);font-size:15px}
+.cmpLine b{color:var(--cool)}
+.ring svg{width:100%;height:auto;display:block;max-width:320px;margin:0 auto}
+/* controls */
+.controls{display:grid;gap:18px}
+.lbl{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:14px;color:var(--mute);margin-bottom:6px}
+.lbl output{color:var(--ink);font-weight:700;font-variant-numeric:tabular-nums}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+button{font:inherit;font-size:14px;color:var(--ink);background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:999px;padding:8px 13px;cursor:pointer;min-height:40px;transition:background .2s,border-color .2s}
+button:hover{background:rgba(255,255,255,.12)}
+button[aria-pressed=true]{background:linear-gradient(90deg,rgba(255,195,90,.3),rgba(255,138,61,.22));border-color:rgba(255,195,90,.65)}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--cool);outline-offset:2px}
+.chips button small{color:var(--mute);margin-left:4px}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:34px;background:transparent;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:6px;background:linear-gradient(90deg,var(--cool),var(--violet),var(--sun))}
+input[type=range]::-moz-range-track{height:6px;border-radius:6px;background:linear-gradient(90deg,var(--cool),var(--violet),var(--sun))}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:#fff;margin-top:-10px;box-shadow:0 0 0 4px rgba(255,195,90,.35),0 2px 10px rgba(0,0,0,.5)}
+input[type=range]::-moz-range-thumb{width:24px;height:24px;border:0;border-radius:50%;background:#fff;box-shadow:0 0 0 4px rgba(255,195,90,.35)}
+input[type=range]:focus-visible{outline:none}
+input[type=range]:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 4px var(--cool)}
+#day::-webkit-slider-runnable-track{background:linear-gradient(90deg,#9fb3ff,#9be37a 22%,#ffc35a 47%,#ff8a3d 72%,#9fb3ff)}
+#day::-moz-range-track{background:linear-gradient(90deg,#9fb3ff,#9be37a 22%,#ffc35a 47%,#ff8a3d 72%,#9fb3ff)}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+#play{min-width:100px;font-weight:700}
+select,.cityIn{font:inherit;color:var(--ink);background:#121633;border:1px solid var(--line);border-radius:12px;padding:8px 12px;min-height:42px}
+.cityIn{font-size:16px;width:100%}
+.cities{display:grid;gap:10px;grid-template-columns:1fr}
+.cities.two{grid-template-columns:1fr 1fr}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:middle}
+/* year chart */
+.yearCard svg{width:100%;height:auto;display:block;touch-action:pan-y;cursor:ew-resize}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--mute)}
+.orbitRow{display:grid;gap:16px;grid-template-columns:1fr;margin-top:16px}
+@media(min-width:860px){.orbitRow{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.orbit svg{width:100%;height:auto;display:block}
+.note{font-size:13px;color:var(--mute);margin:8px 0 0}
+.explain{display:grid;gap:12px}
+.explain h3{margin:0 0 2px;font-size:16px}
+.explain p{margin:0;color:#c9cfee;font-size:14.5px}
+.explain .num{font-size:11px;letter-spacing:.2em;color:var(--sun)}
+footer{color:var(--mute);font-size:12.5px;margin-top:20px;text-align:center}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@keyframes pulse{0%,100%{opacity:.55}50%{opacity:1}}
+.pulse{animation:pulse 3.2s ease-in-out infinite}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="top" aria-label="Site"><a href="../">← Playground</a><span>Tilt &amp; seasons</span></nav>
+<header>
+  <div class="kicker">Seasons come from tilt, not distance</div>
+  <h1>How long is <em>your</em> day?</h1>
+  <p class="lede">Pick a planet and a place, then move through the year. The tilt of the planet's spin axis decides how much of each day you spend in sunlight.</p>
+</header>
+
+<main class="layout">
+  <section class="card" aria-labelledby="hTitle">
+    <h2 id="hTitle">Daylight today</h2>
+    <div class="readout">
+      <div>
+        <div class="place" id="place"></div>
+        <div class="big" id="big" aria-live="polite"></div>
+        <div class="sub" id="sub"></div>
+        <div class="seasonTag" id="seasonTag"><img id="seasonImg" src="img/autumn.webp" alt="" width="34" height="34"><span id="seasonName"></span></div>
+        <div class="cmpLine" id="cmpLine" hidden></div>
+      </div>
+      <div class="ring" aria-hidden="true"><svg id="ring" viewBox="-178 -178 356 356"></svg></div>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="cTitle">
+    <h2 id="cTitle">Planet, place, time of year</h2>
+    <div class="controls">
+      <div>
+        <div class="lbl"><span>Planet</span><output id="tiltOut"></output></div>
+        <div class="chips" role="group" aria-label="Planet presets" id="planets"></div>
+        <label class="sr" for="tilt">Custom axial tilt</label>
+        <input id="tilt" type="range" min="0" max="98" step="0.1" value="23.4" aria-label="Custom axial tilt in degrees">
+      </div>
+      <div>
+        <div class="lbl"><span>Where you are</span><button id="cmp" aria-pressed="false" style="min-height:30px;padding:3px 12px;font-size:13px">Compare a second place</button></div>
+        <div class="cities" id="cities">
+          <div><input class="cityIn" id="cityA" list="cityList" value="Amsterdam" autocomplete="off" spellcheck="false" placeholder="Search a city…" aria-label="Your place (gold)"></div>
+          <div id="cityBWrap" hidden><input class="cityIn" id="cityB" list="cityList" value="Cape Town" autocomplete="off" spellcheck="false" placeholder="Second place…" aria-label="Second place (blue)"></div>
+        </div>
+        <datalist id="cityList"></datalist>
+      </div>
+      <div>
+        <div class="lbl"><label for="day">Time of year</label><output id="dayOut" for="day"></output></div>
+        <input id="day" type="range" min="1" max="365" step="1" value="315">
+        <div class="row" style="margin-top:6px">
+          <button id="play" aria-pressed="false">▶ Play year</button>
+          <select id="speed" aria-label="Playback speed"><option value="40">Slow</option><option value="18" selected>Normal</option><option value="7">Fast</option></select>
+          <button id="today">Today</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card yearCard" aria-labelledby="yTitle">
+    <h2 id="yTitle">Hours of daylight, all year</h2>
+    <svg id="chart" viewBox="0 0 760 270" role="img" aria-label="Daylight hours for each day of the year. Drag to change the day."></svg>
+    <div class="legend" id="legend"></div>
+  </section>
+</main>
+
+<div class="orbitRow">
+  <section class="card orbit" aria-labelledby="oTitle">
+    <h2 id="oTitle">Where we are in the orbit</h2>
+    <svg id="orbit" viewBox="0 0 520 300" role="img" aria-label="The planet orbits the sun with its axis always pointing the same way."></svg>
+    <p class="note">The axis keeps pointing the same way in space. On one side of the orbit the north leans toward the sun, half a year later it leans away.</p>
+  </section>
+  <section class="card explain" aria-label="Why">
+    <div><div class="num">01</div><h3>Tilt leans you toward the sun, then away</h3><p>While your hemisphere leans sunward, the sun climbs higher and stays up longer. Half a year later it's the other way round.</p></div>
+    <div><div class="num">02</div><h3>High sun is strong sun</h3><p>Light arriving steeply packs more energy into each square metre. Low winter sun spreads the same light thin.</p></div>
+    <div><div class="num">03</div><h3>Not the distance</h3><p>Earth is closest to the sun in early January, in northern winter. Set the tilt to 0° and every day is 12 hours, everywhere.</p></div>
+    <div><div class="num">04</div><h3>Polar day, polar night</h3><p>Past the polar circle (90° minus the tilt) the sun can stay up for 24 h or not rise at all. On Uranus that's most of the planet.</p></div>
+  </section>
+</div>
+
+<footer>Sun's latitude = asin(sin tilt × sin orbit angle) (for Earth this matches tilt × sin(2π(day−80)/365) within a few tenths of a degree). Day length = 2·acos(−tan lat · tan dec), clamped to 0–24 h; for Earth the sunrise edge is set at −0.833° (atmospheric refraction plus the sun's disc) so numbers match sunrise tables. Other planets: their year is shown as a fraction, and day length as if their day lasted 24 h.</footer>
+</div>
+
+<script>
+(()=>{
+"use strict";
+const D=Math.PI/180,$=id=>document.getElementById(id),NS="http://www.w3.org/2000/svg";
+const el=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);p&&p.appendChild(e);return e};
+const PLANETS=[["Mercury",0.03],["Earth",23.44],["Mars",25.19],["Saturn",26.73],["Neptune",28.32],["Uranus",97.77]];
+const CITIES=[["Longyearbyen",78.22],["Tromsø",69.65],["Reykjavik",64.15],["Anchorage",61.22],["Helsinki",60.17],["Oslo",59.91],["Berlin",52.52],["Amsterdam",52.37],["London",51.51],["Paris",48.86],["Rome",41.90],["Chicago",41.88],["New York",40.71],["Madrid",40.42],["Beijing",39.90],["San Francisco",37.77],["Tokyo",35.68],["Cairo",30.04],["Dubai",25.20],["Honolulu",21.31],["Mexico City",19.43],["Mumbai",19.08],["San Pedro Sula",15.50],["Tegucigalpa",14.07],["Bangkok",13.76],["Singapore",1.35],["Quito",-0.18],["Nairobi",-1.29],["Jakarta",-6.21],["Lima",-12.05],["Rio de Janeiro",-22.91],["Johannesburg",-26.20],["Santiago",-33.45],["Sydney",-33.87],["Cape Town",-33.92],["Buenos Aires",-34.60],["Auckland",-36.85],["Ushuaia",-54.80],["McMurdo Station",-77.85]];
+const fold=s=>s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").trim();
+const find=v=>{v=fold(v||"");if(!v)return null;return CITIES.find(c=>fold(c[0])===v)||CITIES.find(c=>fold(c[0]).startsWith(v))||CITIES.find(c=>fold(c[0]).includes(v))};
+CITIES.forEach(c=>{const o=document.createElement("option");o.value=c[0];$("cityList").appendChild(o)});
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const now=new Date(),todayDoy=Math.floor((Date.UTC(now.getFullYear(),now.getMonth(),now.getDate())-Date.UTC(now.getFullYear(),0,0))/864e5);
+const S={planet:"Earth",tilt:23.44,day:Math.min(365,todayDoy),A:find("Amsterdam"),B:find("Cape Town"),cmp:false,playing:false,period:18};
+try{const h=new URLSearchParams(location.hash.slice(1));
+ if(h.get("planet")){const p=PLANETS.find(p=>fold(p[0])===fold(h.get("planet")));if(p){S.planet=p[0];S.tilt=p[1]}}
+ if(h.has("tilt")){S.tilt=Math.max(0,Math.min(98,+h.get("tilt")||0));S.planet=null}
+ if(h.has("day"))S.day=Math.max(1,Math.min(365,Math.round(+h.get("day")||1)));
+ if(h.get("a")&&find(h.get("a")))S.A=find(h.get("a"));
+ if(h.get("b")&&find(h.get("b"))){S.B=find(h.get("b"));S.cmp=true}
+ if(h.get("play")==="1"&&!reduce)S.playing=true;
+}catch(e){}
+
+// ---- physics
+const orbitAngle=day=>360*(day-80)/365;                         // 0 = March equinox
+const decl=(tilt,day)=>Math.asin(Math.sin(tilt*D)*Math.sin(orbitAngle(day)*D))/D;
+// Earth: sunrise/sunset when the sun's top edge touches the horizon (−0.833°, refraction + disc), like published tables.
+// Other planets: plain geometric formula acos(−tan lat · tan dec).
+function dayHours(lat,dec){
+  if(Math.abs(lat)>89.9)return dec*Math.sign(lat)>0?24:0;
+  const h0=S.planet==="Earth"?-0.833*D:0;
+  const c=(Math.sin(h0)-Math.sin(lat*D)*Math.sin(dec*D))/(Math.cos(lat*D)*Math.cos(dec*D));
+  return c<=-1?24:c>=1?0:2*Math.acos(c)/D/15;
+}
+const noonAlt=(lat,dec)=>90-Math.abs(lat-dec);
+const isEarth=()=>S.planet==="Earth";
+const MON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const dateOf=d=>{const t=new Date(Date.UTC(2026,0,d));return `${t.getUTCDate()} ${MON[t.getUTCMonth()]}`};
+const whenLabel=d=>isEarth()?dateOf(d):`${Math.round(((d-80+365)%365)/365*100)}% through its year`;
+function season(lat,day){
+  if(S.tilt<0.5)return["No seasons","spring"];
+  let L=((orbitAngle(day)%360)+360)%360; if(lat<0)L=(L+180)%360;
+  const i=Math.floor(L/90)%4,into=L-i*90,names=["Spring","Summer","Autumn","Winter"],img=["spring","summer","autumn","winter"][i];
+  if(into<5||into>85){const k=(into<5?i:(i+1)%4);return[["Spring equinox","Midsummer","Autumn equinox","Midwinter"][k],img]}
+  return[names[i],img];
+}
+const fmtH=h=>{let H=Math.floor(h),M=Math.round((h-H)*60);if(M===60){H++;M=0}return{H,M}};
+const hm=h=>{const {H,M}=fmtH(h);return `${H} h ${String(M).padStart(2,"0")} min`};
+const clock=h=>{h=((h%24)+24)%24;const {H,M}=fmtH(h);return `${String(H%24).padStart(2,"0")}:${String(M).padStart(2,"0")}`};
+const latS=l=>`${Math.abs(l).toFixed(1)}°${l>=0?"N":"S"}`;
+
+// ---- planet chips
+const pc=$("planets");
+PLANETS.forEach(([n,t])=>{const b=el("button",{});b.outerHTML;const B=document.createElement("button");B.dataset.p=n;B.innerHTML=`${n}<small>${t<1?"0°":t.toFixed(1)+"°"}</small>`;pc.appendChild(B)});
+const custom=document.createElement("button");custom.dataset.p="";custom.textContent="Custom";pc.appendChild(custom);
+
+// ---- day ring
+const RA=118,RB=92;
+function ring(){
+  const g=$("ring");g.textContent="";
+  const defs=el("defs",{},g);
+  const lg=el("linearGradient",{id:"litG",x1:0,y1:0,x2:1,y2:1},defs);el("stop",{offset:0,"stop-color":"#ffe7a8"},lg);el("stop",{offset:1,"stop-color":"#ff9a3d"},lg);
+  const f=el("filter",{id:"gl",x:"-30%",y:"-30%",width:"160%",height:"160%"},defs);el("feGaussianBlur",{stdDeviation:6,result:"b"},f);const m=el("feMerge",{},f);el("feMergeNode",{in:"b"},m);el("feMergeNode",{in:"SourceGraphic"},m);
+  const rg=el("radialGradient",{id:"skyG",cx:"50%",cy:"100%",r:"100%"},defs);el("stop",{offset:0,"stop-color":"#2b3d8a","stop-opacity":.9},rg);el("stop",{offset:1,"stop-color":"#0c1230","stop-opacity":.2},rg);
+  for(let h=0;h<24;h++){const a=(h/24*360+180)*D,r1=RA+16,r2=RA+(h%6?20:26);el("line",{x1:Math.sin(a)*r1,y1:-Math.cos(a)*r1,x2:Math.sin(a)*r2,y2:-Math.cos(a)*r2,stroke:"#9aa3c7","stroke-width":h%6?1:2,opacity:h%6?.4:.8},g);}
+  [["12",0],["18",90],["00",180],["06",270]].forEach(([t,a])=>{const r=RA+38,x=Math.sin(a*D)*r,y=-Math.cos(a*D)*r+4;const tx=el("text",{x,y,"text-anchor":"middle","font-size":12,fill:"#9aa3c7"},g);tx.textContent=t;});
+  const arcs=[[RA,"A",14]];if(S.cmp)arcs.push([RB,"B",10]);
+  for(const [r,k,w] of arcs){
+    const c=S[k],h=dayHours(c[1],decl(S.tilt,S.day)),C=2*Math.PI*r;
+    el("circle",{r,fill:"none",stroke:"#151a3a","stroke-width":w},g);
+    if(h>0.001){const lit=el("circle",{r,fill:"none",stroke:k==="A"?"url(#litG)":"#62e3ff","stroke-width":w,"stroke-linecap":h<23.99?"round":"butt","stroke-dasharray":`${(C*h/24).toFixed(2)} ${C.toFixed(2)}`,transform:`rotate(${(-90-h/24*180).toFixed(2)})`,filter:"url(#gl)"},g);}
+    if(h>0.01&&h<23.99){[12-h/2,12+h/2].forEach(t=>{const a=(t/24*360+180)*D;el("circle",{cx:Math.sin(a)*r,cy:-Math.cos(a)*r,r:w/2+2.5,fill:"#05060f",stroke:k==="A"?"#ffd27a":"#62e3ff","stroke-width":2},g)});}
+  }
+  // inner sky dome: noon sun height for A
+  const alt=noonAlt(S.A[1],decl(S.tilt,S.day)),R=S.cmp?62:78;
+  el("path",{d:`M${-R} 18 A${R} ${R} 0 0 1 ${R} 18 Z`,fill:"url(#skyG)"},g);
+  el("line",{x1:-R-6,x2:R+6,y1:18,y2:18,stroke:"#9aa3c7","stroke-width":1.2,opacity:.6},g);
+  const a=Math.max(-8,Math.min(90,alt))*D,sx=-Math.cos(a)*R*.82*(alt>90?-1:1),sy=18-Math.sin(a)*R*.82;
+  el("path",{d:`M${-R*.82} 18 A${R*.82} ${R*.82} 0 0 1 ${R*.82} 18`,fill:"none",stroke:"#9aa3c7","stroke-dasharray":"2 4",opacity:.45},g);
+  const sun=el("g",{transform:`translate(${sx.toFixed(1)} ${sy.toFixed(1)})`,opacity:alt<0?.35:1},g);
+  el("circle",{r:16,fill:"#ffc35a",opacity:.25,class:"pulse"},sun);el("circle",{r:8,fill:"#fff1c9"},sun);
+  const t=el("text",{x:0,y:44,"text-anchor":"middle","font-size":12,fill:"#cdd3f3"},g);t.textContent=alt<0?"sun stays below horizon":`noon sun ${alt.toFixed(0)}° high`;
+}
+
+// ---- year chart
+const CW=760,CH=270,PL=36,PR=10,PT=12,PB=30;
+const cx=d=>PL+(d-1)/364*(CW-PL-PR),cy=h=>PT+(1-h/24)*(CH-PT-PB);
+function chart(){
+  const g=$("chart");g.textContent="";const defs=el("defs",{},g);
+  const ga=el("linearGradient",{id:"areaA",x1:0,y1:0,x2:0,y2:1},defs);el("stop",{offset:0,"stop-color":"#ffc35a","stop-opacity":.45},ga);el("stop",{offset:1,"stop-color":"#ffc35a","stop-opacity":0},ga);
+  for(const h of[0,6,12,18,24]){el("line",{x1:PL,x2:CW-PR,y1:cy(h),y2:cy(h),stroke:"rgba(180,190,255,"+(h===12?.3:.12)+")","stroke-dasharray":h===12?"4 4":""},g);const t=el("text",{x:PL-6,y:cy(h)+4,"text-anchor":"end","font-size":11,fill:"#9aa3c7"},g);t.textContent=h+"h";}
+  if(isEarth()){MON.forEach((m,i)=>{const d=Math.floor((Date.UTC(2026,i,1)-Date.UTC(2026,0,0))/864e5);const t=el("text",{x:cx(d)+2,y:CH-10,"font-size":11,fill:"#9aa3c7"},g);t.textContent=m;el("line",{x1:cx(d),x2:cx(d),y1:CH-PB,y2:CH-PB+5,stroke:"#9aa3c7",opacity:.5},g)})}
+  else{[["N spring",80],["N summer",171],["N autumn",263],["N winter",354]].forEach(([m,d])=>{const t=el("text",{x:cx(d),y:CH-10,"text-anchor":"middle","font-size":11,fill:"#9aa3c7"},g);t.textContent=m;})}
+  const list=[["A","#ffc35a"]];if(S.cmp)list.push(["B","#62e3ff"]);
+  list.slice().reverse().forEach(([k,col])=>{
+    let d="";for(let day=1;day<=365;day++)d+=(day>1?"L":"M")+cx(day).toFixed(1)+" "+cy(dayHours(S[k][1],decl(S.tilt,day))).toFixed(1);
+    if(k==="A")el("path",{d:d+`L${cx(365)} ${cy(0)} L${cx(1)} ${cy(0)} Z`,fill:"url(#areaA)"},g);
+    el("path",{d,fill:"none",stroke:col,"stroke-width":k==="A"?3:2.4,"stroke-linejoin":"round"},g);
+  });
+  const x=cx(S.day);el("line",{x1:x,x2:x,y1:PT,y2:CH-PB,stroke:"#fff",opacity:.45,"stroke-dasharray":"3 4"},g);
+  list.forEach(([k,col])=>{const h=dayHours(S[k][1],decl(S.tilt,S.day)),y=cy(h);el("circle",{cx:x,cy:y,r:11,fill:col,opacity:.25},g);el("circle",{cx:x,cy:y,r:6,fill:col,stroke:"#05060f","stroke-width":2.5},g);
+    const right=x<CW-150,lab=el("text",{x:x+(right?14:-14),y:y<44?y+24:y-10,"text-anchor":right?"start":"end","font-size":13,"font-weight":700,fill:"#fff",stroke:"#05060f","stroke-width":4,"paint-order":"stroke"},g);lab.textContent=hm(h).replace(" min","m").replace(" h","h");});
+  $("legend").innerHTML=list.map(([k,col])=>`<span><i class="dot" style="background:${col}"></i>${S[k][0]} (${latS(S[k][1])})</span>`).join("");
+}
+// drag on chart to scrub
+(()=>{const g=$("chart");let down=false;
+ const set=e=>{const r=g.getBoundingClientRect(),x=(e.clientX-r.left)/r.width*CW;S.day=Math.max(1,Math.min(365,Math.round((x-PL)/(CW-PL-PR)*364+1)));S.playing=false;draw()};
+ g.addEventListener("pointerdown",e=>{down=true;g.setPointerCapture(e.pointerId);set(e)});g.addEventListener("pointermove",e=>{if(down)set(e)});
+ g.addEventListener("pointerup",()=>down=false);g.addEventListener("pointercancel",()=>down=false);})();
+
+// ---- orbit
+function orbit(){
+  const g=$("orbit");g.textContent="";const defs=el("defs",{},g);
+  const sg=el("radialGradient",{id:"sunG"},defs);[[0,"#fff7da",1],[.35,"#ffd27a",1],[.6,"#ff9a3d",.55],[1,"#ff7a2d",0]].forEach(([o,c,a])=>el("stop",{offset:o,"stop-color":c,"stop-opacity":a},sg));
+  const cx0=260,cy0=150,R=205,sq=.38;
+  el("image",{href:"img/sun.webp",x:cx0-95,y:cy0-95,width:190,height:190,style:"mix-blend-mode:screen",opacity:.9},g);
+  const pos=L=>[cx0+Math.sin(L*D)*R,cy0+Math.cos(L*D)*R*sq];
+  const orb=el("ellipse",{cx:cx0,cy:cy0,rx:R,ry:R*sq,fill:"none",stroke:"rgba(180,190,255,.3)","stroke-dasharray":"3 6"},g);
+  const L=orbitAngle(S.day),[px,py]=pos(L),behind=Math.cos(L*D)<0;
+  const drawSun=()=>el("circle",{cx:cx0,cy:cy0,r:34,fill:"url(#sunG)"},g);
+  [[0,"Mar equinox",0,26,"middle"],[90,"N summer",-6,-12,"end"],[180,"Sep equinox",0,-14,"middle"],[270,"N winter",6,-12,"start"]].forEach(([a,t,dx,dy,an])=>{const [x,y]=pos(a);el("circle",{cx:x,cy:y,r:2.5,fill:"#9aa3c7"},g);if(isEarth()||1){const tx=el("text",{x:x+dx,y:y+dy,"text-anchor":an,"font-size":12,fill:"#9aa3c7"},g);tx.textContent=t;}});
+  if(!behind)drawSun();
+  const p=el("g",{transform:`translate(${px.toFixed(1)} ${py.toFixed(1)})`},g);
+  const r=17,ang=Math.atan2(cy0-py,cx0-px);
+  el("circle",{r,fill:"#141a44",stroke:"rgba(160,200,255,.5)"},p);
+  // lit half facing the sun (semicircle rotated toward sun)
+  el("path",{d:`M0 ${-r} A${r} ${r} 0 0 1 0 ${r} Z`,fill:"#8fc3ff",transform:`rotate(${(ang/D).toFixed(1)}) rotate(-90) rotate(90)`,opacity:.95},p);
+  // axis: leans toward -x by tilt (fixed in space)
+  const t=S.tilt*D,ax=-Math.sin(t),ay=-Math.cos(t),k=34;
+  el("line",{x1:0,y1:-26,x2:0,y2:26,stroke:"#fff","stroke-dasharray":"2 3",opacity:.3},p);
+  el("line",{x1:-ax*k,y1:-ay*k,x2:ax*k,y2:ay*k,stroke:"#fff","stroke-width":2.2,"stroke-linecap":"round"},p);
+  el("circle",{cx:ax*k,cy:ay*k,r:3.5,fill:"#ffc35a"},p);
+  const nt=el("text",{x:ax*k+(ax<0?-6:6),y:ay*k-4,"text-anchor":ax<0?"end":"start","font-size":11,fill:"#ffc35a"},p);nt.textContent="N";
+  if(behind)drawSun();
+  const tt=el("text",{x:14,y:290,"font-size":12,fill:"#9aa3c7"},g);tt.textContent=`tilt ${S.tilt.toFixed(1)}° · sun overhead at ${latS(decl(S.tilt,S.day))}`;
+}
+// Note on the lit half: the semicircle path covers x>=0; rotating by the sun angle points it at the sun.
+
+// ---- readout
+function readout(){
+  const dec=decl(S.tilt,S.day),A=S.A,h=dayHours(A[1],dec),alt=noonAlt(A[1],dec),[sn,si]=season(A[1],S.day);
+  $("place").innerHTML=`<b>${A[0]}</b>${S.planet&&S.planet!=="Earth"?` on ${S.planet}`:(S.planet?"":` · tilt ${S.tilt.toFixed(1)}°`)}, ${whenLabel(S.day)}`;
+  const {H,M}=fmtH(h);
+  $("big").innerHTML=`${H}<small> h </small>${String(M).padStart(2,"0")}<small> min</small>`;
+  $("big").setAttribute("aria-label",`${hm(h)} of daylight`);
+  let sub=`<span><b>${Math.round(h/24*100)}%</b> of the day in sunlight</span>`;
+  sub+=h>=23.99?`<span><b>Polar day</b>: sun never sets</span>`:h<=0.01?`<span><b>Polar night</b>: sun never rises</span>`:`<span>sunrise <b>${clock(12-h/2)}</b> · sunset <b>${clock(12+h/2)}</b> <small>(solar time)</small></span>`;
+  sub+=`<span>noon sun <b>${alt<0?"below horizon":alt.toFixed(0)+"°"}</b></span>`;
+  $("sub").innerHTML=sub;
+  $("seasonName").textContent=`${sn} in the ${A[1]>=0?"north":"south"}`;$("seasonImg").src=`img/${si}.webp`;
+  const cl=$("cmpLine");cl.hidden=!S.cmp;
+  if(S.cmp){const hb=dayHours(S.B[1],dec),d=hb-h;cl.innerHTML=`<i class="dot" style="background:var(--cool)"></i><b>${S.B[0]}</b>: ${hm(hb)} (${season(S.B[1],S.day)[0].toLowerCase()}), ${Math.abs(d)<1/60?"the same":hm(Math.abs(d))+(d>0?" more":" less")}`;}
+}
+function ui(){
+  $("tilt").value=S.tilt;$("day").value=S.day;
+  $("tiltOut").textContent=`tilt ${S.tilt.toFixed(1)}°`;
+  $("dayOut").textContent=whenLabel(S.day);
+  $("day").setAttribute("aria-valuetext",whenLabel(S.day));
+  $("tilt").setAttribute("aria-valuetext",S.tilt.toFixed(1)+" degrees");
+  pc.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.p===(S.planet||"")));
+  $("play").setAttribute("aria-pressed",S.playing);$("play").textContent=S.playing?"❚❚ Pause":"▶ Play year";
+  $("cmp").setAttribute("aria-pressed",S.cmp);$("cityBWrap").hidden=!S.cmp;$("cities").className="cities"+(S.cmp?" two":"");
+  $("big").setAttribute("aria-live",S.playing?"off":"polite");
+  $("today").hidden=!isEarth();
+}
+function draw(){readout();ring();chart();orbit();ui()}
+
+pc.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;if(b.dataset.p){const p=PLANETS.find(p=>p[0]===b.dataset.p);S.planet=p[0];S.tilt=p[1]}else{S.planet=null}draw()});
+$("tilt").addEventListener("input",e=>{S.tilt=+e.target.value;S.planet=null;draw()});
+$("day").addEventListener("input",e=>{S.day=+e.target.value;draw()});
+$("speed").addEventListener("change",e=>S.period=+e.target.value);
+$("today").addEventListener("click",()=>{S.day=Math.min(365,todayDoy);S.playing=false;draw()});
+$("cmp").addEventListener("click",()=>{S.cmp=!S.cmp;draw()});
+function cityInput(inp,key){
+  const apply=()=>{const c=find(inp.value);if(c){S[key]=c;draw()}};
+  inp.addEventListener("input",()=>{const c=CITIES.find(c=>fold(c[0])===fold(inp.value));if(c){S[key]=c;draw()}});
+  inp.addEventListener("change",()=>{apply();inp.value=S[key][0]});
+  inp.addEventListener("keydown",e=>{if(e.key==="Enter"){apply();inp.value=S[key][0];inp.blur()}});
+  inp.addEventListener("focus",()=>inp.select());
+  inp.value=S[key][0];
+}
+cityInput($("cityA"),"A");cityInput($("cityB"),"B");
+let raf=0,last=0,acc=0;
+function loop(t){const dt=last?Math.min(.1,(t-last)/1000):0;last=t;acc+=dt*365/S.period;if(acc>=1){S.day=((S.day-1+Math.floor(acc))%365)+1;acc%=1;draw()}raf=S.playing?requestAnimationFrame(loop):0;if(!raf)last=0}
+$("play").addEventListener("click",()=>{S.playing=!S.playing;ui();if(S.playing&&!raf)raf=requestAnimationFrame(loop)});
+document.addEventListener("keydown",e=>{if(e.target.matches("input,select,textarea,button"))return;if(e.key===" "){e.preventDefault();$("play").click()}});
+draw();if(S.playing)raf=requestAnimationFrame(loop);
+window.__seasons={S,decl,dayHours};
+})();
+</script>
+</body>
+</html>
