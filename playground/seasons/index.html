@@ -156,15 +156,35 @@ footer{color:var(--mute);font-size:12.5px;margin-top:20px;text-align:center}
 @keyframes pinPulse{0%,100%{transform:scale(.7);opacity:.9}50%{transform:scale(1.5);opacity:.15}}
 .pinLbl{font:700 13px ui-sans-serif,system-ui,-apple-system,sans-serif;fill:#fff;paint-order:stroke;stroke:rgba(5,6,15,.85);stroke-width:4px;stroke-linejoin:round}
 @media(min-width:900px){
-  .heroTxt{left:max(18px,calc(50vw - 590px));right:auto;bottom:auto;top:50%;transform:translateY(-50%);max-width:520px;padding-bottom:0;animation-name:fadeIn}
+  .heroTxt{left:max(18px,calc(50vw - 590px));right:auto;bottom:auto;top:50%;transform:translateY(-50%);max-width:476px;padding-bottom:0;animation-name:fadeIn}
   .heroNum{font-size:clamp(96px,9.4vw,160px)}
   .hero::after{height:22%}
 }
+@media(max-width:899px){
+  /* small screens: a real vertical layout. nav, switch, globe box, hint, controls, readout; nothing overlaps */
+  .hero{height:auto;min-height:0;max-height:none;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top)}
+  .hero::after{height:30%}
+  .heroNav{position:relative;order:0;padding:10px 16px 2px}
+  .viewSeg{position:relative;order:1;top:auto;left:auto;transform:none;align-self:center;margin:2px 0 0}
+  .stage{position:relative;order:2;inset:auto;flex:none;height:var(--stageH,calc(100svh - 330px));min-height:180px}
+  .spinLbl{position:relative;order:3;top:auto;left:auto;transform:none;align-self:center;margin:2px 14px 8px;max-width:calc(100% - 28px)}
+  .heroTxt{position:relative;order:4;left:auto;right:auto;bottom:auto;padding:0 16px calc(20px + env(safe-area-inset-bottom))}
+  .heroTitle{font-size:12px;letter-spacing:.2em}
+  .heroDate{font-size:clamp(22px,6.6vw,30px)}
+  .dateRow{margin:6px 0 4px}
+  .stp{min-width:38px;min-height:40px}
+  .scrub{margin:2px 0 4px}
+  .qChips{margin:4px 0 14px}
+  .heroNum{font-size:clamp(56px,17vw,96px);margin:4px 0 6px}
+  .hero[data-view=orbit] .heroNum{font-size:clamp(52px,15vw,88px)}
+}
+@media(max-width:899px) and (max-height:700px){.spinLbl{font-size:11px;padding:3px 10px;margin-bottom:6px}.qChips button{min-height:32px}}
+.svhProbe{position:fixed;top:0;left:-9px;width:1px;height:100vh;height:100svh;visibility:hidden;pointer-events:none}
 @media(prefers-reduced-motion:reduce){.introFade{display:none}.pin{animation:none}}
 </style>
 </head>
 <body>
-<div class="introFade" aria-hidden="true"></div>
+<div class="introFade" aria-hidden="true"></div><div class="svhProbe" id="svhProbe" aria-hidden="true"></div>
 <section class="hero" id="hero" aria-label="Live planet">
   <div class="stage">
   <canvas id="planet" aria-label="Rotating planet lit by the sun. Drag to spin it." role="img"></canvas>
@@ -692,14 +712,32 @@ function layout(){
   const W=cv.clientWidth||innerWidth,Hh=cv.clientHeight||innerHeight,dpr=Math.min(devicePixelRatio||1,2);
   const pw=Math.round(W*dpr),ph=Math.round(Hh*dpr);if(cv.width!==pw||cv.height!==ph){cv.width=pw;cv.height=ph}
   const wide=W>=900;
-  const cx=wide?W*.665:W*.5,cy=wide?Hh*.5:Hh*.305,R=wide?Math.min(Hh*.39,W*.25):Math.min(W*.42,Hh*.225);
+  const cx=wide?W*.675:W*.5,cy=wide?Hh*.5:Hh*.5,R=wide?Math.min(Hh*.39,W*.25):Math.min(W*.4,Hh*.42);
   // orbit view
-  const ox=wide?W*.69:W*.5,oy=wide?Hh*.52:Hh*.31,orx=wide?Math.min(W*.25,Hh*.6):W*.39,oel=wide?27:40,rp=wide?Math.max(24,orx*.09):Math.max(20,orx*.13);
+  const ox=wide?W*.7:W*.5,oy=wide?Hh*.52:Hh*.47,orx=wide?Math.min(W*.25,Hh*.6):Math.min(W*.39,Math.max(60,(Hh-112)/1.29)),oel=wide?27:40,rp=wide?Math.max(24,orx*.09):Math.max(20,orx*.13);
   const rs=wide?Math.max(26,orx*.12):Math.max(22,orx*.14);
   const te=document.querySelector(".heroTxt"),tx={right:te.offsetLeft+te.offsetWidth};
   return {W,H:Hh,cx,cy,R,dpr,wide,ox,oy,orx,oel,rp,rs,txtR:wide?tx.right:0};
 }
-let LAY=layout();addEventListener("resize",()=>{LAY=layout()});
+// Small screens: the globe gets its own box, sized from the *small* viewport height (100svh = Safari with its toolbars
+// showing), minus the nav + switch above it and the hint + date controls below it, so the controls always fit on the first screen.
+let lastSW=0,lastSH=0;
+function sizeStage(){const hero=$("hero"),W=innerWidth;if(W>=900){hero.style.removeProperty("--stageH");return}
+  const probe=$("svhProbe"),vv=window.visualViewport;let vh=probe.offsetHeight||innerHeight;if(vv&&vv.height>0)vh=Math.min(vh,Math.max(vv.height,vh*.8));
+  if(W===lastSW&&Math.abs(vh-lastSH)<40&&hero.style.getPropertyValue("--stageH"))return;lastSW=W;lastSH=vh;
+  const seg=$("viewSeg"),hint=$("spinLbl"),hr=hero.getBoundingClientRect(),above=seg.getBoundingClientRect().bottom-hr.top;
+  const hs=getComputedStyle(hint),hintH=hint.offsetHeight+parseFloat(hs.marginTop)+parseFloat(hs.marginBottom);
+  const tt=document.querySelector(".heroTitle").getBoundingClientRect(),qc=$("hQuick").getBoundingClientRect(),ctl=qc.bottom-tt.top+12;
+  const h=Math.round(Math.max(180,Math.min(W*1.05,vh-above-hintH-ctl-6)));hero.style.setProperty("--stageH",h+"px")}
+sizeStage();
+let LAY=layout();
+function relayout(){sizeStage();LAY=layout()}
+addEventListener("resize",relayout);addEventListener("orientationchange",()=>setTimeout(relayout,250));
+if(window.visualViewport)visualViewport.addEventListener("resize",relayout);
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{lastSW=0;relayout()});
+// re-measure when the controls under the globe change height (chips filled in, fonts, hint text)
+if(window.ResizeObserver){let rh=new Map();const ro=new ResizeObserver(es=>{let ch=false;for(const e of es){const h=Math.round(e.contentRect.height);if(rh.get(e.target)!==h){rh.set(e.target,h);ch=true}}if(ch){lastSW=0;relayout()}});
+  ["hQuick","spinLbl","viewSeg"].forEach(id=>ro.observe($(id)));ro.observe(document.querySelector(".dateRow"));ro.observe(document.querySelector(".scrub"))}
 const orbitXY=L=>[LAY.ox+Math.sin(L*D)*LAY.orx,LAY.oy+Math.cos(L*D)*Math.sin(LAY.oel*D)*LAY.orx];
 const dayFromL=L=>{let d=80+((L%360)+360)%360/360*365;if(d>365.5)d-=365;return Math.max(1,d)};
 
@@ -741,7 +779,7 @@ function pinSvg(x,y,col,label,op,right,ly,anc){const lx=anc==="middle"?x:x+(righ
   `<line x1="${f1(x)}" y1="${f1(y)}" x2="${f1(anc==="middle"?x:lx-(right?4:-4))}" y2="${f1(ly<y?ly-2:ly-12)}" stroke="${col}" stroke-width="1" opacity=".7"/>`+
   `<text x="${f1(lx)}" y="${f1(ly)}" text-anchor="${anc}" class="pinLbl">${label}</text></g>`}
 // label layout: keep labels on-canvas, below the top controls on phones, and apart from each other
-function placeLbl(x,y,chars,used){const W=LAY.W,w=chars*7.2+8,top=LAY.wide?24:96;
+function placeLbl(x,y,chars,used){const W=LAY.W,w=chars*7.2+8,top=LAY.wide?24:4;
   const cands=[];for(const ly of [y-14,y+26,y-32,y+44])for(const anc of ["start","end","middle"])cands.push([anc,ly]);
   const boxOf=(anc,ly)=>{const l0=anc==="start"?x+16:anc==="end"?x-16-w:x-w/2;return [l0,ly-13,l0+w,ly+3]};
   const fits=b=>b[0]>=4&&b[2]<=W-4&&b[1]>=top&&b[3]<=LAY.H-4,free=b=>!used.some(u=>b[0]<u[2]&&b[2]>u[0]&&b[1]<u[3]&&b[3]>u[1]);
@@ -755,10 +793,12 @@ function overlaySurface(G){
   for(const s of[1,-1]){const v=mul(n,s);let t0=1;if(v[2]<0)t0=nl>1e-3?Math.max(1,1/nl):9;let t1=1.32;
     // keep the axis and its N label clear of the text column on desktop
     if(LAY.wide){const ex=cx+v[0]*R*t1;if(ex<LAY.txtR+24&&v[0]<0)t1=Math.max(t0,Math.min(t1,(cx-LAY.txtR-24)/Math.max(1e-3,-v[0]*R)))}
+    {const vy=v[1]*R;if(vy>0)t1=Math.min(t1,(cy-(LAY.wide?20:16))/vy);if(!LAY.wide&&vy<0)t1=Math.min(t1,(Hh-cy-4)/-vy);t1=Math.max(t1,t0)}
+    if(!LAY.wide){const vx=v[0]*R;if(vx>0)t1=Math.min(t1,(W-cx-18)/vx);if(vx<0)t1=Math.min(t1,(cx-18)/-vx);t1=Math.max(t1,t0)}
     if(t0<t1){const a=Pp(mul(v,t0)),b=Pp(mul(v,t1));out+=`<line x1="${f1(a[0])}" y1="${f1(a[1])}" x2="${f1(b[0])}" y2="${f1(b[1])}" stroke="rgba(255,255,255,${s>0?.85:.45})" stroke-width="1.6" stroke-linecap="round"/>`;
       if(s>0&&t1-t0>.05){out+=`<text x="${f1(b[0]+(v[0]>=0?8:-8))}" y="${f1(b[1]+4)}" text-anchor="${v[0]>=0?"start":"end"}" class="pinLbl" style="font-size:11px;fill:#ffd27a">N</text>`}}}
   const dec=decl(S.tilt,S.day),pins=[[PA(),"#ffc35a"]],used=[];
-  if(!LAY.wide){const rs=LAY.R*.17*1.5,sy=LAY.cy-LAY.R*.5;used.push([-10,sy-rs,rs,sy+rs])}
+  if(!LAY.wide){const pr=Math.min(R*.16,Math.max(12,(cx-R)*.42)),px=Math.max(pr*.35,(cx-R)*.45),sy=cy-R*.62,rs=pr*1.4;used.push([px-rs,sy-rs,px+rs,sy+rs])}
   {const sr=cv.getBoundingClientRect();for(const id of ["spinLbl","viewSeg"]){const e=$(id);if(!e||e.classList.contains("quiet"))continue;const r=e.getBoundingClientRect();if(r.width)used.push([r.left-sr.left-6,r.top-sr.top-4,r.right-sr.left+6,r.bottom-sr.top+4])}}if(S.cmp)pins.push([PB(),"#62e3ff"]);
   for(const [c,col] of pins){const w=G.C(bodyDir(G,c[1],lonOf(c),H.spin));if(w[2]<-.02)continue;
     const op=Math.min(1,Math.max(0,(w[2]+.02)/.18)),[x,y]=Pp(w),h=dayHours(c[1],dec),hr=hourAt(G,c,H.spin);
@@ -818,9 +858,9 @@ function heroText(G){
   if($("hLean").innerHTML!==lean)$("hLean").innerHTML=lean;
   let tag;
   if(S.view==="orbit")tag=S.playing?"▶ playing the year: one orbit around the sun":"drag the planet along its orbit to change the date";
-  else if(S.playing)tag=`same time every day (${hhmm(hourAt(G,c,H.spin))} at ${c[0]}) · watch the day/night line`;
+  else if(S.playing)tag=LAY.wide?`▶ playing the year · the globe doesn't spin · watch the day/night line and the lean`:`▶ the globe holds still · watch the day/night line`;
   else tag=LAY.wide?`⟳ spin = time of day · ${hhmm(hourAt(G,c,H.spin))} at ${c[0]} · date unchanged`:`⟳ drag to spin = time of day · date unchanged`;
-  if(!LAY.wide){const t=S.view==="orbit"?LAY.oy+LAY.orx*Math.sin(LAY.oel*D)+LAY.rp+34:LAY.cy+LAY.R+14,v=Math.round(t)+"px";if($("spinLbl").style.top!==v)$("spinLbl").style.top=v}else if($("spinLbl").style.top)$("spinLbl").style.top="";
+
   if($("spinLbl").textContent!==tag)$("spinLbl").textContent=tag;
   $("hPlay").innerHTML=S.playing?"❚❚<span class=\"pl\"> Pause</span>":"▶<span class=\"pl\"> Play</span>";$("hPlay").setAttribute("aria-label",S.playing?"Pause":"Play the year");$("hPlay").setAttribute("aria-pressed",S.playing);
   hc.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.p===S.planet));
@@ -898,24 +938,28 @@ function frame(t){
   H.tilt+=(S.tilt-H.tilt)*(1-Math.exp(-dt*(reduce?60:3.2)));if(Math.abs(S.tilt-H.tilt)<.01)H.tilt=S.tilt;
   const G=geom(H.tilt,S.day),c=PA(),key=cityMode()?"c:"+c[0]:"lat";
   if(faced!==key){faced=key;const tgt=faceSpin(G,lonOf(c));if(H.last&&t>500&&!reduce){let d=((tgt-H.spin)%(2*Math.PI)+3*Math.PI)%(2*Math.PI)-Math.PI;H.spinTarget=H.spin+d}else{H.spin=tgt}}
+  // Date changes never spin the globe: keep the longitude that faces the camera fixed. The surface camera rides along with the
+  // planet, so when the date (or tilt) moves the camera around the axis, cancel that out in the spin. Only the sun direction,
+  // the day/night line and the axis lean relative to the sun change. Only a user drag (and its inertia) or picking a city spins it.
+  {const Gv=S.view==="orbit"?geom(H.tilt,S.day,LAY.oel):G,fa=Math.atan2(dot(Gv.f,Gv.e2),dot(Gv.f,Gv.e1));
+   if(H.fa!=null&&H.faKey===S.view){const d=((fa-H.fa)%(2*Math.PI)+3*Math.PI)%(2*Math.PI)-Math.PI;H.spin+=d;if(H.spinTarget!=null)H.spinTarget+=d}
+   H.fa=fa;H.faKey=S.view}
   if(H.spinTarget!=null){const d=H.spinTarget-H.spin;H.spin+=d*(1-Math.exp(-dt*3));if(Math.abs(d)<.002)H.spinTarget=null}
-  else if(S.playing&&!H.drag){
-    // Play the year: hold the same time of day, so the globe stays put relative to the sun and only the day/night line moves
-    if(H.holdHA==null)H.holdHA=lonOf(c)*D+H.spin-sunAng(G);
-    H.spin=H.holdHA+sunAng(G)-lonOf(c)*D;H.vel=0;
-  }else if(!H.drag){H.holdHA=null;H.spin+=H.vel*dt;H.vel*=Math.exp(-dt*2.2);if(H.auto)H.spin+=dt*.05}
+  else if(!H.drag){H.spin+=H.vel*dt;H.vel*=Math.exp(-dt*2.2)}
   heroText(G);
   if(!H.visible)return;
   if(useGL){gl.disable(gl.SCISSOR_TEST);gl.viewport(0,0,cv.width,cv.height);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);gl.enable(gl.SCISSOR_TEST)}
   else{ctx2.setTransform(1,0,0,1,0,0);ctx2.clearRect(0,0,cv.width,cv.height)}
   if(S.view==="orbit"){const GO=geom(H.tilt,S.day,LAY.oel),[px,py]=orbitXY(GO.L/D);drawSun(LAY.ox,LAY.oy,LAY.rs,5.5);drawPlanet(GO,px,py,LAY.rp);overlayOrbit(GO)}
-  else{const w=LAY.wide;drawSun(w?LAY.cx-LAY.R*1.12:-LAY.R*.04,w?LAY.cy-LAY.R*.92:LAY.cy-LAY.R*.5,LAY.R*(w?.2:.17),5);drawPlanet(G,LAY.cx,LAY.cy,LAY.R);overlaySurface(G)}
+  else{const w=LAY.wide;const pr=w?0:Math.min(LAY.R*.16,Math.max(12,(LAY.cx-LAY.R)*.42)),px=w?0:Math.max(pr*.35,(LAY.cx-LAY.R)*.45);
+    drawSun(w?LAY.cx-LAY.R*1.12:px,w?LAY.cy-LAY.R*.92:LAY.cy-LAY.R*.62,w?LAY.R*.2:pr,5);drawPlanet(G,LAY.cx,LAY.cy,LAY.R);overlaySurface(G)}
 }
 new IntersectionObserver(es=>{H.visible=es[0].isIntersecting}).observe($("hero"));
 $("play").addEventListener("click",()=>{S.playing=!S.playing;H.holdHA=null;if(!S.playing)S.day=Math.round(S.day)||1;draw()});
 document.addEventListener("keydown",e=>{if(e.target.matches("input,select,textarea,button,canvas"))return;if(e.key===" "){e.preventDefault();$("play").click()}});
 setView(S.view);draw();requestAnimationFrame(frame);
 window.__hero={H,geom,LAY:()=>LAY,renderer:useGL?"webgl":"2d",sun:()=>!!sunProg,setView,
+  centerLon:()=>{const G=S.view==="orbit"?geom(H.tilt,S.day,LAY.oel):geom(H.tilt,S.day);let l=(Math.atan2(dot(G.f,G.e2),dot(G.f,G.e1))-H.spin)/D;return((l%360)+540)%360-180},
   cityPx:(name)=>{const c=find(name);const G=geom(H.tilt,S.day);const w=G.C(bodyDir(G,c[1],lonOf(c),H.spin));return [LAY.cx+w[0]*LAY.R,LAY.cy-w[1]*LAY.R,w[2]]},
   planetPx:()=>orbitXY(orbitAngle(S.day))};
 
