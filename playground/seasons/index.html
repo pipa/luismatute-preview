@@ -11,6 +11,7 @@
 <style>
 :root{--bg:#05060f;--ink:#eef1ff;--mute:#9aa3c7;--line:rgba(160,175,255,.15);--card:rgba(12,15,34,.68);--sun:#ffc35a;--sun2:#ff8a3d;--cool:#62e3ff;--violet:#9b7bff;--night:#151a3a;--r:20px}
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;overflow-x:hidden}
 body::before{content:"";position:fixed;inset:0;background:url(img/space.webp) center/cover no-repeat;opacity:.85;z-index:-2}
@@ -18,7 +19,7 @@ body::after{content:"";position:fixed;inset:0;background:radial-gradient(ellipse
 a{color:var(--cool)}
 .wrap{max-width:1180px;margin:0 auto;padding:0 18px calc(40px + env(safe-area-inset-bottom))}
 .top{display:flex;justify-content:space-between;align-items:center;padding:16px 0 0;font-size:14px;color:var(--mute)}
-.top a{color:var(--mute);text-decoration:none}.top a:hover,.top a:focus-visible{color:var(--ink)}
+.top a{color:var(--mute);text-decoration:none;pointer-events:auto}.top a:hover,.top a:focus-visible{color:var(--ink)}
 .kicker{letter-spacing:.22em;text-transform:uppercase;font-size:12px;color:var(--sun)}
 h1{font-size:clamp(30px,5vw,52px);line-height:1.04;margin:.15em 0 .2em;letter-spacing:-.02em;font-weight:800}
 h1 em{font-style:normal;background:linear-gradient(90deg,var(--sun),var(--sun2) 45%,var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -98,12 +99,12 @@ footer{color:var(--mute);font-size:12.5px;margin-top:20px;text-align:center}
 @keyframes rise{from{transform:translateY(14%) scale(.9);opacity:0}to{transform:none;opacity:1}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes up{from{transform:translateY(18px);opacity:0}to{transform:none;opacity:1}}
-.heroNav{position:absolute;top:0;left:0;right:0;z-index:5;padding:14px 18px;max-width:none}
+.heroNav{position:absolute;top:0;left:0;right:0;z-index:5;pointer-events:none;padding:14px 18px;max-width:none}
 .heroTxt{position:absolute;z-index:4;left:0;right:0;bottom:0;padding:0 18px calc(22px + env(safe-area-inset-bottom));pointer-events:none;animation:up 1.2s cubic-bezier(.2,.8,.2,1) 1.2s both}
 .heroTxt>*{pointer-events:auto;position:relative}
 .heroTxt::before{content:"";position:absolute;inset:-60px -80px -60px -120px;background:radial-gradient(closest-side,rgba(5,6,15,.62),rgba(5,6,15,0));pointer-events:none}
 .heroTitle{font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:var(--sun);font-weight:600;margin:0}
-.heroNum{font-weight:800;letter-spacing:-.045em;line-height:.9;font-size:clamp(76px,24vw,190px);font-variant-numeric:tabular-nums;white-space:nowrap;background:linear-gradient(180deg,#fff 30%,#ffe2a8 70%,#ffb35a);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 6px 30px rgba(0,0,0,.55));margin:2px 0 4px}
+.heroNum{font-weight:800;letter-spacing:-.045em;line-height:.9;font-size:clamp(72px,21vw,190px);font-variant-numeric:tabular-nums;white-space:nowrap;background:linear-gradient(180deg,#fff 30%,#ffe2a8 70%,#ffb35a);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 6px 30px rgba(0,0,0,.55));margin:2px 0 4px}
 .heroNum small{font-size:.34em;letter-spacing:0;margin:0 .22em 0 .06em;font-weight:700}
 .heroSub{margin:0 0 12px;font-size:clamp(15px,2vw,19px);color:#dfe3ff;text-shadow:0 1px 12px #000}
 .heroSub b{color:#fff}
@@ -116,6 +117,21 @@ footer{color:var(--mute);font-size:12.5px;margin-top:20px;text-align:center}
 .heroMore{display:inline-block;margin-top:12px;font-size:14px;color:var(--mute);text-decoration:none}
 .heroMore:hover{color:var(--ink)}
 .dragHint{position:absolute;z-index:4;right:18px;top:52px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:rgba(220,225,255,.55);pointer-events:none;transition:opacity .6s}
+.viewSeg{position:absolute;z-index:6;top:12px;left:50%;transform:translateX(-50%);display:flex;padding:3px;border-radius:999px;background:rgba(10,12,30,.6);border:1px solid var(--line);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.viewSeg button{border:0;background:transparent;min-height:34px;padding:6px 16px;font-size:14px;font-weight:600;color:var(--mute);border-radius:999px}
+.viewSeg button[aria-selected=true]{background:linear-gradient(90deg,#ffd27a,#ff9a3d);color:#1a1204}
+.spinLbl{position:absolute;z-index:4;left:50%;transform:translateX(-50%);top:58px;max-width:calc(100% - 28px);font-size:12px;color:rgba(225,230,255,.78);background:rgba(10,12,30,.45);border:1px solid var(--line);border-radius:999px;padding:4px 12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none}
+.heroDate{font-size:clamp(26px,7vw,40px);font-weight:800;letter-spacing:-.01em;color:#fff;margin:2px 0 -2px;font-variant-numeric:tabular-nums;transition:color .3s,text-shadow .3s}
+.heroDate.live{color:#ffe1a6;text-shadow:0 0 24px rgba(255,180,80,.55)}
+.heroLean{margin:-6px 0 12px;font-size:14px;color:#c9cff0;max-width:46ch;text-shadow:0 1px 10px #000}
+.heroLean b{color:#fff}
+.heroSub .ref{color:var(--mute);font-size:.88em}
+.hLats{margin-top:8px}
+.oLbl{font:600 13px ui-sans-serif,system-ui,-apple-system,sans-serif;fill:#e6e9ff;paint-order:stroke;stroke:rgba(5,6,15,.8);stroke-width:4px}
+.oSub{font-weight:400;fill:#9aa3c7}
+.hero[data-view=orbit] .heroNum{font-size:clamp(64px,17vw,150px)}
+@media(max-width:899px){.hero.latmode .heroMore,.heroSub .ref{display:none}.heroNav span{display:none}.viewSeg{top:46px}.spinLbl{top:92px}.hero[data-view=surface] .heroLean{display:none}}
+@media(min-width:900px){.hero[data-view=orbit] .heroNum{font-size:clamp(72px,7.4vw,118px)}.viewSeg{left:auto;right:18px;transform:none;top:44px}.spinLbl{left:auto;right:18px;transform:none;top:92px}}
 .pin{animation:pinPulse 2.2s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
 @keyframes pinPulse{0%,100%{transform:scale(.7);opacity:.9}50%{transform:scale(1.5);opacity:.15}}
 .pinLbl{font:700 13px ui-sans-serif,system-ui,-apple-system,sans-serif;fill:#fff;paint-order:stroke;stroke:rgba(5,6,15,.85);stroke-width:4px;stroke-linejoin:round}
@@ -138,15 +154,21 @@ footer{color:var(--mute);font-size:12.5px;margin-top:20px;text-align:center}
   <nav class="top heroNav" aria-label="Site"><a href="../">← Playground</a><span>Tilt &amp; seasons</span></nav>
   <div class="heroTxt">
     <h1 class="heroTitle">How long is your day?</h1>
+    <div class="heroDate" id="hDate"></div>
     <div class="heroNum" aria-live="off"><span id="hH">0</span><small>h</small><span id="hM">00</span><small>min</small></div>
     <p class="heroSub" id="hSub"></p>
+    <p class="heroLean" id="hLean"></p>
     <div class="heroBar">
       <button id="hPlay" aria-pressed="false">▶ Play the year</button>
       <div class="hChips" id="hChips" role="group" aria-label="Pick a planet"></div>
     </div>
+    <div class="hChips hLats" id="hLats" role="group" aria-label="Pick a latitude" hidden></div>
     <a class="heroMore" href="#controls">Change place, compare cities ↓</a>
   </div>
-  <div class="dragHint" id="dragHint">drag to spin</div>
+  <div class="viewSeg" id="viewSeg" role="tablist" aria-label="View">
+    <button role="tab" data-v="surface" aria-selected="true">Surface</button><button role="tab" data-v="orbit" aria-selected="false">Orbit</button>
+  </div>
+  <div class="spinLbl" id="spinLbl" aria-live="off"></div>
 </section>
 <div class="wrap">
 <header style="padding-top:6px">
@@ -180,12 +202,20 @@ footer{color:var(--mute);font-size:12.5px;margin-top:20px;text-align:center}
         <input id="tilt" type="range" min="0" max="98" step="0.1" value="23.4" aria-label="Custom axial tilt in degrees">
       </div>
       <div>
-        <div class="lbl"><span>Where you are</span><button id="cmp" aria-pressed="false" style="min-height:30px;padding:3px 12px;font-size:13px">Compare a second place</button></div>
+        <div class="lbl"><span id="whereLbl">Where you are</span><button id="cmp" aria-pressed="false" style="min-height:30px;padding:3px 12px;font-size:13px">Compare a second place</button></div>
         <div class="cities" id="cities">
           <div><input class="cityIn" id="cityA" list="cityList" value="Amsterdam" autocomplete="off" spellcheck="false" placeholder="Search a city…" aria-label="Your place (gold)"></div>
           <div id="cityBWrap" hidden><input class="cityIn" id="cityB" list="cityList" value="Cape Town" autocomplete="off" spellcheck="false" placeholder="Second place…" aria-label="Second place (blue)"></div>
         </div>
         <datalist id="cityList"></datalist>
+        <div id="latWrap" hidden>
+          <div class="chips" id="latPresets" role="group" aria-label="Latitude presets"></div>
+          <div class="lbl" style="margin-top:10px"><label for="latA"><i class="dot" style="background:var(--sun)"></i>Your latitude</label><output id="latAOut"></output></div>
+          <input id="latA" type="range" min="-90" max="90" step="1" value="52">
+          <div id="latBWrap" hidden><div class="lbl"><label for="latB"><i class="dot" style="background:var(--cool)"></i>Second latitude</label><output id="latBOut"></output></div>
+          <input id="latB" type="range" min="-90" max="90" step="1" value="-34"></div>
+          <p class="note" id="latHint"></p>
+        </div>
       </div>
       <div>
         <div class="lbl"><label for="day">Time of year</label><output id="dayOut" for="day"></output></div>
@@ -235,7 +265,8 @@ const find=v=>{v=fold(v||"");if(!v)return null;return CITIES.find(c=>fold(c[0])=
 CITIES.forEach(c=>{const o=document.createElement("option");o.value=c[0];$("cityList").appendChild(o)});
 const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
 const now=new Date(),todayDoy=Math.floor((Date.UTC(now.getFullYear(),now.getMonth(),now.getDate())-Date.UTC(now.getFullYear(),0,0))/864e5);
-const S={planet:"Earth",tilt:23.44,day:Math.min(365,todayDoy),A:find("Amsterdam"),B:find("Cape Town"),cmp:false,playing:false,period:18};
+const S={planet:"Earth",tilt:23.44,day:Math.min(365,todayDoy),A:find("Amsterdam"),B:find("Cape Town"),cmp:false,playing:false,period:18,latA:52,latB:-34,ref:null,view:"surface"};
+S.latA=Math.round(S.A[1]);S.latB=Math.round(S.B[1]);
 try{const h=new URLSearchParams(location.hash.slice(1));
  if(h.get("planet")){const p=PLANETS.find(p=>fold(p[0])===fold(h.get("planet")));if(p){S.planet=p[0];S.tilt=p[1]}}
  if(h.has("tilt")){S.tilt=Math.max(0,Math.min(98,+h.get("tilt")||0));S.planet=null}
@@ -243,6 +274,10 @@ try{const h=new URLSearchParams(location.hash.slice(1));
  if(h.get("a")&&find(h.get("a")))S.A=find(h.get("a"));
  if(h.get("b")&&find(h.get("b"))){S.B=find(h.get("b"));S.cmp=true}
  if(h.get("play")==="1"&&!reduce)S.playing=true;
+ if(h.has("lat"))S.latA=Math.max(-90,Math.min(90,Math.round(+h.get("lat")||0)));
+ if(h.has("latb")){S.latB=Math.max(-90,Math.min(90,Math.round(+h.get("latb")||0)));S.cmp=true}
+ if(h.get("view")==="orbit")S.view="orbit";
+ if(S.planet&&S.planet!=="Earth")S.ref=S.A;
 }catch(e){}
 
 // ---- physics
@@ -258,6 +293,11 @@ function dayHours(lat,dec){
 }
 const noonAlt=(lat,dec)=>90-Math.abs(lat-dec);
 const isEarth=()=>S.planet==="Earth";
+const cityMode=()=>S.planet==="Earth"||S.planet==null;     // custom tilt keeps Earth's surface and cities
+const latLabel=l=>l>=89.5?"North pole":l<=-89.5?"South pole":Math.abs(l)<.5?"Equator":`${Math.abs(Math.round(l))}° ${l>0?"N":"S"}`;
+const PA=()=>cityMode()?S.A:[latLabel(S.latA),S.latA,true];
+const PB=()=>cityMode()?S.B:[latLabel(S.latB),S.latB,true];
+const P=k=>k==="A"?PA():PB();
 const MON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 const dateOf=d=>{const t=new Date(Date.UTC(2026,0,d));return `${t.getUTCDate()} ${MON[t.getUTCMonth()]}`};
 const whenLabel=d=>isEarth()?dateOf(d):`${Math.round(((d-80+365)%365)/365*100)}% through its year`;
@@ -290,13 +330,13 @@ function ring(){
   [["12",0],["18",90],["00",180],["06",270]].forEach(([t,a])=>{const r=RA+38,x=Math.sin(a*D)*r,y=-Math.cos(a*D)*r+4;const tx=el("text",{x,y,"text-anchor":"middle","font-size":12,fill:"#9aa3c7"},g);tx.textContent=t;});
   const arcs=[[RA,"A",14]];if(S.cmp)arcs.push([RB,"B",10]);
   for(const [r,k,w] of arcs){
-    const c=S[k],h=dayHours(c[1],decl(S.tilt,S.day)),C=2*Math.PI*r;
+    const c=P(k),h=dayHours(c[1],decl(S.tilt,S.day)),C=2*Math.PI*r;
     el("circle",{r,fill:"none",stroke:"#151a3a","stroke-width":w},g);
     if(h>0.001){const lit=el("circle",{r,fill:"none",stroke:k==="A"?"url(#litG)":"#62e3ff","stroke-width":w,"stroke-linecap":h<23.99?"round":"butt","stroke-dasharray":`${(C*h/24).toFixed(2)} ${C.toFixed(2)}`,transform:`rotate(${(-90-h/24*180).toFixed(2)})`,filter:"url(#gl)"},g);}
     if(h>0.01&&h<23.99){[12-h/2,12+h/2].forEach(t=>{const a=(t/24*360+180)*D;el("circle",{cx:Math.sin(a)*r,cy:-Math.cos(a)*r,r:w/2+2.5,fill:"#05060f",stroke:k==="A"?"#ffd27a":"#62e3ff","stroke-width":2},g)});}
   }
   // inner sky dome: noon sun height for A
-  const alt=noonAlt(S.A[1],decl(S.tilt,S.day)),R=S.cmp?62:78;
+  const alt=noonAlt(PA()[1],decl(S.tilt,S.day)),R=S.cmp?62:78;
   el("path",{d:`M${-R} 18 A${R} ${R} 0 0 1 ${R} 18 Z`,fill:"url(#skyG)"},g);
   el("line",{x1:-R-6,x2:R+6,y1:18,y2:18,stroke:"#9aa3c7","stroke-width":1.2,opacity:.6},g);
   const a=Math.max(-8,Math.min(90,alt))*D,sx=-Math.cos(a)*R*.82*(alt>90?-1:1),sy=18-Math.sin(a)*R*.82;
@@ -307,24 +347,24 @@ function ring(){
 }
 
 // ---- year chart
-const CW=760,CH=270,PL=36,PR=10,PT=12,PB=30;
-const cx=d=>PL+(d-1)/364*(CW-PL-PR),cy=h=>PT+(1-h/24)*(CH-PT-PB);
+const CW=760,CH=270,PL=36,PR=10,PT=12,PBm=30;
+const cx=d=>PL+(d-1)/364*(CW-PL-PR),cy=h=>PT+(1-h/24)*(CH-PT-PBm);
 function chart(){
   const g=$("chart");g.textContent="";const defs=el("defs",{},g);
   const ga=el("linearGradient",{id:"areaA",x1:0,y1:0,x2:0,y2:1},defs);el("stop",{offset:0,"stop-color":"#ffc35a","stop-opacity":.45},ga);el("stop",{offset:1,"stop-color":"#ffc35a","stop-opacity":0},ga);
   for(const h of[0,6,12,18,24]){el("line",{x1:PL,x2:CW-PR,y1:cy(h),y2:cy(h),stroke:"rgba(180,190,255,"+(h===12?.3:.12)+")","stroke-dasharray":h===12?"4 4":""},g);const t=el("text",{x:PL-6,y:cy(h)+4,"text-anchor":"end","font-size":11,fill:"#9aa3c7"},g);t.textContent=h+"h";}
-  if(isEarth()){MON.forEach((m,i)=>{const d=Math.floor((Date.UTC(2026,i,1)-Date.UTC(2026,0,0))/864e5);const t=el("text",{x:cx(d)+2,y:CH-10,"font-size":11,fill:"#9aa3c7"},g);t.textContent=m;el("line",{x1:cx(d),x2:cx(d),y1:CH-PB,y2:CH-PB+5,stroke:"#9aa3c7",opacity:.5},g)})}
+  if(isEarth()){MON.forEach((m,i)=>{const d=Math.floor((Date.UTC(2026,i,1)-Date.UTC(2026,0,0))/864e5);const t=el("text",{x:cx(d)+2,y:CH-10,"font-size":11,fill:"#9aa3c7"},g);t.textContent=m;el("line",{x1:cx(d),x2:cx(d),y1:CH-PBm,y2:CH-PBm+5,stroke:"#9aa3c7",opacity:.5},g)})}
   else{[["N spring",80],["N summer",171],["N autumn",263],["N winter",354]].forEach(([m,d])=>{const t=el("text",{x:cx(d),y:CH-10,"text-anchor":"middle","font-size":11,fill:"#9aa3c7"},g);t.textContent=m;})}
   const list=[["A","#ffc35a"]];if(S.cmp)list.push(["B","#62e3ff"]);
   list.slice().reverse().forEach(([k,col])=>{
-    let d="";for(let day=1;day<=365;day++)d+=(day>1?"L":"M")+cx(day).toFixed(1)+" "+cy(dayHours(S[k][1],decl(S.tilt,day))).toFixed(1);
+    let d="";for(let day=1;day<=365;day++)d+=(day>1?"L":"M")+cx(day).toFixed(1)+" "+cy(dayHours(P(k)[1],decl(S.tilt,day))).toFixed(1);
     if(k==="A")el("path",{d:d+`L${cx(365)} ${cy(0)} L${cx(1)} ${cy(0)} Z`,fill:"url(#areaA)"},g);
     el("path",{d,fill:"none",stroke:col,"stroke-width":k==="A"?3:2.4,"stroke-linejoin":"round"},g);
   });
-  const x=cx(S.day);el("line",{x1:x,x2:x,y1:PT,y2:CH-PB,stroke:"#fff",opacity:.45,"stroke-dasharray":"3 4"},g);
-  list.forEach(([k,col])=>{const h=dayHours(S[k][1],decl(S.tilt,S.day)),y=cy(h);el("circle",{cx:x,cy:y,r:11,fill:col,opacity:.25},g);el("circle",{cx:x,cy:y,r:6,fill:col,stroke:"#05060f","stroke-width":2.5},g);
+  const x=cx(S.day);el("line",{x1:x,x2:x,y1:PT,y2:CH-PBm,stroke:"#fff",opacity:.45,"stroke-dasharray":"3 4"},g);
+  list.forEach(([k,col])=>{const h=dayHours(P(k)[1],decl(S.tilt,S.day)),y=cy(h);el("circle",{cx:x,cy:y,r:11,fill:col,opacity:.25},g);el("circle",{cx:x,cy:y,r:6,fill:col,stroke:"#05060f","stroke-width":2.5},g);
     const right=x<CW-150,lab=el("text",{x:x+(right?14:-14),y:y<44?y+24:y-10,"text-anchor":right?"start":"end","font-size":13,"font-weight":700,fill:"#fff",stroke:"#05060f","stroke-width":4,"paint-order":"stroke"},g);lab.textContent=hm(h).replace(" min","m").replace(" h","h");});
-  $("legend").innerHTML=list.map(([k,col])=>`<span><i class="dot" style="background:${col}"></i>${S[k][0]} (${latS(S[k][1])})</span>`).join("");
+  $("legend").innerHTML=list.map(([k,col])=>`<span><i class="dot" style="background:${col}"></i>${P(k)[0]}${P(k)[2]?"":` (${latS(P(k)[1])})`}</span>`).join("");
 }
 // drag on chart to scrub
 (()=>{const g=$("chart");let down=false;
@@ -362,7 +402,7 @@ function orbit(){
 
 // ---- readout
 function readout(){
-  const dec=decl(S.tilt,S.day),A=S.A,h=dayHours(A[1],dec),alt=noonAlt(A[1],dec),[sn,si]=season(A[1],S.day);
+  const dec=decl(S.tilt,S.day),A=PA(),h=dayHours(A[1],dec),alt=noonAlt(A[1],dec),[sn,si]=season(A[1],S.day);
   $("place").innerHTML=`<b>${A[0]}</b>${S.planet&&S.planet!=="Earth"?` on ${S.planet}`:(S.planet?"":` · tilt ${S.tilt.toFixed(1)}°`)}, ${whenLabel(S.day)}`;
   const {H,M}=fmtH(h);
   $("big").innerHTML=`${H}<small> h </small>${String(M).padStart(2,"0")}<small> min</small>`;
@@ -373,7 +413,7 @@ function readout(){
   $("sub").innerHTML=sub;
   $("seasonName").textContent=`${sn} in the ${A[1]>=0?"north":"south"}`;$("seasonImg").src=`img/${si}.webp`;
   const cl=$("cmpLine");cl.hidden=!S.cmp;
-  if(S.cmp){const hb=dayHours(S.B[1],dec),d=hb-h;cl.innerHTML=`<i class="dot" style="background:var(--cool)"></i><b>${S.B[0]}</b>: ${hm(hb)} (${season(S.B[1],S.day)[0].toLowerCase()}), ${Math.abs(d)<1/60?"the same":hm(Math.abs(d))+(d>0?" more":" less")}`;}
+  if(S.cmp){const B=PB(),hb=dayHours(B[1],dec),d=hb-h;cl.innerHTML=`<i class="dot" style="background:var(--cool)"></i><b>${B[0]}</b>: ${hm(hb)} (${season(B[1],S.day)[0].toLowerCase()}), ${Math.abs(d)<1/60?"the same":hm(Math.abs(d))+(d>0?" more":" less")}`;}
 }
 function ui(){
   $("tilt").value=S.tilt;$("day").value=S.day;
@@ -386,11 +426,27 @@ function ui(){
   $("cmp").setAttribute("aria-pressed",S.cmp);$("cityBWrap").hidden=!S.cmp;$("cities").className="cities"+(S.cmp?" two":"");
   $("big").setAttribute("aria-live",S.playing?"off":"polite");
   $("today").hidden=!isEarth();
+  const cm=cityMode();$("cities").hidden=!cm;$("latWrap").hidden=cm;
+  if(!cm){$("latA").value=S.latA;$("latB").value=S.latB;$("latAOut").textContent=latLabel(S.latA);$("latBOut").textContent=latLabel(S.latB);$("latBWrap").hidden=!S.cmp;
+    $("latA").setAttribute("aria-valuetext",latLabel(S.latA));$("latB").setAttribute("aria-valuetext",latLabel(S.latB));
+    $("latPresets").querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",+b.dataset.l===S.latA));
+    $("latHint").textContent=S.ref?`For reference: ${S.ref[0]} is at ${latLabel(Math.round(S.ref[1]))} on Earth.`:"";}
 }
 function draw(){readout();ring();chart();orbit();ui()}
 
-pc.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;if(b.dataset.p){const p=PLANETS.find(p=>p[0]===b.dataset.p);S.planet=p[0];S.tilt=p[1]}else{S.planet=null}draw()});
-$("tilt").addEventListener("input",e=>{S.tilt=+e.target.value;S.planet=null;draw()});
+function setPlanet(name){
+  const wasCity=cityMode();
+  if(name){const p=PLANETS.find(p=>p[0]===name);S.planet=p[0];S.tilt=p[1]}else S.planet=null;
+  if(wasCity&&!cityMode()){S.latA=Math.round(S.A[1]);S.latB=Math.round(S.B[1]);S.ref=S.A;}
+  draw();
+}
+pc.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;setPlanet(b.dataset.p||null)});
+$("tilt").addEventListener("input",e=>{S.tilt=+e.target.value;if(S.planet!==null)setPlanet(null);else draw()});
+const LATS=[[90,"North pole"],[60,"60° N"],[45,"45° N"],[0,"Equator"],[-45,"45° S"],[-90,"South pole"]];
+LATS.forEach(([l,t])=>{const b=document.createElement("button");b.dataset.l=l;b.textContent=t;$("latPresets").appendChild(b)});
+$("latPresets").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;S.latA=+b.dataset.l;draw()});
+$("latA").addEventListener("input",e=>{S.latA=+e.target.value;draw()});
+$("latB").addEventListener("input",e=>{S.latB=+e.target.value;draw()});
 $("day").addEventListener("input",e=>{S.day=+e.target.value;draw()});
 $("speed").addEventListener("change",e=>S.period=+e.target.value);
 $("today").addEventListener("click",()=>{S.day=Math.min(365,todayDoy);S.playing=false;draw()});
@@ -413,30 +469,35 @@ const nrm=v=>{const l=Math.hypot(v[0],v[1],v[2])||1;return mul(v,1/l)};
 const WY=[0,1,0];
 const H={tilt:S.tilt,spin:0,vel:0,drag:false,spinTarget:null,last:0,lastDraw:0,lastFloor:-1,visible:true,auto:!reduce};
 // Inertial geometry. World Y = orbit normal; the axis leans toward fixed direction d; L = orbit angle (0 = N spring equinox).
-function geom(tilt,day){
+function geom(tilt,day,orbitEl){
   const t=tilt*D,L=orbitAngle(day)*D,d=[-1,0,0];
   const n=add(mul(d,Math.sin(t)),mul(WY,Math.cos(t)));
   const u=[-Math.sin(L),0,-Math.cos(L)];                // direction from planet to sun
   const e1=nrm(cross(WY,d)),e2=cross(n,e1);
-  // camera: sun sits to the left and a bit in front; slightly above the orbit plane
+  if(orbitEl!=null){ // fixed camera looking down at the whole orbit from the front
+    const el=orbitEl*D,r=[1,0,0],up=[0,Math.cos(el),-Math.sin(el)],f2=[0,Math.sin(el),Math.cos(el)];
+    const C=v=>[dot(v,r),dot(v,up),dot(v,f2)];
+    return {n,u,e1,e2,f:f2,cN:C(n),cU:C(u),cE1:C(e1),cE2:C(e2),C,L};
+  }
+  // surface camera: rides along with the planet; sun to the left and a bit in front, slightly above the orbit plane
   const a=38*D,el=16*D;let q=nrm(cross(WY,u));
   let r=add(mul(u,-Math.cos(a)),mul(q,Math.sin(a))),f=add(mul(u,Math.sin(a)),mul(q,Math.cos(a)));
   if(dot(cross(r,WY),f)<0){q=mul(q,-1);r=add(mul(u,-Math.cos(a)),mul(q,Math.sin(a)));f=add(mul(u,Math.sin(a)),mul(q,Math.cos(a)))}
   const f2=add(mul(f,Math.cos(el)),mul(WY,Math.sin(el))),up=add(mul(WY,Math.cos(el)),mul(f,-Math.sin(el)));
   const C=v=>[dot(v,r),dot(v,up),dot(v,f2)];
-  return {n,u,e1,e2,f:f2,cN:C(n),cU:C(u),cE1:C(e1),cE2:C(e2),C};
+  return {n,u,e1,e2,f:f2,cN:C(n),cU:C(u),cE1:C(e1),cE2:C(e2),C,L};
 }
 const bodyDir=(G,lat,lon,spin)=>{const p=lat*D,l=lon*D+spin;return add(mul(G.e1,Math.cos(p)*Math.cos(l)),mul(G.e2,Math.cos(p)*Math.sin(l)),mul(G.n,Math.sin(p)))};
 const faceSpin=(G,lon)=>Math.atan2(dot(G.f,G.e2),dot(G.f,G.e1))-lon*D-0.12;
 const CITYLON={"Longyearbyen":15.65,"Tromsø":18.96,"Reykjavik":-21.94,"Anchorage":-149.9,"Helsinki":24.94,"Oslo":10.75,"Berlin":13.40,"Amsterdam":4.90,"London":-0.13,"Paris":2.35,"Rome":12.50,"Chicago":-87.63,"New York":-74.01,"Madrid":-3.70,"Beijing":116.40,"San Francisco":-122.42,"Tokyo":139.69,"Cairo":31.24,"Dubai":55.27,"Honolulu":-157.86,"Mexico City":-99.13,"Mumbai":72.88,"San Pedro Sula":-88.03,"Tegucigalpa":-87.19,"Bangkok":100.50,"Singapore":103.82,"Quito":-78.47,"Nairobi":36.82,"Jakarta":106.85,"Lima":-77.04,"Rio de Janeiro":-43.17,"Johannesburg":28.05,"Santiago":-70.67,"Sydney":151.21,"Cape Town":18.42,"Buenos Aires":-58.38,"Auckland":174.76,"Ushuaia":-68.30,"McMurdo Station":166.67};
-const lonOf=c=>CITYLON[c[0]]||0;
+const lonOf=c=>c[2]===true?0:(CITYLON[c[0]]||0);
 const KIND={Earth:0,Mercury:1,Mars:2,Saturn:3,Neptune:4,Uranus:5};
 const kind=()=>S.planet in KIND?KIND[S.planet]:0;   // custom tilt keeps Earth's surface
 const ATMO=[[.35,.62,1],[0,0,0],[1,.55,.3],[1,.85,.55],[.3,.5,1],[.5,.9,1]];
 
 const cv=$("planet");let gl=null,prog=null,U={},tex={day:null,night:null},ctx2=null;
 const VS=`attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}`;
-const FS=`precision highp float;
+const FSBODY=`precision highp float;
 uniform vec2 uC;uniform float uR,uSpin,uTime,uKind,uReady;uniform vec3 uN,uE1,uE2,uU,uAtmo;
 uniform sampler2D uDay,uNight;
 float h3(vec3 p){p=fract(p*.3183099+.1);p*=17.;return fract(p.x*p.y*p.z*(p.x+p.y+p.z));}
@@ -452,7 +513,10 @@ void main(){
   vec3 p=vec3(q,sqrt(1.-r2));
   float sn=clamp(dot(p,uN),-1.,1.);float lat=asin(sn);
   float lon=atan(dot(p,uE2),dot(p,uE1))-uSpin;
-  vec2 uv=vec2(fract(lon/6.2831853+.5),.5-lat/3.1415927);
+  float ua=lon/6.2831853;vec2 uv=vec2(fract(ua+.5),.5-lat/3.1415927);
+#ifdef DERIV
+  float ub=fract(ua)+.5; if(fwidth(ub)<fwidth(uv.x)-1e-5)uv.x=ub;   // avoid the mip seam at the date line
+#endif
   vec3 b=vec3(cos(lat)*cos(lon),cos(lat)*sin(lon),sn);   // body-fixed point (for seamless noise)
   float L=dot(p,uU);float day=smoothstep(-.10,.14,L);float diff=max(L,0.);
   vec3 base=vec3(.5);vec3 lights=vec3(0.);float ocean=0.,cloud=0.;
@@ -486,7 +550,7 @@ void main(){
   float fr=pow(1.-p.z,2.4);col+=uAtmo*fr*smoothstep(-.25,.5,L)*.9;
   col=1.-exp(-col*1.25);
   al=1.;
-  float edge=smoothstep(1.,.994,sqrt(r2));col*=edge;al=edge;
+  float edge=smoothstep(1.,1.-1.6/uR,sqrt(r2));col*=edge;al=edge;
   col*=uReady;
  }
  float r=sqrt(r2);
@@ -503,6 +567,8 @@ function initGL(){
   try{gl=cv.getContext("webgl",{premultipliedAlpha:true,alpha:true,antialias:false,preserveDrawingBuffer:false})||cv.getContext("experimental-webgl")}catch(e){gl=null}
   if(!gl)return false;
   const sh=(t,src)=>{const s=gl.createShader(t);gl.shaderSource(s,src);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)){console.warn(gl.getShaderInfoLog(s));return null}return s};
+  const deriv=!!gl.getExtension("OES_standard_derivatives");H.mip=deriv;
+  const FS=(deriv?"#extension GL_OES_standard_derivatives : enable\n#define DERIV 1\n":"")+FSBODY;
   const v=sh(gl.VERTEX_SHADER,VS),f=sh(gl.FRAGMENT_SHADER,FS);if(!v||!f){gl=null;return false}
   prog=gl.createProgram();gl.attachShader(prog,v);gl.attachShader(prog,f);gl.linkProgram(prog);
   if(!gl.getProgramParameter(prog,gl.LINK_STATUS)){gl=null;return false}
@@ -515,8 +581,9 @@ function initGL(){
     gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,1,1,0,gl.RGBA,gl.UNSIGNED_BYTE,new Uint8Array([20,40,90,255]));
     const im=new Image();im.onload=()=>{gl.activeTexture(gl.TEXTURE0+unit);gl.bindTexture(gl.TEXTURE_2D,t);
       gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,im);
-      gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
-      gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+      const pot=(im.naturalWidth&(im.naturalWidth-1))===0&&(im.naturalHeight&(im.naturalHeight-1))===0;
+      gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,pot?gl.REPEAT:gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+      if(pot&&H.mip){gl.generateMipmap(gl.TEXTURE_2D);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR_MIPMAP_LINEAR)}else gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
       tex[src]=true;};im.src=`img/earth-${src}.webp`;};
   mk(0,"day");mk(1,"night");
   gl.enable(gl.BLEND);gl.blendFunc(gl.ONE,gl.ONE_MINUS_SRC_ALPHA);
@@ -551,60 +618,140 @@ function layout(){
   const W=cv.clientWidth||innerWidth,Hh=cv.clientHeight||innerHeight,dpr=Math.min(devicePixelRatio||1,2);
   const pw=Math.round(W*dpr),ph=Math.round(Hh*dpr);if(cv.width!==pw||cv.height!==ph){cv.width=pw;cv.height=ph}
   const wide=W>=900;
-  const cx=wide?W*.665:W*.5,cy=wide?Hh*.5:Hh*.355,R=wide?Math.min(Hh*.39,W*.25):Math.min(W*.46,Hh*.27);
-  return {W,H:Hh,cx,cy,R,dpr};
+  const cx=wide?W*.665:W*.5,cy=wide?Hh*.5:Hh*.34,R=wide?Math.min(Hh*.39,W*.25):Math.min(W*.44,Hh*.25);
+  // orbit view
+  const ox=wide?W*.69:W*.5,oy=wide?Hh*.52:Hh*.33,orx=wide?Math.min(W*.25,Hh*.6):W*.39,oel=wide?27:40,rp=wide?Math.max(24,orx*.09):Math.max(20,orx*.13);
+  const te=document.querySelector(".heroTxt"),tx={right:te.offsetLeft+te.offsetWidth};
+  return {W,H:Hh,cx,cy,R,dpr,wide,ox,oy,orx,oel,rp,txtR:wide?tx.right:0};
 }
 let LAY=layout();addEventListener("resize",()=>{LAY=layout()});
+const orbitXY=L=>[LAY.ox+Math.sin(L*D)*LAY.orx,LAY.oy+Math.cos(L*D)*Math.sin(LAY.oel*D)*LAY.orx];
+const dayFromL=L=>{let d=80+((L%360)+360)%360/360*365;if(d>365.5)d-=365;return Math.max(1,d)};
 
-// interaction: drag / swipe to spin (vertical swipes still scroll the page)
+// ---- view switch (Surface / Orbit)
+function setView(v){S.view=v;document.querySelectorAll("#viewSeg button").forEach(b=>b.setAttribute("aria-selected",b.dataset.v===v));
+  $("hero").dataset.view=v;cv.style.touchAction=v==="orbit"?"none":"pan-y";cv.setAttribute("aria-label",v==="orbit"?"Orbit view: the planet circling the sun. Drag the planet along its orbit to change the date.":"Rotating planet lit by the sun. Drag to spin it: spinning changes the time of day, not the date.");}
+$("viewSeg").addEventListener("click",e=>{const b=e.target.closest("button");if(b)setView(b.dataset.v)});
+$("viewSeg").addEventListener("keydown",e=>{if(e.key==="ArrowLeft"||e.key==="ArrowRight"){setView(S.view==="orbit"?"surface":"orbit");$("viewSeg").querySelector(`[data-v=${S.view}]`).focus()}});
+
+// ---- interaction. Surface: drag = spin (time of day). Orbit: drag = move along the orbit (date).
 (()=>{let lx=0,lt=0,id=null;
- cv.addEventListener("pointerdown",e=>{id=e.pointerId;H.drag=true;lx=e.clientX;lt=performance.now();H.vel=0;H.spinTarget=null;cv.setPointerCapture(id);$("dragHint").style.opacity=0});
- cv.addEventListener("pointermove",e=>{if(!H.drag||e.pointerId!==id)return;const dx=e.clientX-lx,t=performance.now();H.spin+=dx/LAY.R;H.vel=dx/LAY.R/Math.max(.008,(t-lt)/1000);lx=e.clientX;lt=t});
- const end=()=>{H.drag=false;id=null};cv.addEventListener("pointerup",end);cv.addEventListener("pointercancel",end);
- cv.addEventListener("keydown",e=>{if(e.key==="ArrowLeft"){H.spin-=.2}if(e.key==="ArrowRight"){H.spin+=.2}});cv.tabIndex=0;
+ const orbitSet=e=>{const r=cv.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;const X=(x-LAY.ox)/LAY.orx,Z=(y-LAY.oy)/(LAY.orx*Math.sin(LAY.oel*D));S.day=dayFromL(Math.atan2(X,Z)/D);draw()};
+ cv.addEventListener("pointerdown",e=>{id=e.pointerId;H.drag=true;lx=e.clientX;lt=performance.now();H.vel=0;H.spinTarget=null;cv.setPointerCapture(id);
+   if(S.view==="orbit"){if(S.playing)$("play").click();orbitSet(e)}});
+ cv.addEventListener("pointermove",e=>{if(!H.drag||e.pointerId!==id)return;if(S.view==="orbit"){orbitSet(e);return}
+   const dx=e.clientX-lx,t=performance.now();H.spin+=dx/LAY.R;H.vel=dx/LAY.R/Math.max(.008,(t-lt)/1000);lx=e.clientX;lt=t;H.touched=true});
+ const end=()=>{H.drag=false;id=null;if(S.playing)H.holdHA=null};cv.addEventListener("pointerup",end);cv.addEventListener("pointercancel",end);
+ cv.addEventListener("keydown",e=>{if(S.view==="orbit"){if(e.key==="ArrowLeft"){S.day=S.day<=1?365:S.day-1;draw()}if(e.key==="ArrowRight"){S.day=S.day>=365?1:S.day+1;draw()}return}
+   if(e.key==="ArrowLeft"){H.spin-=.2}if(e.key==="ArrowRight"){H.spin+=.2}});cv.tabIndex=0;
 })();
 
-// hero chips
+// hero chips: planets, and latitude presets (non-Earth)
 const hc=$("hChips");PLANETS.forEach(([n])=>{const b=document.createElement("button");b.dataset.p=n;b.textContent=n;hc.appendChild(b)});
-hc.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const p=PLANETS.find(p=>p[0]===b.dataset.p);S.planet=p[0];S.tilt=p[1];draw()});
+hc.addEventListener("click",e=>{const b=e.target.closest("button");if(b)setPlanet(b.dataset.p)});
+const hl=$("hLats");LATS.forEach(([l,t])=>{const b=document.createElement("button");b.dataset.l=l;b.textContent=t;hl.appendChild(b)});
+hl.addEventListener("click",e=>{const b=e.target.closest("button");if(b){S.latA=+b.dataset.l;draw()}});
 $("hPlay").addEventListener("click",()=>$("play").click());
 
-// overlay: axis, pins, sun position
-const hs=$("heroSvg");
-function overlay(G){
+// time of day at a place = angle between its meridian and the sun's meridian
+const sunAng=G=>Math.atan2(dot(G.u,G.e2),dot(G.u,G.e1));
+const hourAt=(G,c,spin)=>{let h=12+((lonOf(c)*D+spin-sunAng(G))/Math.PI)*12;return((h%24)+24)%24};
+const hhmm=h=>{const H=Math.floor(h),M=Math.floor((h-H)*60);return `${String(H).padStart(2,"0")}:${String(M).padStart(2,"0")}`};
+const isDay=(lat,dec,h)=>{const sa=Math.sin(lat*D)*Math.sin(dec*D)+Math.cos(lat*D)*Math.cos(dec*D)*Math.cos((h-12)*15*D);return sa>-0.0145};
+
+// ---- overlays
+const hs=$("heroSvg");const f1=v=>v.toFixed(1);
+function pinSvg(x,y,col,label,op,right){const lx=x+(right?16:-16);
+  return `<g opacity="${op.toFixed(2)}"><circle class="pin" cx="${f1(x)}" cy="${f1(y)}" r="11" fill="${col}" opacity=".5"/><circle cx="${f1(x)}" cy="${f1(y)}" r="4.5" fill="#fff" stroke="${col}" stroke-width="2.5" style="filter:drop-shadow(0 0 6px ${col})"/>`+
+  `<line x1="${f1(x)}" y1="${f1(y)}" x2="${f1(lx-(right?4:-4))}" y2="${f1(y-16)}" stroke="${col}" stroke-width="1" opacity=".7"/>`+
+  `<text x="${f1(lx)}" y="${f1(y-14)}" text-anchor="${right?"start":"end"}" class="pinLbl">${label}</text></g>`}
+const short=h=>hm(h).replace(" min","m").replace(" h","h");
+function overlaySurface(G){
   const {cx,cy,R,W,H:Hh}=LAY;hs.setAttribute("viewBox",`0 0 ${W} ${Hh}`);
-  const P=v=>[cx+v[0]*R,cy-v[1]*R];
-  let out="";
-  // axis: only the parts outside the disc or in front of it
+  const Pp=v=>[cx+v[0]*R,cy-v[1]*R];let out="";
   const n=G.cN,nl=Math.hypot(n[0],n[1]);
-  for(const s of[1,-1]){const v=mul(n,s);let t0=1;if(v[2]<0)t0=nl>1e-3?Math.max(1,1/nl):9;const t1=1.32;
-    if(t0<t1){const a=P(mul(v,t0)),b=P(mul(v,t1));out+=`<line x1="${a[0].toFixed(1)}" y1="${a[1].toFixed(1)}" x2="${b[0].toFixed(1)}" y2="${b[1].toFixed(1)}" stroke="rgba(255,255,255,${s>0?.85:.45})" stroke-width="1.6" stroke-linecap="round"/>`;
-      if(s>0){out+=`<text x="${(b[0]+(v[0]>=0?8:-8)).toFixed(1)}" y="${(b[1]+4).toFixed(1)}" text-anchor="${v[0]>=0?"start":"end"}" class="pinLbl" style="font-size:11px;fill:#ffd27a">N</text>`}}}
-  const day=S.day,dec=decl(S.tilt,day);
-  const pins=[[S.A,"#ffc35a"]];if(S.cmp)pins.push([S.B,"#62e3ff"]);
-  for(const [c,col] of pins){const w=G.C(bodyDir(G,c[1],lonOf(c),H.spin));const vis=w[2];if(vis<-.02)continue;
-    const op=Math.min(1,Math.max(0,(vis+.02)/.18)),[x,y]=P(w),h=dayHours(c[1],dec);
-    const right=x<cx+R*.3||x<LAY.W*.5;const lx=x+(right?16:-16);
-    out+=`<g opacity="${op.toFixed(2)}"><circle class="pin" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="11" fill="${col}" opacity=".5"/><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4.5" fill="#fff" stroke="${col}" stroke-width="2.5" style="filter:drop-shadow(0 0 6px ${col})"/>`+
-      `<line x1="${x.toFixed(1)}" y1="${y.toFixed(1)}" x2="${(lx-(right?4:-4)).toFixed(1)}" y2="${(y-16).toFixed(1)}" stroke="${col}" stroke-width="1" opacity=".7"/>`+
-      `<text x="${lx.toFixed(1)}" y="${(y-14).toFixed(1)}" text-anchor="${right?"start":"end"}" class="pinLbl">${c[0]} <tspan fill="${col}">· ${hm(h).replace(" min","m").replace(" h","h")}</tspan></text></g>`;}
+  for(const s of[1,-1]){const v=mul(n,s);let t0=1;if(v[2]<0)t0=nl>1e-3?Math.max(1,1/nl):9;let t1=1.32;
+    // keep the axis and its N label clear of the text column on desktop
+    if(LAY.wide){const ex=cx+v[0]*R*t1;if(ex<LAY.txtR+24&&v[0]<0)t1=Math.max(t0,Math.min(t1,(cx-LAY.txtR-24)/Math.max(1e-3,-v[0]*R)))}
+    if(t0<t1){const a=Pp(mul(v,t0)),b=Pp(mul(v,t1));out+=`<line x1="${f1(a[0])}" y1="${f1(a[1])}" x2="${f1(b[0])}" y2="${f1(b[1])}" stroke="rgba(255,255,255,${s>0?.85:.45})" stroke-width="1.6" stroke-linecap="round"/>`;
+      if(s>0&&t1-t0>.05){out+=`<text x="${f1(b[0]+(v[0]>=0?8:-8))}" y="${f1(b[1]+4)}" text-anchor="${v[0]>=0?"start":"end"}" class="pinLbl" style="font-size:11px;fill:#ffd27a">N</text>`}}}
+  const dec=decl(S.tilt,S.day),pins=[[PA(),"#ffc35a"]];if(S.cmp)pins.push([PB(),"#62e3ff"]);
+  for(const [c,col] of pins){const w=G.C(bodyDir(G,c[1],lonOf(c),H.spin));if(w[2]<-.02)continue;
+    const op=Math.min(1,Math.max(0,(w[2]+.02)/.18)),[x,y]=Pp(w),h=dayHours(c[1],dec),hr=hourAt(G,c,H.spin);
+    out+=pinSvg(x,y,col,`${c[0]} <tspan fill="${col}">· ${short(h)}</tspan><tspan fill="#cfd5ff" font-weight="400"> · ${hhmm(hr)}${isDay(c[1],dec,hr)?" ☀":" ☾"}</tspan>`,op,x<LAY.W*.5||x<cx+R*.3);}
   hs.innerHTML=out;
   const su=G.cU,sl=Math.hypot(su[0],su[1])||1,sx=cx+su[0]/sl*R*1.75,sy=cy-su[1]/sl*R*1.75;
   const sun=$("heroSun");sun.style.left=sx+"px";sun.style.top=sy+"px";sun.style.width=Math.max(R*3.2,280)+"px";
 }
+function orbitLabels(){
+  return isEarth()?[[0,"March equinox","20 Mar"],[90,"June solstice","21 Jun"],[180,"September equinox","22 Sep"],[270,"December solstice","21 Dec"]]
+   :[[0,"Northern spring","equinox"],[90,"Northern summer","solstice"],[180,"Northern autumn","equinox"],[270,"Northern winter","solstice"]];
+}
+function overlayOrbit(G){
+  const {ox,oy,orx,oel,rp,W,H:Hh,wide}=LAY;hs.setAttribute("viewBox",`0 0 ${W} ${Hh}`);
+  const se=Math.sin(oel*D),ry=orx*se,L=G.L/D;let out=`<defs><radialGradient id="oCore"><stop offset="0" stop-color="#fffbe8"/><stop offset=".35" stop-color="#ffd27a"/><stop offset="1" stop-color="#ff8a3d" stop-opacity="0"/></radialGradient>
+   <linearGradient id="oRing" x1="0" x2="1"><stop offset="0" stop-color="#62e3ff" stop-opacity=".55"/><stop offset=".5" stop-color="#9b7bff" stop-opacity=".35"/><stop offset="1" stop-color="#ffc35a" stop-opacity=".55"/></linearGradient></defs>`;
+  out+=`<ellipse cx="${f1(ox)}" cy="${f1(oy)}" rx="${f1(orx)}" ry="${f1(ry)}" fill="rgba(120,140,255,.035)" stroke="url(#oRing)" stroke-width="1.6"/>`;
+  // trail: the last ~60 days
+  let tr="";for(let k=0;k<=30;k++){const a=L-k*2*360/365;const [x,y]=orbitXY(a);tr+=(k?"L":"M")+f1(x)+" "+f1(y)}
+  out+=`<path d="${tr}" fill="none" stroke="#ffd27a" stroke-width="3" stroke-linecap="round" opacity=".55"/>`;
+  out+=`<circle cx="${f1(ox)}" cy="${f1(oy)}" r="${f1(Math.max(16,orx*.085))}" fill="url(#oCore)"/>`;
+  // season markers + ghost planets whose axes all point the same way
+  const n=G.cN,nl=Math.hypot(n[0],n[1])||1,ax=[n[0]/nl,-n[1]/nl],gr=wide?9:7,fs=wide?13:11;
+  for(const [a,t1,t2] of orbitLabels()){const [x,y]=orbitXY(a);const ang=Math.atan2(oy-y,ox-x)/D;
+    out+=`<g opacity=".8"><circle cx="${f1(x)}" cy="${f1(y)}" r="${gr}" fill="#141a44" stroke="rgba(160,200,255,.45)"/><path d="M0 ${-gr} A${gr} ${gr} 0 0 1 0 ${gr}Z" fill="#8fc3ff" transform="translate(${f1(x)} ${f1(y)}) rotate(${f1(ang)})"/>`+
+      `<line x1="${f1(x-ax[0]*gr*1.9)}" y1="${f1(y-ax[1]*gr*1.9)}" x2="${f1(x+ax[0]*gr*1.9)}" y2="${f1(y+ax[1]*gr*1.9)}" stroke="#fff" stroke-width="1.2" opacity=".75"/><circle cx="${f1(x+ax[0]*gr*1.9)}" cy="${f1(y+ax[1]*gr*1.9)}" r="1.8" fill="#ffc35a"/></g>`;
+    let lx=x,ly=y,anc="middle";
+    if(a===0){ly=y+gr+fs+8}else if(a===180){ly=y-gr-fs-10}else if(a===90){anc=wide?"middle":"end";lx=wide?Math.min(W-90,x):Math.min(W-8,x+gr);ly=y-rp-fs-24}else{anc=wide?"middle":"start";lx=wide?x:Math.max(8,x-gr);ly=y-rp-fs-24}
+    out+=`<text x="${f1(lx)}" y="${f1(ly)}" text-anchor="${anc}" class="oLbl" style="font-size:${fs}px">${t1}<tspan x="${f1(lx)}" dy="${fs+3}" class="oSub">${t2}</tspan></text>`;}
+  // sunlight to the planet
+  const [px,py]=orbitXY(L);
+  out+=`<line x1="${f1(ox+(px-ox)*.16)}" y1="${f1(oy+(py-oy)*.16)}" x2="${f1(px-(px-ox)*rp/Math.hypot(px-ox,py-oy)*1.6)}" y2="${f1(py-(py-oy)*rp/Math.hypot(px-ox,py-oy)*1.6)}" stroke="#ffd27a" stroke-width="2" stroke-dasharray="1 7" stroke-linecap="round" opacity=".7"/>`;
+  // the real planet's axis
+  for(const s of[1,-1]){const v=mul(n,s);let t0=1;if(v[2]<0)t0=nl>1e-3?Math.max(1,1/nl):9;const t1=2.1;if(t0<t1){
+    out+=`<line x1="${f1(px+v[0]*rp*t0)}" y1="${f1(py-v[1]*rp*t0)}" x2="${f1(px+v[0]*rp*t1)}" y2="${f1(py-v[1]*rp*t1)}" stroke="rgba(255,255,255,${s>0?.9:.5})" stroke-width="1.8" stroke-linecap="round"/>`;
+    if(s>0)out+=`<text x="${f1(px+v[0]*rp*t1+(v[0]>=0?6:-6))}" y="${f1(py-v[1]*rp*t1+4)}" text-anchor="${v[0]>=0?"start":"end"}" class="pinLbl" style="font-size:11px;fill:#ffd27a">N</text>`}}
+  // "You" on the planet
+  const dec=decl(S.tilt,S.day),c=PA(),w=G.C(bodyDir(G,c[1],lonOf(c),H.spin)),yx=px+w[0]*rp,yy=py-w[1]*rp,right=px<W-150;
+  const yLbl=`You · ${c[2]?c[0]:latLabel(Math.round(c[1]))} <tspan fill="#ffc35a">· ${short(dayHours(c[1],dec))}</tspan>`;
+  if(w[2]>-.05)out+=`<circle class="pin" cx="${f1(yx)}" cy="${f1(yy)}" r="7" fill="#ffc35a" opacity=".5"/><circle cx="${f1(yx)}" cy="${f1(yy)}" r="3" fill="#fff" stroke="#ffc35a" stroke-width="2"/>`;
+  const lw=wide?190:170,lxx=Math.max(lw/2+6,Math.min(W-lw/2-6,px)),lyy=py+rp+(Math.cos(G.L)>0?34:22);
+  out+=`<text x="${f1(lxx)}" y="${f1(lyy)}" text-anchor="middle" class="pinLbl">${yLbl}${w[2]>-.05?"":` <tspan fill="#cfd5ff" font-weight="400">(night side)</tspan>`}</text>`;
+  hs.innerHTML=out;
+  const sun=$("heroSun");sun.style.left=ox+"px";sun.style.top=oy+"px";sun.style.width=Math.max(orx*1.25,260)+"px";
+}
 let lastNum="";
-function heroText(){
-  const dec=decl(S.tilt,S.day),h=dayHours(S.A[1],dec),{H:hh,M}=fmtH(h);const num=hh+":"+M;
+function heroText(G){
+  const dec=decl(S.tilt,S.day),c=PA(),h=dayHours(c[1],dec),{H:hh,M}=fmtH(h);const num=hh+":"+M;
   if(num!==lastNum){$("hH").textContent=hh;$("hM").textContent=String(M).padStart(2,"0");lastNum=num}
+  const date=isEarth()||S.planet==null?dateOf(S.day):whenLabel(S.day);if($("hDate").textContent!==date)$("hDate").textContent=date;
+  $("hDate").classList.toggle("live",S.playing);
   const where=S.planet&&S.planet!=="Earth"?` on <b>${S.planet}</b>`:S.planet?"":` · tilt ${S.tilt.toFixed(1)}°`;
   const extra=h>=23.99?" · polar day, the sun never sets":h<=0.01?" · polar night, the sun never rises":"";
-  const sub=`of daylight in <b>${S.A[0]}</b>${where}, <b>${whenLabel(S.day)}</b>${extra}`;
+  const ref=!cityMode()&&S.ref?` <span class="ref">(${S.ref[0]} is at ${latLabel(Math.round(S.ref[1]))} on Earth)</span>`:"";
+  const sub=`of daylight ${c[2]?"at":"in"} <b>${c[0]}</b>${where}${extra}${ref}`;
   if($("hSub").innerHTML!==sub)$("hSub").innerHTML=sub;
+  const lean=S.tilt<.5?"No tilt: neither hemisphere leans toward the sun, so there are no seasons.":Math.abs(dec)<1.2?"Equinox: neither hemisphere leans toward the sun. Day and night are close to equal everywhere.":dec>0?`The <b>northern</b> hemisphere leans toward the sun: long days in the north, short in the south.`:`The <b>southern</b> hemisphere leans toward the sun: long days in the south, short in the north.`;
+  if($("hLean").innerHTML!==lean)$("hLean").innerHTML=lean;
+  let tag;
+  if(S.view==="orbit")tag=S.playing?"▶ playing the year: one orbit around the sun":"drag the planet along its orbit to change the date";
+  else if(S.playing)tag=`same time every day (${hhmm(hourAt(G,c,H.spin))} at ${c[0]}) · watch the day/night line`;
+  else tag=`⟳ spin = time of day · ${hhmm(hourAt(G,c,H.spin))} at ${c[0]} · date unchanged`;
+  if($("spinLbl").textContent!==tag)$("spinLbl").textContent=tag;
   $("hPlay").textContent=S.playing?"❚❚ Pause":"▶ Play the year";$("hPlay").setAttribute("aria-pressed",S.playing);
   hc.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.p===S.planet));
+  hl.hidden=cityMode();$("hero").classList.toggle("latmode",!cityMode());hl.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",+b.dataset.l===S.latA));
 }
-// face the chosen city at start and whenever it changes
 let faced=null;
+function drawPlanet(G,cx,cy,R){
+  const {dpr,H:Hh}=LAY;
+  if(useGL){
+    gl.uniform2f(U.uC,cx*dpr,(Hh-cy)*dpr);gl.uniform1f(U.uR,R*dpr);gl.uniform1f(U.uSpin,H.spin);gl.uniform1f(U.uTime,performance.now()/1000);
+    gl.uniform1f(U.uKind,kind());gl.uniform1f(U.uReady,(kind()>0||tex.day)?1:.25);
+    gl.uniform3fv(U.uN,G.cN);gl.uniform3fv(U.uE1,G.cE1);gl.uniform3fv(U.uE2,G.cE2);gl.uniform3fv(U.uU,G.cU);gl.uniform3fv(U.uAtmo,ATMO[kind()]);
+    gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
+  }else{ctx2.setTransform(1,0,0,1,0,0);ctx2.clearRect(0,0,cv.width,cv.height);render2D({cx:cx*dpr,cy:cy*dpr,R:R*dpr},G,H.spin)}
+}
 function frame(t){
   requestAnimationFrame(frame);
   const dt=H.last?Math.min(.05,(t-H.last)/1000):0;H.last=t;
@@ -612,27 +759,27 @@ function frame(t){
   const fl=Math.floor(S.day);
   if(S.playing&&(t-H.lastDraw>90||fl!==H.lastFloor&&t-H.lastDraw>60)){draw();H.lastDraw=t;H.lastFloor=fl}
   H.tilt+=(S.tilt-H.tilt)*(1-Math.exp(-dt*(reduce?60:3.2)));if(Math.abs(S.tilt-H.tilt)<.01)H.tilt=S.tilt;
-  const G=geom(H.tilt,S.day);
-  if(faced!==S.A){faced=S.A;const tgt=faceSpin(G,lonOf(S.A));if(H.last&&t>500&&!reduce){let d=((tgt-H.spin)%(2*Math.PI)+3*Math.PI)%(2*Math.PI)-Math.PI;H.spinTarget=H.spin+d}else{H.spin=tgt}}
+  const G=geom(H.tilt,S.day),c=PA(),key=cityMode()?"c:"+c[0]:"lat";
+  if(faced!==key){faced=key;const tgt=faceSpin(G,lonOf(c));if(H.last&&t>500&&!reduce){let d=((tgt-H.spin)%(2*Math.PI)+3*Math.PI)%(2*Math.PI)-Math.PI;H.spinTarget=H.spin+d}else{H.spin=tgt}}
   if(H.spinTarget!=null){const d=H.spinTarget-H.spin;H.spin+=d*(1-Math.exp(-dt*3));if(Math.abs(d)<.002)H.spinTarget=null}
-  else if(!H.drag){H.spin+=H.vel*dt;H.vel*=Math.exp(-dt*2.2);if(H.auto)H.spin+=dt*.05}
-  heroText();
+  else if(S.playing&&!H.drag){
+    // Play the year: hold the same time of day, so the globe stays put relative to the sun and only the day/night line moves
+    if(H.holdHA==null)H.holdHA=lonOf(c)*D+H.spin-sunAng(G);
+    H.spin=H.holdHA+sunAng(G)-lonOf(c)*D;H.vel=0;
+  }else if(!H.drag){H.holdHA=null;H.spin+=H.vel*dt;H.vel*=Math.exp(-dt*2.2);if(H.auto)H.spin+=dt*.05}
+  heroText(G);
   if(!H.visible)return;
-  const {cx,cy,R,dpr,H:Hh}=LAY;
-  if(useGL){
-    gl.viewport(0,0,cv.width,cv.height);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);
-    gl.uniform2f(U.uC,cx*dpr,(Hh-cy)*dpr);gl.uniform1f(U.uR,R*dpr);gl.uniform1f(U.uSpin,H.spin);gl.uniform1f(U.uTime,t/1000);
-    gl.uniform1f(U.uKind,kind());gl.uniform1f(U.uReady,(kind()>0||tex.day)?1:.25);
-    gl.uniform3fv(U.uN,G.cN);gl.uniform3fv(U.uE1,G.cE1);gl.uniform3fv(U.uE2,G.cE2);gl.uniform3fv(U.uU,G.cU);gl.uniform3fv(U.uAtmo,ATMO[kind()]);
-    gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
-  }else{ctx2.setTransform(1,0,0,1,0,0);render2D({cx:cx*dpr,cy:cy*dpr,R:R*dpr},G,H.spin)}
-  overlay(G);
+  if(useGL){gl.viewport(0,0,cv.width,cv.height);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT)}
+  if(S.view==="orbit"){const GO=geom(H.tilt,S.day,LAY.oel),[px,py]=orbitXY(GO.L/D);drawPlanet(GO,px,py,LAY.rp);overlayOrbit(GO)}
+  else{drawPlanet(G,LAY.cx,LAY.cy,LAY.R);overlaySurface(G)}
 }
 new IntersectionObserver(es=>{H.visible=es[0].isIntersecting}).observe($("hero"));
-$("play").addEventListener("click",()=>{S.playing=!S.playing;if(!S.playing)S.day=Math.round(S.day)||1;draw()});
-document.addEventListener("keydown",e=>{if(e.target.matches("input,select,textarea,button"))return;if(e.key===" "){e.preventDefault();$("play").click()}});
-draw();requestAnimationFrame(frame);
-window.__hero={H,geom,LAY:()=>LAY,renderer:useGL?"webgl":"2d",cityPx:(name)=>{const c=find(name);const G=geom(H.tilt,S.day);const w=G.C(bodyDir(G,c[1],lonOf(c),H.spin));return [LAY.cx+w[0]*LAY.R,LAY.cy-w[1]*LAY.R,w[2]]}};
+$("play").addEventListener("click",()=>{S.playing=!S.playing;H.holdHA=null;if(!S.playing)S.day=Math.round(S.day)||1;draw()});
+document.addEventListener("keydown",e=>{if(e.target.matches("input,select,textarea,button,canvas"))return;if(e.key===" "){e.preventDefault();$("play").click()}});
+setView(S.view);draw();requestAnimationFrame(frame);
+window.__hero={H,geom,LAY:()=>LAY,renderer:useGL?"webgl":"2d",setView,
+  cityPx:(name)=>{const c=find(name);const G=geom(H.tilt,S.day);const w=G.C(bodyDir(G,c[1],lonOf(c),H.spin));return [LAY.cx+w[0]*LAY.R,LAY.cy-w[1]*LAY.R,w[2]]},
+  planetPx:()=>orbitXY(orbitAngle(S.day))};
 
 window.__seasons={S,decl,dayHours};
 })();
