@@ -29,6 +29,17 @@ async function assertViewport(page, vw) {
       fail.push({ kind: 'page-overflow', scrollWidth: docW, innerWidth: innerW });
     }
 
+    const footer = document.querySelector('footer.wrap');
+    if (footer) {
+      const pb = getComputedStyle(footer).paddingBlock;
+      const [pt, pb2] = pb.split(/\s+/).map((v) => parseFloat(v));
+      const padTop = pt || 0;
+      const padBottom = pb2 !== undefined ? pb2 : pt;
+      if (padTop < 39 || padBottom < 55) {
+        fail.push({ kind: 'footer-padding', paddingBlock: pb });
+      }
+    }
+
     const visibleBadges = [...document.querySelectorAll('.badge-star')].filter((el) => {
       const s = getComputedStyle(el);
       return s.display !== 'none' && s.visibility !== 'hidden' && Number(s.opacity) > 0.99;
@@ -72,10 +83,7 @@ async function assertViewport(page, vw) {
       zones.push({ name: `card-${i + 1}`, r: el.getBoundingClientRect() });
     });
 
-    const decor = [
-      ...document.querySelectorAll('.stk'),
-      ...visibleBadges,
-    ];
+    const decor = [...document.querySelectorAll('.stk'), ...visibleBadges];
     const decorRects = [];
     for (const el of decor) {
       const d = el.getBoundingClientRect();
@@ -108,6 +116,13 @@ async function assertViewport(page, vw) {
           });
         }
       }
+    }
+
+    const footerLinks = footer
+      ? [...footer.querySelectorAll('a[href="https://luismatute.me/"]')]
+      : [];
+    if (footerLinks.length !== 1) {
+      fail.push({ kind: 'footer-luismatute-links', count: footerLinks.length });
     }
 
     const toggle = document.querySelector('.marquee-toggle');
