@@ -73,7 +73,7 @@ body.ready .title span:nth-child(1){transform:rotate(-4deg) translateY(0)}body.r
 .stk-strip{left:max(56px,var(--gutter));bottom:8px;width:52px}
 .stk-polka{left:-38px;bottom:6px;width:64px}
 .stk-moon{right:-22px;bottom:10px;width:44px}
-@media(min-width:760px){.stk-sq,.stk-tri,.stk-strip{left:max(8px,calc(50% - 432px));right:auto}.stk-ring{left:max(-22px,calc(50% - 456px));top:auto;bottom:18px}.stk-plus{left:max(8px,calc(50% - 432px));top:auto;bottom:14px}.stk-polka{left:max(-42px,calc(50% - 456px));bottom:6px}.stk-dots{right:max(8px,var(--gutter));left:auto;top:4px}.stk-zig{right:max(8px,var(--gutter));left:auto;top:auto;bottom:14px}.stk-moon{right:max(-12px,var(--gutter));left:auto;bottom:10px}}
+@media(min-width:760px){.stk-sq,.stk-tri,.stk-strip{left:max(8px,calc(50% - 432px));right:auto}.stk-ring{left:max(-22px,calc(50% - 456px));top:auto;bottom:18px}.stk-plus{left:max(8px,calc(50% - 432px));top:auto;bottom:14px}.stk-polka{left:max(-42px,calc(50% - 456px));bottom:6px}.stk-dots{right:auto;top:0;width:60px}.stk-zig{right:max(8px,var(--gutter));left:auto;top:auto;bottom:14px}.stk-moon{right:max(-12px,var(--gutter));left:auto;bottom:10px}}
 @media(max-width:640px){.stk-plus,.stk-tri,.stk-strip,.stk-moon{display:none}.stk-sq{top:4px;left:20px;width:50px}.stk-dots{top:4px;right:20px;width:36px}.stk-ring{top:auto;bottom:16px;left:20px;width:40px}.stk-zig{bottom:16px;right:20px;top:auto;width:48px}.stk-polka{left:8px;top:auto;bottom:10px;width:48px;transform:scale(.6);transform-origin:bottom left}}
 @media(min-width:641px) and (max-width:900px){.stk-sq,.stk-dots{width:60px}}
 @media(min-width:1920px){.stk{transform:scale(1.15);transform-origin:center}}
@@ -132,6 +132,7 @@ body.ready .toy-card:nth-child(1){transition-delay:400ms}body.ready .toy-card:nt
 .marquee-row{justify-content:center;width:100%;flex-wrap:wrap;gap:12px}
 }
 footer{padding:40px 0 56px;font-size:15px;line-height:1.6}
+footer.wrap{padding-block:40px 56px}
 footer a{text-underline-offset:3px;text-decoration-thickness:2px}
 footer a:focus-visible{outline:4px solid var(--tomato);outline-offset:2px}
 .footer-back,.footer-sep-mobile{display:none}
@@ -154,7 +155,7 @@ body:not(.ready) .title span,body:not(.ready) .toy-card{opacity:1}
 <header class="hero wrap">
 <div class="stickers" aria-hidden="true">
 <svg class="stk stk-sq" viewBox="0 0 80 48" aria-hidden="true"><path d="M8 32c12-18 28-22 44-8 8 8 10 20 4 28" fill="none" stroke="#ff7fae" stroke-width="6"/><path d="M8 32c12-18 28-22 44-8 8 8 10 20 4 28" fill="none" stroke="#f04e23" stroke-width="3"/></svg>
-<svg class="stk stk-dots" viewBox="0 0 36 24" aria-hidden="true"><g fill="var(--tomato)" stroke="var(--ink)" stroke-width="3"><circle cx="6" cy="6" r="4"/><circle cx="18" cy="6" r="4"/><circle cx="30" cy="6" r="4"/><circle cx="6" cy="18" r="4"/><circle cx="18" cy="18" r="4"/><circle cx="30" cy="18" r="4"/></g></svg>
+<svg class="stk stk-dots" viewBox="0 0 60 40" aria-hidden="true"><g fill="var(--tomato)" stroke="var(--ink)" stroke-width="2"><circle cx="10" cy="10" r="6"/><circle cx="30" cy="10" r="6"/><circle cx="50" cy="10" r="6"/><circle cx="10" cy="30" r="6"/><circle cx="30" cy="30" r="6"/><circle cx="50" cy="30" r="6"/></g></svg>
 <svg class="stk stk-ring" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="22" fill="var(--cream)" stroke="var(--ink)" stroke-width="3"/></svg>
 <svg class="stk stk-tri" viewBox="0 0 56 48" aria-hidden="true"><polygon points="28,4 52,44 4,44" fill="var(--teal)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/></svg>
 <svg class="stk stk-plus" viewBox="0 0 40 40" aria-hidden="true"><path d="M18 4h4v32h-4zM4 18h32v4H4z" fill="var(--cream)" stroke="var(--ink)" stroke-width="3"/></svg>
@@ -229,7 +230,9 @@ btn.addEventListener('click',function(){var p=mq.classList.toggle('is-paused');b
 var track=document.querySelector('.marquee-track');
 if(track&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches){var half=track.scrollWidth/2;track.style.animationDuration=(half/40)+'s'}
 function titleWrap(){var t=document.querySelector('.title'),br=document.querySelector('.title-break');if(!t||!br)return;if(window.matchMedia('(min-width:900px)').matches){br.style.display='none';t.style.flexWrap='nowrap';return}br.style.display='none';t.style.flexWrap='nowrap';if(t.scrollWidth>t.clientWidth+2){br.style.display='block';t.style.flexWrap='wrap'}}
-titleWrap();window.addEventListener('resize',titleWrap);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(titleWrap);
+function syncDots(){var dots=document.querySelector('.stk-dots'),hero=document.querySelector('.hero');if(!dots||!hero||window.matchMedia('(max-width:640px)').matches){dots.style.removeProperty('left');dots.style.removeProperty('top');return}var n=document.querySelector('.title span:nth-child(10)'),d=document.querySelector('.title span:nth-child(11)'),badge=document.querySelector('.badge-star--hero');if(!n||!d)return;function sep(a,b,g){return a.right+g<=b.left||a.left>=b.right+g||a.bottom+g<=b.top||a.top>=b.bottom+g}var hb=hero.getBoundingClientRect(),nr=n.getBoundingClientRect(),dr=d.getBoundingClientRect(),w=60,left=(nr.left+dr.right)/2-hb.left-w/2,top=Math.min(nr.top,dr.top)-hb.top-48;for(var i=0;i<24;i++){dots.style.left=left+'px';dots.style.top=Math.max(8,top)+'px';var db=dots.getBoundingClientRect(),ok=sep(db,nr,24)&&sep(db,dr,24);if(badge&&getComputedStyle(badge).display!=='none')ok=ok&&sep(db,badge.getBoundingClientRect(),24);if(ok)break;left-=6;top-=3}}
+function layoutHero(){titleWrap();syncDots()}
+layoutHero();window.addEventListener('resize',layoutHero);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(layoutHero);
 })();
 </script>
 </body>

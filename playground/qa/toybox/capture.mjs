@@ -13,6 +13,14 @@ async function assertViewport(page, vw) {
     function intersect(a, b) {
       return !(a.right <= b.left || a.left >= b.right || a.bottom <= b.top || a.top >= b.bottom);
     }
+    function separated(a, b, margin) {
+      return (
+        a.right + margin <= b.left ||
+        a.left >= b.right + margin ||
+        a.bottom + margin <= b.top ||
+        a.top >= b.bottom + margin
+      );
+    }
     const fail = [];
     const innerW = window.innerWidth;
     const innerH = window.innerHeight;
@@ -68,14 +76,36 @@ async function assertViewport(page, vw) {
       ...document.querySelectorAll('.stk'),
       ...visibleBadges,
     ];
+    const decorRects = [];
     for (const el of decor) {
       const d = el.getBoundingClientRect();
       const label = el.classList.contains('badge-star')
         ? 'badge-star'
         : [...el.classList].find((c) => c.startsWith('stk-')) || 'sticker';
+      decorRects.push({ label, r: d });
       for (const z of zones) {
         if (intersect(d, z.r)) {
           fail.push({ kind: 'overlap', decor: label, zone: z.name });
+        }
+      }
+    }
+    for (let i = 0; i < decorRects.length; i++) {
+      for (let j = i + 1; j < decorRects.length; j++) {
+        const a = decorRects[i];
+        const b = decorRects[j];
+        const badgePair = a.label === 'badge-star' || b.label === 'badge-star';
+        const dotsBadgePair =
+          (a.label === 'stk-dots' && b.label === 'badge-star') ||
+          (a.label === 'badge-star' && b.label === 'stk-dots');
+        if (!badgePair && !dotsBadgePair) continue;
+        const margin = dotsBadgePair ? 24 : 0;
+        if (!separated(a.r, b.r, margin)) {
+          fail.push({
+            kind: 'decor-decor-overlap',
+            decorA: a.label,
+            decorB: b.label,
+            margin,
+          });
         }
       }
     }
