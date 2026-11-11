@@ -4,138 +4,234 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
-<meta name="theme-color" content="#0a0c2a">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%229%22 fill=%22%239b7bff%22/%3E%3Cellipse cx=%2216%22 cy=%2216%22 rx=%2215%22 ry=%224%22 fill=%22none%22 stroke=%22%2362e3ff%22 stroke-width=%222%22/%3E%3C/svg%3E">
+<meta name="theme-color" content="#ffd21f">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23ffd21f'/%3E%3Ccircle cx='16' cy='16' r='8' fill='%23f04e23' stroke='%23111' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="preload" href="fonts/BricolageGrotesque-Display.woff2" as="font" type="font/woff2" crossorigin>
 <title>Playground · Luis Matute</title>
-<meta name="description" content="Small things Luis Matute builds for fun: interactive explainers, 3D models, trip pages and a design system.">
+<meta name="description" content="Toys, tools and experiments by Luis Matute: seasons, Snake, Game of Life, Japan trip planner.">
 <style>
-:root{--bg:#070926;--ink:#eef0ff;--mute:#9ea6d6;--line:rgba(170,170,255,.16);--card:rgba(16,18,52,.62);--violet:#9b7bff;--teal:#4fe0d0;--sun:#ffc35a;--r:22px}
-*{box-sizing:border-box}
+@font-face{font-family:"Bricolage Display";src:url(fonts/BricolageGrotesque-Display.woff2) format("woff2");font-display:swap;font-weight:600 800;font-stretch:75% 100%}
+@font-face{font-family:Bricolage;src:url(fonts/BricolageGrotesque-Text.woff2) format("woff2");font-display:swap;font-weight:400 700}
+:root{
+--sun:#ffd21f;--ink:#111;--cream:#fff6e0;--tomato:#f04e23;--teal:#0fa3a0;--pink:#ff7fae;--tomato-ink:#a8321e;
+--display:"Bricolage Display",system-ui,sans-serif;--text:Bricolage,system-ui,sans-serif;--mono:ui-monospace,"SF Mono",Menlo,monospace;
+--h1:clamp(64px,13.5vw,196px);--h2:clamp(30px,4.4vw,56px);--card-title:26px;--body:clamp(16px,1.15vw,18px);--label:11px;
+--line:3px;--line-lg:4px;--shadow:6px 6px 0 var(--ink);--shadow-lg:10px 10px 0 var(--ink);--r-card:4px;--r-btn:0;
+--gutter:clamp(20px,5vw,72px);--max:1240px;--tap:44px;
+--ease-pop:cubic-bezier(.34,1.56,.64,1);--ease-out:cubic-bezier(.16,1,.3,1);--t-press:120ms;--t-ui:260ms;--t-hero:700ms;--stagger-letter:40ms}
+@media(prefers-reduced-motion:reduce){:root{--t-press:0ms;--t-ui:0ms;--t-hero:0ms;--stagger-letter:0ms}}
+*,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;overflow-x:hidden}
+body{margin:0;background:var(--sun);color:var(--ink);font:var(--body)/1.45 var(--text);font-weight:500;overflow-x:hidden}
 a{color:inherit}
-.hero{position:relative;min-height:min(78vh,720px);display:flex;align-items:center;overflow:hidden;isolation:isolate}
-.hero::before{content:"";position:absolute;inset:0;background:url(img/hero.webp) 70% center/cover no-repeat;z-index:-2}
-.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,9,38,.92) 0%,rgba(7,9,38,.55) 45%,rgba(7,9,38,0) 70%),linear-gradient(180deg,rgba(7,9,38,0) 60%,var(--bg) 100%);z-index:-1}
-.wrap{max-width:1160px;margin:0 auto;padding:0 20px}
-.hero .wrap{width:100%;padding-top:40px;padding-bottom:70px}
-.kicker{letter-spacing:.24em;text-transform:uppercase;font-size:12px;color:var(--teal)}
-h1{font-size:clamp(46px,9vw,104px);line-height:.95;letter-spacing:-.035em;margin:.15em 0 .25em;font-weight:800;max-width:9ch}
-h1 span{background:linear-gradient(90deg,#fff,#c9b8ff 40%,var(--teal));-webkit-background-clip:text;background-clip:text;color:transparent}
-.lede{max-width:34ch;font-size:clamp(17px,2.1vw,21px);color:#d3d6f6;margin:0}
-.orbits{position:absolute;right:-6%;top:50%;width:min(70vw,760px);aspect-ratio:1;transform:translateY(-50%);z-index:-1;pointer-events:none;opacity:.8}
-.spin{transform-origin:50% 50%;animation:spin 40s linear infinite}
-.spin.r{animation-duration:60s;animation-direction:reverse}
-@keyframes spin{to{transform:rotate(360deg)}}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-@keyframes twinkle{0%,100%{opacity:.25}50%{opacity:1}}
-.tw{animation:twinkle 3s ease-in-out infinite}
-section{padding:10px 0 30px}
-h2{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute);font-weight:600;margin:0 0 14px}
-.featured{display:grid;grid-template-columns:1fr;border-radius:28px;overflow:hidden;background:linear-gradient(135deg,rgba(255,195,90,.14),rgba(155,123,255,.12) 50%,rgba(79,224,208,.10));border:1px solid rgba(255,210,140,.28);text-decoration:none;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s;box-shadow:0 30px 80px -30px rgba(0,0,0,.8)}
-.featured:hover,.featured:focus-visible{transform:translateY(-4px);box-shadow:0 40px 90px -30px rgba(255,170,80,.35)}
-.featured:focus-visible{outline:2px solid var(--sun);outline-offset:4px}
-@media(min-width:860px){.featured{grid-template-columns:1.25fr 1fr}}
-.thumb{position:relative;overflow:hidden;background:#05060f;aspect-ratio:16/10}
-.thumb img{width:100%;height:100%;object-fit:cover;object-position:top left;display:block;transition:transform .8s cubic-bezier(.2,.8,.2,1)}
-.featured:hover .thumb img{transform:scale(1.035)}
-.fBody{padding:26px 26px 28px;display:flex;flex-direction:column;justify-content:center;gap:10px}
-.badge{align-self:flex-start;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:#1a1204;background:linear-gradient(90deg,#ffd27a,#ff9a3d);padding:5px 10px;border-radius:999px;font-weight:700}
-.fBody h3{font-size:clamp(28px,4vw,42px);line-height:1.05;margin:0;letter-spacing:-.02em}
-.fBody p{margin:0;color:#d3d6f6}
-.go{margin-top:6px;font-weight:700;color:var(--sun)}
-.go b{display:inline-block;transition:transform .3s}
-.featured:hover .go b{transform:translateX(5px)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
+.topbar{height:72px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.chip{font:600 var(--label)/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase;text-decoration:none;background:var(--cream);border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink);padding:8px 12px;transform:rotate(-2deg);display:inline-block}
+.chip:focus-visible{outline:4px solid var(--tomato);outline-offset:4px}
+.back-link{font:600 15px/1.2 var(--text);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px}
+.back-link:focus-visible{outline:4px solid var(--tomato);outline-offset:4px}
+@media(max-width:640px){.back-link{display:none}}
+.hero{position:relative;padding:48px 0 64px;text-align:center;overflow-x:clip}
+.title{font-family:var(--display);font-size:var(--h1);font-weight:800;font-stretch:100%;line-height:.86;letter-spacing:-.01em;text-transform:uppercase;margin:0 auto;display:flex;flex-wrap:nowrap;justify-content:center;gap:0 .02em;width:100%;position:relative;z-index:2}
+.title-break{flex-basis:100%;width:0;height:0;overflow:hidden;margin:0;padding:0;display:none}
+@media(max-width:640px){.title{font-stretch:75%}}
+.title span{display:inline-block;-webkit-text-stroke:var(--line-lg) var(--ink);paint-order:stroke fill;text-shadow:6px 6px 0 var(--ink)}
+.title .c0{color:var(--cream)}.title .c1{color:var(--tomato)}.title .c2{color:var(--teal)}.title .c3{color:var(--pink)}
+.title span:nth-child(1){transform:rotate(-4deg) translateY(0)}.title span:nth-child(2){transform:rotate(3deg) translateY(-6px)}.title span:nth-child(3){transform:rotate(-2deg) translateY(4px)}.title span:nth-child(4){transform:rotate(5deg) translateY(-3px)}.title span:nth-child(6){transform:rotate(-3deg) translateY(6px)}.title span:nth-child(7){transform:rotate(2deg) translateY(-4px)}.title span:nth-child(8){transform:rotate(-5deg) translateY(2px)}.title span:nth-child(9){transform:rotate(3deg) translateY(-6px)}.title span:nth-child(10){transform:rotate(-2deg) translateY(3px)}.title span:nth-child(11){transform:rotate(4deg) translateY(0)}
+body:not(.ready) .title span{opacity:0;transform:translateY(-40px) rotate(0)}
+body.ready .title span{opacity:1;transition:transform var(--t-hero) var(--ease-pop),opacity var(--t-hero) var(--ease-out)}
+body.ready .title span:nth-child(1){transition-delay:0ms}body.ready .title span:nth-child(2){transition-delay:40ms}body.ready .title span:nth-child(3){transition-delay:80ms}body.ready .title span:nth-child(4){transition-delay:120ms}body.ready .title span:nth-child(6){transition-delay:160ms}body.ready .title span:nth-child(7){transition-delay:200ms}body.ready .title span:nth-child(8){transition-delay:240ms}body.ready .title span:nth-child(9){transition-delay:280ms}body.ready .title span:nth-child(10){transition-delay:320ms}body.ready .title span:nth-child(11){transition-delay:360ms}
+body.ready .title span:nth-child(1){transform:rotate(-4deg) translateY(0)}body.ready .title span:nth-child(2){transform:rotate(3deg) translateY(-6px)}body.ready .title span:nth-child(3){transform:rotate(-2deg) translateY(4px)}body.ready .title span:nth-child(4){transform:rotate(5deg) translateY(-3px)}body.ready .title span:nth-child(6){transform:rotate(-3deg) translateY(6px)}body.ready .title span:nth-child(7){transform:rotate(2deg) translateY(-4px)}body.ready .title span:nth-child(8){transform:rotate(-5deg) translateY(2px)}body.ready .title span:nth-child(9){transform:rotate(3deg) translateY(-6px)}body.ready .title span:nth-child(10){transform:rotate(-2deg) translateY(3px)}body.ready .title span:nth-child(11){transform:rotate(4deg) translateY(0)}
+.ribbon{display:inline-block;background:var(--pink);border:var(--line) solid var(--ink);box-shadow:var(--shadow);transform:rotate(-2deg);padding:10px 22px;font:700 22px/1.2 var(--text)}
+.hero-narrow{position:relative;z-index:2;max-width:720px;margin:0 auto;padding-inline:8px}
+.lede{max-width:46ch;margin:24px auto 0;font-size:18px}
+@media(min-width:641px){.hero{padding-top:132px}}
+@media(min-width:641px) and (max-width:1279px){.hero{padding-top:142px}}
+@media(min-width:1280px){.hero{padding-top:156px}}
+@media(max-width:640px){.hero{padding-top:48px;padding-bottom:100px}.lede{padding-inline:12px;max-width:38ch}}
+.ribbon-row{display:inline-flex;align-items:center;justify-content:center;gap:0;max-width:calc(100% - 16px);margin-top:20px;flex-wrap:nowrap}
+.ribbon{margin:0;flex:0 1 auto}
+.badge-star{position:relative;transform:rotate(12deg);filter:drop-shadow(5px 5px 0 #111);z-index:4;pointer-events:none;flex-shrink:0}
+.badge-star svg{display:block;width:100%;height:100%}
+.badge-star-label{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;color:var(--ink);line-height:1.05;text-align:center;transform:rotate(-12deg)}
+.badge-star-label span:first-child{font-size:24px}
+.badge-star-label span:last-child{font-size:14px;letter-spacing:.04em}
+.badge-star--hero{display:none;position:absolute;top:12px;right:max(var(--gutter),calc(50% - 600px));width:96px;height:96px;filter:none}
+.badge-star--hero svg{filter:drop-shadow(5px 5px 0 #111)}
+@media(min-width:641px){.badge-star--hero{display:block}.badge-star--ribbon{display:none!important}}
+@media(min-width:1280px){.badge-star--hero{width:120px;height:120px}.badge-star--hero .badge-star-label span:first-child{font-size:28px}.badge-star--hero .badge-star-label span:last-child{font-size:16px}}
+@media(max-width:640px){.badge-star--ribbon{display:block;position:relative;width:72px;height:72px;margin-left:-24px;margin-top:-2px}.badge-star--ribbon .badge-star-label span:first-child{font-size:22px}.badge-star--ribbon .badge-star-label span:last-child{font-size:12px;letter-spacing:.06em}.ribbon{font-size:clamp(15px,4.1vw,18px);padding:8px 32px 8px 14px}}
+.stickers{pointer-events:none;position:absolute;inset:0;z-index:1;overflow:visible}
+.stk{position:absolute;filter:drop-shadow(5px 5px 0 #111)}
+.stk-sq{left:max(4px,var(--gutter));top:12px;width:64px}
+.stk-dots{right:max(4px,var(--gutter));top:2px;width:44px}
+.stk-ring{left:-22px;top:auto;bottom:18px;width:52px}
+.stk-tri{left:max(16px,var(--gutter));bottom:12px;width:44px}
+.stk-plus{left:max(4px,var(--gutter));top:248px;width:32px}
+.stk-zig{right:max(4px,var(--gutter));top:248px;width:56px}
+.stk-strip{left:max(56px,var(--gutter));bottom:8px;width:52px}
+.stk-polka{left:-38px;bottom:6px;width:64px}
+.stk-moon{right:-22px;bottom:10px;width:44px}
+@media(min-width:760px){.stk-sq,.stk-tri,.stk-strip{left:max(8px,calc(50% - 432px));right:auto}.stk-ring{left:max(-22px,calc(50% - 456px));top:auto;bottom:18px}.stk-plus{left:max(8px,calc(50% - 432px));top:auto;bottom:14px}.stk-polka{left:max(-42px,calc(50% - 456px));bottom:6px}.stk-dots{right:auto;top:0;width:60px}.stk-zig{right:max(8px,var(--gutter));left:auto;top:auto;bottom:14px}.stk-moon{right:max(-12px,var(--gutter));left:auto;bottom:10px}}
+@media(max-width:640px){.stk-plus,.stk-tri,.stk-strip,.stk-moon{display:none}.stk-sq{top:4px;left:20px;width:50px}.stk-dots{top:4px;right:20px;width:36px}.stk-ring{top:auto;bottom:16px;left:20px;width:40px}.stk-zig{bottom:16px;right:20px;top:auto;width:48px}.stk-polka{left:8px;top:auto;bottom:10px;width:48px;transform:scale(.6);transform-origin:bottom left}}
+@media(min-width:641px) and (max-width:900px){.stk-sq,.stk-dots{width:60px}}
+@media(min-width:1920px){.stk{transform:scale(1.15);transform-origin:center}}
+.cards{margin-top:56px}
+.cards h2{font-family:var(--display);font-size:var(--h2);font-weight:800;font-stretch:88%;text-transform:uppercase;margin:0 0 28px}
+.card-grid{display:grid;gap:28px;grid-template-columns:1fr;align-items:start;justify-items:center}
+@media(min-width:641px){.card-grid{grid-template-columns:repeat(2,1fr);justify-items:stretch}}
+@media(min-width:900px){.card-grid{grid-template-columns:repeat(4,1fr)}}
+.toy-card{--rot:-3deg;--ty:8px;width:min(100%,340px);aspect-ratio:5/7;min-width:0;text-decoration:none;color:var(--ink);background:var(--cream);border:var(--line-lg) solid var(--ink);border-radius:var(--r-card);box-shadow:var(--shadow-lg);padding:14px;display:flex;flex-direction:column;gap:10px;transform:rotate(var(--rot)) translateY(var(--ty));transition:transform var(--t-ui) var(--ease-pop),box-shadow var(--t-ui) var(--ease-out),opacity var(--t-ui) var(--ease-out)}
+@media(min-width:900px){.toy-card{min-width:220px;width:auto}}
+@media(max-width:640px){.toy-card{aspect-ratio:auto;max-height:none;--rot:-1.5deg;--ty:0}.toy-card:nth-child(2){--rot:1deg}.toy-card:nth-child(3){--rot:-1deg}.toy-card:nth-child(4){--rot:1.5deg}}
+.toy-card:nth-child(1){--rot:-3deg;--ty:8px}.toy-card:nth-child(2){--rot:1.5deg;--ty:-4px}.toy-card:nth-child(3){--rot:-1.5deg;--ty:6px}.toy-card:nth-child(4){--rot:3deg;--ty:-6px}
+@media(max-width:640px){.toy-card:nth-child(1){--rot:-1.5deg}.toy-card:nth-child(2){--rot:1deg}.toy-card:nth-child(3){--rot:-1deg}.toy-card:nth-child(4){--rot:1.5deg}}
+body:not(.ready) .toy-card{opacity:0;transform:translateY(30px) rotate(var(--rot))}
+body.ready .toy-card{opacity:1;transition:transform var(--t-ui) var(--ease-pop),box-shadow var(--t-ui),opacity var(--t-ui)}
+body.ready .toy-card:nth-child(1){transition-delay:400ms}body.ready .toy-card:nth-child(2){transition-delay:480ms}body.ready .toy-card:nth-child(3){transition-delay:560ms}body.ready .toy-card:nth-child(4){transition-delay:640ms}
+@media(hover:hover) and (pointer:fine){
+.toy-card:hover,.toy-card:focus-visible{transform:rotate(0) translateY(-10px) scale(1);box-shadow:14px 14px 0 var(--ink);z-index:2}
+.toy-card:hover .btn-bar,.toy-card:focus-visible .btn-bar{background:var(--tomato);color:var(--ink)}
+.toy-card:hover .btn-bar b,.toy-card:focus-visible .btn-bar b{transform:translateX(4px)}
+.toy-card.card-snake:hover .snake-head{transform:translate(20px,0)}
+.toy-card.card-snake .snake-head{transition:transform var(--t-ui) var(--ease-out)}
+.toy-card.card-life:hover .life-g0{opacity:0}
+.toy-card.card-life:hover .life-g1{opacity:1}
+}
+.toy-card:focus-visible{outline:4px solid var(--tomato);outline-offset:6px}
+.toy-card:active{transform:translate(4px,4px) scale(.98);box-shadow:6px 6px 0 var(--ink);transition-duration:var(--t-press);transition-timing-function:var(--ease-out)}
+.card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.tab{background:var(--ink);color:var(--cream);font-family:var(--display);font-weight:800;font-size:18px;padding:2px 8px;line-height:1.2}
+.card-meta{font:600 var(--label)/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.art-win{border:var(--line) solid var(--ink);aspect-ratio:4/3;overflow:hidden;flex-shrink:0}
+@media(max-width:640px){.art-win{aspect-ratio:16/10}}
+.art-win svg{display:block;width:100%;height:100%}
+.toy-card h3{font-family:var(--display);font-size:var(--card-title);font-weight:800;font-stretch:88%;line-height:1.05;margin:0}
+.toy-card .desc{margin:0;font-size:14px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .tags{display:flex;flex-wrap:wrap;gap:6px}
-.tags span{font-size:12px;color:var(--mute);border:1px solid var(--line);border-radius:999px;padding:2px 9px}
-.grid{display:grid;gap:14px;grid-template-columns:1fr}
-@media(min-width:640px){.grid{grid-template-columns:1fr 1fr}}
-@media(min-width:980px){.grid{grid-template-columns:repeat(3,1fr)}}
-.card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:8px;text-decoration:none;transition:transform .3s,border-color .3s,background .3s;min-height:190px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
-a.card:hover,a.card:focus-visible{transform:translateY(-3px);border-color:rgba(155,123,255,.55);background:rgba(26,26,72,.7)}
-a.card:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
-.card svg.ic{width:44px;height:44px}
-.card h3{margin:2px 0 0;font-size:19px}
-.card p{margin:0;color:#c8cbee;font-size:14.5px;flex:1}
-.meta{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--mute)}
-.meta .lnk{color:var(--teal);font-weight:600}
-.priv{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--mute);border:1px dashed var(--line);border-radius:999px;padding:2px 10px}
-footer{color:var(--mute);font-size:13px;padding:20px 0 calc(40px + env(safe-area-inset-bottom));text-align:center}
-@media(max-width:640px){.hero{min-height:0;align-items:flex-end}.hero::before{background-position:80% top;background-size:auto 115%}.hero::after{background:linear-gradient(180deg,rgba(7,9,38,0) 0%,rgba(7,9,38,.35) 35%,rgba(7,9,38,.92) 62%,var(--bg) 100%)}.hero .wrap{padding-top:300px;padding-bottom:36px}.orbits{opacity:.5}}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.tags span{font:600 var(--label)/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase;border:2px solid var(--ink);background:var(--cream);padding:2px 6px}
+.btn-bar{margin-top:auto;margin-inline:-14px;margin-bottom:-14px;background:var(--ink);color:var(--cream);min-height:var(--tap);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:18px;transition:background var(--t-ui) var(--ease-out)}
+.btn-bar b{display:inline-block;transition:transform var(--t-ui) var(--ease-out)}
+.marquee-wrap{margin-top:80px;width:100%;display:flex;align-items:stretch;background:var(--ink);height:56px;overflow:hidden;box-sizing:border-box}
+@media(max-width:640px){.marquee-wrap{height:48px;margin-top:56px}}
+.marquee-viewport{flex:1;min-width:0;overflow:hidden;position:relative}
+.marquee-track{display:flex;width:max-content;white-space:nowrap;animation:marquee 40s linear infinite}
+.marquee-wrap:hover .marquee-track,.marquee-wrap:focus-within .marquee-track,.marquee-wrap.is-paused .marquee-track{animation-play-state:paused}
+@keyframes marquee{to{transform:translateX(-50%)}}
+.marquee-row{display:flex;align-items:center;gap:24px;padding:0 24px;font-family:var(--display);font-weight:800;font-stretch:88%;font-size:24px;letter-spacing:.02em;color:var(--sun);height:56px}
+@media(max-width:640px){.marquee-row{font-size:20px;height:48px}}
+.marquee-row .dia{width:14px;height:14px;background:var(--tomato);border:2px solid var(--ink);transform:rotate(45deg);flex-shrink:0}
+.marquee-toggle{flex:0 0 52px;width:52px;border:0;border-left:var(--line) solid var(--sun);background:var(--ink);cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;align-self:stretch}
+.marquee-toggle svg rect,.marquee-toggle svg polygon{fill:var(--cream)}
+@media(max-width:640px){.marquee-toggle{flex-basis:56px;width:56px}}
+.marquee-toggle:focus-visible{outline:4px solid var(--tomato);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){
+.marquee-track{animation:none;transform:none!important;width:100%;justify-content:center}
+.marquee-track .marquee-row[aria-hidden]{display:none}
+.marquee-row{justify-content:center;width:100%;flex-wrap:wrap;gap:12px}
+}
+footer{padding:40px 0 56px;font-size:15px;line-height:1.6}
+footer.wrap{padding-block:40px 56px}
+footer a{text-underline-offset:3px;text-decoration-thickness:2px}
+footer a:focus-visible{outline:4px solid var(--tomato);outline-offset:2px}
+.snake-head{transition:transform var(--t-ui) var(--ease-out)}
+.life-g0,.life-g1{transition:opacity var(--t-ui) var(--ease-out)}
+.life-g1{opacity:0}
+@media(prefers-reduced-motion:reduce){
+*{animation:none!important}
+body.ready .title span,body.ready .toy-card{transition:none;opacity:1}
+body:not(.ready) .title span,body:not(.ready) .toy-card{opacity:1}
+}
 </style>
 </head>
 <body>
-<header class="hero">
-  <svg class="orbits" viewBox="0 0 400 400" aria-hidden="true">
-    <g class="spin"><ellipse cx="200" cy="200" rx="190" ry="190" fill="none" stroke="rgba(160,150,255,.18)" stroke-dasharray="2 7"/><circle cx="390" cy="200" r="4" fill="#4fe0d0"/></g>
-    <g class="spin r"><ellipse cx="200" cy="200" rx="150" ry="150" fill="none" stroke="rgba(79,224,208,.16)"/><circle cx="50" cy="200" r="3" fill="#ffc35a"/></g>
-    <g fill="#fff"><circle class="tw" cx="40" cy="60" r="1.2"/><circle class="tw" style="animation-delay:1s" cx="120" cy="340" r="1"/><circle class="tw" style="animation-delay:2s" cx="300" cy="40" r="1.4"/><circle class="tw" style="animation-delay:.5s" cx="360" cy="330" r="1"/></g>
-  </svg>
-  <div class="wrap">
-    <div class="kicker">Luis Matute · side projects</div>
-    <h1><span>Playground</span></h1>
-    <p class="lede">Small things I build to understand something, plan something, or just because it was fun.</p>
-  </div>
+<div class="wrap topbar">
+<a class="chip" href="https://luismatute.me/"><span class="chip-long">Luis Matute · Side projects</span><span class="chip-short" hidden>LUIS MATUTE ↗</span></a>
+<a class="back-link" href="https://luismatute.me/">← luismatute.me</a>
+</div>
+<header class="hero wrap">
+<div class="stickers" aria-hidden="true">
+<svg class="stk stk-sq" viewBox="0 0 80 48" aria-hidden="true"><path d="M8 32c12-18 28-22 44-8 8 8 10 20 4 28" fill="none" stroke="#ff7fae" stroke-width="6"/><path d="M8 32c12-18 28-22 44-8 8 8 10 20 4 28" fill="none" stroke="#f04e23" stroke-width="3"/></svg>
+<svg class="stk stk-dots" viewBox="0 0 60 40" aria-hidden="true"><g fill="var(--tomato)" stroke="var(--ink)" stroke-width="2"><circle cx="10" cy="10" r="6"/><circle cx="30" cy="10" r="6"/><circle cx="50" cy="10" r="6"/><circle cx="10" cy="30" r="6"/><circle cx="30" cy="30" r="6"/><circle cx="50" cy="30" r="6"/></g></svg>
+<svg class="stk stk-ring" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="22" fill="var(--cream)" stroke="var(--ink)" stroke-width="3"/></svg>
+<svg class="stk stk-tri" viewBox="0 0 56 48" aria-hidden="true"><polygon points="28,4 52,44 4,44" fill="var(--teal)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/></svg>
+<svg class="stk stk-plus" viewBox="0 0 40 40" aria-hidden="true"><path d="M18 4h4v32h-4zM4 18h32v4H4z" fill="var(--cream)" stroke="var(--ink)" stroke-width="3"/></svg>
+<svg class="stk stk-zig" viewBox="0 0 72 24" aria-hidden="true"><polyline points="4,20 16,4 28,20 40,4 52,20 64,4" fill="none" stroke="var(--teal)" stroke-width="6" stroke-linejoin="round"/></svg>
+<svg class="stk stk-strip" viewBox="0 0 56 40" aria-hidden="true"><rect width="56" height="40" fill="var(--tomato)" stroke="var(--ink)" stroke-width="3"/><path d="M0 0l56 40M-8 8l56 40M-8 24l56 40" stroke="var(--ink)" stroke-width="3"/></svg>
+<svg class="stk stk-polka" viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="36" fill="var(--teal)" stroke="var(--ink)" stroke-width="3"/><g fill="var(--ink)"><circle cx="24" cy="24" r="4"/><circle cx="40" cy="20" r="4"/><circle cx="56" cy="28" r="4"/><circle cx="30" cy="40" r="4"/><circle cx="50" cy="44" r="4"/></g></svg>
+<svg class="stk stk-moon" viewBox="0 0 56 56" aria-hidden="true"><path d="M36 8a24 24 0 1 0 16 40A20 20 0 0 1 36 8z" fill="var(--cream)" stroke="var(--ink)" stroke-width="3"/></svg>
+</div>
+<div class="badge-star badge-star--hero" aria-hidden="true"><svg viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,2 61,35 96,35 68,56 79,90 50,68 21,90 32,56 4,35 39,35" fill="#f04e23" stroke="#111" stroke-width="3" stroke-linejoin="round"/></svg><div class="badge-star-label"><span>4</span><span>TOYS</span></div></div>
+<h1 class="title" aria-label="Playground"><span class="c0" aria-hidden="true">P</span><span class="c1" aria-hidden="true">L</span><span class="c2" aria-hidden="true">A</span><span class="c3" aria-hidden="true">Y</span><span class="title-break" aria-hidden="true"></span><span class="c0" aria-hidden="true">G</span><span class="c1" aria-hidden="true">R</span><span class="c2" aria-hidden="true">O</span><span class="c3" aria-hidden="true">U</span><span class="c0" aria-hidden="true">N</span><span class="c1" aria-hidden="true">D</span></h1>
+<div class="hero-narrow">
+<div class="ribbon-row"><p class="ribbon">small things I build for fun</p><div class="badge-star badge-star--ribbon" aria-hidden="true"><svg viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,2 61,35 96,35 68,56 79,90 50,68 21,90 32,56 4,35 39,35" fill="#f04e23" stroke="#111" stroke-width="3" stroke-linejoin="round"/></svg><div class="badge-star-label"><span>4</span><span>TOYS</span></div></div></div>
+<p class="lede">Toys, tools and experiments. Some help me understand something, some help plan a trip, some are just fun to poke.</p>
+</div>
 </header>
-
-<main class="wrap">
-  <section aria-labelledby="fTitle">
-    <h2 id="fTitle">Featured</h2>
-    <a class="featured" href="seasons/">
-      <div class="thumb"><img src="img/seasons-thumb.webp" alt="The seasons explainer: a glowing real-time Earth lit from the side, with Amsterdam pinned and 7 hours 41 minutes of daylight on 21 December" width="1200" height="750"></div>
-      <div class="fBody">
-        <span class="badge">New</span>
-        <h3>How long is your day?</h3>
-        <p>A real-time planet you can spin, tilt and time-lapse through a year. Pick a planet and a city and watch the daylight change: Amsterdam in December, Reykjavik in June, or a whole year of polar day on Uranus.</p>
-        <div class="tags"><span>SVG</span><span>Astronomy</span><span>No frameworks</span></div>
-        <span class="go">Open it <b>→</b></span>
-      </div>
-    </a>
-  </section>
-
-  <section aria-labelledby="mTitle">
-    <h2 id="mTitle">More from the playground</h2>
-    <div class="grid">
-      <a class="card" href="https://luismatute.me/" rel="noopener">
-        <svg class="ic" viewBox="0 0 44 44" aria-hidden="true"><rect x="4" y="8" width="36" height="28" rx="6" fill="none" stroke="#9b7bff" stroke-width="2"/><circle cx="16" cy="22" r="5" fill="#ffc35a"/><path d="M24 18h10M24 23h8M24 28h10" stroke="#4fe0d0" stroke-width="2" stroke-linecap="round"/></svg>
-        <h3>luismatute.me</h3>
-        <p>My personal site: hand-drawn SVG illustrations and a few design variants tested side by side.</p>
-        <div class="meta"><span>Website</span><span class="lnk">Visit →</span></div>
-      </a>
-      <a class="card" href="https://luismatute.me/japan" rel="noopener">
-        <svg class="ic" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="10" fill="#ff5a6e"/><path d="M6 34c6-4 10-4 16 0s10 4 16 0" fill="none" stroke="#4fe0d0" stroke-width="2" stroke-linecap="round"/></svg>
-        <h3>Friends trip to Japan</h3>
-        <p>A trip page for a friends trip to Japan: route, days and the things we don't want to miss.</p>
-        <div class="meta"><span>Trip planner</span><span class="lnk">Visit →</span></div>
-      </a>
-      <a class="card" href="https://pipa.github.io/luismatute-preview/ds/" rel="noopener">
-        <svg class="ic" viewBox="0 0 44 44" aria-hidden="true"><rect x="5" y="5" width="15" height="15" rx="4" fill="#9b7bff"/><rect x="24" y="5" width="15" height="15" rx="8" fill="#4fe0d0"/><rect x="5" y="24" width="15" height="15" rx="8" fill="#ffc35a"/><rect x="24" y="24" width="15" height="15" rx="4" fill="none" stroke="#fff" stroke-width="2"/></svg>
-        <h3>@luismatute/ui</h3>
-        <p>My design system: tokens, web components and an illustration kit, with a live playground of every piece.</p>
-        <div class="meta"><span>Design system</span><span class="lnk">Open playground →</span></div>
-      </a>
-      <div class="card">
-        <svg class="ic" viewBox="0 0 44 44" aria-hidden="true"><path d="M6 30l16-9 16 9-16 9z" fill="#2c2f7a" stroke="#9b7bff" stroke-width="1.5"/><path d="M6 30V16l16-9v14z" fill="#3b3fa0" stroke="#9b7bff" stroke-width="1.5"/><path d="M22 21V7l16 9v14z" fill="#4b50c8" stroke="#9b7bff" stroke-width="1.5"/></svg>
-        <h3>apartment-3d</h3>
-        <p>A walkable 3D model of our apartment, built from the floor plans, for trying out furniture and remodel ideas.</p>
-        <div class="meta"><span>3D · WebGL</span><span class="priv">🔒 Private</span></div>
-      </div>
-      <a class="card" href="https://pipa.github.io/GameOfLife/" rel="noopener">
-        <svg class="ic" viewBox="0 0 44 44" aria-hidden="true"><g fill="#4fe0d0"><rect x="16" y="6" width="9" height="9" rx="2"/><rect x="26" y="16" width="9" height="9" rx="2"/><rect x="6" y="26" width="9" height="9" rx="2"/><rect x="16" y="26" width="9" height="9" rx="2"/><rect x="26" y="26" width="9" height="9" rx="2"/></g></svg>
-        <h3>Game of Life</h3>
-        <p>Conway's Game of Life in the browser. An older experiment, still fun to watch.</p>
-        <div class="meta"><span>Classic</span><span class="lnk">Play →</span></div>
-      </a>
-      <a class="card" href="https://pipa.github.io/SnakeGame/" rel="noopener">
-        <svg class="ic" viewBox="0 0 44 44" aria-hidden="true"><path d="M8 34h12V20h16" fill="none" stroke="#9b7bff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="36" cy="10" r="4" fill="#ff5a6e"/></svg>
-        <h3>Snake</h3>
-        <p>A simple browser snake game. One of the first toys in the box.</p>
-        <div class="meta"><span>Game</span><span class="lnk">Play →</span></div>
-      </a>
-    </div>
-  </section>
+<main class="wrap cards">
+<h2 class="sr-only">The toys</h2>
+<div class="card-grid">
+<a class="toy-card" href="seasons/">
+<div class="card-head"><span class="tab">No. 1</span><span class="card-meta">Card 1/4 · Seasons</span></div>
+<div class="art-win" style="background:var(--teal)"><svg viewBox="0 0 240 180" aria-hidden="true"><g stroke="var(--ink)" stroke-width="3" fill="none"><circle cx="52" cy="46" r="28" fill="var(--cream)"/><g stroke="var(--tomato)" stroke-width="3" stroke-linecap="round"><path d="M52 14v10M52 68v10M24 46h10M70 46h10M30 26l7 7M67 65l7 7M74 26l-7 7M37 65l-7 7"/></g><circle cx="140" cy="112" r="52" fill="var(--cream)"/><path d="M140 60 A52 52 0 0 1 192 112 A52 52 0 0 1 140 164 L140 60Z" fill="var(--tomato)"/><line x1="118" y1="142" x2="162" y2="82" stroke-width="3"/><circle cx="154" cy="94" r="5" fill="var(--ink)"/></svg></div>
+<h3>How long is your day?</h3>
+<p class="desc">A real-time planet you can spin, tilt and time-lapse through a year.</p>
+<div class="tags"><span>SVG</span><span>Astronomy</span></div>
+<div class="btn-bar" aria-hidden="true">OPEN <b>→</b></div>
+</a>
+<a class="toy-card card-snake" href="https://pipa.github.io/SnakeGame/" rel="noopener">
+<div class="card-head"><span class="tab">No. 2</span><span class="card-meta">Card 2/4 · Game</span></div>
+<div class="art-win" style="background:var(--ink)"><svg viewBox="0 0 240 180" aria-hidden="true"><defs><pattern id="sg" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#222" stroke-width="1"/></pattern></defs><rect width="240" height="180" fill="url(#sg)"/><g fill="var(--pink)"><rect x="41" y="101" width="18" height="18" rx="4"/><rect x="41" y="121" width="18" height="18" rx="4"/><rect x="41" y="81" width="18" height="18" rx="4"/><rect x="61" y="81" width="18" height="18" rx="4"/><rect x="81" y="81" width="18" height="18" rx="4"/><rect x="101" y="81" width="18" height="18" rx="4"/></g><g class="snake-head"><rect x="119" y="79" width="22" height="22" rx="4" fill="var(--pink)"/><circle cx="127" cy="88" r="2" fill="var(--ink)"/><circle cx="135" cy="88" r="2" fill="var(--ink)"/></g><circle cx="170" cy="90" r="8" fill="var(--tomato)" stroke="var(--ink)" stroke-width="3"/><path d="M174 84l4-4" stroke="var(--cream)" stroke-width="3" stroke-linecap="round"/></svg></div>
+<h3>Snake</h3>
+<p class="desc">The classic. Eat the apples, don't bite yourself.</p>
+<div class="tags"><span>JS</span><span>Keyboard + touch</span></div>
+<div class="btn-bar" aria-hidden="true">PLAY <b>→</b></div>
+</a>
+<a class="toy-card card-life" href="https://pipa.github.io/GameOfLife/" rel="noopener">
+<div class="card-head"><span class="tab">No. 3</span><span class="card-meta">Card 3/4 · Classic</span></div>
+<div class="art-win" style="background:var(--sun)"><svg viewBox="0 0 240 180" aria-hidden="true"><defs><pattern id="lg" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="var(--ink)" stroke-width="1.5"/></pattern></defs><rect width="240" height="180" fill="url(#lg)"/><g opacity=".25" fill="var(--cream)"><rect x="75" y="27" width="18" height="18" stroke="var(--ink)" stroke-width="3"/><rect x="99" y="51" width="18" height="18" stroke="var(--ink)" stroke-width="3"/><rect x="51" y="75" width="18" height="18" stroke="var(--ink)" stroke-width="3"/><rect x="75" y="75" width="18" height="18" stroke="var(--ink)" stroke-width="3"/><rect x="99" y="75" width="18" height="18" stroke="var(--ink)" stroke-width="3"/></g><g class="life-g0" fill="var(--cream)"><rect x="99" y="51" width="18" height="18" stroke="var(--ink)" stroke-width="3"/><rect x="123" y="75" width="18" height="18" stroke="var(--ink)" stroke-width="3"/><rect x="75" y="99" width="18" height="18" stroke="var(--ink)" stroke-width="3"/><rect x="99" y="99" width="18" height="18" stroke="var(--ink)" stroke-width="3"/><rect x="123" y="99" width="18" height="18" stroke="var(--ink)" stroke-width="3"/></g><g class="life-g1" fill="var(--cream)"><rect x="75" y="75" width="18" height="18" stroke="var(--ink)" stroke-width="3"/><rect x="99" y="99" width="18" height="18" stroke="var(--ink)" stroke-width="3"/><rect x="99" y="123" width="18" height="18" stroke="var(--ink)" stroke-width="3"/><rect x="123" y="75" width="18" height="18" stroke="var(--ink)" stroke-width="3"/><rect x="123" y="99" width="18" height="18" stroke="var(--ink)" stroke-width="3"/></g></svg></div>
+<h3>Game of Life</h3>
+<p class="desc">Conway's rules: live cells with 2 or 3 neighbours survive, exactly 3 brings one to life.</p>
+<div class="tags"><span>Canvas</span><span>B3/S23</span></div>
+<div class="btn-bar" aria-hidden="true">PLAY <b>→</b></div>
+</a>
+<a class="toy-card" href="https://luismatute.me/japan" rel="noopener">
+<div class="card-head"><span class="tab">No. 4</span><span class="card-meta">Card 4/4 · Trip</span></div>
+<div class="art-win" style="background:var(--pink)"><svg viewBox="0 0 240 180" aria-hidden="true"><circle cx="36" cy="36" r="14" fill="var(--tomato)" stroke="var(--ink)" stroke-width="3"/><g fill="var(--cream)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"><ellipse cx="120" cy="105" rx="42" ry="58" transform="rotate(-8 120 105)"/><ellipse cx="175" cy="118" rx="22" ry="18"/><ellipse cx="85" cy="138" rx="16" ry="22"/><ellipse cx="148" cy="52" rx="28" ry="20"/></g><path d="M52 52 Q95 70 120 95 T188 130" fill="none" stroke="var(--tomato)" stroke-width="3" stroke-dasharray="6 4"/><circle cx="52" cy="52" r="5" fill="var(--ink)"/><circle cx="120" cy="95" r="5" fill="var(--ink)"/><circle cx="188" cy="130" r="5" fill="var(--ink)"/></svg></div>
+<h3>Japan with friends</h3>
+<p class="desc">A trip page for a friends trip to Japan: route, days and the things we don't want to miss.</p>
+<div class="tags"><span>Trip planner</span></div>
+<div class="btn-bar" aria-hidden="true">GO <b>→</b></div>
+</a>
+</div>
 </main>
-<footer>Made by Luis Matute · plain HTML, CSS and SVG</footer>
+<div class="marquee-wrap" id="marquee">
+<div class="marquee-viewport"><div class="marquee-track">
+<div class="marquee-row"><span>BUILT FOR FUN</span><span class="dia" aria-hidden="true"></span><span>NO FRAMEWORKS</span><span class="dia" aria-hidden="true"></span><span>PRESS PLAY</span><span class="dia" aria-hidden="true"></span><span>HAND-DRAWN IN SVG</span><span class="dia" aria-hidden="true"></span></div>
+<div class="marquee-row" aria-hidden="true"><span>BUILT FOR FUN</span><span class="dia"></span><span>NO FRAMEWORKS</span><span class="dia"></span><span>PRESS PLAY</span><span class="dia"></span><span>HAND-DRAWN IN SVG</span><span class="dia"></span></div>
+</div></div>
+<button type="button" class="marquee-toggle" id="marqueeBtn" aria-label="Pause marquee" aria-pressed="false"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><rect x="2" y="1" width="3" height="12" fill="var(--cream)"/><rect x="9" y="1" width="3" height="12" fill="var(--cream)"/></svg></button>
+</div>
+<footer class="wrap">
+Made by Luis Matute · plain HTML, CSS and SVG<br>
+<a href="https://luismatute.me/">luismatute.me</a> · <a href="../ds/">Design system</a>
+</footer>
+<script>
+(function(){
+var chip=document.querySelector('.chip-long'),chipS=document.querySelector('.chip-short');
+function chipLabel(){if(window.matchMedia('(max-width:640px)').matches){chip.hidden=true;chipS.hidden=false}else{chip.hidden=false;chipS.hidden=true}}
+chipLabel();window.addEventListener('resize',chipLabel);
+if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches)requestAnimationFrame(function(){requestAnimationFrame(function(){document.body.classList.add('ready')})});else document.body.classList.add('ready');
+var mq=document.getElementById('marquee'),btn=document.getElementById('marqueeBtn');
+btn.addEventListener('click',function(){var p=mq.classList.toggle('is-paused');btn.setAttribute('aria-pressed',p?'true':'false');btn.setAttribute('aria-label',p?'Play marquee':'Pause marquee');btn.innerHTML=p?'<svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><polygon points="3,1 12,7 3,13" fill="var(--cream)"/></svg>':'<svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><rect x="2" y="1" width="3" height="12" fill="var(--cream)"/><rect x="9" y="1" width="3" height="12" fill="var(--cream)"/></svg>'});
+var track=document.querySelector('.marquee-track');
+if(track&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches){var half=track.scrollWidth/2;track.style.animationDuration=(half/40)+'s'}
+function titleWrap(){var t=document.querySelector('.title'),br=document.querySelector('.title-break');if(!t||!br)return;if(window.matchMedia('(min-width:900px)').matches){br.style.display='none';t.style.flexWrap='nowrap';return}br.style.display='none';t.style.flexWrap='nowrap';if(t.scrollWidth>t.clientWidth+2){br.style.display='block';t.style.flexWrap='wrap'}}
+function syncDots(){var dots=document.querySelector('.stk-dots'),hero=document.querySelector('.hero');if(!dots||!hero||window.matchMedia('(max-width:640px)').matches){dots.style.removeProperty('left');dots.style.removeProperty('top');return}var n=document.querySelector('.title span:nth-child(10)'),d=document.querySelector('.title span:nth-child(11)'),badge=document.querySelector('.badge-star--hero');if(!n||!d)return;function sep(a,b,g){return a.right+g<=b.left||a.left>=b.right+g||a.bottom+g<=b.top||a.top>=b.bottom+g}var hb=hero.getBoundingClientRect(),nr=n.getBoundingClientRect(),dr=d.getBoundingClientRect(),w=60,left=(nr.left+dr.right)/2-hb.left-w/2,top=Math.min(nr.top,dr.top)-hb.top-48;for(var i=0;i<24;i++){dots.style.left=left+'px';dots.style.top=Math.max(8,top)+'px';var db=dots.getBoundingClientRect(),ok=sep(db,nr,24)&&sep(db,dr,24);if(badge&&getComputedStyle(badge).display!=='none')ok=ok&&sep(db,badge.getBoundingClientRect(),24);if(ok)break;left-=6;top-=3}}
+function layoutHero(){titleWrap();syncDots()}
+layoutHero();window.addEventListener('resize',layoutHero);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(layoutHero);
+})();
+</script>
 </body>
 </html>
