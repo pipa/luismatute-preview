@@ -6,19 +6,108 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const out = __dirname;
 const base = 'http://127.0.0.1:8765/playground/index.html';
-
 const widths = [360, 375, 390, 768, 1280, 1920];
+
+function intersect(a, b) {
+  return !(a.right <= b.left || a.left >= b.right || a.bottom <= b.top || a.top >= b.bottom);
+}
+
+async function assertViewport(page, vw) {
+  return page.evaluate((viewportWidth) => {
+    const fail = [];
+    const docW = document.documentElement.scrollWidth;
+    const innerW = window.innerWidth;
+    if (docW > innerW) {
+      fail.push({ kind: 'page-overflow', scrollWidth: docW, innerWidth: innerW });
+    }
+
+    const zones = [];
+    document.querySelectorAll('.title span:not(.title-break)').forEach((el, i) => {
+      zones.push({ name: `h1-letter-${i}`, r: el.getBoundingClientRect() });
+    });
+    const lede = document.querySelector('.lede');
+    if (lede) zones.push({ name: 'lede', r: lede.getBoundingClientRect() });
+    const topbar = document.querySelector('.topbar');
+    if (topbar) zones.push({ name: 'topbar', r: topbar.getBoundingClientRect() });
+    document.querySelectorAll('.toy-card').forEach((el, i) => {
+      zones.push({ name: `card-${i + 1}`, r: el.getBoundingClientRect() });
+    });
+
+    const ribbon = document.querySelector('.ribbon');
+    const decor = [
+      ...document.querySelectorAll('.stk'),
+      document.querySelector('.badge-star'),
+    ].filter(Boolean);
+
+    for (const el of decor) {
+      const d = el.getBoundingClientRect();
+      const label =
+        el.classList.contains('badge-star')
+          ? 'badge-star'
+          : [...el.classList].find((c) => c.startsWith('stk-')) || 'sticker';
+      for (const z of zones) {
+        if (intersect(d, z.r)) {
+          const allowed =
+            label === 'badge-star' &&
+            viewportWidth <= 640 &&
+            z.name === 'lede' &&
+            false;
+          if (!allowed) {
+            fail.push({ kind: 'overlap', decor: label, zone: z.name });
+          }
+        }
+      }
+      if (ribbon && el.classList.contains('badge-star')) {
+        const rr = ribbon.getBoundingClientRect();
+        if (viewportWidth <= 640) {
+          /* ribbon overlap allowed; h1/lede/cards/topbar still checked above */
+        } else if (intersect(d, rr)) {
+          fail.push({ kind: 'overlap', decor: 'badge-star', zone: 'ribbon' });
+        }
+      }
+    }
+
+    const toggle = document.querySelector('.marquee-toggle');
+    const viewport = document.querySelector('.marquee-viewport');
+    if (toggle && viewport) {
+      const vr = viewport.getBoundingClientRect();
+      const br = toggle.getBoundingClientRect();
+      if (intersect(vr, br)) {
+        fail.push({ kind: 'marquee-toggle-on-text', decor: 'marquee-toggle', zone: 'marquee-viewport' });
+      }
+    }
+
+    const band = document.querySelector('.marquee-wrap');
+    if (band) {
+      const br = band.getBoundingClientRect();
+      if (Math.abs(br.width - innerW) > 2) {
+        fail.push({ kind: 'marquee-not-full-bleed', bandWidth: br.width, innerWidth: innerW });
+      }
+    }
+
+    return fail;
+
+    function intersect(a, b) {
+      return !(a.right <= b.left || a.left >= b.right || a.bottom <= b.top || a.top >= b.bottom);
+    }
+  }, vw);
+}
 
 await mkdir(out, { recursive: true });
 const browser = await chromium.launch();
-const errors = [];
+const consoleErrors = [];
+const allFailures = [];
 
 for (const w of widths) {
   const page = await browser.newPage({ viewport: { width: w, height: w < 640 ? 844 : 900 } });
-  page.on('pageerror', (e) => errors.push(`${w}: ${e.message}`));
-  page.on('console', (msg) => { if (msg.type() === 'error') errors.push(`${w}: ${msg.text()}`); });
+  page.on('pageerror', (e) => consoleErrors.push(`${w}: ${e.message}`));
+  page.on('console', (msg) => {
+    if (msg.type() === 'error') consoleErrors.push(`${w}: ${msg.text()}`);
+  });
   await page.goto(base, { waitUntil: 'networkidle' });
-  await page.waitForTimeout(w < 900 ? 900 : 1200);
+  await page.waitForTimeout(w < 900 ? 1000 : 1200);
+  const fails = await assertViewport(page, w);
+  if (fails.length) allFailures.push({ width: w, fails });
   await page.screenshot({ path: path.join(out, `viewport-${w}.png`), fullPage: true });
   await page.close();
 }
@@ -43,4 +132,14 @@ await rm.screenshot({ path: path.join(out, 'reduced-motion-1280.png'), fullPage:
 await rm.close();
 
 await browser.close();
-console.log(JSON.stringify({ errors: [...new Set(errors)] }, null, 2));
+
+if (consoleErrors.length) {
+  console.error('Console errors:', [...new Set(consoleErrors)]);
+}
+
+if (allFailures.length) {
+  console.error('ASSERTION FAILURES:\n' + JSON.stringify(allFailures, null, 2));
+  process.exit(1);
+}
+
+console.log(JSON.stringify({ pass: true, widths, consoleErrors: [...new Set(consoleErrors)] }, null, 2));
