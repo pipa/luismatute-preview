@@ -499,6 +499,82 @@ footer strong { color: var(--cream); font-weight: 600; }
   .top nav { display: none; }
   .frame { box-shadow: none; }
 }
+
+/* Animated flow diagrams */
+.diagram-block { margin: 28px 0 12px; }
+.diagram-block .diagram-head { margin: 0 0 14px; max-width: 42em; }
+.diagram-block .diagram-head h3 {
+  font-size: clamp(1.35rem, 3vw, 1.75rem);
+  line-height: 1.12;
+  margin: 0 0 8px;
+}
+.diagram-block .diagram-head p { margin: 0; color: var(--brown); font-size: 15px; }
+.diagram-frame {
+  background: var(--white);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 14px 8px 16px;
+  overflow: visible;
+}
+.diagram-frame svg { width: 100%; height: auto; display: block; overflow: visible; }
+.flow-desktop { display: none; }
+@media (min-width: 800px) {
+  .flow-phone { display: none; }
+  .flow-desktop { display: block; }
+  .diagram-frame { padding: 20px 18px 22px; }
+}
+.token-static, .msg-static { display: none; }
+.flow-glow {
+  stroke-dasharray: 6 10;
+  animation: march 1.2s linear infinite;
+}
+.map-route {
+  stroke-dasharray: 280;
+  stroke-dashoffset: 280;
+  animation: draw-route 3.2s var(--ease) infinite alternate;
+}
+@keyframes march { to { stroke-dashoffset: -16; } }
+@keyframes draw-route {
+  from { stroke-dashoffset: 280; }
+  to { stroke-dashoffset: 0; }
+}
+@keyframes coin-hop {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+.coin-hop { animation: coin-hop 1.6s var(--ease) infinite; transform-box: fill-box; transform-origin: center; }
+.pay-grid { display: grid; gap: 12px; margin-top: 8px; }
+@media (min-width: 720px) {
+  .pay-grid { grid-template-columns: 1fr 1fr; gap: 18px; }
+}
+.pay-card {
+  background: var(--white);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 16px 16px 14px;
+}
+.pay-card h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.35rem;
+  margin: 0 0 8px;
+}
+.pay-card p { margin: 0 0 6px; color: var(--brown); font-size: 15px; }
+.pay-card .amount {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  font-size: 1.25rem;
+  color: var(--brown-dd);
+}
+.pay-card .ok-line { color: var(--ok); font-weight: 700; }
+.pay-card .hint { font-size: 13px; color: var(--brown-m); }
+@media (prefers-reduced-motion: reduce) {
+  .token-anim, .msg-anim, .pulse-ring, .flow-glow { display: none !important; }
+  .token-static, .msg-static { display: block !important; }
+  .map-route, .coin-hop, .flow-glow { animation: none !important; }
+  .map-route { stroke-dashoffset: 0; }
+}
+
 </style>
 </head>
 <body>
@@ -511,6 +587,7 @@ footer strong { color: var(--cream); font-weight: 600; }
         <a href="#que-es">Qué es</a>
         <a href="#recorrido">El pedido</a>
         <a href="#pantallas">Teléfono y computadora</a>
+        <a href="#flujos">Cómo fluye</a>
         <a href="#proximamente">Próximamente</a>
         <a href="#como-funciona">Cómo funciona</a>
       </nav>
@@ -599,6 +676,44 @@ footer strong { color: var(--cream); font-weight: 600; }
   <figcaption><span class="badge badge-live">Pantalla de la demo</span> El mapa para marcar la casa, y dos formas de enviar el pedido.</figcaption>
 </figure>
           </div>
+          
+<figure class="diagram-block" id="flujo-pago">
+  <div class="diagram-head">
+    <p class="kicker">El cobro</p>
+    <h3>Cómo se paga, bien clarito.</h3>
+    <p>El repartidor ve una de estas dos cosas, según cómo pagó el cliente. Los montos son de ejemplo.</p>
+  </div>
+  <div class="pay-grid">
+    <div class="pay-card">
+      
+    <svg viewBox="0 0 72 48" width="72" height="48" aria-hidden="true">
+      <g class="coin-hop">
+        <circle cx="24" cy="26" r="14" fill="#D98A3D" stroke="#24110A" stroke-width="2"/>
+        <text x="24" y="30" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="11" font-weight="700" fill="#24110A">L</text>
+      </g>
+      <circle cx="48" cy="26" r="14" fill="#D9A58A" stroke="#24110A" stroke-width="2"/>
+      <text x="48" y="30" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="10" font-weight="700" fill="#24110A">200</text>
+    </svg>
+    
+      <h4>Efectivo</h4>
+      <p class="amount">Cobrás en efectivo L 100</p>
+      <p class="hint">Te paga con L 200 · llevá L 100 de vuelto</p>
+    </div>
+    <div class="pay-card">
+      
+    <svg viewBox="0 0 72 48" width="72" height="48" aria-hidden="true">
+      <rect x="8" y="10" width="56" height="32" rx="6" fill="#24110A" stroke="#D98A3D" stroke-width="2"/>
+      <rect x="8" y="18" width="56" height="8" fill="#A8452F"/>
+      <rect x="16" y="32" width="18" height="5" rx="2" fill="#D98A3D"/>
+    </svg>
+    
+      <h4>Tarjeta o PedidosYa</h4>
+      <p class="ok-line">Ya está pagado · No cobrés nada</p>
+      <p class="hint">PedidosYa se anota a mano en el tablero, para tenerlo junto con lo demás.</p>
+    </div>
+  </div>
+</figure>
+
         </article>
 
         <article class="step">
@@ -645,6 +760,89 @@ footer strong { color: var(--cream); font-weight: 600; }
   <figcaption><span class="badge badge-live">Pantalla de la demo</span> En camino: el repartidor se ve en el mapa, con un tiempo estimado.</figcaption>
 </figure>
           </div>
+          
+<figure class="diagram-block">
+  <div class="diagram-head">
+    <p class="kicker">Los estados</p>
+    <h3>En qué va, de un vistazo.</h3>
+    <p>Recibido, preparando, listo, en camino y entregado. Si es para recoger, de listo pasa a recogido. Y se puede cancelar en cualquier momento antes de entregar.</p>
+  </div>
+  <div class="diagram-frame">
+    <div class="flow-phone"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 360 370" role="img" aria-label="Estados del pedido: recibido, preparando, listo, en camino, entregado, con recoger y cancelado" fill="none"><rect x="20" y="16" width="170" height="50" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="105.0" y="46.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Recibido</text>
+<rect x="20" y="88" width="170" height="50" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="105.0" y="118.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Preparando</text>
+<rect x="20" y="160" width="170" height="50" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="105.0" y="190.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Listo</text>
+<rect x="20" y="232" width="170" height="50" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="105.0" y="262.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">En camino</text>
+<rect x="20" y="304" width="170" height="50" rx="14" fill="#DCE6D4" stroke="#2E6B3F" stroke-width="1.5"/><text x="105.0" y="334.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Entregado</text>
+<path d="M105.0 66 V88" stroke="#A8452F" stroke-width="2"/>
+<path d="M105.0 138 V160" stroke="#A8452F" stroke-width="2"/>
+<path d="M105.0 210 V232" stroke="#A8452F" stroke-width="2"/>
+<path d="M105.0 282 V304" stroke="#A8452F" stroke-width="2"/>
+<rect x="210" y="160" width="130" height="50" rx="14" fill="#DCE6D4" stroke="#2E6B3F" stroke-width="1.5"/><text x="275.0" y="190.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Recogido</text>
+<path d="M190 185 H210" stroke="#A8452F" stroke-width="1.75" stroke-dasharray="5 4"/>
+<text x="275" y="226" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="10" fill="#6B4A3A">Si va a recoger</text>
+<rect x="210" y="268" width="130" height="50" rx="14" fill="#F0D2C6" stroke="#8A3826" stroke-width="1.5"/><text x="275" y="298" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Cancelado</text>
+<path d="M190 41 C230 41, 200 293, 210 293" stroke="#8A3826" stroke-width="1.2" fill="none" stroke-dasharray="4 4" opacity="0.85"/>
+<path d="M190 113 C230 113, 200 293, 210 293" stroke="#8A3826" stroke-width="1.2" fill="none" stroke-dasharray="4 4" opacity="0.85"/>
+<path d="M190 185 C230 185, 200 293, 210 293" stroke="#8A3826" stroke-width="1.2" fill="none" stroke-dasharray="4 4" opacity="0.85"/>
+<path d="M190 257 C230 257, 200 293, 210 293" stroke="#8A3826" stroke-width="1.2" fill="none" stroke-dasharray="4 4" opacity="0.85"/>
+<text x="275" y="334" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="10" fill="#6B4A3A">Se puede cancelar antes</text>
+<path id="st-inline-p-phone" d="M105 41 L105 113 L105 185 L105 257 L105 329" fill="none" stroke="none"/>
+
+    <circle class="token-anim" r="7" cx="105" cy="329" fill="#D98A3D" stroke="#24110A" stroke-width="2">
+      <animateMotion dur="9s" repeatCount="indefinite" rotate="0">
+        <mpath xlink:href="#st-inline-p-phone"/>
+      </animateMotion>
+    </circle>
+    <circle class="token-anim pulse-ring" r="8" cx="105" cy="329" fill="none" stroke="#A8452F" stroke-width="2">
+      <animate attributeName="r" values="8;17" dur="1.8s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.45;0" dur="1.8s" repeatCount="indefinite"/>
+      <animateMotion dur="9s" repeatCount="indefinite" rotate="0">
+        <mpath xlink:href="#st-inline-p-phone"/>
+      </animateMotion>
+    </circle>
+    <circle class="token-static" r="7" cx="105" cy="329" fill="#D98A3D" stroke="#24110A" stroke-width="2"/>
+    </svg></div>
+    <div class="flow-desktop"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1020 250" role="img" aria-label="Estados del pedido en una línea, con recoger y cancelado" fill="none"><rect x="20" y="48" width="170" height="56" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="105.0" y="81.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Recibido</text>
+<path d="M190 76.0 H220" stroke="#A8452F" stroke-width="2"/>
+<polygon points="220,76.0 212,71.0 212,81.0" fill="#A8452F"/>
+<rect x="220" y="48" width="170" height="56" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="305.0" y="81.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Preparando</text>
+<path d="M390 76.0 H420" stroke="#A8452F" stroke-width="2"/>
+<polygon points="420,76.0 412,71.0 412,81.0" fill="#A8452F"/>
+<rect x="420" y="48" width="170" height="56" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="505.0" y="81.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Listo</text>
+<path d="M590 76.0 H620" stroke="#A8452F" stroke-width="2"/>
+<polygon points="620,76.0 612,71.0 612,81.0" fill="#A8452F"/>
+<rect x="620" y="48" width="170" height="56" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="705.0" y="81.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">En camino</text>
+<path d="M790 76.0 H820" stroke="#A8452F" stroke-width="2"/>
+<polygon points="820,76.0 812,71.0 812,81.0" fill="#A8452F"/>
+<rect x="820" y="48" width="170" height="56" rx="14" fill="#DCE6D4" stroke="#2E6B3F" stroke-width="1.5"/><text x="905.0" y="81.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Entregado</text>
+<rect x="420" y="160" width="170" height="50" rx="14" fill="#DCE6D4" stroke="#2E6B3F" stroke-width="1.5"/><text x="505.0" y="190.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Recogido</text>
+<path d="M505 104 V160" stroke="#A8452F" stroke-width="1.75" stroke-dasharray="5 4"/>
+<text x="505" y="228" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="12" fill="#6B4A3A">Si va a recoger, sin repartidor</text>
+<rect x="720" y="160" width="170" height="50" rx="14" fill="#F0D2C6" stroke="#8A3826" stroke-width="1.5"/><text x="805" y="190" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="14" font-weight="700" fill="#24110A">Cancelado</text>
+<path d="M105.0 104 C105.0 140, 760 130, 720 185" stroke="#8A3826" stroke-width="1.15" fill="none" stroke-dasharray="4 4" opacity="0.8"/>
+<path d="M305.0 104 C305.0 140, 760 130, 720 185" stroke="#8A3826" stroke-width="1.15" fill="none" stroke-dasharray="4 4" opacity="0.8"/>
+<path d="M505.0 104 C505.0 140, 760 130, 720 185" stroke="#8A3826" stroke-width="1.15" fill="none" stroke-dasharray="4 4" opacity="0.8"/>
+<path d="M705.0 104 C705.0 140, 760 130, 720 185" stroke="#8A3826" stroke-width="1.15" fill="none" stroke-dasharray="4 4" opacity="0.8"/>
+<text x="805" y="228" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="12" fill="#6B4A3A">Se puede cancelar antes de entregar</text>
+<path id="st-inline-d-desk" d="M105 76 L305 76 L505 76 L705 76 L905 76" fill="none" stroke="none"/>
+
+    <circle class="token-anim" r="7" cx="905" cy="76" fill="#D98A3D" stroke="#24110A" stroke-width="2">
+      <animateMotion dur="9s" repeatCount="indefinite" rotate="0">
+        <mpath xlink:href="#st-inline-d-desk"/>
+      </animateMotion>
+    </circle>
+    <circle class="token-anim pulse-ring" r="8" cx="905" cy="76" fill="none" stroke="#A8452F" stroke-width="2">
+      <animate attributeName="r" values="8;17" dur="1.8s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.45;0" dur="1.8s" repeatCount="indefinite"/>
+      <animateMotion dur="9s" repeatCount="indefinite" rotate="0">
+        <mpath xlink:href="#st-inline-d-desk"/>
+      </animateMotion>
+    </circle>
+    <circle class="token-static" r="7" cx="905" cy="76" fill="#D98A3D" stroke="#24110A" stroke-width="2"/>
+    </svg></div>
+  </div>
+</figure>
+
         </article>
 
         <article class="step">
@@ -723,6 +921,449 @@ footer strong { color: var(--cream); font-weight: 600; }
         </div>
       </div>
     </section>
+
+    
+    <section id="flujos">
+      <div class="wrap">
+        <h2>Cómo fluye un <span class="italic">pedido.</span></h2>
+        <p class="intro">Estos cuadros muestran el mismo recorrido, visto de cuatro maneras: el camino completo, los estados, quién hace cada cosa, y cómo se cobra. La bolita se mueve sola; si tu teléfono pide menos movimiento, se queda quieta al final.</p>
+        
+<figure class="diagram-block" id="flujo-camino">
+  <div class="diagram-head">
+    <p class="kicker">El camino</p>
+    <h3>Así avanza un <span class="italic">pedido.</span></h3>
+    <p>La bolita dorada recorre cada paso, del menú hasta la entrega. Si el cliente va a recoger, el pedido se termina en la tienda y no sale un repartidor.</p>
+  </div>
+  <div class="diagram-frame">
+    <div class="flow-phone"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 360 774" role="img" aria-label="Camino de un pedido, de menú a entregado, con la rama de recoger en tienda" fill="none"><rect x="20" y="16" width="320" height="50" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="180.0" y="46.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Menú</text>
+<rect x="20" y="86" width="320" height="50" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="180.0" y="116.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Carrito</text>
+<rect x="20" y="156" width="320" height="66" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="180.0" y="183.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Checkout</text><text x="180.0" y="204.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="10.5" fill="#6B4A3A">Entrega o recoger · Efectivo, tarjeta o PedidosYa</text>
+<rect x="20" y="242" width="320" height="66" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="180.0" y="269.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Entra al tablero</text><text x="180.0" y="290.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="10.5" fill="#6B4A3A">Suena un aviso en la panadería</text>
+<rect x="20" y="328" width="320" height="50" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="180.0" y="358.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Claudia prepara</text>
+<rect x="20" y="398" width="320" height="50" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="180.0" y="428.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Listo</text>
+<path d="M180 66 V86" stroke="#A8452F" stroke-width="2"/>
+<path d="M180 136 V156" stroke="#A8452F" stroke-width="2"/>
+<path d="M180 222 V242" stroke="#A8452F" stroke-width="2"/>
+<path d="M180 308 V328" stroke="#A8452F" stroke-width="2"/>
+<path d="M180 378 V398" stroke="#A8452F" stroke-width="2"/>
+<rect x="20" y="468" width="148" height="56" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="94.0" y="490.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Recoger</text><text x="94.0" y="511.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="10.5" fill="#6B4A3A">Sin repartidor</text>
+<rect x="192" y="468" width="148" height="56" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="266.0" y="490.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Asigna repartidor</text><text x="266.0" y="511.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="10.5" fill="#6B4A3A">Si es a domicilio</text>
+<path d="M180 448 V458 H94 V468" stroke="#A8452F" stroke-width="1.75" fill="none" stroke-dasharray="5 4"/>
+<path d="M180 448 V458 H266 V468" stroke="#A8452F" stroke-width="2" fill="none"/>
+<rect x="20" y="546" width="148" height="50" rx="14" fill="#DCE6D4" stroke="#2E6B3F" stroke-width="1.5"/><text x="94.0" y="576.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Recogido</text>
+<rect x="192" y="546" width="148" height="50" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="266.0" y="576.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Ya lo recogí</text>
+<rect x="192" y="624" width="148" height="56" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="266.0" y="646.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">En camino</text><text x="266.0" y="667.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="10.5" fill="#6B4A3A">Mapa en vivo</text>
+<rect x="192" y="708" width="148" height="50" rx="14" fill="#DCE6D4" stroke="#2E6B3F" stroke-width="1.5"/><text x="266.0" y="738.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Entregado</text>
+<path d="M94 524 V546" stroke="#A8452F" stroke-width="1.75" stroke-dasharray="5 4"/>
+<path d="M266 524 V546" stroke="#A8452F" stroke-width="2"/>
+<path d="M266 596 V624" stroke="#A8452F" stroke-width="2"/>
+<path d="M266 680 V708" stroke="#A8452F" stroke-width="2"/>
+<path id="jp-phone" d="M180 41 L180 111 L180 189 L180 275 L180 353 L180 423 L266 496 L266 571 L266 652 L266 733" fill="none" stroke="none"/>
+
+    <circle class="token-anim" r="7" cx="266" cy="733" fill="#D98A3D" stroke="#24110A" stroke-width="2">
+      <animateMotion dur="16s" repeatCount="indefinite" rotate="0">
+        <mpath xlink:href="#jp-phone"/>
+      </animateMotion>
+    </circle>
+    <circle class="token-anim pulse-ring" r="8" cx="266" cy="733" fill="none" stroke="#A8452F" stroke-width="2">
+      <animate attributeName="r" values="8;17" dur="1.8s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.45;0" dur="1.8s" repeatCount="indefinite"/>
+      <animateMotion dur="16s" repeatCount="indefinite" rotate="0">
+        <mpath xlink:href="#jp-phone"/>
+      </animateMotion>
+    </circle>
+    <circle class="token-static" r="7" cx="266" cy="733" fill="#D98A3D" stroke="#24110A" stroke-width="2"/>
+    </svg></div>
+    <div class="flow-desktop"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1080 380" role="img" aria-label="Camino de un pedido en dos filas, de menú a entregado" fill="none"><rect x="24" y="28" width="176" height="58" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="112.0" y="62.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Menú</text>
+<rect x="228" y="28" width="176" height="58" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="316.0" y="62.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Carrito</text>
+<rect x="432" y="28" width="176" height="66" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="520.0" y="55.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Checkout</text><text x="520.0" y="76.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="10.5" fill="#6B4A3A">Entrega · recoger · pago</text>
+<rect x="636" y="28" width="176" height="66" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="724.0" y="55.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Entra al tablero</text><text x="724.0" y="76.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="10.5" fill="#6B4A3A">Suena un aviso</text>
+<rect x="840" y="28" width="176" height="58" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="928.0" y="62.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Claudia prepara</text>
+<path d="M200 57 H228" stroke="#A8452F" stroke-width="2"/>
+<polygon points="228,57 220,52 220,62" fill="#A8452F"/>
+<path d="M404 57 H432" stroke="#A8452F" stroke-width="2"/>
+<polygon points="432,57 424,52 424,62" fill="#A8452F"/>
+<path d="M608 57 H636" stroke="#A8452F" stroke-width="2"/>
+<polygon points="636,57 628,52 628,62" fill="#A8452F"/>
+<path d="M812 57 H840" stroke="#A8452F" stroke-width="2"/>
+<polygon points="840,57 832,52 832,62" fill="#A8452F"/>
+<rect x="24" y="200" width="176" height="58" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="112.0" y="234.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Listo</text>
+<rect x="228" y="200" width="176" height="58" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="316.0" y="234.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Asigna repartidor</text>
+<rect x="432" y="200" width="176" height="58" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="520.0" y="234.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Ya lo recogí</text>
+<rect x="636" y="200" width="176" height="66" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="724.0" y="227.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">En camino</text><text x="724.0" y="248.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="10.5" fill="#6B4A3A">Mapa en vivo</text>
+<rect x="840" y="200" width="176" height="58" rx="14" fill="#DCE6D4" stroke="#2E6B3F" stroke-width="1.5"/><text x="928.0" y="234.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Entregado</text>
+<path d="M200 229 H228" stroke="#A8452F" stroke-width="2"/>
+<polygon points="228,229 220,224 220,234" fill="#A8452F"/>
+<path d="M404 229 H432" stroke="#A8452F" stroke-width="2"/>
+<polygon points="432,229 424,224 424,234" fill="#A8452F"/>
+<path d="M608 229 H636" stroke="#A8452F" stroke-width="2"/>
+<polygon points="636,229 628,224 628,234" fill="#A8452F"/>
+<path d="M812 229 H840" stroke="#A8452F" stroke-width="2"/>
+<polygon points="840,229 832,224 832,234" fill="#A8452F"/>
+<path d="M928.0 86 V176 H112.0 V200" stroke="#A8452F" stroke-width="2" fill="none"/>
+<rect x="24" y="312" width="176" height="50" rx="14" fill="#DCE6D4" stroke="#2E6B3F" stroke-width="1.5"/><text x="112.0" y="342.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Recogido en tienda</text>
+<path d="M112.0 258 V312" stroke="#A8452F" stroke-width="1.75" fill="none" stroke-dasharray="5 4"/>
+<text x="212" y="344" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="12" fill="#6B4A3A">Si el cliente va a recoger, no hay repartidor.</text>
+<path id="jp-desk" d="M112.0 57.0 L316.0 57.0 L520.0 61.0 L724.0 61.0 L928.0 57.0 L928.0 94 L928.0 176 L112.0 176 L112.0 229.0 L316.0 229.0 L520.0 229.0 L724.0 233.0 L928.0 229.0" fill="none" stroke="none"/>
+
+    <circle class="token-anim" r="7" cx="928.0" cy="229.0" fill="#D98A3D" stroke="#24110A" stroke-width="2">
+      <animateMotion dur="16s" repeatCount="indefinite" rotate="0">
+        <mpath xlink:href="#jp-desk"/>
+      </animateMotion>
+    </circle>
+    <circle class="token-anim pulse-ring" r="8" cx="928.0" cy="229.0" fill="none" stroke="#A8452F" stroke-width="2">
+      <animate attributeName="r" values="8;17" dur="1.8s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.45;0" dur="1.8s" repeatCount="indefinite"/>
+      <animateMotion dur="16s" repeatCount="indefinite" rotate="0">
+        <mpath xlink:href="#jp-desk"/>
+      </animateMotion>
+    </circle>
+    <circle class="token-static" r="7" cx="928.0" cy="229.0" fill="#D98A3D" stroke="#24110A" stroke-width="2"/>
+    </svg></div>
+  </div>
+</figure>
+
+        
+<figure class="diagram-block" id="flujo-estados">
+  <div class="diagram-head">
+    <p class="kicker">Los estados</p>
+    <h3>En qué va, de un vistazo.</h3>
+    <p>Recibido, preparando, listo, en camino y entregado. Si es para recoger, de listo pasa a recogido. Y se puede cancelar en cualquier momento antes de entregar.</p>
+  </div>
+  <div class="diagram-frame">
+    <div class="flow-phone"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 360 370" role="img" aria-label="Estados del pedido: recibido, preparando, listo, en camino, entregado, con recoger y cancelado" fill="none"><rect x="20" y="16" width="170" height="50" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="105.0" y="46.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Recibido</text>
+<rect x="20" y="88" width="170" height="50" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="105.0" y="118.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Preparando</text>
+<rect x="20" y="160" width="170" height="50" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="105.0" y="190.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Listo</text>
+<rect x="20" y="232" width="170" height="50" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="105.0" y="262.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">En camino</text>
+<rect x="20" y="304" width="170" height="50" rx="14" fill="#DCE6D4" stroke="#2E6B3F" stroke-width="1.5"/><text x="105.0" y="334.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Entregado</text>
+<path d="M105.0 66 V88" stroke="#A8452F" stroke-width="2"/>
+<path d="M105.0 138 V160" stroke="#A8452F" stroke-width="2"/>
+<path d="M105.0 210 V232" stroke="#A8452F" stroke-width="2"/>
+<path d="M105.0 282 V304" stroke="#A8452F" stroke-width="2"/>
+<rect x="210" y="160" width="130" height="50" rx="14" fill="#DCE6D4" stroke="#2E6B3F" stroke-width="1.5"/><text x="275.0" y="190.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Recogido</text>
+<path d="M190 185 H210" stroke="#A8452F" stroke-width="1.75" stroke-dasharray="5 4"/>
+<text x="275" y="226" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="10" fill="#6B4A3A">Si va a recoger</text>
+<rect x="210" y="268" width="130" height="50" rx="14" fill="#F0D2C6" stroke="#8A3826" stroke-width="1.5"/><text x="275" y="298" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Cancelado</text>
+<path d="M190 41 C230 41, 200 293, 210 293" stroke="#8A3826" stroke-width="1.2" fill="none" stroke-dasharray="4 4" opacity="0.85"/>
+<path d="M190 113 C230 113, 200 293, 210 293" stroke="#8A3826" stroke-width="1.2" fill="none" stroke-dasharray="4 4" opacity="0.85"/>
+<path d="M190 185 C230 185, 200 293, 210 293" stroke="#8A3826" stroke-width="1.2" fill="none" stroke-dasharray="4 4" opacity="0.85"/>
+<path d="M190 257 C230 257, 200 293, 210 293" stroke="#8A3826" stroke-width="1.2" fill="none" stroke-dasharray="4 4" opacity="0.85"/>
+<text x="275" y="334" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="10" fill="#6B4A3A">Se puede cancelar antes</text>
+<path id="st-p-phone" d="M105 41 L105 113 L105 185 L105 257 L105 329" fill="none" stroke="none"/>
+
+    <circle class="token-anim" r="7" cx="105" cy="329" fill="#D98A3D" stroke="#24110A" stroke-width="2">
+      <animateMotion dur="9s" repeatCount="indefinite" rotate="0">
+        <mpath xlink:href="#st-p-phone"/>
+      </animateMotion>
+    </circle>
+    <circle class="token-anim pulse-ring" r="8" cx="105" cy="329" fill="none" stroke="#A8452F" stroke-width="2">
+      <animate attributeName="r" values="8;17" dur="1.8s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.45;0" dur="1.8s" repeatCount="indefinite"/>
+      <animateMotion dur="9s" repeatCount="indefinite" rotate="0">
+        <mpath xlink:href="#st-p-phone"/>
+      </animateMotion>
+    </circle>
+    <circle class="token-static" r="7" cx="105" cy="329" fill="#D98A3D" stroke="#24110A" stroke-width="2"/>
+    </svg></div>
+    <div class="flow-desktop"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1020 250" role="img" aria-label="Estados del pedido en una línea, con recoger y cancelado" fill="none"><rect x="20" y="48" width="170" height="56" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="105.0" y="81.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Recibido</text>
+<path d="M190 76.0 H220" stroke="#A8452F" stroke-width="2"/>
+<polygon points="220,76.0 212,71.0 212,81.0" fill="#A8452F"/>
+<rect x="220" y="48" width="170" height="56" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="305.0" y="81.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Preparando</text>
+<path d="M390 76.0 H420" stroke="#A8452F" stroke-width="2"/>
+<polygon points="420,76.0 412,71.0 412,81.0" fill="#A8452F"/>
+<rect x="420" y="48" width="170" height="56" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="505.0" y="81.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Listo</text>
+<path d="M590 76.0 H620" stroke="#A8452F" stroke-width="2"/>
+<polygon points="620,76.0 612,71.0 612,81.0" fill="#A8452F"/>
+<rect x="620" y="48" width="170" height="56" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="705.0" y="81.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">En camino</text>
+<path d="M790 76.0 H820" stroke="#A8452F" stroke-width="2"/>
+<polygon points="820,76.0 812,71.0 812,81.0" fill="#A8452F"/>
+<rect x="820" y="48" width="170" height="56" rx="14" fill="#DCE6D4" stroke="#2E6B3F" stroke-width="1.5"/><text x="905.0" y="81.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Entregado</text>
+<rect x="420" y="160" width="170" height="50" rx="14" fill="#DCE6D4" stroke="#2E6B3F" stroke-width="1.5"/><text x="505.0" y="190.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Recogido</text>
+<path d="M505 104 V160" stroke="#A8452F" stroke-width="1.75" stroke-dasharray="5 4"/>
+<text x="505" y="228" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="12" fill="#6B4A3A">Si va a recoger, sin repartidor</text>
+<rect x="720" y="160" width="170" height="50" rx="14" fill="#F0D2C6" stroke="#8A3826" stroke-width="1.5"/><text x="805" y="190" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="14" font-weight="700" fill="#24110A">Cancelado</text>
+<path d="M105.0 104 C105.0 140, 760 130, 720 185" stroke="#8A3826" stroke-width="1.15" fill="none" stroke-dasharray="4 4" opacity="0.8"/>
+<path d="M305.0 104 C305.0 140, 760 130, 720 185" stroke="#8A3826" stroke-width="1.15" fill="none" stroke-dasharray="4 4" opacity="0.8"/>
+<path d="M505.0 104 C505.0 140, 760 130, 720 185" stroke="#8A3826" stroke-width="1.15" fill="none" stroke-dasharray="4 4" opacity="0.8"/>
+<path d="M705.0 104 C705.0 140, 760 130, 720 185" stroke="#8A3826" stroke-width="1.15" fill="none" stroke-dasharray="4 4" opacity="0.8"/>
+<text x="805" y="228" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="12" fill="#6B4A3A">Se puede cancelar antes de entregar</text>
+<path id="st-d-desk" d="M105 76 L305 76 L505 76 L705 76 L905 76" fill="none" stroke="none"/>
+
+    <circle class="token-anim" r="7" cx="905" cy="76" fill="#D98A3D" stroke="#24110A" stroke-width="2">
+      <animateMotion dur="9s" repeatCount="indefinite" rotate="0">
+        <mpath xlink:href="#st-d-desk"/>
+      </animateMotion>
+    </circle>
+    <circle class="token-anim pulse-ring" r="8" cx="905" cy="76" fill="none" stroke="#A8452F" stroke-width="2">
+      <animate attributeName="r" values="8;17" dur="1.8s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.45;0" dur="1.8s" repeatCount="indefinite"/>
+      <animateMotion dur="9s" repeatCount="indefinite" rotate="0">
+        <mpath xlink:href="#st-d-desk"/>
+      </animateMotion>
+    </circle>
+    <circle class="token-static" r="7" cx="905" cy="76" fill="#D98A3D" stroke="#24110A" stroke-width="2"/>
+    </svg></div>
+  </div>
+</figure>
+
+        
+<figure class="diagram-block" id="flujo-carriles">
+  <div class="diagram-head">
+    <p class="kicker">Quién hace qué</p>
+    <h3>Cliente, panadería y <span class="italic">repartidor.</span></h3>
+    <p>Cada fila es una persona. Las bolitas que cruzan son avisos en vivo, una notificación si el cliente lo pidió, o el chat, que solo se abre cuando el pedido ya va en camino.</p>
+  </div>
+  <div class="diagram-frame">
+    <div class="flow-phone"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 352 584" role="img" aria-label="Quién hace qué: cliente, panadería y repartidor, con avisos cruzando las filas" fill="none"><rect x="8" y="8" width="110" height="36" rx="12" fill="#24110A"/><text x="63.0" y="32" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="12" font-weight="700" fill="#F3E4CC">Cliente</text>
+<rect x="121" y="8" width="110" height="36" rx="12" fill="#24110A"/><text x="176.0" y="32" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="12" font-weight="700" fill="#F3E4CC">Panadería</text>
+<rect x="234" y="8" width="110" height="36" rx="12" fill="#24110A"/><text x="289.0" y="32" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="12" font-weight="700" fill="#F3E4CC">Repartidor</text>
+<rect x="8" y="50" width="110" height="500" rx="14" fill="#F3E4CC" opacity="0.55"/>
+<rect x="121" y="50" width="110" height="500" rx="14" fill="#F3E4CC" opacity="0.55"/>
+<rect x="234" y="50" width="110" height="500" rx="14" fill="#F3E4CC" opacity="0.55"/>
+<rect x="14" y="64" width="98" height="44" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="63.0" y="91.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="12" font-weight="700" fill="#24110A">Pide</text>
+<rect x="127" y="128" width="98" height="52" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="176.0" y="148.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="12" font-weight="700" fill="#24110A">Suena</text><text x="176.0" y="169.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="10.5" fill="#6B4A3A">Pedido nuevo</text>
+<path id="swp-1" d="M63.0 108.0 C63.0 124, 176.0 114, 176.0 128.0" fill="none" stroke="#A8452F" stroke-width="1.5"/>
+<rect x="127" y="206" width="98" height="44" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="176.0" y="233.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="12" font-weight="700" fill="#24110A">Prepara</text>
+<rect x="127" y="274" width="98" height="52" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="176.0" y="294.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="12" font-weight="700" fill="#24110A">Listo</text><text x="176.0" y="315.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="10.5" fill="#6B4A3A">Asigna</text>
+<rect x="240" y="274" width="98" height="52" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="289.0" y="294.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="12" font-weight="700" fill="#24110A">Aviso</text><text x="289.0" y="315.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="10.5" fill="#6B4A3A">Push</text>
+<path id="swp-2" d="M225.0 300.0 H240.0" fill="none" stroke="#D98A3D" stroke-width="1.5"/>
+<rect x="240" y="350" width="98" height="44" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="289.0" y="377.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="12" font-weight="700" fill="#24110A">Ya lo recogí</text>
+<rect x="14" y="350" width="98" height="52" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="63.0" y="370.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="12" font-weight="700" fill="#24110A">Ve el mapa</text><text x="63.0" y="391.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="10.5" fill="#6B4A3A">En vivo</text>
+<path id="swp-3" d="M240.0 372.0 H112.0" fill="none" stroke="#A8452F" stroke-width="1.5"/>
+<rect x="14" y="426" width="98" height="52" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="63.0" y="446.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="12" font-weight="700" fill="#24110A">Chat</text><text x="63.0" y="467.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="10.5" fill="#6B4A3A">Solo en camino</text>
+<rect x="240" y="426" width="98" height="52" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="289.0" y="446.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="12" font-weight="700" fill="#24110A">Chat</text><text x="289.0" y="467.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="10.5" fill="#6B4A3A">Frases rápidas</text>
+<path id="swp-4" d="M112.0 452.0 H240.0" fill="none" stroke="#5A2E1C" stroke-width="1.5"/>
+<rect x="240" y="502" width="98" height="44" rx="14" fill="#DCE6D4" stroke="#2E6B3F" stroke-width="1.5"/><text x="289.0" y="529.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="12" font-weight="700" fill="#24110A">Entregado</text>
+<rect x="14" y="502" width="98" height="52" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="63.0" y="522.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="12" font-weight="700" fill="#24110A">Llegó</text><text x="63.0" y="543.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="10.5" fill="#6B4A3A">Aviso push</text>
+<path id="swp-5" d="M240.0 524.0 H112.0" fill="none" stroke="#2E6B3F" stroke-width="1.5"/>
+
+    <circle class="msg-anim" r="5.5" cx="176.0" cy="128.0" fill="#D98A3D" stroke="#24110A" stroke-width="1.25">
+      <animateMotion dur="3.2s" begin="0s" repeatCount="indefinite" rotate="0">
+        <mpath xlink:href="#swp-1"/>
+      </animateMotion>
+    </circle>
+    <circle class="msg-static" r="5.5" cx="176.0" cy="128.0" fill="#D98A3D" stroke="#24110A" stroke-width="1.25"/>
+    
+
+    <circle class="msg-anim" r="5.5" cx="240.0" cy="300.0" fill="#D98A3D" stroke="#24110A" stroke-width="1.25">
+      <animateMotion dur="2.4s" begin="3s" repeatCount="indefinite" rotate="0">
+        <mpath xlink:href="#swp-2"/>
+      </animateMotion>
+    </circle>
+    <circle class="msg-static" r="5.5" cx="240.0" cy="300.0" fill="#D98A3D" stroke="#24110A" stroke-width="1.25"/>
+    
+
+    <circle class="msg-anim" r="5.5" cx="112.0" cy="376.0" fill="#A8452F" stroke="#24110A" stroke-width="1.25">
+      <animateMotion dur="2.4s" begin="5s" repeatCount="indefinite" rotate="0">
+        <mpath xlink:href="#swp-3"/>
+      </animateMotion>
+    </circle>
+    <circle class="msg-static" r="5.5" cx="112.0" cy="376.0" fill="#A8452F" stroke="#24110A" stroke-width="1.25"/>
+    
+
+    <circle class="msg-anim" r="5.5" cx="176.0" cy="452.0" fill="#5A2E1C" stroke="#24110A" stroke-width="1.25">
+      <animateMotion dur="2.2s" begin="7s" repeatCount="indefinite" rotate="0">
+        <mpath xlink:href="#swp-4"/>
+      </animateMotion>
+    </circle>
+    <circle class="msg-static" r="5.5" cx="176.0" cy="452.0" fill="#5A2E1C" stroke="#24110A" stroke-width="1.25"/>
+    
+
+    <circle class="msg-anim" r="5.5" cx="112.0" cy="528.0" fill="#2E6B3F" stroke="#24110A" stroke-width="1.25">
+      <animateMotion dur="2.4s" begin="9s" repeatCount="indefinite" rotate="0">
+        <mpath xlink:href="#swp-5"/>
+      </animateMotion>
+    </circle>
+    <circle class="msg-static" r="5.5" cx="112.0" cy="528.0" fill="#2E6B3F" stroke="#24110A" stroke-width="1.25"/>
+    
+<text x="176" y="572" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="11" fill="#6B4A3A">Las bolitas son avisos en vivo, chat o una notificación.</text></svg></div>
+    <div class="flow-desktop"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1080 384" role="img" aria-label="Quién hace qué en tres filas: cliente, panadería y repartidor" fill="none"><rect x="8" y="44" width="1064" height="96" rx="16" fill="#F3E4CC" opacity="0.7"/>
+<rect x="16" y="54" width="132" height="36" rx="12" fill="#24110A"/><text x="82.0" y="78" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="12" font-weight="700" fill="#F3E4CC">Cliente</text>
+<rect x="8" y="150" width="1064" height="96" rx="16" fill="#F3E4CC" opacity="0.7"/>
+<rect x="16" y="160" width="132" height="36" rx="12" fill="#24110A"/><text x="82.0" y="184" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="12" font-weight="700" fill="#F3E4CC">Panadería</text>
+<rect x="8" y="256" width="1064" height="96" rx="16" fill="#F3E4CC" opacity="0.7"/>
+<rect x="16" y="266" width="132" height="36" rx="12" fill="#24110A"/><text x="82.0" y="290" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="12" font-weight="700" fill="#F3E4CC">Repartidor</text>
+<rect x="164" y="64" width="148" height="50" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="238.0" y="94.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Pide</text>
+<rect x="300" y="170" width="148" height="56" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="374.0" y="192.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Suena el tablero</text><text x="374.0" y="213.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="10.5" fill="#6B4A3A">Pedido nuevo</text>
+<path id="swd-1" d="M238.0 114.0 C238.0 165, 374.0 155, 374.0 170.0" fill="none" stroke="#A8452F" stroke-width="1.6"/>
+<rect x="470" y="170" width="148" height="50" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="544.0" y="200.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Prepara</text>
+<rect x="630" y="170" width="148" height="50" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="704.0" y="200.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Listo y asigna</text>
+<rect x="630" y="276" width="148" height="56" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="704.0" y="298.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Le llega el aviso</text><text x="704.0" y="319.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="10.5" fill="#6B4A3A">Push</text>
+<path id="swd-2" d="M704.0 223.0 V276.0" fill="none" stroke="#D98A3D" stroke-width="1.6"/>
+<rect x="800" y="276" width="148" height="50" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="874.0" y="306.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Ya lo recogí</text>
+<rect x="800" y="64" width="148" height="56" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="874.0" y="86.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Ve el mapa</text><text x="874.0" y="107.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="10.5" fill="#6B4A3A">En vivo · chat</text>
+<path id="swd-3" d="M874.0 273.0 V120.0" fill="none" stroke="#A8452F" stroke-width="1.6"/>
+<rect x="960" y="64" width="108" height="56" rx="14" fill="#FBF5EC" stroke="#8C6A57" stroke-width="1.5"/><text x="1014.0" y="86.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Llegó</text><text x="1014.0" y="107.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="10.5" fill="#6B4A3A">Aviso push</text>
+<rect x="960" y="276" width="108" height="50" rx="14" fill="#DCE6D4" stroke="#2E6B3F" stroke-width="1.5"/><text x="1014.0" y="306.0" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#24110A">Entregado</text>
+<path id="swd-4" d="M1014.0 273.0 V117.0" fill="none" stroke="#2E6B3F" stroke-width="1.6"/>
+
+    <circle class="msg-anim" r="5.5" cx="374.0" cy="170.0" fill="#D98A3D" stroke="#24110A" stroke-width="1.25">
+      <animateMotion dur="3s" begin="0s" repeatCount="indefinite" rotate="0">
+        <mpath xlink:href="#swd-1"/>
+      </animateMotion>
+    </circle>
+    <circle class="msg-static" r="5.5" cx="374.0" cy="170.0" fill="#D98A3D" stroke="#24110A" stroke-width="1.25"/>
+    
+
+    <circle class="msg-anim" r="5.5" cx="704.0" cy="276.0" fill="#D98A3D" stroke="#24110A" stroke-width="1.25">
+      <animateMotion dur="2.2s" begin="3s" repeatCount="indefinite" rotate="0">
+        <mpath xlink:href="#swd-2"/>
+      </animateMotion>
+    </circle>
+    <circle class="msg-static" r="5.5" cx="704.0" cy="276.0" fill="#D98A3D" stroke="#24110A" stroke-width="1.25"/>
+    
+
+    <circle class="msg-anim" r="5.5" cx="874.0" cy="120.0" fill="#A8452F" stroke="#24110A" stroke-width="1.25">
+      <animateMotion dur="2.2s" begin="5s" repeatCount="indefinite" rotate="0">
+        <mpath xlink:href="#swd-3"/>
+      </animateMotion>
+    </circle>
+    <circle class="msg-static" r="5.5" cx="874.0" cy="120.0" fill="#A8452F" stroke="#24110A" stroke-width="1.25"/>
+    
+
+    <circle class="msg-anim" r="5.5" cx="1014.0" cy="117.0" fill="#2E6B3F" stroke="#24110A" stroke-width="1.25">
+      <animateMotion dur="2s" begin="7s" repeatCount="indefinite" rotate="0">
+        <mpath xlink:href="#swd-4"/>
+      </animateMotion>
+    </circle>
+    <circle class="msg-static" r="5.5" cx="1014.0" cy="117.0" fill="#2E6B3F" stroke="#24110A" stroke-width="1.25"/>
+    
+<text x="540" y="368" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="12" fill="#6B4A3A">Las bolitas son avisos en vivo (SSE), el chat (solo en camino) o una notificación.</text></svg></div>
+  </div>
+</figure>
+
+        
+<figure class="diagram-block" id="flujo-pago">
+  <div class="diagram-head">
+    <p class="kicker">El cobro</p>
+    <h3>Cómo se paga, bien clarito.</h3>
+    <p>El repartidor ve una de estas dos cosas, según cómo pagó el cliente. Los montos son de ejemplo.</p>
+  </div>
+  <div class="pay-grid">
+    <div class="pay-card">
+      
+    <svg viewBox="0 0 72 48" width="72" height="48" aria-hidden="true">
+      <g class="coin-hop">
+        <circle cx="24" cy="26" r="14" fill="#D98A3D" stroke="#24110A" stroke-width="2"/>
+        <text x="24" y="30" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="11" font-weight="700" fill="#24110A">L</text>
+      </g>
+      <circle cx="48" cy="26" r="14" fill="#D9A58A" stroke="#24110A" stroke-width="2"/>
+      <text x="48" y="30" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="10" font-weight="700" fill="#24110A">200</text>
+    </svg>
+    
+      <h4>Efectivo</h4>
+      <p class="amount">Cobrás en efectivo L 100</p>
+      <p class="hint">Te paga con L 200 · llevá L 100 de vuelto</p>
+    </div>
+    <div class="pay-card">
+      
+    <svg viewBox="0 0 72 48" width="72" height="48" aria-hidden="true">
+      <rect x="8" y="10" width="56" height="32" rx="6" fill="#24110A" stroke="#D98A3D" stroke-width="2"/>
+      <rect x="8" y="18" width="56" height="8" fill="#A8452F"/>
+      <rect x="16" y="32" width="18" height="5" rx="2" fill="#D98A3D"/>
+    </svg>
+    
+      <h4>Tarjeta o PedidosYa</h4>
+      <p class="ok-line">Ya está pagado · No cobrés nada</p>
+      <p class="hint">PedidosYa se anota a mano en el tablero, para tenerlo junto con lo demás.</p>
+    </div>
+  </div>
+</figure>
+
+        
+<figure class="diagram-block" id="flujo-mapa">
+  <div class="diagram-head">
+    <p class="kicker">El mapa</p>
+    <h3>La ruta se ilumina, sin marcar la casa.</h3>
+    <p>En el seguimiento el cliente ve la panadería y al repartidor. Por privacidad, su casa no aparece en el mapa público.</p>
+  </div>
+  <div class="diagram-frame">
+    <div class="flow-phone"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 360 230" role="img" aria-label="Mapa de ejemplo: la ruta brilla de la panadería al repartidor, sin marcar la casa" fill="none"><rect x="0" y="0" width="360" height="230" rx="16" fill="#F3E4CC"/>
+<path d="M28 0 V230" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M0 28 H360" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M56 0 V230" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M0 56 H360" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M84 0 V230" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M0 84 H360" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M112 0 V230" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M0 112 H360" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M140 0 V230" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M0 140 H360" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M168 0 V230" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M0 168 H360" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M196 0 V230" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M0 196 H360" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M224 0 V230" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M0 224 H360" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M252 0 V230" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M0 252 H360" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M280 0 V230" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M0 280 H360" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M308 0 V230" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M0 308 H360" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M336 0 V230" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M0 336 H360" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M364 0 V230" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M0 364 H360" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M392 0 V230" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M0 392 H360" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M420 0 V230" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M0 420 H360" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M0 96.6 H360" stroke="#EAD3B3" stroke-width="14"/>
+<path d="M136.8 0 V230" stroke="#EAD3B3" stroke-width="14"/>
+<path d="M70 160 C133.0 50, 206.5 150, 280 60" fill="none" stroke="#D9A58A" stroke-width="12" opacity="0.35" stroke-linecap="round"/>
+<path class="map-route" d="M70 160 C133.0 50, 206.5 150, 280 60" fill="none" stroke="#A8452F" stroke-width="4" stroke-linecap="round"/>
+<path id="map-ph" d="M70 160 C133.0 50, 206.5 150, 280 60" fill="none" stroke="none"/>
+<rect x="58" y="148" width="24" height="24" rx="6" fill="#A8452F" stroke="#FBF5EC" stroke-width="3"/><text x="70" y="164" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="9" font-weight="700" fill="#FBF5EC">EC</text><text x="70" y="188" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="11" font-weight="600" fill="#24110A">Panadería</text>
+<circle class="token-anim" r="9" fill="#D98A3D" stroke="#24110A" stroke-width="2.5"><animateMotion dur="5s" repeatCount="indefinite" rotate="0"><mpath xlink:href="#map-ph"/></animateMotion></circle><circle class="token-static" r="9" cx="280" cy="60" fill="#D98A3D" stroke="#24110A" stroke-width="2.5"/>
+<text x="280" y="42" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="11" font-weight="600" fill="#24110A">Repartidor</text>
+<text x="180.0" y="220" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="11" fill="#6B4A3A">Solo se ve la panadería y el repartidor. La casa del cliente no aparece.</text></svg></div>
+    <div class="flow-desktop"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1080 280" role="img" aria-label="Mapa de ejemplo: la ruta brilla de la panadería al repartidor, sin marcar la casa" fill="none"><rect x="0" y="0" width="1080" height="280" rx="16" fill="#F3E4CC"/>
+<path d="M28 0 V280" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M0 28 H1080" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M56 0 V280" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M0 56 H1080" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M84 0 V280" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M0 84 H1080" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M112 0 V280" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M0 112 H1080" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M140 0 V280" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M0 140 H1080" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M168 0 V280" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M0 168 H1080" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M196 0 V280" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M0 196 H1080" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M224 0 V280" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M0 224 H1080" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M252 0 V280" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M0 252 H1080" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M280 0 V280" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M0 280 H1080" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M308 0 V280" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M0 308 H1080" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M336 0 V280" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M0 336 H1080" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M364 0 V280" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M0 364 H1080" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M392 0 V280" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M0 392 H1080" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M420 0 V280" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M0 420 H1080" stroke="#FBF5EC" stroke-width="6"/>
+<path d="M0 117.6 H1080" stroke="#EAD3B3" stroke-width="14"/>
+<path d="M410.4 0 V280" stroke="#EAD3B3" stroke-width="14"/>
+<path d="M200 200 C404.0 90, 642.0 160, 880 70" fill="none" stroke="#D9A58A" stroke-width="12" opacity="0.35" stroke-linecap="round"/>
+<path class="map-route" d="M200 200 C404.0 90, 642.0 160, 880 70" fill="none" stroke="#A8452F" stroke-width="4" stroke-linecap="round"/>
+<path id="map-dk" d="M200 200 C404.0 90, 642.0 160, 880 70" fill="none" stroke="none"/>
+<rect x="188" y="188" width="24" height="24" rx="6" fill="#A8452F" stroke="#FBF5EC" stroke-width="3"/><text x="200" y="204" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="9" font-weight="700" fill="#FBF5EC">EC</text><text x="200" y="228" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="11" font-weight="600" fill="#24110A">Panadería</text>
+<circle class="token-anim" r="9" fill="#D98A3D" stroke="#24110A" stroke-width="2.5"><animateMotion dur="5s" repeatCount="indefinite" rotate="0"><mpath xlink:href="#map-dk"/></animateMotion></circle><circle class="token-static" r="9" cx="880" cy="70" fill="#D98A3D" stroke="#24110A" stroke-width="2.5"/>
+<text x="880" y="52" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="11" font-weight="600" fill="#24110A">Repartidor</text>
+<text x="540.0" y="270" text-anchor="middle" font-family="Manrope, ui-sans-serif, system-ui, sans-serif" font-size="11" fill="#6B4A3A">Solo se ve la panadería y el repartidor. La casa del cliente no aparece.</text></svg></div>
+  </div>
+</figure>
+
+      </div>
+    </section>
+
 
     <section id="proximamente">
       <div class="wrap">
